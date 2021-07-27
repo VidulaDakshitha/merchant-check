@@ -1,0 +1,206 @@
+<!-- <div class="col-12">
+  <ul class="breadcrumb">
+    <li><a href="/pages/dashboard">Home</a></li>
+    <li>Cheque Manager</li>
+    <li>Cheque Book Manager</li>
+  </ul>
+</div> -->
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>Cheque Manager</li>
+    <li>Cheque Book Manager</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <nb-tabset fullWidth>
+        <!-- Add Cheque Book -->
+        <nb-tab class="tab_border" tabTitle="Add Cheque Book">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="addChequeBookForm" class="step-container" (ngSubmit)="addChequeBookData()">
+                <nb-card class="inline-form-card box_shadow dialog-border">
+                  <nb-card-header>Add Cheque Book Details</nb-card-header>
+                  <nb-card-body>
+                    <div class="row">
+                      <div class="col-md-6 col-lg-6 col-xxxl-6">
+                        <label class="label-form-control label-name">First Cheque Number</label>
+                        <input class="form-control input-bottom" formControlName="first_cheque_no" type="text" nbInput
+                          fullWidth shape="rectangle" placeholder="Enter First Cheque Number"
+                          [ngClass]="{'form-control-danger': (addChequeBookForm.get('first_cheque_no').dirty || addChequeBookForm.get('first_cheque_no').touched) && addChequeBookForm.get('first_cheque_no').errors}">
+                        <div
+                          *ngIf="addChequeBookForm.get('first_cheque_no').invalid && (addChequeBookForm.get('first_cheque_no').dirty || addChequeBookForm.get('first_cheque_no').touched)">
+                          <small *ngIf="addChequeBookForm.get('first_cheque_no').errors['required']"
+                            class="text-danger">
+                            First Cheque Number is required!</small>
+                          <small *ngIf="addChequeBookForm.get('first_cheque_no').errors['pattern']" class="text-danger">
+                            Invalid First Cheque Number try again!</small>
+                        </div>
+
+                      </div>
+                      <div class="col-md-6 col-lg-6 col-xxxl-6">
+                        <label class="label-form-control label-name">Last Cheque Number</label>
+                        <input class="form-control input-bottom" formControlName="last_cheque_no" type="text" nbInput
+                          fullWidth shape="rectangle" placeholder="Enter Cheque Amount"
+                          [ngClass]="{'form-control-danger': (addChequeBookForm.get('last_cheque_no').dirty || addChequeBookForm.get('last_cheque_no').touched) && addChequeBookForm.get('last_cheque_no').errors}">
+                        <div
+                          *ngIf="addChequeBookForm.get('last_cheque_no').invalid && (addChequeBookForm.get('last_cheque_no').dirty || addChequeBookForm.get('last_cheque_no').touched)">
+                          <small *ngIf="addChequeBookForm.get('last_cheque_no').errors['required']" class="text-danger">
+                            Last Cheque Number is required!</small>
+                          <small *ngIf="addChequeBookForm.get('last_cheque_no').errors['pattern']" class="text-danger">
+                            Invalid Last Cheque Number try again!</small>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-lg-6 col-xxxl-6">
+                        <div class="input-group">
+                          <label class="label-form-control label-name">Bank</label>
+                        </div>
+                        <nb-select class="form-select select-important" selected="1" placeholder="Select Bank Name"
+                          formControlName="bank_id"
+                          [ngClass]="{'form-control-danger': (addChequeBookForm.get('bank_id').dirty || addChequeBookForm.get('bank_id').touched) && addChequeBookForm.get('bank_id').errors}">
+                          <nb-option *ngFor="let bank of bank_list" [value]="bank.id">
+                            {{bank.name}}
+                          </nb-option>
+                        </nb-select>
+                        <div
+                          *ngIf="addChequeBookForm.get('bank_id').invalid && (addChequeBookForm.get('bank_id').dirty || addChequeBookForm.get('bank_id').touched)">
+                          <small *ngIf="addChequeBookForm.get('bank_id').errors['required']" class="text-danger">
+                            Bank is required!</small>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-12 col-lg-2 col-xxxl-2">
+                      <button nbButton class="submit_btn" type='submit'>Submit</button>
+                    </div>
+                  </nb-card-body>
+                </nb-card>
+              </form>
+            </div>
+          </div>
+
+        </nb-tab>
+
+        <!-- cheque transaction -->
+        <nb-tab tabTitle="Cheque Books">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4 col-md-4 col-5">
+                <div class="form-group search">
+                  <select class="form-control" [(ngModel)]="search_by" (ngModelChange)="changeSearchType()"
+                    [ngModelOptions]="{standalone: true}">
+                    <option value="0" selected>All</option>
+                    <option value="1">Cheque ID</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-5">
+                <div class="form-group search">
+                  <input class="form-control" [disabled]="search_by!=1" type="text"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text" placeholder="Search.."
+                    name="search">
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-2">
+                <button class="button-search" (click)="search_data()">Search</button>
+
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    Transaction History
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-responsive-sm table-hover table-outline mb-0">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>ID</th>
+                          <th>Bank Name</th>
+                          <th>First Cheque No</th>
+                          <th>Last Cheque No</th>
+                          <th>Create On</th>
+                          <th>Update On</th>
+                          <th>Created By</th>
+                          <th>Account Holder Name</th>
+                          <th>Is Finished</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let book_list of cheque_book_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                          <td>{{book_list.id}}</td>
+                          <td>{{book_list.bank_name}}</td>
+                          <td>{{book_list.first_cheque_no}}</td>
+                          <td>{{book_list.last_cheque_no}}</td>
+                          <td>{{book_list.created_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                          <td>{{book_list.updated_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                          <td>{{book_list.created_by}}</td>
+                          <td>{{book_list.account_holder_name}}</td>
+                          <td>{{book_list.is_finished ?'Yes':'NO'}}</td>
+
+                        </tr>
+                        <tr *ngIf="cheque_book_list.length<1">
+                          <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                            <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                            <span style="display: block;">
+                              <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                                style="width:30%;">
+                            </span>
+                          </td>
+                            <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                              <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                              </div>
+                            </td>
+                        </tr>
+    
+
+                      </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="pageChanged($event)" responsive="true"
+                      (pageBoundsCorrection)="pageChanged($event)" style="float: right">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+
+      </nb-tabset>
+    </nb-card>
+  </div>
+</div>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

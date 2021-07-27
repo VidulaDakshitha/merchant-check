@@ -1,0 +1,440 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li>Coupon history</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-4 col-md-4 col-5">
+            <div class="form-group search">
+              <select class="form-control" name="transaction_id" [(ngModel)]="search_by"
+                (ngModelChange)="OnOptionChanged()" [ngModelOptions]="{standalone: true}">
+                <option value="0" selected>All</option>
+                <option value="1">Pending</option>
+                <option value="2">Redeemed</option>
+                <option value="3">Cancelled</option>
+                <option value="4">Expired</option>
+                <option value="5">Merchant ID</option>
+            
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-5" *ngIf="search_by==0 || search_by==1 || search_by==2 || search_by==3 || search_by==4|| search_by==5">
+            <div class="form-group search">
+              <input clearable type="text" [ngModelOptions]="{standalone: true}" name="search"
+              autocomplete="off" (ngModelChange)="inSearchChange($event)" 
+              [(ngModel)]="search_text" class="form-control searchbox"
+              placeholder="Search by buyer name or phone number">
+            </div>
+          </div>
+          <!-- <div class="col-sm-4 col-md-4 col-5" *ngIf="search_by==5">
+            <div class="form-group search">
+              <input class="form-control" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text"
+                placeholder="Search.." name="search" [disabled]="search_by==0">
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-2" *ngIf="search_by==5">
+            <button class="button-search" (click)="search_data()">Search</button>
+
+          </div> -->
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Coupon Transaction Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Transaction ID</th>
+                      <th>Merchant ID</th>
+                      <th>Name</th>
+                      <th>Phone Number</th>
+                      <th>Buyer Name</th>
+                      <th>Reference Number</th>
+                      <th>Net Amount(LKR)</th>
+                      <th>Transaction Status</th>
+                      <th>Update Coupon</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let coupon_data of purchase_list | paginate: { itemsPerPage: pageSizeHistory, currentPage: pHistory, totalItems: totalHistory }"
+                     >
+                      <td>{{coupon_data.id}}</td>
+                      <td>{{coupon_data.merchant_id}}</td>
+                      <td>{{coupon_data.name ? coupon_data.name:'Not Available'}}</td>
+                      <td>{{coupon_data.buyer_phone_no ? coupon_data.buyer_phone_no:'Not Available'}}</td>
+                      <td>{{coupon_data.buyer_name ? coupon_data.buyer_name:'Not Available'}}</td>
+                      <td>{{coupon_data.ref_no ? coupon_data.ref_no:'Not Available'}}</td>
+                      <td>{{coupon_data.net_amount ? coupon_data.net_amount:'Not Available'}}</td>
+                      <td>
+                      <span class="badge badge-success" *ngIf="coupon_data.is_settled">Settled</span>
+                      <span class="badge badge-danger" *ngIf="coupon_data.is_pending">Pending</span>
+                      <span class="badge badge-danger" *ngIf="coupon_data.is_disputed">Disputed</span>
+                      <span class="badge badge-danger" *ngIf="coupon_data.is_cancelled">Cancelled</span>
+                      <span class="badge badge-danger" *ngIf="coupon_data.is_used">Redeemed</span>
+                      </td>
+                      
+                      <td>
+                        <button class="button2"
+                          (click)="openViewUpdatePurchasedCoupon(dialogViewUpdatePurchasedCoupon,coupon_data)">Update</button>
+                      </td>
+                      <td>
+                        <button class="button2"
+                        (click)="openViewcoponData(dialogViewcouponData,coupon_data)">View</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="purchase_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedCouponHistory($event)" responsive="true"
+                (pageBoundsCorrection)="pageChangedCouponHistory($event)" style="float: right">
+              </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+
+<!-- update purchase coupon -->
+<ng-template #dialogViewUpdatePurchasedCoupon   let-data let-ref="dialogRef">
+  <form [formGroup]="userUpdateCouponForm" class="step-container" (ngSubmit)="addUpdateCoupon(coupon_id)">
+   <nb-card style="width: 40vw;">
+    <nb-card-header>Update purchased coupon
+    </nb-card-header>
+    <nb-card-body class="dialog-border">
+      <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <div class="input-group">
+          <label style="width: 100%;" class="label-form-control label-name">Status</label>
+          <div class="demo-items demo-radio2">
+            <nb-radio-group class="radio-btn" formControlName="is_settled" >
+              <nb-radio style="padding: 0!important;" class="c" [value]="1">
+               Purchased coupon is settled
+              </nb-radio>
+              <nb-radio class="c" [value]="0">
+                Purchased coupon is disputed
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+      </div>
+       <div *ngIf="userUpdateCouponForm.get('is_settled').value == '0'" class="col-md-12 col-lg-12 col-xxxl-12">
+        <div class="input-group">
+          <label class="label-form-control label-name">disputed Reason</label>
+          <input style="font-weight: 100;" class="form-control input-bottom" formControlName="disputed_reason" type="text" nbInput
+            fullWidth shape="rectangle" placeholder="Enter Comment"
+            [ngClass]="{'form-control-danger': (userUpdateCouponForm.get('disputed_reason').dirty || userUpdateCouponForm.get('disputed_reason').touched) && userUpdateCouponForm.get('disputed_reason').errors}">
+          <div
+            *ngIf="userUpdateCouponForm.get('disputed_reason').invalid && (userUpdateCouponForm.get('disputed_reason').dirty || userUpdateCouponForm.get('disputed_reason').touched)">
+            <small *ngIf="userUpdateCouponForm.get('disputed_reason').errors['required']" class="text-danger">
+              disputed reason is required!</small>
+          </div>
+        </div>
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+      <button nbButton style="float: left;" type='submit' >Submit</button>
+    </nb-card-footer>
+  </nb-card>
+  </form>
+</ng-template>
+
+<!-- view purchase coupon -->
+<ng-template #dialogViewcouponData  let-data let-ref="dialogRef">
+  <nb-card style="width: 50vw; max-height: 90vh">
+    <nb-card-header>View purchased coupon
+    </nb-card-header>
+    <nb-card-body class="dialog-border">
+      <h5 class="merchant-view-sub-head">Merchant details</h5>
+      <nb-list class="nb-list-details">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Transaction Id</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.id ? coupon_view_list.id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Merchant ID</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.merchant_id ? coupon_view_list.merchant_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Merchant Name</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.name ? coupon_view_list.name : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Buyer Name</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.buyer_name ? coupon_view_list.buyer_name : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Buyer Phone Number</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.buyer_phone_no ? coupon_view_list.buyer_phone_no : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+       
+      </nb-list>
+      <h5 class="merchant-view-sub-head">Transaction Details</h5>
+      <nb-list class="nb-list-details">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Reference Number</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.ref_no ? coupon_view_list.ref_no : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.amount ? coupon_view_list.amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Discount price</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.discount_price ? coupon_view_list.discount_price : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Net amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.net_amount ? coupon_view_list.net_amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+
+      <h5 class="merchant-view-sub-head">Transaction Details</h5>
+      <nb-list class="nb-list-details">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Coupon is Used/Not</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.is_used ? coupon_view_list.is_used : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Item</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.is_item ? 'Yes' : 'NO'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Used date</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.used_date ? (coupon_view_list.used_date | date: 'dd/MM/yyyy - h:mm a') : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Settled or Not</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.is_settled ? coupon_view_list.is_settled : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Pending or Not</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.is_pending ? coupon_view_list.is_pending : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Disputed or Not</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.is_disputed ? coupon_view_list.is_disputed : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Disputed Reason</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.disputed_reason ? coupon_view_list.disputed_reason : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Cancelled or Not</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.is_cancelled ? 'Yes' : 'NO'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Cancellation Reason</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.cancellation_reason ? coupon_view_list.cancellation_reason : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Expire date</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.expire_date ? (coupon_view_list.expire_date | date: 'dd/MM/yyyy - h:mm a') : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Cancellation Date</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.cancellation_date ? (coupon_view_list.cancellation_date | date: 'dd/MM/yyyy - h:mm a') : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Purchase Date</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.purchase_date ? (coupon_view_list.purchase_date| date: 'dd/MM/yyyy - h:mm a') : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Coupon type</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{coupon_view_list.coupontype ? coupon_view_list.coupontype : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+  
+</ng-template>

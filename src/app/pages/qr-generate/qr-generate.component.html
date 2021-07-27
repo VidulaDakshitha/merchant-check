@@ -1,0 +1,264 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding: 25px;">
+      <div>
+        <ul class="bread" style="margin-bottom: 0!important;padding:0;color:#7BC8A1">
+          <li style="color:#7BC8A1"><a style="color:#7BC8A1" href="#/pages/dashboard">Home</a></li>
+          <li style="color:#7BC8A1">QR Generate</li>
+        </ul>
+      </div>
+
+      <div class="dialog-border-qr">
+        <div class="table-head">
+          <span>Qr Generate</span>
+        
+        </div>
+        <div class="row search-icon">
+          <div class="col-6">
+            <form class="form-inline" [formGroup]="qr_form" (ngSubmit)="getQR(dialog)">
+              <input class="qr-search" id="search_input" type="text" formControlName="amount" nbInput fullWidth
+                placeholder="Enter code"
+               />
+
+              <button class="qr-search-button" type="submit" (click)="openDialog(dialog)">Generate</button>
+            </form>
+          </div>
+
+        </div>
+ 
+
+      </div>
+
+      <!-- <div class="dialog-border">
+
+
+        <div class="row">
+          <div class="col-md-12">
+            <div style="border: 0;" class="card card-bottom">
+              <div style="padding: 0;" class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="table-head-text">
+                    <tr>
+                      <th>ID</th>
+                      <th>App ID</th>
+                      <th>Transaction ID</th>
+                      <th>Amount</th>
+                      <th>Updated On</th>
+                      <th>Status</th>
+                      <th>Refund Status</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let transaction of transaction_list">
+                      <td>{{transaction.transactionInfo.id}}</td>
+                      <td>{{transaction.transactionInfo.app_id}}</td>
+                      <td>{{transaction.transactionInfo.transaction_id}}</td>
+                      <td>{{transaction.transactionInfo.amount | number:'1.2-2'}}</td>
+                      <td>{{transaction.transactionInfo.updated_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                      <td>{{transaction.transactionInfo.status}}</td>
+                      <td>{{transaction.transactionInfo.is_refund ?'YES':'NO'}}</td>
+
+                    </tr>
+                    <tr *ngIf="transaction_list && transaction_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                      <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                        <div class="sk-circle">
+                          <div class="sk-circle1 sk-child"></div>
+                          <div class="sk-circle2 sk-child"></div>
+                          <div class="sk-circle3 sk-child"></div>
+                          <div class="sk-circle4 sk-child"></div>
+                          <div class="sk-circle5 sk-child"></div>
+                          <div class="sk-circle6 sk-child"></div>
+                          <div class="sk-circle7 sk-child"></div>
+                          <div class="sk-circle8 sk-child"></div>
+                          <div class="sk-circle9 sk-child"></div>
+                          <div class="sk-circle10 sk-child"></div>
+                          <div class="sk-circle11 sk-child"></div>
+                          <div class="sk-circle12 sk-child"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div> -->
+
+
+
+
+      <div class="pt-5 row">
+        <div class="col-md-12">
+          <div >
+           
+            <div >
+
+     
+                <div class="table-responsive">
+              <table style="border:0.7px solid #D2D2D2; border-radius: 10px;box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.2);" class="mb-2 table table-responsive-sm table-hover table-outline mb-0">
+             <thead>
+               <th colspan="2">
+           
+                      <!-- <select>
+                        <option>App ID</option>
+                        <option>Transaction ID</option>
+                      </select> -->
+
+                      <div class="input-group mb-3">
+                        <div class="input-group-append">
+                          <button  class="btn filterbtn"  type="button"><i style="color:#A7A7A7" class="fa fa-filter" aria-hidden="true"></i></button>
+                        </div>
+                        <select nbInput fullWidth  style="background: white;" clearable type="text"  name="search" autocomplete="off"  style="border-left: none;"  class="form-control filterbox" placeholder="Search transaction by amount or date" >
+                          <option value="">Filter</option>
+                          <option>Transaction ID</option>
+                          <option>Amount</option>
+                        </select>
+                     
+                    </div>
+                 
+
+
+               </th>
+
+               <th colspan="4">
+               
+               
+                  <div class="input-group mb-3">
+                    <div class="input-group-append">
+                      <button  class="btn searchbtn"  type="button"><i style="color:#A7A7A7" class="fa fa-search" aria-hidden="true"></i></button>
+                    </div>
+                    <input clearable type="text"  name="search" autocomplete="off"  style="border-left: none;"  class="form-control searchbox" placeholder="Search transaction by amount or date" >
+                   
+                 
+                </div>
+               </th>
+             </thead>
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>App ID</th>
+                    <th>Transaction ID</th>
+                    <th>Amount</th>
+                    <th>Updated On</th>
+                    <th>Status</th>
+                    <th>Refund Status</th>
+
+                  </tr>
+                </thead>
+                <tbody>
+          
+                  <!-- <tr
+                    *ngFor="let transaction of transaction_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total}"
+                   >
+                   <td>{{transaction.transactionInfo.id}}</td>
+                   <td>{{transaction.transactionInfo.app_id}}</td>
+                   <td>{{transaction.transactionInfo.transaction_id}}</td>
+                   <td>{{transaction.transactionInfo.amount | number:'1.2-2'}}</td>
+                   <td>{{transaction.transactionInfo.updated_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                   <td>{{transaction.transactionInfo.status}}</td>
+                   <td>{{transaction.transactionInfo.is_refund ?'YES':'NO'}}</td>
+
+
+                  </tr> -->
+                  <tr *ngIf="transaction_list && transaction_list.length<1">
+                    <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:30%;">
+                      </span>
+                    </td>
+                    <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                      <div class="sk-circle">
+                        <div class="sk-circle1 sk-child"></div>
+                        <div class="sk-circle2 sk-child"></div>
+                        <div class="sk-circle3 sk-child"></div>
+                        <div class="sk-circle4 sk-child"></div>
+                        <div class="sk-circle5 sk-child"></div>
+                        <div class="sk-circle6 sk-child"></div>
+                        <div class="sk-circle7 sk-child"></div>
+                        <div class="sk-circle8 sk-child"></div>
+                        <div class="sk-circle9 sk-child"></div>
+                        <div class="sk-circle10 sk-child"></div>
+                        <div class="sk-circle11 sk-child"></div>
+                        <div class="sk-circle12 sk-child"></div>
+                      </div>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+        
+              </div>
+              <!-- <pagination-controls (pageChange)="pageChanged($event)" responsive="true"
+              (pageBoundsCorrection)="pageChanged($event)" style="float: right">
+            </pagination-controls> -->
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+<ng-template #dialog let-data let-ref="dialogRef">
+ 
+    <nb-card style="width: 50vw;">
+      <nb-card-header style="font-weight: 700;">QR Code <i (click)="search_qr()"  style="float: right;cursor: pointer;" class="fa fa-times" aria-hidden="true"></i></nb-card-header>
+      <nb-card-body>
+        <div class="row">
+          <div class="col-12">
+            <div class="sk-circle" *ngIf="is_loading">
+              <div class="sk-circle1 sk-child"></div>
+              <div class="sk-circle2 sk-child"></div>
+              <div class="sk-circle3 sk-child"></div>
+              <div class="sk-circle4 sk-child"></div>
+              <div class="sk-circle5 sk-child"></div>
+              <div class="sk-circle6 sk-child"></div>
+              <div class="sk-circle7 sk-child"></div>
+              <div class="sk-circle8 sk-child"></div>
+              <div class="sk-circle9 sk-child"></div>
+              <div class="sk-circle10 sk-child"></div>
+              <div class="sk-circle11 sk-child"></div>
+              <div class="sk-circle12 sk-child"></div>
+            </div>
+            <!-- <div class="qr-center" *ngIf="error_msg">
+              <p>{{error_msg}}</p>
+            </div>
+         -->
+            <div class="qr-center">
+
+              <div class="close-btn"><i class="fa fa-times-circle-o" aria-hidden="true"></i></div>
+
+              <div *ngIf="!qr_code">
+                <span class="pb-2 pt-2">No QR string provided</span>
+              </div>
+              <div *ngIf="qr_code">
+              <qrcode [width]="256" [qrdata]="qr_code" id='qr_img'  [level]="'H'"></qrcode>
+            </div>
+              <span *ngIf="qr_code">
+                <button class="qr-download-button" (click)="download()" type="submit">Download</button>
+              </span>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+     
+    </nb-card>
+  
+</ng-template>

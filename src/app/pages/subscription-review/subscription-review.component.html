@@ -1,0 +1,247 @@
+
+<div class="row" *ngIf="showSubscription">
+  <div class="col-md-8">
+    <nb-card>
+      <nb-card-body class="contant-info-body">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="sub-head">Subscription Review</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <nb-list class="nb-list-details">
+              <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span class="sub-list-head">Current Plan :</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span >{{subscription_package.package_name ?subscription_package.package_name:'Not Available'}}</span>
+                  </div>
+                </div>
+              </nb-list-item>
+              <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span class="sub-list-head">Status :</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span style="color:#00D56E ;">{{subscription_package.status==1?'Active':'Deactive'}}</span>
+                  </div>
+                </div>
+              </nb-list-item>
+              <!-- <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span>Next Billing At</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span></span>
+                  </div>
+                </div>
+              </nb-list-item> -->
+
+            </nb-list>
+          </div>
+
+          <!-- <div class="col-lg-6 col-md-6 col-sm-12">
+
+            <nb-list class="nb-list-details">
+              <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span>Current Plan</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span></span>
+                  </div>
+                </div>
+              </nb-list-item>
+              <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span>Status</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span></span>
+                  </div>
+                </div>
+              </nb-list-item>
+              <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span>Next Billing At</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span></span>
+                  </div>
+                </div>
+              </nb-list-item>
+
+            </nb-list>
+          </div> -->
+
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+    <nb-card>
+      <nb-card-body class="contant-info-body">
+        <div class="row">
+          <div class="col-12">
+            <h5 class="sub-head">Billing</h5>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-lg-6 col-md-6 col-sm-12">
+            <nb-list class="nb-list-details">
+              <nb-list-item class="list-item">
+                <div class="row">
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <span class="sub-list-head">Make Payment</span>
+                  </div>
+                  <div class="col-lg-6 col-md-6 col-sm-12">
+                    <button [disabled]="is_pay_disabled" (click)="openPackagePayment(dialogPackagePayment)" class="submit-payment"  >Click to Pay</button>
+                  </div>
+                </div>
+              </nb-list-item>
+            </nb-list>
+          </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+
+    <div class="row">
+      <div class="col-12">
+        <table style="border:0.7px solid #D2D2D2; border-radius: 10px;"
+          class="mb-2 table table-responsive-sm table-hover table-outline mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th>Paid On</th>
+              <th>Reference ID</th>
+              <th>Amount</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody style="background-color: white;">
+            <tr
+              *ngFor="let transaction of subscription_package_details">
+              <td>{{transaction.paid_on?transaction.paid_on:"N/A"}}</td>
+              <td>{{transaction.transaction_id?transaction.transaction_id:"N/A"}}</td>
+              <td>{{transaction.amount?'LKR '+transaction.amount:"N/A"}}</td>
+              <td>{{transaction.payment_status?"Success":"Not Success"}}</td>
+
+
+      
+
+
+            </tr>
+            <tr *ngIf="subscription_package_details && subscription_package_details.length<1">
+              <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+              </td>
+              <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                <div class="sk-circle">
+                  <div class="sk-circle1 sk-child"></div>
+                  <div class="sk-circle2 sk-child"></div>
+                  <div class="sk-circle3 sk-child"></div>
+                  <div class="sk-circle4 sk-child"></div>
+                  <div class="sk-circle5 sk-child"></div>
+                  <div class="sk-circle6 sk-child"></div>
+                  <div class="sk-circle7 sk-child"></div>
+                  <div class="sk-circle8 sk-child"></div>
+                  <div class="sk-circle9 sk-child"></div>
+                  <div class="sk-circle10 sk-child"></div>
+                  <div class="sk-circle11 sk-child"></div>
+                  <div class="sk-circle12 sk-child"></div>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
+  
+  <div class="col-md-4">
+    <div class="row">
+      <nb-card style="width: 100%;margin-left: 10px;">
+        <nb-card-body style="margin: 25px;">
+          <div class="row">
+            <div class="col-md-12"><span class="sub-title1">{{subscription_package.package_name?subscription_package.package_name:'Not Available'}}</span></div>
+            <p class="package-details pt-2 pl-2">{{ipg_charge}}</p>
+            <hr>
+          </div>
+          <div class="row sub_middle_name">
+            <div class="col-md-12"><span class="sub-price-title">Price from</span></div>
+            <div class="col-md-12">
+              <span class="sub-price">LKR {{subscription_package.net_amount}}
+                  <span class="month">/ MONTH</span>
+                </span>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div *ngFor="let item_data of subscription_package.item" class="row package-grid">
+                  <p class="package-details"><span class="item-class"><i class="fa fa-check chech-btn"
+                        aria-hidden="true"></i></span>{{item_data.item_name?item_data.item_name:'Not Available'}}</p>
+                </div>
+
+            </div>
+          </div>
+
+        </nb-card-body>
+      </nb-card>
+    </div>
+  </div>
+</div>
+
+
+
+<div class="row justify-content-center" *ngIf="!showSubscription">
+
+<div class="col-8">
+  <nb-card>
+    <nb-card-body class="contant-info-body">
+      <div class="row">
+        <div class="col-12">
+          <h5 class="sub-head text-center">Package is awaiting for approval</h5>
+        </div>
+      </div>
+
+    </nb-card-body>
+  </nb-card>
+</div>
+
+</div>
+
+<!-- package payment -->
+<ng-template #dialogPackagePayment let-data let-ref="dialogRef">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Payment</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        Proceed to make payment
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" [disabled]="is_loading" (click)="submitPayment()" >Proceed</button>
+        <button nbButton (click)="ref.close()"  style="float: left;">Close</button>
+      </nb-card-footer>
+    </nb-card>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

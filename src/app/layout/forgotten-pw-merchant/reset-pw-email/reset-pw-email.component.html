@@ -1,0 +1,69 @@
+<div class="container">
+  <div class="row">
+  <div class="col-12 col-sm-6 col-md-8 d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3>Forgot Password</h3>
+      </div>
+      <div class="card-body c-body">
+        <p>Enter your Phone Number and we’ll send a Code to reset your password</p>
+        <form (ngSubmit)="getOtp()" [formGroup]="get_otp_from">
+          <div class="input-group form-group form-group-margin">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input class="form-control form-control-text" formControlName="phone_number" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Contact Number" [(ngModel)]="contact_p_po_format"
+              [ngClass]="{'form-control-danger': (get_otp_from.get('phone_number').dirty || get_otp_from.get('phone_number').touched) && get_otp_from.get('phone_number').errors}">
+            <div class="input_type"
+              *ngIf="get_otp_from.get('phone_number').invalid && (get_otp_from.get('phone_number').dirty || get_otp_from.get('phone_number').touched)">
+              <small *ngIf="get_otp_from.get('phone_number').errors['required']" class="validation-message">
+                Register Phone Number is required!</small>
+              <small *ngIf="get_otp_from.get('phone_number').errors['pattern']" class="validation-message">
+                Invalid Phone Number try again!</small>
+            </div>
+
+          </div>
+       
+          <div class="form-group">
+            <a routerlink='/login' href="login" class="back-to-login">Back to login</a>
+            <input type="submit" value="Request Password" class="btn float-right login_btn"
+              [disabled]="!get_otp_from.valid">
+          </div>
+        </form>
+        <div style="text-align: center;">
+         <br>
+          <div class="alert alert-danger" role="alert" *ngIf="is_alert">
+            Oh Snap! {{message}}
+          </div>
+          <div class="alert alert-success" role="alert" *ngIf="is_alert_succes">
+            Well done! {{message}}
+          </div>
+      
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row">
+  <div class="logo-img-login">
+    <img class="img-view" src="../../../../assets/images/Onepay-pg.png" alt="Smiley face">
+  </div>
+</div>
+</div>
+<div class="col-12 animation-div2" *ngIf=is_loading>
+<div class="sk-circle">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+</div>

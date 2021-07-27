@@ -1,0 +1,132 @@
+
+@import '../pages.component.scss';
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding:0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8125rem;
+    margin: 0 16px 16px 16px;
+    cursor: pointer;
+    font-weight: 200;
+  }
+  
+  .button1 {
+    background-color: #3366ff; 
+    color: white; 
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+  }
+  .thead-light th{
+    font-size: 0.8rem;
+    font-weight: 200;
+  }
+  tbody tr{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+  .button2 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  .label-name{
+    margin-top: 0.5rem!important;
+    font-size: 0.9rem;
+    font-weight: 100;
+  }
+  .input-bottom{
+    font-size: 0.8rem!important;
+    font-weight: 100!important;
+  }
+  .row-margin{
+    margin-right: 2px;
+    margin-left: -3px;
+  }
+  .list-item{
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+  //change email
+  .change_email{
+    color: red;
+  }
+  // email change button
+  .button_btn {
+    background-color: none;
+    color: green;
+    border: none;
+    float: re;
+    font-size: 0.7rem;
+  }
+  .buttonChange{
+    background-color: #79d70f;
+    color: black;
+    border: 1px solid #79d70f;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    padding: 1px;
+    margin-left: 5px;
+
+  }
+  .dialog-border{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  margin: 12px;
+  }
+  .dialog-border-list{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  }
+  .list-item{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+  .card-bottom {
+    margin-bottom: 12px;
+}
+.text-discription{
+  border-radius: 0.2rem!important;
+  font-size: 0.8rem!important;
+  font-weight: 100!important;
+}
+.select-font{
+  color: rgba(0, 0, 0,0.4);
+  margin-left: 5px;
+}
+.image_layer {
+  width: 75px;
+  height: auto;
+  max-height: 100px;
+  margin-top: 15px;
+}
+.center-page{
+  text-align: center;
+}
+img {
+  height: 30px;
+  width: auto;
+  margin-right: 4px;
+}

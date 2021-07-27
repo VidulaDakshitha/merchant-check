@@ -1,0 +1,450 @@
+
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li>Admin User</li>
+  </ul>
+</nb-card>
+
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          <button (click)="openAddAdmin(dialog)" class="button button1">Add Admin</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Admin Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>User ID</th>
+                      <th>Email</th>
+                      <th>Phone Number</th>
+                      <th>Joined Date</th>
+                      <th>Active</th>
+                      <th>Update</th>
+                      <th>Delete</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let admin_user of admin_user_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                      <td>{{admin_user.id? admin_user.id:'Not Available'}}</td>
+                      <td>{{admin_user.user_id? admin_user.user_id:'Not Available'}}</td>
+                      <td>{{admin_user.email? admin_user.email:'Not Available'}} <button
+                          (click)="openUpdateEmail(dialogUpdateEmail, admin_user)" class="buttonChange">Change</button>
+                      </td>
+                      <td>{{admin_user.first_name? admin_user.first_name:'Not Available'}}</td>
+                      <td>{{admin_user.last_name? admin_user.last_name:'Not Available'}}</td>
+                      <td>{{admin_user.is_active? admin_user.is_active:'Not Available'}}</td>
+                      <td>
+                        <button class="button2" (click)="openUpdate(dialogUpdate, admin_user)">Update</button>
+                      </td>
+                      <td>
+                        <button (click)="openDeleteAdmin(dialogDeleteAdmin, admin_user)" class="button2">Delete</button>
+                      </td>
+                      <td>
+                        <button (click)="openAdminView(dialogAdminView, admin_user)" class="button2"
+                          class="button2">View</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="admin_user_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedAdmin($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedAdmin($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+<!-- add admin user -->
+<ng-template #dialog let-data let-ref="dialogRef">
+  <form [formGroup]="adminRegisterForm" class="step-container" (ngSubmit)="addAdminData()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Add Admin User</nb-card-header>
+
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Email</label>
+            <input class="form-control input-bottom" formControlName="email" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Email Address"
+              [ngClass]="{'form-control-danger': (adminRegisterForm.get('email').dirty || adminRegisterForm.get('email').touched) && adminRegisterForm.get('email').errors}">
+            <div
+              *ngIf="adminRegisterForm.get('email').invalid && (adminRegisterForm.get('email').dirty || adminRegisterForm.get('email').touched)">
+              <small *ngIf="adminRegisterForm.get('email').errors['required']" class="text-danger">
+                Email is required!</small>
+              <small *ngIf="adminRegisterForm.get('email').errors['pattern']" class="text-danger">
+                Invalid Email.Try again!</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-margin">
+          <div class="col-md-12 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Phone Number</label>
+              <input class="form-control input-bottom" formControlName="phone_no" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Phone Number" [(ngModel)]="po_format"
+                [ngClass]="{'form-control-danger': (adminRegisterForm.get('phone_no').dirty || adminRegisterForm.get('phone_no').touched) && adminRegisterForm.get('phone_no').errors}">
+              <div
+                *ngIf="adminRegisterForm.get('phone_no').invalid && (adminRegisterForm.get('phone_no').dirty || adminRegisterForm.get('phone_no').touched)">
+                <small *ngIf="adminRegisterForm.get('phone_no').errors['required']" class="text-danger">
+                  Phone Number is required!</small>
+                <small *ngIf="adminRegisterForm.get('phone_no').errors['pattern']" class="text-danger">
+                  Invalid Phone Number.Try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">National Identity Card Number</label>
+              <input class="form-control input-bottom" formControlName="nic" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter NIC"
+                [ngClass]="{'form-control-danger': (adminRegisterForm.get('nic').dirty || adminRegisterForm.get('nic').touched) && adminRegisterForm.get('nic').errors}">
+              <div
+                *ngIf="adminRegisterForm.get('nic').invalid && (adminRegisterForm.get('nic').dirty || adminRegisterForm.get('nic').touched)">
+                <small *ngIf="adminRegisterForm.get('nic').errors['required']" class="text-danger">
+                  NIC Number is required!</small>
+                <small *ngIf="adminRegisterForm.get('nic').errors['pattern']" class="text-danger">
+                  Invalid NIC Number.Try again!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">First Name</label>
+            <input class="form-control input-bottom" formControlName="first_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter First Name"
+              [ngClass]="{'form-control-danger': (adminRegisterForm.get('first_name').dirty || adminRegisterForm.get('first_name').touched) && adminRegisterForm.get('first_name').errors}">
+              <div
+                *ngIf="adminRegisterForm.get('first_name').invalid && (adminRegisterForm.get('first_name').dirty || adminRegisterForm.get('first_name').touched)">
+                <small *ngIf="adminRegisterForm.get('first_name').errors['required']" class="text-danger">
+                  First Name is required!</small>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Last Name</label>
+            <input class="form-control input-bottom" formControlName="last_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Last Name"
+              [ngClass]="{'form-control-danger': (adminRegisterForm.get('last_name').dirty || adminRegisterForm.get('last_name').touched) && adminRegisterForm.get('last_name').errors}">
+              <div
+                *ngIf="adminRegisterForm.get('last_name').invalid && (adminRegisterForm.get('last_name').dirty || adminRegisterForm.get('last_name').touched)">
+                <small *ngIf="adminRegisterForm.get('last_name').errors['required']" class="text-danger">
+                  Last Name is required!</small>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Designation</label>
+            <input class="form-control input-bottom" formControlName="designation" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Designation"
+              [ngClass]="{'form-control-danger': (adminRegisterForm.get('designation').dirty || adminRegisterForm.get('designation').touched) && adminRegisterForm.get('designation').errors}">
+              <div
+                *ngIf="adminRegisterForm.get('designation').invalid && (adminRegisterForm.get('designation').dirty || adminRegisterForm.get('designation').touched)">
+                <small *ngIf="adminRegisterForm.get('designation').errors['required']" class="text-danger">
+                  Designation is required!</small>
+              </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <!-- <button nbButton>Submit</button> -->
+        <button nbButton (click)="close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!adminRegisterForm.valid">Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- update admin user -->
+<ng-template #dialogUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="adminUpdateForm" class="step-container" (ngSubmit)="updateAdminData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Update Admin User</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">First Name</label>
+            <input class="form-control input-bottom" formControlName="first_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter First Name"
+              [ngClass]="{'form-control-danger': (adminUpdateForm.get('first_name').dirty || adminUpdateForm.get('first_name').touched) && adminUpdateForm.get('first_name').errors}">
+              <div
+                *ngIf="adminUpdateForm.get('first_name').invalid && (adminUpdateForm.get('first_name').dirty || adminUpdateForm.get('first_name').touched)">
+                <small *ngIf="adminUpdateForm.get('first_name').errors['required']" class="text-danger">
+                  First Name is required!</small>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Last Name</label>
+            <input class="form-control input-bottom" formControlName="last_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Last Name"
+              [ngClass]="{'form-control-danger': (adminUpdateForm.get('last_name').dirty || adminUpdateForm.get('last_name').touched) && adminUpdateForm.get('last_name').errors}">
+              <div
+                *ngIf="adminUpdateForm.get('last_name').invalid && (adminUpdateForm.get('last_name').dirty || adminUpdateForm.get('last_name').touched)">
+                <small *ngIf="adminUpdateForm.get('last_name').errors['required']" class="text-danger">
+                  Last Name is required!</small>
+              </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">National Identity Card Number</label>
+            <input class="form-control input-bottom" formControlName="nic" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter NIC"
+              [ngClass]="{'form-control-danger': (adminUpdateForm.get('nic').dirty || adminUpdateForm.get('nic').touched) && adminUpdateForm .get('nic').errors}">
+            <div
+              *ngIf="adminUpdateForm.get('nic').invalid && (adminUpdateForm.get('nic').dirty || adminUpdateForm.get('nic').touched)">
+              <small *ngIf="adminUpdateForm.get('nic').errors['required']" class="text-danger">
+                NIC Number is required!</small>
+              <small *ngIf="adminUpdateForm.get('nic').errors['pattern']" class="text-danger">
+                Invalid NIC Number.Try again!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Designation</label>
+            <input class="form-control input-bottom" formControlName="designation" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Designation"
+              [ngClass]="{'form-control-danger': (adminUpdateForm.get('designation').dirty || adminUpdateForm.get('designation').touched) && adminUpdateForm.get('designation').errors}">
+              <div
+                *ngIf="adminUpdateForm.get('designation').invalid && (adminUpdateForm.get('designation').dirty || adminUpdateForm.get('designation').touched)">
+                <small *ngIf="adminUpdateForm.get('designation').errors['required']" class="text-danger">
+                  Designation is required!</small>
+              </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <!-- <button nbButton>Submit</button> -->
+        <button nbButton (click)="closeUpdate()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!adminUpdateForm.valid">Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- view admin user -->
+<ng-template #dialogAdminView let-data let-ref="dialogRef">
+  <nb-card style="width: 40vw;">
+    <nb-card-header>Admin User Details</nb-card-header>
+    <nb-card-body>
+      <nb-list class="dialog-border-list">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.id?slected_admin.id:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Admin User ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.user_id?slected_admin.user_id:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>First Name</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.first_name?slected_admin.first_name:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Last Name</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.last_name?slected_admin.last_name:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>National Identity Card Number</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.nic?slected_admin.nic:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Designation</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.designation?slected_admin.designation:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Created Time</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.created_time?slected_admin.created_time:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Updated Time</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.updated_time?slected_admin.updated_time:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Email</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.email?slected_admin.email:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Phone Number</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{slected_admin.phone_no?slected_admin.phone_no:'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<!-- admin user email update -->
+<ng-template #dialogUpdateEmail let-data let-ref="dialogRef">
+  <form [formGroup]="emailUpdateForm" class="step-container" (ngSubmit)="updateAdminEmailData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Change Admin Email</nb-card-header>
+      <nb-card-body>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Email</label>
+            <input class="form-control input-bottom" formControlName="new_email" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Email Address"
+              [ngClass]="{'form-control-danger': (emailUpdateForm.get('new_email').dirty || emailUpdateForm.get('new_email').touched) && emailUpdateForm.get('new_email').errors}">
+            <div
+              *ngIf="emailUpdateForm.get('new_email').invalid && (emailUpdateForm.get('new_email').dirty || emailUpdateForm.get('new_email').touched)">
+              <small *ngIf="emailUpdateForm.get('new_email').errors['required']" class="text-danger">
+                Email is required!</small>
+              <small *ngIf="emailUpdateForm.get('new_email').errors['pattern']" class="text-danger">
+                Invalid Email.Try again!</small>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <!-- <button nbButton>Submit</button> -->
+        <button nbButton (click)="closeUpdateEmail()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!emailUpdateForm.valid">Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+<!-- admin delete -->
+<ng-template #dialogDeleteAdmin let-data let-ref="dialogRef">
+  <form [formGroup]="deleteAdminForm" class="step-container" (ngSubmit)="deleteAdminData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Admin User</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> profile?</strong></p>
+          <p>All information associated to this user profile will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeAdminDelete()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

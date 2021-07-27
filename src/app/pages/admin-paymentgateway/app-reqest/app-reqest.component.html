@@ -1,0 +1,92 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>App request</li>
+    <li>Approve</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Collection Type Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>App ID</th>
+                      <th>Merchant Name</th>
+                      <th>Merchant Phone Number</th>
+                      <th>Register Date & Time</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>44</td>
+                      <td>test</td>
+                      <td>+94717747950</td>
+                      <td>2020/01/01</td>
+                      <td>
+                        <button class="button2" [routerLink]="['/pages/app-request-approved', 1]">View</button>
+                      </td>
+                    </tr>
+                    <!-- <tr *ngIf="collections_list && collections_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+
+<!-- <div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div> -->

@@ -1,0 +1,175 @@
+@import '../../../pages.component.scss';
+
+.dialog-border {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+}
+.merchant-view-sub-head{
+    font-size: 0.8rem;
+}
+.list-item{
+    padding: 0.6rem!important;
+    font-size: 0.8rem!important;
+}
+.nb-list-details{
+    overflow: hidden!important;
+}
+.thead-light th{
+    font-size: 0.8rem;
+    font-weight: 200;
+}
+tbody tr
+{
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+.button2 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  //radio button
+.radio_possion{
+    text-align: left!important;
+  }
+  nb-radio.b {
+    display: inline-block;
+  }
+  .nb-theme-default nb-radio .inner-circle {
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+  nb-radio.c {
+    display: inline-block; 
+  }
+  .nb-theme-default nb-radio .outer-circle, .nb-theme-default nb-radio .inner-circle {
+    height: 0.8rem;
+    width: 0.8rem;
+  }
+  .nb-theme-default >nb-radio .text{
+    font-size: 0.8rem!important;
+    font-weight: 100!important;
+ 
+  }
+  .row-margin{
+    margin-right: 2px;
+    margin-left: -3px;
+  }
+  .lable-margin{
+    margin-left: 10px;
+  }
+  .input-bottom{
+    width: 100%;
+    font-size: 0.8rem;
+  }
+  .label-name{
+   margin-bottom: 0.2rem;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    
+  }
+  .dialog-border-event{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+    margin: 12px;
+  
+   }
+
+
+  .dd{
+    text-align: center;
+  }
+  //text area director and sharholder
+  .text-area{
+    padding: 10px;
+  }
+  
+  tbody textarea{
+    text-transform: uppercase;
+  }
+  .required_feeld{
+    color: red;
+  }
+  .dialog-border h4{
+    font-size: 1.2rem;
+    font-weight: 100;
+    text-align: center;
+  }
+  .submit-confirm{
+    margin-bottom: 8px;
+  }
+  // activation
+  .activation{
+    font-weight: 600;
+  }
+
+  .pac-container{
+    z-index: 9999;
+}
+.pw-viewbutton{
+    width: 100%;
+    padding: 20px 0 10px 0;
+   
+  }
+  .pw-view-button {
+    background-color: #4CAF50;
+      border: none;
+      color: white;
+      padding: 4px 8px;
+      text-align: center;
+      text-decoration: none;
+      font-size: 12px;
+      cursor: pointer;
+  }
+  .box_shadow{
+    box-shadow: none;
+  }
+  .text-discription{
+    border-radius: 0.2rem!important;
+    font-size: 0.8rem!important;
+    font-weight: 100!important;
+  }
+  .button {
+    background-color: #3366ff; 
+    border: 1px solid #3366ff;
+    color: white; 
+    padding:0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8125rem;
+    margin: 0 16px 16px 16px;
+    cursor: pointer;
+    font-weight: 200;
+    border-radius: 0.25rem;
+
+  }
+  .input-bottom{
+    font-size: 0.8rem!important;
+    font-weight: 100!important;
+  }
+  .input_type_pw{
+    position: absolute;
+    top: 70px; 
+    display: block; 
+    margin-top: 5px; 
+  }
+  
+  

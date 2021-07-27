@@ -1,0 +1,261 @@
+<!-- <div class="col-12">
+  <ul class="breadcrumb">
+    <li><a href="/pages/dashboard">Home</a></li>
+    <li>Cheque Manage</li>
+    <li>Return Cheque</li>
+  </ul>
+</div> -->
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>Cheque Manage</li>
+    <li>Return Cheque</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <div class="container">
+        <div class="row row-padding">
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <div class="form-group search">
+              <select class="form-control" name="service_category_id" [(ngModel)]="search_by"
+                [ngModelOptions]="{standalone: true}" placeholder="Select Search By"
+                (ngModelChange)="changeSearchType()">
+                <option value="0" selected>All</option>
+                <option value="1">Cheque ID</option>
+                <option value="2">Transaction Date</option>
+                
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4"  *ngIf="search_by==2" >
+            <div class="form-group search">
+              <input class="search-date" [(ngModel)]="date_range" nbInput
+                placeholder="Enter Your Dates Range" [nbDatepicker]="rangepicker">
+              <nb-rangepicker #rangepicker></nb-rangepicker>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4" *ngIf="search_by!=2">
+            <div class="form-group search">
+              <input class="form-control" type="text" [ngModelOptions]="{standalone: true}"
+                [(ngModel)]="search_text" placeholder="Search.." name="search">
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <button class="button-search" (click)="search_data()">Search</button>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                All Cheque Deposit
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Cheque Id</th>
+                      <th>Amount</th>
+                      <th>Bank Name</th>
+                      <th>Returned</th>
+                      <th>Updated On</th>
+                      <th>Created On</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let transaction  of receive_cheque_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                      <td>{{transaction.id}}</td>
+                      <td>{{transaction.cheque_id}}</td>
+                      <td>{{transaction.amount}}</td>
+                      <td>{{transaction.bank}}</td>
+                      <td>{{transaction.is_returned? 'Yes':'No' }}</td>
+                      <td>{{transaction.updated_on | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{transaction.created_on | date: 'dd/MM/yyyy' }}</td>
+                      <td>
+                        <button class="button2" (click)="open3(dialog3, transaction)">View</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="receive_cheque_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedManual($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedManual($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+<!-- popup cheque view -->
+<ng-template #dialog3 let-data let-ref="dialogRef">
+  <nb-card style="width: 40vw;">
+    <nb-card-header>Cheque Details</nb-card-header>
+    <nb-card-body>
+      <nb-list class="dialog-border-list">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Manual Transaction ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.id}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cheque ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.cheque_id}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.amount}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Recevied Date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.received_date | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Returned</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.is_returned?'Yes':'No'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Matured Date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.matured_date | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Bank Name</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.bank}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Created By</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.created_by}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Updated On</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.updated_on | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Created On</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.created_on | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Description</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{selected_transaction.description}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

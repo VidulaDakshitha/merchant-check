@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Login Page</title>
+
+</head>
+
+<body>
+	<section class="left-panel">
+		<div id="background-carousel">
+			<div class="carousel slide carousel-fade">
+				<section class="col-md-4 text-left logo-white-top"></section>
+			</div>
+		</div>
+	</section>
+	<section class="right-cotainer">
+		<section class="right">
+			<section class="container-fluid">
+				<section class="row content">
+					<section class="section-possition col-md-6 col-md-offset-3">
+						<section class="text-center">
+							<h1>Merchant Admin Console</h1>
+							<h2>Login</h2>
+						</section>
+						<section class="form">
+							<form (ngSubmit)="login()" [formGroup]="login_form">
+								<section class="form-group">
+									<label>Email</label>
+									<input type="text" formControlName="email" class="form-control"
+										placeholder="Enter Email">
+									<div class="input_type"
+										*ngIf="login_form.get('email').invalid && (login_form.get('email').dirty ||login_form.get('email').touched)">
+										<small *ngIf="login_form.get('email').errors['required']"
+											class="validation-message text-danger">Provider email is
+											required!</small>
+										<small *ngIf="login_form.get('email').errors['pattern']"
+											class="validation-message text-danger">
+											Invalid email.Try again!</small>
+									</div>
+								</section>
+								<section class="form-group input-group form-group form-group-margin">
+									<label style="width: 100%;">Password</label>
+									<input class="form-control form-control-text"
+										[type]="fieldTextType ? 'text' : 'password'" placeholder="Enter Password"
+										name="password" formControlName="password" required
+										[ngClass]="{'form-control-danger': (login_form.get('password').dirty || login_form.get('password').touched) && login_form.get('password').errors}">
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<i class="fa" [ngClass]="{
+												 'fa-eye-slash': !fieldTextType,
+												 'fa-eye': fieldTextType
+												 }" (click)="toggleFieldTextType()"></i>
+										</span>
+									</div>
+									<div class="input_type_pw"
+										*ngIf="login_form.get('password').invalid && (login_form.get('password').dirty ||login_form.get('password').touched)">
+										<div
+											*ngIf="login_form.get('password').invalid && (login_form.get('password').dirty || login_form.get('password').touched)">
+											<small *ngIf="login_form.get('password').errors['required']"
+												class="validation-message text-danger">
+												Password is required!</small>
+											<small *ngIf="login_form.get('password').errors['minlength']"
+												class="validation-message text-danger text-danger"> Password must be at
+												least 8 characters long.</small>
+											<small
+												*ngIf="login_form.get('password').errors['pattern'] && !login_form.get('password').errors['minlength']"
+												class="validation-message text-danger">
+												Please choose a stronger password.</small>
+
+										</div>
+									</div>
+								</section>
+								<section class="text-left">
+									<br>
+									<p>Can't remember your login details? try
+										<a href="#/reset-password">Forgot your password?</a>
+									</p>
+									<input type="submit" value="Login" class="btn btn-primary btn-login"
+										[disabled]="!login_form.valid">
+									<!-- <p style="margin-top: 12px;"><a href="#/self-registration-merchant">Self
+											registration page</a></p> -->
+								</section>
+
+							</form>
+							<div style="text-align: center;">
+								<br /><br />
+								<div class="alert alert-danger" role="alert" *ngIf="is_alert">
+									Oh Snap! {{message}}
+								</div>
+
+							</div>
+						</section>
+						<!-- <section class="form"></section> -->
+					</section>
+				</section>
+			</section>
+		</section>
+		<section class="footer">
+			<section>
+				<span class="created-by">Created with ♥ by <b><a href="https://spemai.com">Spemai</a></b> © 2020</span>
+			</section>
+		</section>
+
+	</section>
+
+</body>
+
+<div class="col-12 animation-div2" *ngIf=is_loading>
+	<div class="sk-circle">
+		<div class="sk-circle1 sk-child"></div>
+		<div class="sk-circle2 sk-child"></div>
+		<div class="sk-circle3 sk-child"></div>
+		<div class="sk-circle4 sk-child"></div>
+		<div class="sk-circle5 sk-child"></div>
+		<div class="sk-circle6 sk-child"></div>
+		<div class="sk-circle7 sk-child"></div>
+		<div class="sk-circle8 sk-child"></div>
+		<div class="sk-circle9 sk-child"></div>
+		<div class="sk-circle10 sk-child"></div>
+		<div class="sk-circle11 sk-child"></div>
+		<div class="sk-circle12 sk-child"></div>
+	</div>
+</div>

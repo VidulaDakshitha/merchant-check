@@ -1,0 +1,175 @@
+@import '../../pages.component.scss';
+label{
+    font-size: 13px;
+    letter-spacing: 0em;
+    text-align: left;
+    font-family: 'Century Gothic';
+}
+h5{
+    width: 140px;
+    height: 27px;
+    font-size: 22px;
+    line-height: 27px;
+    color: #000000;
+}
+.input-bottom{
+  background-color: rgb(255, 255, 255);
+  font-size: 0.8rem!important;
+  font-weight: 100!important;
+  margin-bottom: 6px;
+}
+.box_shadow{
+  box-shadow: none;
+}
+.header_text{
+  font-size: 16px;
+  font-style : normal;
+  line-height: 30px;
+  text-align: left;
+  color: #000000;
+}
+.url_link{
+  font-size: 11px;
+  line-height: 19px;
+  color: #5E5E5E;
+}
+.label_app_name{
+  width: 85px;
+  font-size: 14px;
+  line-height: 30px;
+  text-align: left;
+  color: #454545;
+}
+.dialog-border{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #e9eaec;
+  border-radius: .25rem;
+}
+.approved_button{
+  padding: 0px 10px;
+  font-weight: 500;
+  width: 81px;
+  height: 30px;
+  align-items: flex-start;
+  border-radius: 6px;
+}
+
+.input_text{
+  height: 16px;
+  font-size: 11px;
+  line-height: 19px;
+  color: #5E5E5E;
+}
+.input_text2{
+  width: 81px;
+  height: 30px;
+  font-size: 12px;
+  line-height: 30px;
+  color: #454545;
+}
+.button_style{
+  border-radius: 7px; 
+  font-size: 14px;
+  background: #0077E6;
+  box-shadow: 0px 8px 21px rgba(39, 39, 39, 0.15);
+  text-align: right;
+  color: #FFFFFF;
+}
+.button_style_close{
+  font-size: 14px;
+  text-align: right;
+  background-color: #ffffff;
+  color: #797979;
+}
+.apps{
+  overflow-x:scroll;
+  width: 100%;
+  height: 250px;
+  background: #FFFFFF;
+  box-shadow: 0px 4px 64px rgba(0, 0, 0, 0.1);
+  border-radius: 7px;
+}
+.app_heading{
+  height: 20px; 
+  font-size: 15px; 
+  color: #0075FF;
+}
+.app_status{
+  width: 100%;
+  border-radius: 4px;
+  font-size: 9px;
+  text-align: center;
+}
+.app_descr{
+  width: 77px;
+  font-style:normal;
+  font-weight: 500;
+  font-size: 14px;
+  color: #000000;
+}
+.appDes{
+  font-style:normal;
+  font-size: 11px;
+  height: auto;
+  line-height: 19px;
+  color: #5E5E5E;
+}
+.app_id_service{
+  width: 63px;
+  font-size: 13px;
+  color: #454545;
+}
+.app_id_url{ 
+  font-size: 11px;
+  color: #5E5E5E;
+}
+.app_buttons{
+  cursor: pointer;
+  font-size: 10px;
+  text-align: center;
+}
+.code{ //+94 & LKR
+  position: absolute;
+  width: 32px;
+  height: 32px;
+  color:rgb(255, 255, 255);
+  font-size: 15px;
+  line-height: 32px;
+  text-align: right;
+}
+#img_style{
+  background: white url("../../../../assets/images/Rectangle247.png") left no-repeat;
+  padding-left: 60px;
+}
+.font-red{
+  color: #FD0000;
+}
+.code, .appDes,.input_text,.url_link {
+  font-weight: normal;
+}
+.app_id_service , .app_descr , .approved_button , .header_text , h5 ,.url_link, .label-style {
+  font-weight: 400; 
+}
+.app_buttons , .code , .input_text2, .button_style_close , .label-style ,.label_app_name {
+  font-family: 'Poppins';
+  font-style: normal;  
+}
+.input_text , .approved_button ,.header_text {
+  font-family:'Inter';
+  font-style: normal;  
+}
+.card-footer{
+  margin: 0 auto;
+  width: 100%;
+  height: 10px;
+}
+.nb-card-body{
+    box-shadow: 0px 8px 21px rgb(255, 255, 255);
+    border-radius: 7px;
+}

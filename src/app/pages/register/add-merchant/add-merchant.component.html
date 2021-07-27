@@ -1,0 +1,751 @@
+
+
+
+
+
+  <div class="col-md-12 col-lg-12 col-xxxl-12">
+
+    <nb-stepper #stepper>
+      <nb-step [stepControl]="firstForm" label="Company Details">
+        <nb-card>
+          <nb-card-body>
+            <form [formGroup]="firstForm">
+              <h4>Merchant onboarding application</h4>
+
+              <div class="sub-head-background">
+                <h5 class="sub-head">01.Service Provider(Aggregator)Details</h5>
+              </div>
+
+              <div class="input-group">
+                <label class="label-form-control label-name">1.1 Name<span class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="service_provider_name" type="text"
+                  nbInput fullWidth shape="rectangle" placeholder="Enter Name"
+                  [ngClass]="{'form-control-danger': (firstForm.get('service_provider_name').dirty || firstForm.get('service_provider_name').touched) && firstForm.get('service_provider_name').errors}">
+                <div
+                  *ngIf="firstForm.get('service_provider_name').invalid && (firstForm.get('service_provider_name').dirty || firstForm.get('service_provider_name').touched)">
+                  <small *ngIf="firstForm.get('service_provider_name').errors['required']" class="text-danger">
+                    Name is required!</small>
+                </div>
+              </div>
+              <div class="input-group">
+                <label class="label-form-control label-name">1.2 Address<span class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="service_provider_address" type="text"
+                  nbInput fullWidth shape="rectangle" placeholder="Enter Address"
+                  [ngClass]="{'form-control-danger': (firstForm.get('service_provider_address').dirty || firstForm.get('service_provider_address').touched) && firstForm.get('service_provider_address').errors}">
+                <div
+                  *ngIf="firstForm.get('service_provider_address').invalid && (firstForm.get('service_provider_address').dirty || firstForm.get('service_provider_address').touched)">
+                  <small *ngIf="firstForm.get('service_provider_address').errors['required']" class="text-danger">
+                    Adress is required!</small>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">1.3 Registration No<span
+                        class="required_feeld">*</span></label>
+                    <input class="form-control form-control-text " formControlName="service_provider_registration_no"
+                      type="text" nbInput fullWidth shape="rectangle" placeholder="Enter Registration No"
+                      [ngClass]="{'form-control-danger': (firstForm.get('service_provider_registration_no').dirty || firstForm.get('service_provider_registration_no').touched) && firstForm.get('service_provider_registration_no').errors}">
+                    <div
+                      *ngIf="firstForm.get('service_provider_registration_no').invalid && (firstForm.get('service_provider_registration_no').dirty || firstForm.get('service_provider_registration_no').touched)">
+                      <small *ngIf="firstForm.get('service_provider_registration_no').errors['required']"
+                        class="text-danger">
+                        Registration No is required!</small>
+                      <small *ngIf="firstForm.get('service_provider_registration_no').errors['pattern']"
+                        class="text-danger">
+                        Invalid Registration No try again!</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="label-form-control label-name">1.4 Contact person</label>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-xxxl-12">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">1.4.1 Name<span class="required_feeld">*</span></label>
+                    <input class="form-control form-control-text" formControlName="contact_person_name" type="text"
+                      nbInput fullWidth shape="rectangle" placeholder="Enter Name"
+                      [ngClass]="{'form-control-danger': (firstForm.get('contact_person_name').dirty || firstForm.get('contact_person_name').touched) && firstForm.get('contact_person_name').errors}">
+                    <div
+                      *ngIf="firstForm.get('contact_person_name').invalid && (firstForm.get('contact_person_name').dirty || firstForm.get('contact_person_name').touched)">
+                      <small *ngIf="firstForm.get('contact_person_name').errors['required']" class="text-danger">
+                        Contact Person Name is required!</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">1.4.2 Designation<span
+                        class="required_feeld">*</span></label>
+                    <input class="form-control form-control-text" formControlName="contact_person_designation"
+                      type="text" nbInput fullWidth shape="rectangle" placeholder="Enter Possition"
+                      [ngClass]="{'form-control-danger': (firstForm.get('contact_person_designation').dirty || firstForm.get('contact_person_designation').touched) && firstForm.get('contact_person_designation').errors}">
+                    <div
+                      *ngIf="firstForm.get('contact_person_designation').invalid && (firstForm.get('contact_person_designation').dirty || firstForm.get('contact_person_designation').touched)">
+                      <small *ngIf="firstForm.get('contact_person_designation').errors['required']" class="text-danger">
+                        Contact Person Designation is required!</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">1.4.3 Contact Number<span
+                        class="required_feeld">*</span></label>
+                    <input class="form-control form-control-text" formControlName="contact_person_Number" type="text"
+                      nbInput fullWidth shape="rectangle" placeholder="Enter Contact Number"
+                      [(ngModel)]="contact_p_po_format"
+                      [ngClass]="{'form-control-danger': (firstForm.get('contact_person_Number').dirty || firstForm.get('contact_person_Number').touched) && firstForm.get('contact_person_Number').errors}">
+                    <div
+                      *ngIf="firstForm.get('contact_person_Number').invalid && (firstForm.get('contact_person_Number').dirty || firstForm.get('contact_person_Number').touched)">
+                      <small *ngIf="firstForm.get('contact_person_Number').errors['required']" class="text-danger">
+                        Contact Person contact Number is required!</small>
+                      <small *ngIf="firstForm.get('contact_person_Number').errors['pattern']" class="text-danger">
+                        Invalid Phone Number try again!</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- merchant details -->
+
+              <div class="sub-head-background">
+                <h5 class="sub-head">02.Merchant Details</h5>
+              </div>
+
+
+              <div class="input-group">
+                <label class="label-form-control label-name">2.1 Business Type<span
+                    class="required_feeld">*</span></label>
+                <!-- <button (click)="open2(dialog)" class="button2">Add New Type</button> -->
+              </div>
+              <div class="col-md-12 col-lg-12 col-xxxl-12">
+                <div class="demo-items">
+                  <nb-radio-group (ngModelChange)="choose($event)" class="radio_possion" name="business_type"
+                    formControlName="business_type">
+                    <nb-radio class="b" *ngFor="let b_type of business_type" [value]="b_type.id">
+                      {{b_type.type}}
+                    </nb-radio>
+                  </nb-radio-group>
+                </div>
+              </div>
+              <span *ngIf="subtype.length">
+                <div class="input-group">
+                  <label class="label-form-control label-name">2.1.1 Business Subtype
+                    <!-- <span
+                      class="required_feeld">*</span> -->
+                  </label>
+                </div>
+                <div class="col-md-12 col-lg-12 col-xxxl-12">
+                  <div class="demo-items">
+                    <nb-checkbox *ngFor="let subtype_data_list of subtype" name="sub_type" formControlName="sub_type"
+                      [value]="subtype_data_list.id" (change)="setCheckedStatus($event, subtype_data_list.id)">
+                      {{subtype_data_list.subtype}}
+                    </nb-checkbox>
+                  </div>
+                </div>
+              </span>
+
+              <!-- <span *ngIf="subtype.length">
+              <div  class="col-md-12 col-lg-12 col-xxxl-12">
+                <div class="demo-items" >
+                  <nb-checkbox *ngFor="let subtype_data_list of subtype" name="sub_type" formControlName="sub_type" [value]="subtype_data_list.id" (ngModelChange)="chooseSubtype(subtype_data_list.id)" >
+                    {{subtype_data_list.subtype}}
+                  </nb-checkbox>
+                </div>
+              </div>
+            </span> -->
+
+              <!-- <div *ngFor="let lenght_subtype of subtype">
+              <div *ngIf="lenght_subtype.length" class="col-md-12 col-lg-12 col-xxxl-12">
+                <p>harshan</p>
+                <div class="demo-items">
+                  <nb-radio-group class="radio_possion" name="business_type" formControlName="business_type">
+                    <nb-radio class="b" *ngFor="let b_type of business_type" [value]="b_type.id">
+                      {{b_type.type}}
+                    </nb-radio>
+                  </nb-radio-group>
+                </div>
+              </div>
+            </div> -->
+
+
+
+
+              <div class="input-group">
+                <label class="label-form-control label-name">2.2 Business Category<span
+                    class="required_feeld">*</span></label>
+
+              </div>
+              <div class="col-md-12 col-lg-12 col-xxxl-12">
+                <div class="demo-items">
+                  <nb-radio-group class="radio_possion" name="business_category" formControlName="business_category">
+                    <nb-radio class="b" *ngFor="let category of business_categories" [value]="category.id">
+                      {{category.type}}
+                    </nb-radio>
+                  </nb-radio-group>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">2.3 Registered Business Name</label>
+                    <input class="form-control form-control-text" formControlName="registered_business_name" type="text"
+                      nbInput fullWidth shape="rectangle" placeholder="Enter Registered Business Name">
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">2.4 Registration Number</label>
+                    <input class="form-control form-control-text" formControlName="register_number" type="text" nbInput
+                      fullWidth shape="rectangle" placeholder="Enter Registration Number">
+                  </div>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="label-form-control label-name">2.5 Trading Name<span
+                    class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="tranding_name" type="text" nbInput
+                  fullWidth shape="rectangle" placeholder="Enter Trading Name"
+                  [ngClass]="{'form-control-danger': (firstForm.get('tranding_name').dirty || firstForm.get('tranding_name').touched) && firstForm.get('tranding_name').errors}">
+                <div
+                  *ngIf="firstForm.get('tranding_name').invalid && (firstForm.get('tranding_name').dirty || firstForm.get('tranding_name').touched)">
+                  <small *ngIf="firstForm.get('tranding_name').errors['required']" class="text-danger">
+                    Trading Name is required!</small>
+                </div>
+              </div>
+
+              <div class="input-group">
+                <label class="label-form-control label-name">2.6 Principal place of business<span
+                    class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="principal_place" type="text" nbInput
+                  fullWidth shape="rectangle" placeholder="Enter Principal place of business"
+                  [ngClass]="{'form-control-danger': (firstForm.get('principal_place').dirty || firstForm.get('principal_place').touched) && firstForm.get('principal_place').errors}">
+                <div
+                  *ngIf="firstForm.get('principal_place').invalid && (firstForm.get('principal_place').dirty || firstForm.get('principal_place').touched)">
+                  <small *ngIf="firstForm.get('principal_place').errors['required']" class="text-danger">
+                    Principal place is required!</small>
+                </div>
+              </div>
+
+
+              <div class="input-group">
+                <label class="label-form-control label-name">2.7 Correspondence Address<span
+                    class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="correspondence_address" type="text"
+                  nbInput fullWidth shape="rectangle" placeholder="Enter Correspondence Address"
+                  [ngClass]="{'form-control-danger': (firstForm.get('correspondence_address').dirty || firstForm.get('correspondence_address').touched) && firstForm.get('correspondence_address').errors}">
+                <div
+                  *ngIf="firstForm.get('correspondence_address').invalid && (firstForm.get('correspondence_address').dirty || firstForm.get('correspondence_address').touched)">
+                  <small *ngIf="firstForm.get('correspondence_address').errors['required']" class="text-danger">
+                    Address is required!</small>
+                </div>
+              </div>
+
+              <div class="row">
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">2.8 Email<span class="required_feeld">*</span></label>
+                    <input class="form-control" formControlName="email" type="text" nbInput fullWidth shape="rectangle"
+                      placeholder="Enter Email"
+                      [ngClass]="{'form-control-danger': (firstForm.get('email').dirty || firstForm.get('email').touched) && firstForm.get('email').errors}">
+                    <div
+                      *ngIf="firstForm.get('email').invalid && (firstForm.get('email').dirty || firstForm.get('email').touched)">
+                      <small *ngIf="firstForm.get('email').errors['required']" class="text-danger">
+                        Email is required!</small>
+                      <small *ngIf="firstForm.get('email').errors['pattern']" class="text-danger">
+                        Invalid Email try again!</small>
+                    </div>
+                  </div>
+                </div>
+                <div class="col-md-12 col-lg-6 col-xxxl-6">
+                  <div class="input-group">
+                    <label class="label-form-control label-name">2.9 Phone Number<span
+                        class="required_feeld">*</span></label>
+                    <input class="form-control form-control-text" formControlName="phone_number" type="text" nbInput
+                      fullWidth shape="rectangle" placeholder="Enter Phone Number" [(ngModel)]="po_format"
+                      [ngClass]="{'form-control-danger': (firstForm.get('phone_number').dirty || firstForm.get('phone_number').touched) && firstForm.get('phone_number').errors}">
+                    <div
+                      *ngIf="firstForm.get('phone_number').invalid && (firstForm.get('phone_number').dirty || firstForm.get('phone_number').touched)">
+                      <small *ngIf="firstForm.get('phone_number').errors['required']" class="text-danger">
+                        Email is required!</small>
+                      <small *ngIf="firstForm.get('phone_number').errors['pattern']" class="text-danger">
+                        Invalid Phone Number try again!</small>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <button type="submit" [disabled]="!firstForm.valid" nbButton nbStepperNext>next</button>
+            </form>
+          </nb-card-body>
+        </nb-card>
+
+      </nb-step>
+
+
+      <nb-step class="second-step" [stepControl]="secondForm" label="DirectorDetails">
+        <form [formGroup]="addDirectorForm" (ngSubmit)="onSecondSubmit()" class="step-container">
+          <h4>2.10 Proprietor / Partner / Director Details</h4>
+          <br>
+          <div class="validation-checkboxes">
+            <nb-checkbox status="success" #is_director (change)="validate_directors(is_director.value)">Director not
+              available for this movement</nb-checkbox>
+          </div>
+          <div class="container">
+            <table class="table table-responsive-sm table-hover table-outline mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th class="text-center">No</th>
+                  <th class="text-center">Full Name</th>
+                  <th class="text-center">Address</th>
+                  <th class="text-center">NIC Number</th>
+                  <th class="text-center">PEP</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="director">
+                <tr *ngFor="let dir of director.controls; let i = index" [formGroupName]="i" class="overflow-hide">
+                  <td class="text-center">
+                    {{i + 1}}
+                  </td>
+                  <td class="text-center">
+                    <textarea class="text-area" rows="3" nbInput fullWidth shape="round" formControlName="name"
+                      placeholder="Enter Full Name"></textarea>
+                    <div
+                      *ngIf="director.controls[i].get('name').invalid && (director.controls[i].get('name').dirty || director.controls[i].get('name').touched)">
+                      <small *ngIf="director.controls[i].get('name').errors['required']" class="text-danger">
+                        name is required!</small>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <textarea class="text-area" rows="3" nbInput fullWidth shape="round" formControlName="address"
+                      placeholder="Enter address"></textarea>
+                    <div
+                      *ngIf="director.controls[i].get('address').invalid && (director.controls[i].get('address').dirty || director.controls[i].get('address').touched)">
+                      <small *ngIf="director.controls[i].get('address').errors['required']" class="text-danger">
+                        Address is required!</small>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <textarea class="text-area" rows="3" nbInput fullWidth shape="round" formControlName="nic"
+                      placeholder="Enter nic"></textarea>
+                    <div
+                      *ngIf="director.controls[i].get('nic').invalid && (director.controls[i].get('nic').dirty || director.controls[i].get('nic').touched)">
+                      <small *ngIf="director.controls[i].get('nic').errors['required']" class="text-danger">
+                        NIC Number is required!</small>
+                      <small *ngIf="director.controls[i].get('nic').errors['pattern']" class="text-danger">
+                        Invalid NIC Number try again!</small>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="demo-items demo-radio2">
+                      <nb-radio-group class="radio-btn" [name]="'pepd'+i" formControlName="director_pep">
+                        <nb-radio style="padding: 0!important;" class="c" [value]="true">
+                          Yes
+                        </nb-radio>
+                        <nb-radio class="c" [value]="false">
+                          NO
+                        </nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="delete-btn" (click)="deleteDirector(i)" nbButton [size]="size">delete</button>
+                  </td>
+                </tr>
+                <tr *ngIf="director.length<1">
+                  <td colspan="6"> Directors not assigned with this organization</td>
+                </tr>
+              </tbody>
+            </table>
+
+            <button class="add-btn" (click)="addDirector()" [disabled]="!is_directors" nbButton>add</button>
+            <button class="reset-btn" (click)="resetDirectorForm()" nbButton>reset</button>
+          </div>
+          <button nbButton nbStepperPrevious>prev</button>
+          <button type="submit" [disabled]="is_directors ?!addDirectorForm.valid : is_directors" nbButton
+            nbStepperNext>next</button>
+        </form>
+      </nb-step>
+
+
+
+
+
+      <nb-step [stepControl]="thirdForm" label="Shareholder Details">
+        <form [formGroup]="addShareholdereForm" (ngSubmit)="onThirdSubmit()" class="step-container">
+          <h4>2.11 Ultimate Beneficial Ownership declaration</h4>
+          <br>
+          <div class="validation-checkboxes">
+            <nb-checkbox status="success" #is_shareholder (change)="validate_shareholder(is_shareholder.value)">
+              Shareholder not available for this movement</nb-checkbox>
+          </div>
+          <div class="container">
+            <table class="table table-responsive-sm table-hover table-outline mb-0">
+              <thead class="thead-light">
+                <tr>
+                  <th class="text-center">No</th>
+                  <th class="text-center">Full Name</th>
+                  <th class="text-center">Address</th>
+                  <th class="text-center">Percentage of shareholding</th>
+                  <th class="text-center">PEP</th>
+                  <th class="text-center">Action</th>
+                </tr>
+              </thead>
+              <tbody formArrayName="shareholder">
+                <tr *ngFor="let shre of shareholder.controls; let i = index" [formGroupName]="i" class="overflow-hide">
+                  <td class="text-center">
+                    {{i + 1}}
+                  </td>
+                  <td class="text-center">
+                    <textarea class="text-area" rows="3" nbInput fullWidth shape="round"
+                      formControlName="name_shareholder" placeholder="Enter Full Name"></textarea>
+                    <div
+                      *ngIf="shareholder.controls[i].get('name_shareholder').invalid && (shareholder.controls[i].get('name_shareholder').dirty || shareholder.controls[i].get('name_shareholder').touched)">
+                      <small *ngIf="shareholder.controls[i].get('name_shareholder').errors['required']"
+                        class="text-danger">
+                        Name is required!</small>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <textarea class="text-area" rows="3" nbInput fullWidth shape="round"
+                      formControlName="address_shareholder" placeholder="Enter address"></textarea>
+                    <div
+                      *ngIf="shareholder.controls[i].get('address_shareholder').invalid && (shareholder.controls[i].get('address_shareholder').dirty || shareholder.controls[i].get('address_shareholder').touched)">
+                      <small *ngIf="shareholder.controls[i].get('address_shareholder').errors['required']"
+                        class="text-danger">
+                        Address is required!</small>
+                    </div>
+                  </td>
+
+                  <td class="text-center">
+                    <textarea class="text-area" rows="3" nbInput fullWidth shape="round"
+                      formControlName="percentage_shareholder" placeholder="Enter Presentage"></textarea>
+                    <div
+                      *ngIf="shareholder.controls[i].get('percentage_shareholder').invalid && (shareholder.controls[i].get('percentage_shareholder').dirty || shareholder.controls[i].get('percentage_shareholder').touched)">
+                      <small *ngIf="shareholder.controls[i].get('percentage_shareholder').errors['required']"
+                        class="text-danger">
+                        Percentage of shareholding is required!</small>
+                      <small *ngIf="shareholder.controls[i].get('percentage_shareholder').errors['pattern']"
+                        class="text-danger">
+                        Invalid Data Format try again!</small>
+                    </div>
+                  </td>
+                  <td class="text-center">
+                    <div class="demo-items demo-radio2">
+                      <nb-radio-group [name]="'peps'+i" formControlName="shareholder_pep">
+                        <nb-radio style="padding: 0!important;" class="c" [value]="true">
+                          Yes
+                        </nb-radio>
+                        <nb-radio class="c" [value]="false">
+                          NO
+                        </nb-radio>
+                      </nb-radio-group>
+                    </div>
+                  </td>
+                  <td>
+                    <button class="delete-btn" (click)="deleteShareholder(i)" nbButton>delete</button>
+                  </td>
+                </tr>
+                <tr *ngIf="shareholder.length<1">
+                  <td colspan="6"> Shareholder not assigned with this organization</td>
+                </tr>
+              </tbody>
+            </table>
+            <button class="add-btn" (click)="addShareholder()" [disabled]="!is_shareholders" nbButton>add</button>
+            <button class="reset-btn" (click)="resetShareholderForm()" nbButton>reset</button>
+          </div>
+          <button nbButton nbStepperPrevious>prev</button>
+          <button type="submit" [disabled]="is_shareholders ? !addShareholdereForm.valid : is_shareholders" nbButton
+            nbStepperNext>next</button>
+        </form>
+      </nb-step>
+
+
+      <nb-step class="forth-step" [stepControl]="forthForm" label="Account Details">
+        <form [formGroup]="forthForm" (ngSubmit)="onforthSubmit()" class="step-container">
+
+          <div class="input-group">
+            <label class="label-form-control label-name">2.12 Nature of Business<span
+                class="required_feeld">*</span></label>
+            <input class="form-control form-control-text" formControlName="nature_of_business" type="text" nbInput
+              fullWidth shape="rectangle" placeholder="Enter Nature of Business"
+              [ngClass]="{'form-control-danger': (forthForm.get('nature_of_business').dirty || forthForm.get('nature_of_business').touched) && forthForm.get('nature_of_business').errors}">
+            <div
+              *ngIf="forthForm.get('nature_of_business').invalid && (forthForm.get('nature_of_business').dirty || forthForm.get('nature_of_business').touched)">
+              <small *ngIf="forthForm.get('nature_of_business').errors['required']" class="text-danger">
+                Nature of Business is required!</small>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.13 Income Tax File No</label>
+                <input class="form-control form-control-text" formControlName="income_tax" type="text" nbInput fullWidth
+                  shape="rectangle" placeholder="Enter Income Tax File No">
+
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.14 Date of Registration<span
+                    class="required_feeld">*</span></label>
+                <input class="form-select"
+                  style="padding:8px!important;margin-top:7px!important; border-radius:2px!important;" selected="1"
+                  placeholder="Enter Date of Registration" formControlName="date_of_registration" nbInput
+                  placeholder="Form Picker" [nbDatepicker]="formpicker">
+                <nb-datepicker #formpicker></nb-datepicker>
+                <div
+                  *ngIf="forthForm.get('date_of_registration').invalid && (forthForm.get('date_of_registration').dirty || forthForm.get('date_of_registration').touched)">
+                  <small *ngIf="forthForm.get('date_of_registration').errors['required']" class="text-danger">
+                    Date of Registration is required!</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="label-form-control label-name">2.15 Settlement Account Details</label>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.15.1 Account Holders Name<span
+                    class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="account_holder_name" type="text" nbInput
+                  fullWidth shape="rectangle" placeholder="Enter Account Holders Name"
+                  [ngClass]="{'form-control-danger': (forthForm.get('account_holder_name').dirty || forthForm.get('account_holder_name').touched) && forthForm.get('account_holder_name').errors}">
+                <div
+                  *ngIf="forthForm.get('account_holder_name').invalid && (forthForm.get('account_holder_name').dirty || forthForm.get('account_holder_name').touched)">
+                  <small *ngIf="forthForm.get('account_holder_name').errors['required']" class="text-danger">
+                    Account Holders Name is required!</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.15.2 Account Number<span
+                    class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="account_number" type="text" nbInput
+                  fullWidth shape="rectangle" placeholder="Enter Account Number"
+                  [ngClass]="{'form-control-danger': (forthForm.get('account_number').dirty || forthForm.get('account_number').touched) && forthForm.get('account_number').errors}">
+                <div
+                  *ngIf="forthForm.get('account_number').invalid && (forthForm.get('account_number').dirty || forthForm.get('account_number').touched)">
+                  <small *ngIf="forthForm.get('account_number').errors['required']" class="text-danger">
+                    Account Number is required!</small>
+                  <!-- <small *ngIf="forthForm.get('account_number').errors['pattern']" class="text-danger">
+                        Invalid Account Number, try again!</small> -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.15.3 Bank<span class="required_feeld">*</span></label>
+              </div>
+              <nb-select class="form-select select-important" selected="1" placeholder="SELECT BANK NAME"
+                formControlName="bank"
+                [ngClass]="{'form-control-danger': (forthForm.get('bank').dirty || forthForm.get('bank').touched) && forthForm.get('bank').errors}">
+                <nb-option *ngFor="let bank of bank_list" [value]="bank.id">
+                  {{bank.name}}
+                </nb-option>
+              </nb-select>
+              <div
+                *ngIf="forthForm.get('bank').invalid && (forthForm.get('bank').dirty || forthForm.get('bank').touched)">
+                <small *ngIf="forthForm.get('bank').errors['required']" class="text-danger">
+                  Bank is required!</small>
+              </div>
+            </div>
+
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.15.4 Branch<span class="required_feeld">*</span></label>
+                <input class="form-control form-control-text" formControlName="branch" type="text" nbInput fullWidth
+                  shape="rectangle" placeholder="Enter Branch Name"
+                  [ngClass]="{'form-control-danger': (forthForm.get('branch').dirty || forthForm.get('branch').touched) && forthForm.get('branch').errors}">
+                <div
+                  *ngIf="forthForm.get('branch').invalid && (forthForm.get('branch').dirty || forthForm.get('branch').touched)">
+                  <small *ngIf="forthForm.get('branch').errors['required']" class="text-danger">
+                    Branch is required!</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="input-group">
+            <label class="label-form-control label-name">2.16 Payment Terms</label>
+          </div>
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.16.1.1 Commission Rate Visa/Master</label>
+                <input class="form-control form-control-text" formControlName="commission_rate_visa" type="text" nbInput
+                  fullWidth shape="rectangle" placeholder="Enter Commission Rate Visa"
+                  [ngClass]="{'form-control-danger': (forthForm.get('commission_rate_visa').dirty || forthForm.get('commission_rate_visa').touched) && forthForm.get('commission_rate_visa').errors}">
+                <div
+                  *ngIf="forthForm.get('commission_rate_visa').invalid && (forthForm.get('commission_rate_visa').dirty || forthForm.get('commission_rate_visa').touched)">
+
+                  <small *ngIf="forthForm.get('commission_rate_visa').errors['pattern']" class="text-danger">
+                    Invalid Rate Format.Try again!</small>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <label class="label-form-control label-name">2.16.1.2 Commission Rate JustPay
+                </label>
+                <input class="form-control form-control-text" formControlName="commission_rate_just_pay" type="text"
+                  nbInput fullWidth shape="rectangle" placeholder="Enter Commission Rate Jast Pay">
+                <div
+                  *ngIf="forthForm.get('commission_rate_just_pay').invalid && (forthForm.get('commission_rate_just_pay').dirty || forthForm.get('commission_rate_just_pay').touched)">
+
+                  <small *ngIf="forthForm.get('commission_rate_just_pay').errors['pattern']" class="text-danger">
+                    Invalid Rate Format.Try again!</small>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">2.16.1.3 Commission Rate LankaQR
+                Account</label>
+              <input class="form-control form-control-text" formControlName="commission_rate_lanka_qr" type="text"
+                nbInput fullWidth shape="rectangle" placeholder="Enter Commission Rate Current">
+              <div
+                *ngIf="forthForm.get('commission_rate_lanka_qr').invalid && (forthForm.get('commission_rate_lanka_qr').dirty || forthForm.get('commission_rate_lanka_qr').touched)">
+
+                <small *ngIf="forthForm.get('commission_rate_lanka_qr').errors['pattern']" class="text-danger">
+                  Invalid Rate Format.Try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name" style="margin-left: -14px!important;">2.18 Merchant
+                Agreement Date<span class="required_feeld">*</span></label>
+              <input class="form-select"
+                style="padding:8px!important;margin-top:7px!important; border-radius:2px!important;width: 108%!important;margin-left: -13px!important;"
+                selected="1" placeholder="Enter Date of Registration" formControlName="merchant_agreement_date" nbInput
+                placeholder="Form Picker" [nbDatepicker]="formpicker1">
+              <nb-datepicker #formpicker1></nb-datepicker>
+              <div
+                *ngIf="forthForm.get('merchant_agreement_date').invalid && (forthForm.get('merchant_agreement_date').dirty || forthForm.get('merchant_agreement_date').touched)">
+                <small *ngIf="forthForm.get('merchant_agreement_date').errors['required']" class="text-danger">
+                  Merchant Agreement Date is required!</small>
+              </div>
+            </div>
+
+          </div>
+          <button nbButton nbStepperPrevious>prev</button>
+          <button type="submit" [disabled]="!forthForm.valid" nbButton nbStepperNext>next</button>
+        </form>
+      </nb-step>
+
+      <nb-step class="fifth-step" [stepControl]="fifthForm" label="Upload File">
+        <form [formGroup]="fifthForm" (ngSubmit)="onFifthSubmit()" class="step-container">
+          <h4>Confirmation</h4>
+          <br>
+          <div class="row">
+            <div class="col-md-12 col-lg-12 col-xxxl-12 test">
+              <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                (onFileDropped)="uploadFile($event)">
+                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                <p>Upload here</p>
+              </div>
+              <div class="files-list" *ngFor="let file of files;let i= index">
+                <p class="file-name"> {{ file }} </p>
+
+                <button class="delete-file" (click)="deleteAttachment(i)">
+                  <img src="../../../../assets/images/deletebtn.png">
+                </button>
+              </div>
+            </div>
+          </div>
+          <button nbButton nbStepperPrevious>prev</button>
+          <button nbButton nbStepperNext (click)="submit_application()">confirm</button>
+        </form>
+      </nb-step>
+
+
+
+      <nb-step [stepControl]="fifthForm" [hidden]="true" label="Confirmation">
+        <div class="step-container">
+          <h3>Wizard completed!</h3>
+          <!-- <button nbButton (click)="stepper.reset()">Go to first page</button> -->
+        </div>
+      </nb-step>
+    </nb-stepper>
+
+  </div>
+  <!-- add business type -->
+  <ng-template #dialog let-data let-ref="dialogRef">
+    <form [formGroup]="bTypeForm" class="step-container" (ngSubmit)="addBType()">
+      <nb-card style="width: 30vw;">
+        <nb-card-header>Add Business Type</nb-card-header>
+        <nb-card-body>
+
+
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Type</label>
+              <input class="form-control input-bottom" formControlName="type" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Business Type"
+                [ngClass]="{'form-control-danger': (bTypeForm.get('type').dirty || bTypeForm.get('type').touched) && bTypeForm.get('type').errors}">
+              <div
+                *ngIf="bTypeForm.get('type').invalid && (bTypeForm.get('type').dirty || bTypeForm.get('type').touched)">
+                <small *ngIf="bTypeForm.get('type').errors['required']" class="text-danger">
+                  Business Type is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Description</label>
+              <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Description"
+                [ngClass]="{'form-control-danger': (bTypeForm.get('description').dirty || bTypeForm.get('description').touched) && firstForm.get('bTypeForm').errors}">
+              <div
+                *ngIf="bTypeForm.get('description').invalid && (bTypeForm.get('description').dirty || bTypeForm.get('description').touched)">
+                <small *ngIf="bTypeForm.get('description').errors['required']" class="text-danger">
+                  Description is required!</small>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="close2()" style="float: right;">Close</button>
+          <button nbButton style="float: left;" type='submit'>Submit</button>
+        </nb-card-footer>
+
+      </nb-card>
+    </form>
+  </ng-template>
+
+
+
+
+
+  <div class="sk-circle" *ngIf="is_loading">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>
+
+  <!-- <button (click)=exportPDF()>Export to pdf</button> -->

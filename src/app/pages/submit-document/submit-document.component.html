@@ -1,0 +1,179 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding: 25px;">
+      <div class="row">
+        <div class="col-12">
+          <h6 class="submit-head">Document Submission</h6>
+          <p  class="submit-body-text">Your following documents will be available to download when the submitted details are approved.</p>
+          <p class="submit-body-text">Please download the following documents and sign on the requested pages. </p>
+          <p class="submit-body-text">Once the documents are signed please upload the scanned documents for final approvals.</p>
+          <p class="submit-body-text">Merchant Agreement - Kindly make sure to sign at the bottom of each an every page of the Merchant Agreement along with the Rubber Stamp if available.</p>
+        </div>
+      </div>
+
+
+
+      <div class="row" style="padding-top: 30px;">
+        <div class="col-md-5">
+          <div class="application-image-bac">
+            <div class="row">
+
+              <div class="title-left" class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #FFEEF8;">
+              
+                      <img class="image-doc-uploade"  src="../../../assets/images/merchant-onboard (1).png"
+                        alt="merchant agreement">
+                       
+                        
+                    </div>
+                  </div>
+                </div>
+                <span class="m-agreement">Merchant Onboard Application</span>
+                <!-- <span class="m-agreement" ><a [href]="sanitizeImageUrl(pdf_data.toString())" download="file.pdf">
+                  <button [disabled]="is_disable" class="downlode-application-onbord" type="submit">Download</button>
+                </a></span> -->
+              </div>
+
+              <div  class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color:#EBEDFF;">
+                     
+                      <img class="image-doc-uploade" src="../../../assets/images/merchant_agreement.png"
+                        alt="merchant agreement">
+
+                    </div>
+                  </div>
+                </div>
+                <span class="m-agreement">Merchant Agreement</span>
+                <span  class="m-agreement"><a href="../../../assets/images/IPG Merchant Agreement .pdf" download>
+                  <button  class="downlode-application-agreement" type="submit">Download</button>
+                </a></span>
+
+              </div>
+              <div *ngIf="local_bsiness_type.type == 'Limited Liability'" class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #FFF2EB;">
+          
+                      <img class="image-doc-uploade" src="../../../assets/images/company-resolution.png"
+                        alt="company resolution">
+                    </div>
+                  </div>
+                </div>
+                <span class="m-agreement">Company resolution</span>
+                <span  class="m-agreement"><a href="../../../assets/images/Resolution_for_Corporations.pdf" download>
+                  <button  class="downlode-application-resolution" type="submit">Download</button>
+                </a></span>
+
+
+              </div>
+              <!-- <div *ngIf="local_bsiness_type.type == 'Limited Liability' || local_bsiness_type.type == 'Clubs & Societies'" class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #EBFFED;">
+                      
+                      <img class="image-doc-uploade" src="../../../assets/images/meeting-minutes.png"
+                        alt="meeting minutes">
+                    </div>
+                  </div>
+                </div>
+                <span class="m-agreement">Meeting Minutes</span>
+
+
+              </div> -->
+
+            </div>
+            <!-- <div class="row" style="margin-top: 16px;">
+
+              <div *ngIf="local_bsiness_type.type == 'Limited Liability' || local_bsiness_type.type == 'Clubs & Societies'" class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #FFF2EB;">
+          
+                      <img class="image-doc-uploade" src="../../../assets/images/company-resolution.png"
+                        alt="company resolution">
+                    </div>
+                  </div>
+                </div>
+                <span class="m-agreement">Company resolution</span>
+                <span  class="m-agreement"><a href="../../../assets/images/Resolution_for_Corporations.pdf" download>
+                  <button  class="downlode-application-resolution" type="submit">Download</button>
+                </a></span>
+
+
+              </div>
+            </div> -->
+    
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <!-- <div class="row"> -->
+          <div class="uplode-file-bac">
+            <div class="row">
+              <div class="col-md-12" style="margin-bottom: 12px;">
+                <span class="submit-body-head">Upload Files.</span>
+              </div>
+
+            </div>
+
+            <div class="row">
+              <div class="col-md-12 col-lg-12 col-xxxl-12 test">
+                <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                  (onFileDropped)="uploadFile($event)">
+                  <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                  <div style="margin-top: 90px;text-align: center;">
+                    <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                    <span class="uplode-text">Click here to upload</span>
+                  </div>
+                </div>
+                <div  class="files-list" *ngFor="let file of files;let i= index">
+                  <p class="file-name"> {{ file }} </p>
+
+                  <button class="delete-file" (click)="deleteAttachment(i)">
+                    <img src="../../../../assets/images/deletebtn.png">
+                  </button>
+                </div>
+              </div>
+            </div>
+            <div class="row" style="margin-top: 12px;margin-right: -28px;">
+              <div class="col-md-12">
+                <!-- <span style="margin-left: 550px;"><a  href="#/login"><button  class="back_button" type="submit">Go to login page</button></a></span> -->
+                <button class="qr-search-button"  (click)="submit_document()" type="submit">Submit</button>
+
+              </div>
+            </div>
+          </div>
+          <!-- </div> -->
+        </div>
+      </div>
+
+
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+
+
+<div class="col-12 animation-div2" *ngIf=is_loading>
+  <div class="sk-circle">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>
+</div>

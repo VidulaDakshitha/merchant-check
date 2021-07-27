@@ -1,0 +1,2128 @@
+<ngx-no-column-layout style="padding: 0!important;">
+  <div class="row head-register">
+    <div class="col-6 col-sm-6 col-md-6" style="margin: auto;">
+      <img src="../../../assets/images/Onepay-pg.png" alt="Smiley face" class="logo">
+    </div>
+    <div class="col-6 col-sm-6 col-md-6" style="margin: auto;">
+      <span class="head-info-right">
+        <img src="../../../assets/images/srilanka-logo.png" alt="Smiley face" class="srilanka-logo">
+        <span class="head-info">You have doubt? call us : </span>
+        <span class="heda-info-phone-number"> 011 702 1540</span>
+      </span>
+    </div>
+  </div>
+  <div class="content-body">
+    <div class="row">
+      <div class="col-md-12 col-lg-12 col-xxxl-12">
+        <nb-stepper #stepper labelPosition="top">
+          <nb-step [stepControl]="personalInfoForm" label="Personal Information" labelPosition="top"
+            [ngClass]="(steper_hide ? true : false) ? 'class-steper-on' : 'class-steper-off'">
+            <div class="row form-contant">
+              <div class="col-md-8">
+                <div class="row">
+                  <span class="content-body-title-left">Personal Information</span>
+                </div>
+                <div class="row">
+                  <nb-card style="width: 100%;margin-right: 10px;">
+                    <nb-card-body class="contant-info-body">
+                      <form [formGroup]="personalInfoForm">
+
+                        <div class="row">
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Title<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <nb-select class="form-select select-important" selected="1" formControlName="title"
+                                placeholder="Mr"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('title').dirty || personalInfoForm.get('title').touched) && personalInfoForm.get('title').errors}">
+                                <nb-option [value]="'Mr'" id='1'>
+                                  <span class="option-name">Mr</span>
+                                </nb-option>
+                                <nb-option [value]="'Mrs'">
+                                  <span class="option-name">Mrs</span>
+                                </nb-option>
+                                <nb-option [value]="'Ms'">
+                                  <span class="option-name">Ms</span>
+                                </nb-option>
+                                <nb-option [value]="'Miss'">
+                                  <span class="option-name">Miss</span>
+                                </nb-option>
+                                <nb-option [value]="'Dr (Male)'">
+                                  <span class="option-name">Dr</span>
+                                </nb-option>
+
+                                <nb-option [value]="'Prof'">
+                                  <span class="option-name">Prof</span>
+                                </nb-option>
+                                <nb-option [value]="'Rev'">
+                                  <span class="option-name">Rev</span>
+                                </nb-option>
+
+                              </nb-select>
+                              <div
+                                *ngIf="personalInfoForm.get('title').invalid && (personalInfoForm.get('title').dirty || personalInfoForm.get('title').touched)">
+                                <small *ngIf="personalInfoForm.get('title').errors['required']" class="text-danger">
+                                  Title type is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+
+                          <!-- <label class="check-lable" for="conditions"> I agree to <span
+                            style="cursor: pointer; color: blue;" (click)="openAgreement(dialogAgreement)">Terms &
+                            Conditions</span></label> -->
+
+
+                          <div class="col-md-2">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Gender<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <nb-select class="form-select select-important" selected="1" formControlName="gender"
+                                placeholder="Male"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('gender').dirty || personalInfoForm.get('gender').touched) && personalInfoForm.get('gender').errors}">
+                                <nb-option [value]="'Male'">
+                                  <span class="option-name">Male</span>
+                                </nb-option>
+                                <nb-option [value]="'Female'">
+                                  <span class="option-name">Female</span>
+                                </nb-option>
+                              </nb-select>
+                              <div
+                                *ngIf="personalInfoForm.get('gender').invalid && (personalInfoForm.get('gender').dirty || personalInfoForm.get('gender').touched)">
+                                <small *ngIf="personalInfoForm.get('gender').errors['required']" class="text-danger">
+                                  Gender type is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">First Name<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input style="background-color: red;" class="form-control form-control-text "
+                                placeholder="Hanel" formControlName="first_name" type="text" nbInput fullWidth
+                                shape="rectangle"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('first_name').dirty || personalInfoForm.get('first_name').touched) && personalInfoForm.get('first_name').errors}">
+                              <div
+                                *ngIf="personalInfoForm.get('first_name').invalid && (personalInfoForm.get('first_name').dirty || personalInfoForm.get('first_name').touched)">
+                                <small *ngIf="personalInfoForm.get('first_name').errors['required']"
+                                  class="text-danger">
+                                  First name is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Middle Name</label>
+                              <input class="form-control form-control-text " formControlName="middle_name" type="text"
+                                placeholder="Mandira" nbInput fullWidth shape="rectangle">
+
+                            </div>
+                          </div>
+
+
+                        </div>
+
+                        <div class="row">
+
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Last Name</label>
+                              <input class="form-control form-control-text" formControlName="last_name" type="text"
+                                placeholder="Dissanayake" nbInput fullWidth shape="rectangle">
+
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">NIC Number<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input style="background-color: red;" class="form-control form-control-text "
+                                placeholder="999999999v" formControlName="nic" type="text" nbInput fullWidth
+                                shape="rectangle"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('nic').dirty || personalInfoForm.get('nic').touched) && personalInfoForm.get('nic').errors}">
+                              <div
+                                *ngIf="personalInfoForm.get('nic').invalid && (personalInfoForm.get('nic').dirty || personalInfoForm.get('nic').touched)">
+                                <small *ngIf="personalInfoForm.get('nic').errors['required']" class="text-danger">
+                                  NIC number is required!</small>
+                                <small *ngIf="personalInfoForm.get('nic').errors['pattern']" class="text-danger">
+                                  Invalid NIC.Try again!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Personal Email Address<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text " formControlName="contact_email" type="text"
+                                placeholder="info@spemai.com" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('contact_email').dirty || personalInfoForm.get('contact_email').touched) && personalInfoForm.get('contact_email').errors}">
+                              <div
+                                *ngIf="personalInfoForm.get('contact_email').invalid && (personalInfoForm.get('contact_email').dirty || personalInfoForm.get('contact_email').touched)">
+                                <small *ngIf="personalInfoForm.get('contact_email').errors['required']"
+                                  class="text-danger">
+                                  Email address is required!</small>
+                                <small *ngIf="personalInfoForm.get('contact_email').errors['pattern']"
+                                  class="text-danger">
+                                  Invalid email.Try again!</small>
+
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Designation</label>
+                              <input style="background-color: red;" class="form-control form-control-text "
+                                placeholder="Head of Operations" formControlName="designation" type="text" nbInput
+                                fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('designation').dirty || personalInfoForm.get('designation').touched) && personalInfoForm.get('designation').errors}">
+                              <div
+                                *ngIf="personalInfoForm.get('designation').invalid && (personalInfoForm.get('designation').dirty || personalInfoForm.get('designation').touched)">
+                                <small *ngIf="personalInfoForm.get('designation').errors['required']"
+                                  class="text-danger">
+                                  Designation is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Date of Birth</label>
+                              <input class="form-select" 
+                                style="padding: 5px 10px 5px 10px!important;margin-top:0px!important; border-radius:4px!important;width: 100%;font-size: 14px;font-weight: 100;"
+                                selected="1" placeholder="Enter Date of Registration" formControlName="dob" nbInput
+                                placeholder="jan 1,1995" [nbDatepicker]="formpicker">
+                              <nb-datepicker #formpicker></nb-datepicker>
+
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Address<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="address" type="text"
+                                placeholder="1 st floor,No 410/22,Galle road" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('address').dirty || personalInfoForm.get('address').touched) && personalInfoForm.get('address').errors}">
+                              <div
+                                *ngIf="personalInfoForm.get('address').invalid && (personalInfoForm.get('address').dirty || personalInfoForm.get('address').touched)">
+                                <small *ngIf="personalInfoForm.get('address').errors['required']" class="text-danger">
+                                  Address is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">City</label>
+                              <input class="form-control form-control-text " formControlName="city" type="text" nbInput
+                                fullWidth shape="rectangle" placeholder="Colpitiya">
+
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Postal Code<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span style="margin-left: 4px;font-size: 10px;"> <a target="_blank"  href="https://docs.google.com/document/d/1b_pO9Gjx5jdeS-7V4p7aVV4FH_pX0-qiP6_QWJwC9Es/edit?usp=sharing" >(All postal code)</a></span></label>
+                              <input class="form-control form-control-text " formControlName="postal_code" type="text"
+                                placeholder="00300" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('postal_code').dirty || personalInfoForm.get('postal_code').touched) && personalInfoForm.get('postal_code').errors}">
+                              <div
+                                *ngIf="personalInfoForm.get('postal_code').invalid && (personalInfoForm.get('postal_code').dirty || personalInfoForm.get('postal_code').touched)">
+                                <small *ngIf="personalInfoForm.get('postal_code').errors['required']"
+                                  class="text-danger">
+                                  Postal Code is required!</small>
+                                <small *ngIf="personalInfoForm.get('postal_code').errors['pattern']"
+                                  class="text-danger">
+                                  Invalid number format.Try again!</small>
+
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Personal Mobile Number<span class="required_feeld">
+                                  <i *ngIf="!is_valid_po" class="fa fa-question-circle" aria-hidden="true"></i>
+
+                                </span></label>
+                              <input class="form-control form-control-text" formControlName="contact_phone_no"
+                                type="text" nbInput fullWidth shape="rectangle" [(ngModel)]="phone_number_format"
+                                [ngClass]="{'form-control-danger': (personalInfoForm.get('contact_phone_no').dirty || personalInfoForm.get('contact_phone_no').touched) && personalInfoForm.get('contact_phone_no').errors}">
+
+                              <div
+                                *ngIf="personalInfoForm.get('contact_phone_no').invalid && (personalInfoForm.get('contact_phone_no').dirty || personalInfoForm.get('contact_phone_no').touched)">
+                                <small *ngIf="personalInfoForm.get('contact_phone_no').errors['required']"
+                                  class="text-danger">
+                                  Mobile number is required!</small>
+                                <small *ngIf="personalInfoForm.get('contact_phone_no').errors['pattern']"
+                                  class="text-danger">
+                                  Invalid mobile number.Try again!</small>
+                              </div>
+
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin: 4px;">
+                          <div class="col-12">
+                            <label style="float: left;margin-left: -18px;" class="label-form-control label-name">Monthly
+                              Personal Income<span class="required_feeld"><i class="fa fa-question-circle"
+                                  aria-hidden="true"></i></span></label>
+                          </div>
+                          <div class="row" style="width: 100%;text-align: left;">
+                            <div class="col-4">
+                              <div class="custom-control custom-radio">
+                                <input id="100000" type="radio" class="custom-control-input" selected
+                                  value="Less than Rs.100,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="100000">Less than Rs.100,000</label>
+                              </div>
+
+                              <div class="custom-control custom-radio">
+                                <input id="300001-400000" type="radio" class="custom-control-input"
+                                  value="Rs.300,001-Rs.400,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="300001-400000">Rs.300,001-Rs.400,000</label>
+                              </div>
+                              <div class="custom-control custom-radio">
+                                <input id="1000000" type="radio" class="custom-control-input" value="Above Rs.1,000,000"
+                                  name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="1000000">Above Rs.1,000,000</label>
+                              </div>
+                            </div>
+                            <div class="col-4">
+
+                              <div class="custom-control custom-radio radio-2">
+                                <input id="100,001-200,000" type="radio" class="custom-control-input"
+                                  value="Rs.100,001-Rs.200,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="100,001-200,000">Rs.100,001-Rs.200,000</label>
+                              </div>
+
+                              <div class="custom-control custom-radio radio-2">
+                                <input id="400,001-500,000" type="radio" class="custom-control-input"
+                                  value="Rs.400,001-Rs.500,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="400,001-500,000">Rs.400,001-Rs.500,000</label>
+                              </div>
+                            </div>
+                            <div class="col-4">
+
+                              <div class="custom-control custom-radio radio-3">
+                                <input id="200,001-300,000" type="radio" class="custom-control-input"
+                                  value="Rs.200,001-Rs.300,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="200,001-300,000">Rs.200,001-Rs.300,000</label>
+                              </div>
+                              <div class="custom-control custom-radio radio-3">
+                                <input id="500,001-600,000" type="radio" class="custom-control-input"
+                                  value="Rs.500,001-600,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="500,001-600,000">Rs.500,001-Rs.600,000</label>
+                                 
+                              </div>
+
+                              <!-- <div class="custom-control custom-radio radio-3">
+                                <input id="500,001-Rs.600,000" type="radio" class="custom-control-input"
+                                  value="Rs.500,001-600,000" name="monthly_income" formControlName="monthly_income">
+                                <label class="custom-control-label" for="500,001-600,000">Rs.500,001-Rs.600,000</label>
+                              </div> -->
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row" style="margin: 4px;">
+                          <div class="col-12">
+                            <label style="float: left;margin-left: -18px;" class="label-form-control label-name">Wealth
+                              Generated<span class="required_feeld"><i class="fa fa-question-circle"
+                                  aria-hidden="true"></i></span></label>
+                          </div>
+                          <div class="row" style="width: 100%;text-align: left;">
+                            <div class="col-4">
+                              <div class="custom-control custom-radio">
+                                <input id="business-ownership" type="radio" class="custom-control-input"
+                                  value="Business Ownership" name="wealth_generate" formControlName="wealth_generate">
+                                <label class="custom-control-label" for="business-ownership">Business Ownership</label>
+                              </div>
+                              <div class="custom-control custom-radio">
+                                <input id="inheritance" type="radio" class="custom-control-input" value="Inheritance"
+                                  name="wealth_generate" formControlName="wealth_generate">
+                                <label class="custom-control-label" for="inheritance">Inheritance</label>
+                              </div>
+                            </div>
+                            <div class="col-4">
+
+                              <div class="custom-control custom-radio radio-2">
+                                <input id="employeement-Professional-income" type="radio" class="custom-control-input"
+                                  value="Employeement/Professional income" name="wealth_generate"
+                                  formControlName="wealth_generate">
+                                <label class="custom-control-label"
+                                  for="employeement-Professional-income">Employment/Professional income</label>
+                              </div>
+
+                            </div>
+                            <div class="col-4">
+
+                              <div class="custom-control custom-radio radio-3">
+                                <input id="investments" type="radio" class="custom-control-input" value="Investments"
+                                  name="wealth_generate" formControlName="wealth_generate">
+                                <label class="custom-control-label" for="investments">Investments</label>
+                              </div>
+
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
+                        <div class="row" style="margin: 4px;">
+                          <label class="label-form-control label-name">Identification Verification<span
+                              class="required_feeld"><i class="fa fa-question-circle"
+                                aria-hidden="true"></i></span></label>
+                          <div class="col-md-12">
+                            <div class="row">
+                              <div class="custom-control custom-radio radio-identification" style="padding-left: 0;">
+                                <input (ngModelChange)="choose($event)" id="nic" type="radio"
+                                  class="custom-control-input" value="NIC" name="identification"
+                                  formControlName="identification">
+                                <label class="custom-control-label" for="nic">NIC</label>
+                              </div>
+                              <div class="custom-control custom-radio radio-3">
+                                <input (ngModelChange)="choose($event)" id="passport" type="radio"
+                                  class="custom-control-input" value="Passport" name="identification"
+                                  formControlName="identification">
+                                <label class="custom-control-label" for="passport">Passport</label>
+                              </div>
+                              <div class="custom-control custom-radio radio-3">
+                                <input (ngModelChange)="choose($event)" id="driving-license" type="radio"
+                                  class="custom-control-input" value="Driving License" name="identification"
+                                  formControlName="identification">
+                                <label class="custom-control-label" for="driving-license">Driving License</label>
+                              </div>
+
+                            </div>
+
+                            <div class="row">
+                              <!-- front -->
+                              <div class="col-6" *ngIf="item1 === true">
+                                <div class="row">
+                                  <span class="image-side">Front side <span style="color: #2CC780;"
+                                      *ngIf="this.personalInfoForm.get('image_front_side').valid"><i
+                                        class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                                </div>
+                                <div 
+                                  [ngClass]="(this.personalInfoForm.get('image_front_side').invalid)? 'class-none' : 'class-add'"
+                                  class="uploadfilecontainer-identification" (click)="imageInputFront.click()">
+                                  <input style="font-size: 8px;width: 61px;display: none;" class="image-upload"
+                                    #imageInputFront (change)="onFileChangeImage($event,'identification_front')"
+                                    type="file" accept="image/*">
+                                  <div style="margin-top: 5px;">
+                                    <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                    <span class="uplode-text">Click here to upload</span>
+                                  </div>
+
+                                </div>
+                                <div *ngIf="front_side" class="files-list">
+                                  <p class="file-name"> {{front_side}} </p>
+                                </div>
+                              </div>
+                              <!-- back -->
+                              <div class="col-6" *ngIf="item2 === true">
+                                <div class="row">
+                                  <span class="image-side">Back side <span style="color: #2CC780;"
+                                      *ngIf="identification_back"><i class="fa fa-check-square"
+                                        aria-hidden="true"></i></span></span>
+                                </div>
+                                <div 
+                                  [ngClass]="(identification_back ? true : false) ? 'class-add' : 'class-none'"
+                                  class="uploadfilecontainer-identification" (click)="imageInputBack.click()">
+                                  <input style="font-size: 8px;width: 61px;display: none;" class="image-upload"
+                                    #imageInputBack (change)="onFileChangeImage($event,'identification_back_side')"
+                                    type="file" accept="image/*">
+                                  <div style="margin-top: 5px;">
+                                    <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                    <span class="uplode-text">Click here to upload</span>
+                                  </div>
+                                </div>
+                                <div *ngIf="back_side" class="files-list">
+                                  <p class="file-name"> {{back_side}} </p>
+                                </div>
+                              </div>
+
+                            </div>
+
+
+                          </div>
+                        </div>
+                        <div class="row" style="margin: 4px;">
+                          <label class="label-form-control label-name">Upload User Image<span class="required_feeld"><i
+                                class="fa fa-question-circle" aria-hidden="true"></i></span> <span
+                              style="color: #2CC780;font-size: 10px;margin-left: 3px;"
+                              *ngIf="this.personalInfoForm.get('logo').valid"><i class="fa fa-check-square"
+                                aria-hidden="true"></i></span></label>
+                          <div class="col-md-12 test">
+
+                            <div class="row">
+                              <div nbPopover="Please upload a jpeg or png format image" nbPopoverTrigger="hover"
+                                [ngClass]="(this.personalInfoForm.get('logo').invalid)? 'class-none' : 'class-add'"
+                                class="uploadfilecontainer" (click)="imageInputUser.click()">
+                                <input style="font-size: 8px;width: 61px;display: none;" class="image-upload"
+                                  #imageInputUser (change)="onFileChangeImage($event,'user_image')" type="file"
+                                  accept="image/png,image/jpeg">
+                                <div style="margin-top: 5px;">
+                                  <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                  <span class="uplode-text">Click here to upload</span>
+                                </div>
+                              </div>
+                              <div *ngIf="logo" class="files-list">
+                                <p class="file-name"> {{logo}} </p>
+                              </div>
+
+
+                            </div>
+
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin: 4px;margin-top: 25px;">
+                          <nb-card
+                            style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)!important;width: 100%; margin-bottom: 15px;">
+                            <nb-card-body style="padding: 2px 10px;">
+                              <div class="row" style="width: 100%;">
+                                <div class="col-md-8" style="margin: auto;">
+                                  <span style="float: left;color:rgba(0, 0, 0, 0.5) ;font-size: 10px;">Click on next
+                                    button to fill more details..</span>
+                                </div>
+                                <div class="col-md-4">
+                                  <button class="qr-search-button" [disabled]="checkvalidityPersonalInfo()"
+                                    type="submit" nbStepperNext>Next <span style="margin-left: 20px;"><i
+                                        class="fa fa-angle-right" aria-hidden="true"></i></span></button>
+
+                                </div>
+                              </div>
+
+                            </nb-card-body>
+
+                          </nb-card>
+                        </div>
+
+                      </form>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <span class="content-body-title-right">Subscription Summary</span>
+                </div>
+                <div class="row">
+                  <nb-card style="width: 100%;margin-left: 10px;">
+                    <nb-card-body style="margin: 25px;">
+                      <div class="row">
+                        <div class="col-md-12"><span class="sub-title1">{{package_details?package_details.name:''}}</span><br/>
+                          
+                        </div>
+                        <p class="package-details pt-2 pl-2">{{ipg_charge}}</p>
+                          
+                       
+                        
+                        <hr>
+                      </div>
+                      <div class="row sub_middle_name">
+                        <div class="col-md-12"><span class="sub-price-title">Price from</span></div>
+                        <div class="col-md-12">
+                          <span class="sub-price">LKR{{package_budget_details?package_budget_details.net_amount:''}}
+                            <span class="month">/ MONTH</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div *ngIf="package_details" class="col-md-12">
+                          <div *ngFor="let item_data of package_details.package_assigned_item_data"
+                            class="row package-grid">
+                            <p class="package-details"><span class="item-class"><i class="fa fa-check chech-btn"
+                                  aria-hidden="true"></i></span>{{item_data.visualize_name}}</p>
+                          </div>
+
+
+
+                        </div>
+                      </div>
+
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+            </div>
+          </nb-step>
+
+
+          <nb-step [stepControl]="businessDetailsForm" label="Business Information"
+            [ngClass]="(steper_hide ? true : false) ? 'class-steper-on' : 'class-steper-off'">
+            <div class="row form-contant">
+
+              <div class="col-md-8">
+                <div class="row">
+                  <span class="content-body-title-left">Business Details</span>
+                </div>
+                <div class="row">
+                  <nb-card style="width: 100%;margin-right: 10px;">
+                    <nb-card-body class="contant-info-body">
+                      <form [formGroup]="businessDetailsForm">
+
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Business Type<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <nb-select class="form-select select-important" formControlName="business_category"
+                                placeholder="Testing">
+                                <nb-option *ngFor="let b_category of business_categorys" [value]="b_category.id">
+                                  {{b_category.type}}
+                                </nb-option>
+                              </nb-select>
+                              <div
+                                *ngIf="businessDetailsForm.get('business_category').invalid && (businessDetailsForm.get('business_category').dirty || businessDetailsForm.get('business_category').touched)">
+                                <small *ngIf="businessDetailsForm.get('business_category').errors['required']"
+                                  class="text-danger">
+                                  Business Type is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Business Category<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <nb-select class="form-select select-important" formControlName="business_type"
+                                placeholder="Individual" (ngModelChange)="chooseBtype($event)">
+                                <nb-option *ngFor="let b_type of business_types" [value]="b_type.type">
+                                  {{b_type.type}}
+                                </nb-option>
+                              </nb-select>
+                              <div
+                                *ngIf="businessDetailsForm.get('business_type').invalid && (businessDetailsForm.get('business_type').dirty || businessDetailsForm.get('business_type').touched)">
+                                <small *ngIf="businessDetailsForm.get('business_type').errors['required']"
+                                  class="text-danger">
+                                  Business Category is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+                        <!-- shareholder area -->
+                        <div class="row container-area">
+                          <div class="col-12">
+
+                            <form [formGroup]="addShareholdereForm" class="step-container">
+
+                              <div *ngIf="itemShareholder === true">
+                                <span class="table-head-title">Ultimate Beneficial Ownership Declaration
+                                  <span class="required_feeld"><i class="fa fa-question-circle"
+                                      aria-hidden="true"></i></span></span>
+                                <span style="font-size: 10px;color: rgba(0, 0, 0, 0.5);float: right;">PEP - Politically
+                                  Exposed Person</span>
+                                <div class="container" style="padding-left: 0;padding-right: 0;">
+                                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                                    <thead class="thead-light">
+                                      <tr>
+                                        <!-- <th class="text-center">No</th> -->
+                                        <th class="text-center">Personal details</th>
+                                        <th class="text-center">Contact Details</th>
+                                        <th class="text-center">Percentage</th>
+                                        <th class="text-center">PEP</th>
+                                        <th class="text-center">Images</th>
+                                        <th *ngIf="shareholder.length>1" class="text-center">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody formArrayName="shareholder">
+
+                                      <tr *ngFor="let shre of shareholder.controls; let i = index" [formGroupName]="i"
+                                        class="overflow-hide">
+                                        <td style="width: 30%;" class="text-center">
+
+                                          <input class="form-control table-input" formControlName="name_shareholder"
+                                            placeholder="Name" type="text" nbInput fullWidth shape="rectangle">
+                                          <div
+                                            *ngIf="shareholder.controls[i].get('name_shareholder').invalid && (shareholder.controls[i].get('name_shareholder').dirty || shareholder.controls[i].get('name_shareholder').touched)">
+                                            <small
+                                              *ngIf="shareholder.controls[i].get('name_shareholder').errors['required']"
+                                              class="text-danger">
+                                              Name is required!</small>
+                                          </div>
+
+                                        </td>
+
+                                        <td style="width: 30%;" class="text-center">
+                                          <textarea class="text-area" rows="2" nbInput fullWidth shape="round"
+                                            placeholder="Address"
+                                            formControlName="address_shareholder"></textarea>
+                                          <div
+                                            *ngIf="shareholder.controls[i].get('address_shareholder').invalid && (shareholder.controls[i].get('address_shareholder').dirty || shareholder.controls[i].get('address_shareholder').touched)">
+                                            <small
+                                              *ngIf="shareholder.controls[i].get('address_shareholder').errors['required']"
+                                              class="text-danger">
+                                              Address is required!</small>
+                                          </div>
+
+                                          <input class="form-control table-input" formControlName="email"
+                                            placeholder="Email" type="text" nbInput fullWidth
+                                            shape="rectangle">
+                                          <div
+                                            *ngIf="shareholder.controls[i].get('email').invalid && (shareholder.controls[i].get('email').dirty || shareholder.controls[i].get('email').touched)">
+                                            <small *ngIf="shareholder.controls[i].get('email').errors['required']"
+                                              class="text-danger">
+                                              Email is required!</small>
+                                            <small *ngIf="shareholder.controls[i].get('email').errors['pattern']"
+                                              class="text-danger">
+                                              Invalid mobile number.Try again!</small>
+                                          </div>
+
+                                          <input style="margin-top: 5px;" class="form-control table-input"
+                                            formControlName="phone_number" placeholder="Mobile Number" type="text" nbInput
+                                            fullWidth shape="rectangle">
+                                          <div
+                                            *ngIf="shareholder.controls[i].get('phone_number').invalid && (shareholder.controls[i].get('phone_number').dirty || shareholder.controls[i].get('phone_number').touched)">
+                                            <small
+                                              *ngIf="shareholder.controls[i].get('phone_number').errors['required']"
+                                              class="text-danger">
+                                              Phone number is required!</small>
+                                            <small *ngIf="shareholder.controls[i].get('phone_number').errors['pattern']"
+                                              class="text-danger">
+                                              Invalid phone number.Try again!</small>
+                                          </div>
+                                        </td>
+
+
+
+                                        <td style="width: 10%;" class="text-center">
+                                          <input class="form-control table-input" formControlName="percentage_shareholder"
+                                            placeholder="Percentage" type="text" nbInput fullWidth shape="rectangle">
+                                          <div
+                                            *ngIf="shareholder.controls[i].get('percentage_shareholder').invalid && (shareholder.controls[i].get('percentage_shareholder').dirty || shareholder.controls[i].get('percentage_shareholder').touched)">
+                                            <small
+                                              *ngIf="shareholder.controls[i].get('percentage_shareholder').errors['required']"
+                                              class="text-danger">
+                                              Percentage is required!</small>
+                                            <small
+                                              *ngIf="shareholder.controls[i].get('percentage_shareholder').errors['pattern']"
+                                              class="text-danger">
+                                              Invalid data format.Try again!</small>
+
+                                          </div>
+                                        </td>
+
+
+                                        <td class="text-center" style="width: 10%;">
+                                          <select class="partnership" formControlName="shareholder_pep"
+                                            name="shareholder_pep" id="shareholder_pep" placeholder="PEP">
+                                            <option selected disabled value="">Select</option>
+                                            <option *ngFor="let pep of pep_list" [value]=pep> {{pep == true?'YES':'NO'}}
+                                            </option>
+                                          </select>
+                                          <!-- <select class="partnership" formControlName="shareholder_pep"
+                                            name="shareholder_pep" id="shareholder_pep">
+                                            <option selected disabled value="">Select</option>
+                                            <option selected [value]="'YES'">YES</option>
+                                            <option selected [value]="'NO'">NO</option>
+                                            <option *ngFor="let pep of pep_list" [value]=pep>{{pep==true? 'YES':'NO'}}
+                                            </option>
+                                          </select> -->
+                                          <div
+                                            *ngIf="shareholder.controls[i].get('shareholder_pep').invalid && (shareholder.controls[i].get('shareholder_pep').dirty || shareholder.controls[i].get('shareholder_pep').touched)">
+                                            <small
+                                              *ngIf="shareholder.controls[i].get('shareholder_pep').errors['required']"
+                                              class="text-danger">
+                                              PEP is required!</small>
+
+                                          </div>
+
+
+                                        </td>
+                                        <td style="width: 10%;" class="text-center">
+                                          <span style="display: block;">
+                                            <div (click)="imageInputUser.click()" style="margin-top: -2px;">
+                                              <span style="padding: 2px 21px;"
+                                                [ngClass]="(shareholder.controls[i].get('profile_image').invalid)? 'table-file-none' :'table-file-add'"
+                                                class="new_file_up">Person
+                                                <input style="font-size: 8px;width: 61px;display: none;"
+                                                  class="image-upload" #imageInputUser
+                                                  (change)="onFileChange($event,i,'shreholder','profile_image')"
+                                                  type="file" accept="image/*">
+                                              </span>
+                                            </div>
+                                          </span>
+
+
+                                          <span style="display: block;">
+                                            <div (click)="imageInputFront.click()">
+                                              <span
+                                                [ngClass]="(shareholder.controls[i].get('nic_front').invalid)? 'table-file-none' :'table-file-add'"
+                                                class="new_file_up">NIC(Front)
+                                                <input style="font-size: 8px;width: 61px;display: none;"
+                                                  class="image-upload" #imageInputFront
+                                                  (change)="onFileChange($event,i,'shreholder','nic_front')" type="file"
+                                                  accept="image/*">
+                                              </span>
+
+                                            </div>
+                                          </span>
+
+                                          <span style="display: block;">
+                                            <div (click)="imageInputBack.click()">
+                                              <span style="padding: 2px 15px;"
+                                                [ngClass]="(shareholder.controls[i].get('nic_back').invalid)? 'table-file-none' :'table-file-add'"
+                                                class="new_file_up">NIC(Back)
+                                                <input style="font-size: 8px;width: 61px;display: none;"
+                                                  class="image-upload" #imageInputBack
+                                                  (change)="onFileChange($event,i,'shreholder','nic_back')" type="file"
+                                                  accept="image/*">
+                                              </span>
+
+                                            </div>
+                                          </span>
+
+                                        </td>
+
+                                        <td style="width: 5%;" *ngIf="shareholder.length>1">
+                                          <i (click)="deleteShareholder(i)" class="fa fa-trash delete-btn"
+                                            aria-hidden="true"></i>
+
+                                        </td>
+
+
+                                      </tr>
+
+                                      <tr *ngIf="shareholder.length<1">
+                                        <td style="width: 100vw;font-size: 12px;" colspan="12"> Shareholder not assigned
+                                          with this organization</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <button class="table-add-reset-btn-reset" (click)="resetShareholderForm()">Reset
+                                  </button>
+                                  <button class="table-add-reset-btn" (click)="addShareholder()">Add </button>
+
+                                </div>
+
+
+
+                              </div>
+                            </form>
+                          </div>
+
+
+                        </div>
+
+
+                        <!-- director area -->
+                        <div class="row container-area">
+                          <div class="col-12">
+
+                            <form [formGroup]="addDirectorForm" class="step-container">
+                              <div *ngIf="itemDirector === true">
+                                <span class="table-head-title">Proprietor / Partner / Director Details
+                                  <span class="required_feeld"><i class="fa fa-question-circle"
+                                      aria-hidden="true"></i></span></span>
+                                <span style="font-size: 10px;color: rgba(0, 0, 0, 0.5);float: right;">PEP - Politically
+                                  Exposed Person</span>
+                                <div class="container" style="padding-left: 0;padding-right: 0;">
+                                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                                    <thead class="thead-light">
+                                      <tr>
+
+                                        <th class="text-center">Personal details</th>
+                                        <th class="text-center">Contact Details</th>
+                                        <th *ngIf="itemPartnershipname === true" class="text-center">Business ownership
+                                        </th>
+                                        <th *ngIf="itemPartnershipname === false" class="text-center">Partnership</th>
+                                        <th class="text-center">PEP</th>
+                                        <th class="text-center">Images</th>
+                                        <th class="text-center">Income Level</th>
+                                        <th *ngIf="merchant_business_owners.length>1" class="text-center">Action</th>
+                                      </tr>
+                                    </thead>
+                                    <tbody formArrayName="merchant_business_owners">
+                                      <tr *ngFor="let dir of merchant_business_owners.controls; let i = index"
+                                        [formGroupName]="i" class="overflow-hide">
+
+                                        <td style="width: 25%;" class="text-center">
+                                          <input class="form-control table-input" formControlName="name"
+                                            placeholder="Name" type="text" nbInput fullWidth shape="rectangle">
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('name').invalid && (merchant_business_owners.controls[i].get('name').dirty || merchant_business_owners.controls[i].get('name').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('name').errors['required']"
+                                              class="text-danger">
+                                              Name is required!</small>
+                                          </div>
+
+                                          <input style="margin-top: 5px;" class="form-control table-input"
+                                            formControlName="nic" placeholder="NIC" type="text" nbInput fullWidth
+                                            shape="rectangle">
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('nic').invalid && (merchant_business_owners.controls[i].get('nic').dirty || merchant_business_owners.controls[i].get('nic').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('nic').errors['required']"
+                                              class="text-danger">
+                                              NIC Number is required!</small>
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('nic').errors['pattern']"
+                                              class="text-danger">
+                                              Invalid NIC number.Try again!</small>
+                                          </div>
+
+                                        </td>
+                                        <td style="width: 20%;" class="text-center">
+                                          <textarea class="text-area" rows="2" nbInput fullWidth shape="round"
+                                            placeholder="Address"
+                                            formControlName="address"></textarea>
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('address').invalid && (merchant_business_owners.controls[i].get('address').dirty || merchant_business_owners.controls[i].get('address').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('address').errors['required']"
+                                              class="text-danger">
+                                              Address is required!</small>
+                                          </div>
+
+                                          <input class="form-control table-input" formControlName="phone_number"
+                                            placeholder="Mobile Number" type="text" nbInput fullWidth shape="rectangle">
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('phone_number').invalid && (merchant_business_owners.controls[i].get('phone_number').dirty || merchant_business_owners.controls[i].get('phone_number').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('phone_number').errors['required']"
+                                              class="text-danger">
+                                              Phone number is required!</small>
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('phone_number').errors['pattern']"
+                                              class="text-danger">
+                                              Invalid phone number.Try again!</small>
+                                          </div>
+
+                                          <input style="margin-top: 5px;" class="form-control table-input"
+                                            formControlName="email" placeholder="Email" type="text" nbInput
+                                            fullWidth shape="rectangle">
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('email').invalid && (merchant_business_owners.controls[i].get('email').dirty || merchant_business_owners.controls[i].get('email').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('email').errors['required']"
+                                              class="text-danger">
+                                              Email is required!</small>
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('email').errors['pattern']"
+                                              class="text-danger">
+                                              Invalid email.Try again!</small>
+                                          </div>
+                                        </td>
+
+                                        <td style="width: 10%;" class="text-center">
+                                          <select class="partnership" formControlName="partnership" name="partnership"
+                                            placeholder="Director" id="partnership">
+                                            <option selected disabled value="">Select</option>
+                                            <option *ngFor="let partnership_type of partnership_types"
+                                              [value]="partnership_type">{{partnership_type}}</option>
+                                          </select>
+
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('partnership').invalid && (merchant_business_owners.controls[i].get('partnership').dirty || merchant_business_owners.controls[i].get('partnership').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('partnership').errors['required']"
+                                              class="text-danger">
+                                              Partnership is required!</small>
+
+                                          </div>
+                                        </td>
+                                        <td style="width: 10%;" class="text-center">
+                                          <select class="partnership" formControlName="pep" name="pep" id="pep"
+                                            placeholder="PEP">
+                                            <option selected disabled value="">Select</option>
+                                            <option *ngFor="let pep of pep_list" [value]=pep> {{pep == true?'YES':'NO'}}
+                                            </option>
+                                          </select>
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('pep').invalid && (merchant_business_owners.controls[i].get('pep').dirty || merchant_business_owners.controls[i].get('pep').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('pep').errors['required']"
+                                              class="text-danger">
+                                              PEP is required!</small>
+
+                                          </div>
+
+                                          <!-- <label class="switch">
+                                            <input type="checkbox" [id]="i" formControlName="pep"
+                                              value="checked ? 'YES':'NO'">
+                                            <div class="slider round"></div>
+                                          </label> -->
+
+
+                                        </td>
+
+                                        <td style="width: 10%;" class="text-center">
+                                          <span style="display: block;">
+                                            <div (click)="imageInputDperson.click()" style="margin-top: -2px;">
+                                              <span style="padding: 2px 21px;"
+                                                [ngClass]="(merchant_business_owners.controls[i].get('profile_image').invalid)? 'table-file-none' :'table-file-add'"
+                                                class="new_file_up">Person
+                                                <input style="font-size: 8px;width: 61px;display: none;"
+                                                  class="image-upload" #imageInputDperson
+                                                  (change)="onFileChange($event,i,'merchant_owners','profile_image')"
+                                                  type="file" accept="image/*">
+                                              </span>
+                                            </div>
+                                          </span>
+
+                                          <span style="display: block;">
+                                            <div (click)="imageInputDFront.click()">
+                                              <span
+                                                [ngClass]="(merchant_business_owners.controls[i].get('nic_front').invalid)? 'table-file-none' :'table-file-add'"
+                                                class="new_file_up">NIC(Front)
+                                                <input style="font-size: 8px;width: 61px;display: none;"
+                                                  class="image-upload" #imageInputDFront
+                                                  (change)="onFileChange($event,i,'merchant_owners','nic_front')"
+                                                  type="file" accept="image/*">
+                                              </span>
+                                            </div>
+                                          </span>
+
+
+
+                                          <span style="display: block;">
+                                            <div (click)="imageInputDBack.click()">
+                                              <span style="padding: 2px 15px;"
+                                                [ngClass]="(merchant_business_owners.controls[i].get('nic_back').invalid)? 'table-file-none' :'table-file-add'"
+                                                class="new_file_up">NIC(Back)
+                                                <input style="font-size: 8px;width: 61px;display: none;"
+                                                  class="image-upload" #imageInputDBack
+                                                  (change)="onFileChange($event,i,'merchant_owners','nic_back')"
+                                                  type="file" accept="image/*">
+                                              </span>
+                                            </div>
+                                          </span>
+
+
+
+                                        </td>
+                                        <td style="width: 20%;" class="text-center">
+                                          <select style="width: 80%;" class="partnership" formControlName="income_level"
+                                            name="income_level" id="income_level">
+                                            <option selected disabled value="">Select</option>
+                                            <option *ngFor="let income_level of income_levels" [value]="income_level">
+                                              {{income_level}}</option>
+                                          </select>
+
+                                          <div
+                                            *ngIf="merchant_business_owners.controls[i].get('income_level').invalid && (merchant_business_owners.controls[i].get('income_level').dirty || merchant_business_owners.controls[i].get('income_level').touched)">
+                                            <small
+                                              *ngIf="merchant_business_owners.controls[i].get('income_level').errors['required']"
+                                              class="text-danger">
+                                              Income level is required!</small>
+
+                                          </div>
+                                        </td>
+
+                                        <td style="width: 5%;" *ngIf="merchant_business_owners.length>1">
+                                          <i (click)="deleteDirector(i)" class="fa fa-trash delete-btn"
+                                            aria-hidden="true"></i>
+
+                                        </td>
+                                      </tr>
+                                      <tr *ngIf="merchant_business_owners.length<1">
+                                        <td style="width: 100vw;font-size: 12px;" colspan="12"> Merchant business owners
+                                          not
+                                          assigned
+                                          with
+                                          this organization</td>
+                                      </tr>
+                                    </tbody>
+                                  </table>
+
+                                  <button class="table-add-reset-btn-reset" (click)="resetDirectorForm()">Reset</button>
+                                  <button [disabled]=solo_dissabled class="table-add-reset-btn"
+                                    (click)="addDirector()">Add </button>
+
+                                </div>
+
+                              </div>
+                            </form>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4" *ngIf="itemBusinessNumber === true">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Registered Business Number<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="register_number"
+                                placeholder="12345678" type="text" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('register_number').dirty || businessDetailsForm.get('register_number').touched) && businessDetailsForm.get('register_number').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('register_number').invalid && (businessDetailsForm.get('register_number').dirty || businessDetailsForm.get('register_number').touched)">
+                                <small *ngIf="businessDetailsForm.get('register_number').errors['required']"
+                                  class="text-danger">
+                                  Registered business number is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label *ngIf="itemBusinessName === false" class="label-form-control label-name">Trading
+                                Name<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <label *ngIf="itemBusinessName === true" class="label-form-control label-name">Club or
+                                Society Name<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="trading_name" type="text"
+                                placeholder="Abs club" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('trading_name').dirty || businessDetailsForm.get('trading_name').touched) && businessDetailsForm.get('trading_name').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('trading_name').invalid && (businessDetailsForm.get('trading_name').dirty || businessDetailsForm.get('trading_name').touched)">
+                                <small *ngIf="businessDetailsForm.get('trading_name').errors['required']"
+                                  class="text-danger">
+                                  Trading name / Society name is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4" *ngIf="itemBusinessName === false">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Registered Business Name<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+
+                              <input class="form-control form-control-text" formControlName="registered_business_name"
+                                placeholder="Abc enterprises" type="text" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('registered_business_name').dirty || businessDetailsForm.get('registered_business_name').touched) && businessDetailsForm.get('registered_business_name').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('registered_business_name').invalid && (businessDetailsForm.get('registered_business_name').dirty || businessDetailsForm.get('registered_business_name').touched)">
+                                <small *ngIf="businessDetailsForm.get('registered_business_name').errors['required']"
+                                  class="text-danger">
+                                  Registered business name is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label *ngIf="itemBusinessName === false" class="label-form-control label-name">Principal
+                                Place of Business<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <label *ngIf="itemBusinessName === true" class="label-form-control label-name">Principal
+                                Place of Activity<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text " formControlName="principal_place"
+                                placeholder="1 st floor,No 410/22 Galle road" type="text" nbInput fullWidth
+                                shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('principal_place').dirty || businessDetailsForm.get('principal_place').touched) && businessDetailsForm.get('principal_place').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('principal_place').invalid && (businessDetailsForm.get('principal_place').dirty || businessDetailsForm.get('principal_place').touched)">
+                                <small *ngIf="businessDetailsForm.get('principal_place').errors['required']"
+                                  class="text-danger">
+                                  Principal place of business is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">City<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text " formControlName="city_b_details"
+                                placeholder="Colpitiya" type="text" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('city_b_details').dirty || businessDetailsForm.get('city_b_details').touched) && businessDetailsForm.get('city_b_details').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('city_b_details').invalid && (businessDetailsForm.get('city_b_details').dirty || businessDetailsForm.get('city_b_details').touched)">
+                                <small *ngIf="businessDetailsForm.get('city_b_details').errors['required']"
+                                  class="text-danger">
+                                  City is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Postal Code<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span style="margin-left: 4px;font-size: 10px;"> <a target="_blank"  href="https://docs.google.com/document/d/1b_pO9Gjx5jdeS-7V4p7aVV4FH_pX0-qiP6_QWJwC9Es/edit?usp=sharing" >(All postal code)</a></span></label>
+                              <input class="form-control form-control-text" formControlName="postal_code_b_details"
+                                placeholder="00300" type="text" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('postal_code_b_details').dirty || businessDetailsForm.get('postal_code_b_details').touched) && businessDetailsForm.get('postal_code_b_details').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('postal_code_b_details').invalid && (businessDetailsForm.get('postal_code_b_details').dirty || businessDetailsForm.get('postal_code_b_details').touched)">
+                                <small *ngIf="businessDetailsForm.get('postal_code_b_details').errors['required']"
+                                  class="text-danger">
+                                  Postal code is required!</small>
+                                <small *ngIf="businessDetailsForm.get('postal_code_b_details').errors['pattern']"
+                                  class="text-danger">
+                                  Invalid postal code.Try again!</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Correspondence Address<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="correspondence_address"
+                                placeholder="1 st Floor,No 410/22,Galle road" type="text" nbInput fullWidth
+                                shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('correspondence_address').dirty || businessDetailsForm.get('correspondence_address').touched) && businessDetailsForm.get('correspondence_address').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('correspondence_address').invalid && (businessDetailsForm.get('correspondence_address').dirty || businessDetailsForm.get('correspondence_address').touched)">
+                                <small *ngIf="businessDetailsForm.get('correspondence_address').errors['required']"
+                                  class="text-danger">
+                                  Correspondence address is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Business Email Address<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input (keyup)="duplicateEmal()" class="form-control form-control-text "
+                                placeholder="info@spemai.com" formControlName="email" type="text" nbInput fullWidth
+                                shape="rectangle"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('email').dirty || businessDetailsForm.get('email').touched) && businessDetailsForm.get('email').errors}">
+                              <div
+                                *ngIf="businessDetailsForm.get('email').invalid && (businessDetailsForm.get('email').dirty || businessDetailsForm.get('email').touched)">
+                                <small *ngIf="businessDetailsForm.get('email').errors['required']" class="text-danger">
+                                  Email address is required!</small>
+                                <small *ngIf="businessDetailsForm.get('email').errors['pattern']" class="text-danger">
+                                  Invalid email.Try again!</small>
+
+                              </div>
+                              <div
+                                *ngIf="!(businessDetailsForm.get('email').invalid && (businessDetailsForm.get('email').dirty || businessDetailsForm.get('email').touched))">
+                                <small *ngIf="is_valid_email" class="text-danger">
+                                  The Email is already in used</small>
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Business Mobile Number<span class="required_feeld">
+                                  <i *ngIf="!is_valid_po" class="fa fa-question-circle" aria-hidden="true"></i>
+                                  <i *ngIf="is_valid_po" class="fa fa-check-square" aria-hidden="true"></i>
+                                </span></label>
+                              <input (keyup)="duplicatePhoneNumber()" id="p_number"
+                                class="form-control form-control-text" formControlName="phone_number" type="text"
+                                nbInput fullWidth shape="rectangle" [(ngModel)]="phone_number_format2"
+                                [ngClass]="{'form-control-danger': (businessDetailsForm.get('phone_number').dirty || businessDetailsForm.get('phone_number').touched) && businessDetailsForm.get('phone_number').errors}">
+
+                              <div
+                                *ngIf="businessDetailsForm.get('phone_number').invalid && (businessDetailsForm.get('phone_number').dirty || businessDetailsForm.get('phone_number').touched)">
+                                <small *ngIf="businessDetailsForm.get('phone_number').errors['required']"
+                                  class="text-danger">
+                                  Mobile number is required!</small>
+                                <small *ngIf="businessDetailsForm.get('phone_number').errors['pattern']"
+                                  class="text-danger">
+                                  Invalid mobile number.Try again!</small>
+                              </div>
+                              <div
+                                *ngIf="!(businessDetailsForm.get('phone_number').invalid && (businessDetailsForm.get('phone_number').dirty || businessDetailsForm.get('phone_number').touched))">
+                                <small *ngIf="is_valid_po" class="text-danger">
+                                  The number is already in used</small>
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label *ngIf="itemindividual ? itemindividual === false : true"
+                                class="label-form-control label-name">Date of Registration<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <label *ngIf="itemindividual === true" class="label-form-control label-name">Business
+                                Commencement Date<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+
+                              <input class="form-select" 
+                                style="padding: 5px 10px 5px 10px!important;margin-top:0px!important; border-radius:4px!important;width: 100%;font-size: 14px;font-weight: 100;"
+                                selected="1" formControlName="date_of_registration" nbInput placeholder="Jun 1,2018"
+                                [nbDatepicker]="formpickerDOF">
+                              <nb-datepicker #formpickerDOF></nb-datepicker>
+                              <div
+                                *ngIf="businessDetailsForm.get('date_of_registration').invalid && (businessDetailsForm.get('date_of_registration').dirty || businessDetailsForm.get('date_of_registration').touched)">
+                                <small *ngIf="itemindividual === false" class="text-danger">
+                                  Date of registration is required!</small>
+                              </div>
+                              <div
+                                *ngIf="(businessDetailsForm.get('date_of_registration').invalid && (businessDetailsForm.get('date_of_registration').dirty || businessDetailsForm.get('date_of_registration').touched))">
+                                <small *ngIf="itemindividual === true" class="text-danger">
+                                  Business commencement date is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Income Tax File No</label>
+                              <input class="form-control form-control-text " formControlName="income_tax_file_no"
+                                placeholder="1234567" type="text" nbInput fullWidth shape="rectangle">
+
+                            </div>
+                          </div>
+
+                          <!-- <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">TIN Number<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="tin_number" type="text"
+                                nbInput fullWidth shape="rectangle">
+
+                            </div>
+
+                          </div> -->
+                        </div>
+                        <div class="row">
+                          <div class="col-8">
+                            <div class="input-group">
+                              <label *ngIf="itemBusinessName === false" class="label-form-control label-name">Nature of
+                                Business<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <label *ngIf="itemBusinessName === true" class="label-form-control label-name">Nature of
+                                the Activity<span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <textarea class="text-area" rows="2" nbInput fullWidth shape="round"
+                                placeholder="Retail and online shop which sells baby items"
+                                formControlName="nature_of_business"></textarea>
+                              <div
+                                *ngIf="businessDetailsForm.get('nature_of_business').invalid && (businessDetailsForm.get('nature_of_business').dirty || businessDetailsForm.get('nature_of_business').touched)">
+                                <!-- <small *ngIf="businessDetailsForm.get('nature_of_business').errors['required']"
+                                  class="text-danger">
+                                  Nature of business is required!</small> -->
+                              </div>
+
+
+                            </div>
+
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Merchant Agreement Date<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <input disabled class="form-select" [(ngModel)]="ngModelDate"
+                                style="padding: 5px 10px 5px 10px!important;margin-top:0px!important; border-radius:4px!important;width: 100%;font-size: 14px;font-weight: 100;"
+                                selected="1" formControlName="merchant_agreement_date" nbInput placeholder="Jun 1,1995"
+                                [nbDatepicker]="formpickerMAD">
+                              <nb-datepicker #formpickerMAD></nb-datepicker>
+                              <div
+                                *ngIf="businessDetailsForm.get('merchant_agreement_date').invalid && (businessDetailsForm.get('merchant_agreement_date').dirty || businessDetailsForm.get('merchant_agreement_date').touched)">
+                                <small *ngIf="businessDetailsForm.get('merchant_agreement_date').errors['required']"
+                                  class="text-danger">
+                                  Merchant agreement date is required!</small>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Business Website</label>
+                              <input class="form-control form-control-text" formControlName="business_website"
+                                placeholder="https://spemai.com/" type="text" nbInput fullWidth shape="rectangle">
+                              <!-- <div
+                                *ngIf="businessDetailsForm.get('business_website').invalid && (businessDetailsForm.get('business_website').dirty || businessDetailsForm.get('business_website').touched)">
+                                <small *ngIf="businessDetailsForm.get('business_website').errors['required']"
+                                  class="text-danger">
+                                  Business website is required!</small>
+
+                              </div> -->
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Facebook Page URL</label>
+                              <input class="form-control form-control-text" formControlName="facebook_page" type="text"
+                                placeholder="https://www.facebook.com/SPEMAI" nbInput fullWidth shape="rectangle">
+                              <!-- <div
+                                *ngIf="businessDetailsForm.get('facebook_page').invalid && (businessDetailsForm.get('facebook_page').dirty || businessDetailsForm.get('facebook_page').touched)">
+                                <small *ngIf="businessDetailsForm.get('facebook_page').errors['required']"
+                                  class="text-danger">
+                                  Facebook url is required!</small>
+
+                              </div> -->
+
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Instagram Account URL</label>
+                              <input class="form-control form-control-text" formControlName="instagrame" type="text"
+                                placeholder="https://www.instagram.com/onepay" nbInput fullWidth shape="rectangle">
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <!-- clubs and Societies -->
+                        <div *ngIf="itemClub === true" class="row">
+                          <div class="col-12">
+                            <span class="ind-head">Clubs and Societies Document</span>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="itemClub === true">
+
+                          <!-- Meeting minutes -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">Meeting Minutes <span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                                  style="color: #2CC780;margin-left: 5px;" *ngIf="club_meeting"><i
+                                    class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(club_meeting ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput2.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput2
+                                (change)="onFileChangeImage($event,'club_meeting_minute')" type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="meeting_minute" class="files-list">
+                              <p class="file-name"> {{meeting_minute}} </p>
+                            </div>
+                          </div>
+                          <!-- List of executive committee members -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">List of Executive Committee Members <span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span><span style="color: #2CC780;margin-left: 5px;"
+                                  *ngIf="club_members"><i class="fa fa-check-square"
+                                    aria-hidden="true"></i></span></span>
+                            </div>
+                            <div
+                              [ngClass]="(club_members ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput
+                                (change)="onFileChangeImage($event,'club_committee_members')" type="file"
+                                accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="committee_members" class="files-list">
+                              <p class="file-name"> {{committee_members}} </p>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+
+
+                        <!-- other category -->
+                        <div *ngIf="itemBR === true" class="row">
+                          <div class="col-12">
+                            <span class="ind-head">Other Document</span>
+                          </div>
+                        </div>
+
+                        <div class="row">
+                          <!-- BR copy -->
+                          <div *ngIf="itemBR === true" class="col-6">
+                            <div class="row">
+                              <span *ngIf="itempartnership === false" class="image-side">BR copy <span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span><span style="color: #2CC780;margin-left: 5px;"
+                                  *ngIf="business_register_file"><i class="fa fa-check-square"
+                                    aria-hidden="true"></i></span></span>
+                              <span *ngIf="itempartnership === true" class="image-side">BR Partnership Agreement
+                                <span class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span><span style="color: #2CC780;margin-left: 5px;"
+                                  *ngIf="business_register_file"><i class="fa fa-check-square"
+                                    aria-hidden="true"></i></span></span>
+                            </div>
+                            <div
+                              [ngClass]="(business_register_file ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput3.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput3
+                                (change)="onFileChangeImage($event,'business_register')" type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="br" class="files-list">
+                              <p class="file-name"> {{br}} </p>
+                            </div>
+                          </div>
+                          <!-- partnership agreement -->
+                          <div *ngIf="itemAgreement === true" class="col-6">
+                            <div class="row">
+                              <span class="image-side">Partnership Agreement <span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                                  style="color: #2CC780;margin-left: 5px;" *ngIf="partnership_agree"><i
+                                    class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                            </div>
+                            <div
+                              [ngClass]="(partnership_agree ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInputPAgreement.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload"
+                                #imageInputPAgreement (change)="onFileChangeImage($event,'partneship_agreement')"
+                                type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="p_agreement" class="files-list">
+                              <p class="file-name"> {{p_agreement}} </p>
+                            </div>
+
+                          </div>
+                          <!-- Articles of Association -->
+                          <div *ngIf="itemAssociation === true" class="col-6">
+                            <div class="row">
+                              <span class="image-side">Articles of Association <span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                                  style="color: #2CC780;margin-left: 5px;" *ngIf="articles_association"><i
+                                    class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(articles_association ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput7.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput7
+                                (change)="onFileChangeImage($event,'articles_of_association')" type="file"
+                                accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="association" class="files-list">
+                              <p class="file-name"> {{association}} </p>
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <div *ngIf="itemAssociation === true">
+                          <div class="row" style="margin-top:12px;margin-left: 1px;">
+                            <input style="font-size: 13px;margin-top: 4px;margin-right: 4px;" #saveUserNameCheckBox
+                              id="saveUserNameCheckBox" type="checkbox" [checked]="saveUsername"
+                              (change)="onSaveUsernameChanged(saveUserNameCheckBox.checked)" />
+                            <label style="color: rgba(0, 0, 0, 0.5);font-size: 13px;" class="check-lable"
+                              for="conditions">Don't you have <span style="font-weight: 600;">Form 1</span></label>
+                          </div>
+                          <div class="row">
+                            <!--  Form 1 -->
+                            <div *ngIf="itemAssociation === true && itemform1 === false" class="col-6">
+                              <div class="row">
+                                <span class="image-side">Form 1 <span class="required_feeld"><i
+                                      class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                                    style="color: #2CC780;margin-left: 5px;" *ngIf="form_1_length"><i
+                                      class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                              </div>
+                              <div 
+                                [ngClass]="(form_1_length ? true : false) ? 'class-add' : 'class-none'"
+                                class="uploadfilecontainer-identification" (click)="imageInputForm1.click()">
+                                <input style="font-size: 8px;width: 61px;display: none;" class="image-upload"
+                                  #imageInputForm1 (change)="onFileChangeImage($event,'form_1')" type="file"
+                                  accept="image/*">
+                                <div style="margin-top: 5px;">
+                                  <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                  <span class="uplode-text">Click here to upload</span>
+                                </div>
+                              </div>
+                              <div *ngIf="form_1" class="files-list">
+                                <p class="file-name"> {{form_1}} </p>
+                              </div>
+
+                            </div>
+
+
+                          </div>
+                        </div>
+
+
+                        <div *ngIf="itemform1 === true" class="row">
+                          <!-- Latest Form 20 -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">Latest Form 20 <span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                                  style="color: #2CC780;margin-left: 5px;" *ngIf="form_20_length"><i
+                                    class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(form_20_length ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput5.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput5
+                                (change)="onFileChangeImage($event,'form_20')" type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="form_20" class="files-list">
+                              <p class="file-name"> {{form_20}} </p>
+                            </div>
+                          </div>
+                          <!-- Form 15 -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">Form 15 <span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                                  style="color: #2CC780;margin-left: 5px;" *ngIf="form_15_length"><i
+                                    class="fa fa-check-square" aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(form_15_length ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput6.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput6
+                                (change)="onFileChangeImage($event,'form_15')" type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+                            </div>
+                            <div *ngIf="form_15" class="files-list">
+                              <p class="file-name"> {{form_15}} </p>
+                            </div>
+                          </div>
+
+                        </div>
+
+
+
+                        <!-- individual -->
+                        <div *ngIf="itemindividual === true" class="row">
+                          <div class="col-12">
+                            <span class="ind-head">Individual Document</span>
+                          </div>
+                        </div>
+                        <div class="row" *ngIf="itemindividual === true">
+
+                          <!-- professional qualification -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">Certified Copy of Professional Qualification <span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span><span style="color: #2CC780;margin-left: 5px;"
+                                  *ngIf="perofessional_qualification"><i class="fa fa-check-square"
+                                    aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(perofessional_qualification ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput2.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput2
+                                (change)="onFileChangeImage($event,'perofessional_q')" type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+
+                            </div>
+                            <div *ngIf="p_qualification" class="files-list">
+                              <p class="file-name"> {{p_qualification}} </p>
+                            </div>
+                          </div>
+                          <!-- Income certificate -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">Income Certificate Endorsed by Grama Niladhari <span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span><span style="color: #2CC780;margin-left: 5px;"
+                                  *ngIf="income_certificate_gs"><i class="fa fa-check-square"
+                                    aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(income_certificate_gs ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput
+                                (change)="onFileChangeImage($event,'income_certificate')" type="file" accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+
+                            </div>
+                            <div *ngIf="gs" class="files-list">
+                              <p class="file-name"> {{gs}} </p>
+                            </div>
+
+                          </div>
+
+                        </div>
+                        <div class="row" *ngIf="itemindividual === true">
+                          <!-- Freelance site transaction -->
+                          <div class="col-6">
+                            <div class="row">
+                              <span class="image-side">Freelance Site Order History Report <span style="color: #2CC780;"
+                                  *ngIf="transaction_freelance"><i class="fa fa-check-square"
+                                    aria-hidden="true"></i></span></span>
+                            </div>
+                            <div 
+                              [ngClass]="(transaction_freelance ? true : false) ? 'class-add' : 'class-none'"
+                              class="uploadfilecontainer-identification" (click)="imageInput.click()">
+                              <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput
+                                (change)="onFileChangeImage($event,'freelance_transaction')" type="file"
+                                accept="image/*">
+                              <div style="margin-top: 5px;">
+                                <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                <span class="uplode-text">Click here to upload</span>
+                              </div>
+
+                            </div>
+                            <div *ngIf="freelance" class="files-list">
+                              <p class="file-name"> {{freelance}} </p>
+                            </div>
+
+                          </div>
+
+                        </div>
+
+
+                        <div class="row" style="margin: 4px;margin-top: 25px;">
+                          <nb-card
+                            style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)!important;width: 100%; margin-bottom: 15px;">
+                            <nb-card-body style="padding: 2px 10px;">
+                              <div class="row" style="width: 100%;">
+                                <div class="col-md-6" style="margin: auto;">
+                                  <span style="float: left;color:rgba(0, 0, 0, 0.5) ;font-size: 10px;">Click
+                                    on next
+                                    button to fill more details..</span>
+                                </div>
+                                <div class="col-md-6">
+                                  <button class="back_button" nbStepperPrevious>Back </button>
+                                  <button [disabled]="checkvalidity((businessDetailsForm.get('business_type').value))"
+                                    class="qr-search-button" nbStepperNext>Next
+                                    <span style="margin-left: 20px;"><i class="fa fa-angle-right"
+                                        aria-hidden="true"></i></span></button>
+
+
+
+                                </div>
+                              </div>
+
+                            </nb-card-body>
+
+                          </nb-card>
+                        </div>
+
+                      </form>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <span class="content-body-title-right">Subscription Summary</span>
+                </div>
+                <div class="row">
+                  <nb-card style="width: 100%;margin-left: 10px;">
+                    <nb-card-body style="margin: 25px;">
+                      <div class="row">
+                        <div class="col-md-12"><span class="sub-title1">{{package_details?package_details.name:''}}</span></div>
+                        <p class="package-details pt-2 pl-2">{{ipg_charge}}</p>
+                        <hr>
+                      </div>
+                      <div class="row sub_middle_name">
+                        <div class="col-md-12"><span class="sub-price-title">Price from</span></div>
+                        <div class="col-md-12">
+                          <span class="sub-price">LKR{{package_budget_details?package_budget_details.net_amount:''}}
+                            <span class="month">/ MONTH</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div *ngIf="package_details" class="col-md-12">
+                          <div *ngFor="let item_data of package_details.package_assigned_item_data"
+                            class="row package-grid">
+                            <p class="package-details"><span class="item-class"><i class="fa fa-check chech-btn"
+                                  aria-hidden="true"></i></span>{{item_data.visualize_name}}</p>
+                          </div>
+
+
+
+                        </div>
+                      </div>
+
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+            </div>
+
+          </nb-step>
+
+
+          <nb-step [stepControl]="settlementAccountForm" label="Settlement Account Information"
+            [ngClass]="(steper_hide ? true : false) ? 'class-steper-on' : 'class-steper-off'">
+
+            <div class="row form-contant">
+
+              <div class="col-md-8">
+                <div class="row">
+                  <span class="content-body-title-left">Settlement Account Details</span>
+                </div>
+                <div class="row">
+                  <nb-card style="width: 100%;margin-right: 10px;">
+                    <nb-card-body class="contant-info-body">
+                      <form [formGroup]="settlementAccountForm">
+
+
+                        <div class="row">
+                          <div class="col-md-6">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Account Holder's Name<span
+                                  class="required_feeld"><i class="fa fa-question-circle"
+                                    aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="account_holder_name"
+                                placeholder="H.M.Dissanayake" type="text" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (settlementAccountForm.get('account_holder_name').dirty || settlementAccountForm.get('account_holder_name').touched) && settlementAccountForm.get('account_holder_name').errors}">
+                              <div
+                                *ngIf="settlementAccountForm.get('account_holder_name').invalid && (settlementAccountForm.get('account_holder_name').dirty || settlementAccountForm.get('account_holder_name').touched)">
+                                <small *ngIf="settlementAccountForm.get('account_holder_name').errors['required']"
+                                  class="text-danger">
+                                  Account holder name is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-6">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Account Number<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="account_number" type="text"
+                                placeholder="01001001" nbInput fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (settlementAccountForm.get('account_number').dirty || settlementAccountForm.get('account_number').touched) && settlementAccountForm.get('account_number').errors}">
+                              <div
+                                *ngIf="settlementAccountForm.get('account_number').invalid && (settlementAccountForm.get('account_number').dirty || settlementAccountForm.get('account_number').touched)">
+                                <small *ngIf="settlementAccountForm.get('account_number').errors['required']"
+                                  class="text-danger">
+                                  Account number is required!</small>
+                                <small *ngIf="settlementAccountForm.get('account_number').errors['pattern']"
+                                  class="text-danger">
+                                  Account number is in invalid format.Try again!</small>
+
+                              </div>
+
+
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row">
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Bank<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <nb-select class="form-select select-important" formControlName="bank"
+                                placeholder="Bank of Ceylon">
+                                <nb-option *ngFor="let bank_list of get_all_bank" [value]="bank_list.id">
+                                  {{bank_list.name}}
+                                </nb-option>
+                              </nb-select>
+                              <div
+                                *ngIf="settlementAccountForm.get('bank').invalid && (settlementAccountForm.get('bank').dirty || settlementAccountForm.get('bank').touched)">
+                                <small *ngIf="settlementAccountForm.get('bank').errors['required']" class="text-danger">
+                                  Bank is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Branch<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <input class="form-control form-control-text" formControlName="branch" type="text" nbInput
+                                placeholder="Head Branch" fullWidth shape="rectangle"
+                                [ngClass]="{'form-control-danger': (settlementAccountForm.get('branch').dirty || settlementAccountForm.get('branch').touched) && settlementAccountForm.get('branch').errors}">
+                              <div
+                                *ngIf="settlementAccountForm.get('branch').invalid && (settlementAccountForm.get('branch').dirty || settlementAccountForm.get('branch').touched)">
+                                <small *ngIf="settlementAccountForm.get('branch').errors['required']"
+                                  class="text-danger">
+                                  Branch is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+                          <div class="col-md-4">
+                            <div class="input-group">
+                              <label class="label-form-control label-name">Account Type<span class="required_feeld"><i
+                                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                              <nb-select class="form-select select-important" selected="1" formControlName="type" head
+                                placeholder="Savings"
+                                [ngClass]="{'form-control-danger': (settlementAccountForm.get('type').dirty || settlementAccountForm.get('type').touched) && settlementAccountForm.get('type').errors}">
+                                <nb-option [value]="'Savings'">
+                                  <span class="option-name">Savings</span>
+                                </nb-option>
+                                <nb-option [value]="'Current'">
+                                  <span class="option-name">Current</span>
+                                </nb-option>
+                              </nb-select>
+                              <div
+                                *ngIf="settlementAccountForm.get('type').invalid && (settlementAccountForm.get('type').dirty || settlementAccountForm.get('type').touched)">
+                                <small *ngIf="settlementAccountForm.get('type').errors['required']" class="text-danger">
+                                  Acconunt type is required!</small>
+
+                              </div>
+                            </div>
+                          </div>
+
+                        </div>
+
+                        <div class="row" style="margin: 4px;">
+                          <label class="label-form-control label-name">Bank Statement<span class="required_feeld"><i
+                                class="fa fa-question-circle" aria-hidden="true"></i></span><span
+                              style="color: #2CC780;" *ngIf="this.settlementAccountForm.get('bk_statement').valid"><i
+                                class="fa fa-check-square" aria-hidden="true"></i></span></label>
+                          <div class="col-md-12 test">
+                            <div class="row">
+                              <div 
+                                [ngClass]="(this.settlementAccountForm.get('bk_statement').invalid)? 'class-none' : 'class-add'"
+                                class="uploadfilecontainer-identification" (click)="imageInput.click()">
+                                <input style="font-size: 8px;width: 61px;display: none;" class="image-upload"
+                                  #imageInput (change)="onFileChangeImage($event,'bank_statement')" type="file"
+                                  accept="image/*">
+                                <div style="margin-top: 5px;">
+                                  <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                                  <span class="uplode-text">Click here to upload</span>
+                                </div>
+
+                              </div>
+                              <div *ngIf="statement_bank" class="files-list">
+                                <p class="file-name"> {{statement_bank}} </p>
+                              </div>
+
+                            </div>
+
+
+                          </div>
+                        </div>
+
+                        <div class="row" style="margin: 4px;">
+                          <input formControlName="aggregate_conditions" class="chech-agreemet" type="checkbox"
+                            id="conditions" name="conditions" value="false" [(ngModel)]="is_approve">
+                          <label class="check-lable" for="conditions"> I agree to <span
+                              style="cursor: pointer; color: blue;" (click)="openAgreement(dialogAgreement)">Terms &
+                              Conditions</span></label>
+                          <!-- <button class="btn-body" (click)="openAgreement(dialogAgreement)">Agree</button> -->
+
+                          <div
+                            *ngIf="settlementAccountForm.get('aggregate_conditions').invalid && (settlementAccountForm.get('aggregate_conditions').dirty || settlementAccountForm.get('aggregate_conditions').touched)">
+                            <small *ngIf="settlementAccountForm.get('aggregate_conditions').errors['required']"
+                              class="text-danger">
+                              Check box is required!</small>
+
+                          </div>
+
+                        </div>
+
+
+                        <div class="row" style="margin: 4px;margin-top: 25px;">
+                          <nb-card
+                            style="box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)!important;width: 100%; margin-bottom: 15px;">
+                            <nb-card-body style="padding: 2px 10px;">
+                              <div class="row" style="width: 100%;">
+                                <div class="col-md-6" style="margin: auto;">
+                                  <span style="float: left;color:rgba(0, 0, 0, 0.5) ;font-size: 10px;">Click on submit
+                                  </span>
+                                </div>
+                                <div class="col-md-6">
+                                  <button class="back_button" nbStepperPrevious>Back </button>
+                                  <button class="qr-search-button" (click)="submit_application()"
+                                    (ngSubmit)="onFifthSubmit()" [disabled]="checkvaliditySetAccount()" type="submit"
+                                    nbStepperNext>Submit</button>
+                                  <!-- (click)="submit_application()"  -->
+                                </div>
+                              </div>
+
+                            </nb-card-body>
+
+                          </nb-card>
+                        </div>
+
+                      </form>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+              <div class="col-md-4">
+                <div class="row">
+                  <span class="content-body-title-right">Subscription Summary</span>
+                </div>
+                <div class="row">
+                  <nb-card style="width: 100%;margin-left: 10px;">
+                    <nb-card-body style="margin: 25px;">
+                      <div class="row">
+                        <div class="col-md-12"><span class="sub-title1">{{package_details?package_details.name:''}}</span></div>
+                        <p class="package-details pt-2 pl-2">{{ipg_charge}}</p>
+                        <hr>
+                      </div>
+                      <div class="row sub_middle_name">
+                        <div class="col-md-12"><span class="sub-price-title">Price from</span></div>
+                        <div class="col-md-12">
+                          <span class="sub-price">LKR{{package_budget_details?package_budget_details.net_amount:''}}
+                            <span class="month">/ MONTH</span>
+                          </span>
+                        </div>
+                      </div>
+                      <div class="row">
+                        <div *ngIf="package_details" class="col-md-12">
+                          <div *ngFor="let item_data of package_details.package_assigned_item_data"
+                            class="row package-grid">
+                            <p class="package-details"><span class="item-class"><i class="fa fa-check chech-btn"
+                                  aria-hidden="true"></i></span>{{item_data.visualize_name}}</p>
+                          </div>
+
+
+
+                        </div>
+                      </div>
+
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+            </div>
+
+          </nb-step>
+
+
+          <nb-step [stepControl]="fifthForm" [hidden]="true" label="Confirmation">
+            <div *ngIf="!waiting && status_reg" style="text-align: center;padding: 50px;height: 100vh;">
+              <img class="submit-logo" src="../../../assets/images/Onepay-pg.png" alt="logo">
+              <h2 style="font-size: 40px;">Thank you for submitting your application</h2>
+              <h4>We are delighted to have you onboard as a onepay Merchant</h4>
+              <p>Please check your email inbox. We've sent you a link to your following email to verify your details</p>
+              <p><a href="https://mail.google.com/" target="_blank">{{send_email}}</a></p>
+              <p>Please click on the link in the email in order to complete the sign-up process</p>
+              <p>Haven't received the email yet? Please contact us via the following.</p>
+              <p style="margin-top:60px ;">Talk to an agent - +9411 702 1540 or Write to us via <a href="mailto:info@onepay.lk" target="_blank">info@onepay.lk</a>
+              </p>
+              <br>
+              <p> <a routerlink='/login' href="login" class="back-to-login">Back to
+                  login</a></p>
+
+            </div>
+            <div *ngIf="!waiting && !status_reg" style="text-align: center;padding: 50px;height: 100vh">
+              <img class="submit-logo" src="../../../assets/images/Onepay-pg.png" alt="logo">
+              <h2 style="font-size: 40px;">Sorry!</h2>
+              <h4>Registration Fail</h4>
+              <p style="margin-top:60px ;">Talk to an agent - +9411 702 1540 or Write to us via <a href="mailto:info@onepay.lk" target="_blank">info@onepay.lk</a>
+              </p>
+
+              <!-- <button class="back-to-login"><a routerlink='/login' href="login" class="back-to-login">Back to
+                  login</a></button> -->
+              <p> <a routerlink='/login' href="login" class="back-to-login">Back to
+                  login</a></p>
+            </div>
+
+          </nb-step>
+        </nb-stepper>
+
+      </div>
+    </div>
+
+  </div>
+  <ng-template #dialogAgreement let-data let-ref="dialogRef">
+
+    <nb-card style="width: 40vw;height: 80vh;">
+      <nb-card-header>Merchant Agreement</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="col-12">
+          <!-- <div class="container">
+              <div class="d-flex justify-content-center"> -->
+          <div class="card-body">
+            <ngx-onepay-agreement></ngx-onepay-agreement>
+          </div>
+          <!-- </div>
+            </div> -->
+
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" (click)="trueAgreement()">Agree</button>
+        <button nbButton (click)="close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+
+  </ng-template>
+
+
+
+  <div class="col-12 animation-div2" *ngIf=is_loading>
+    <div class="sk-circle">
+      <div class="sk-circle1 sk-child"></div>
+      <div class="sk-circle2 sk-child"></div>
+      <div class="sk-circle3 sk-child"></div>
+      <div class="sk-circle4 sk-child"></div>
+      <div class="sk-circle5 sk-child"></div>
+      <div class="sk-circle6 sk-child"></div>
+      <div class="sk-circle7 sk-child"></div>
+      <div class="sk-circle8 sk-child"></div>
+      <div class="sk-circle9 sk-child"></div>
+      <div class="sk-circle10 sk-child"></div>
+      <div class="sk-circle11 sk-child"></div>
+      <div class="sk-circle12 sk-child"></div>
+    </div>
+  </div>
+
+  <div bsModal #loadingModel="bs-modal" [config]="{ backdrop: 'static' }" class="modal  fade" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg modal-dialog-centered">
+      <div class="modal-content modal-content-transparent">
+        <div class="modal-body">
+          <div class="row">
+            <div class="col-md-12 col-sm-12 col-lg-12">
+              <div class="row">
+                <div class="col-md-4 col-sm-12 col-lg-3 text-left">
+                  <div class="lds-roller">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                  </div>
+                </div>
+                <div class="col-md-8 col-sm-12 col-lg-9">
+                  <h2 class="loader-txt">Your Merchant Registration is Processing..</h2>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+</ngx-no-column-layout>

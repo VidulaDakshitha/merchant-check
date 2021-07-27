@@ -1,0 +1,9 @@
+
+  {
+    "/api/*": {
+    "target": "http://merchant-api.onepay.lk",
+    "secure": false,
+    "logLevel": "debug",
+    "changeOrigin": true
+    }
+}

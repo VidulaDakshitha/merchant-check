@@ -1,0 +1,95 @@
+<router-outlet></router-outlet>
+<!-- socket pop up2 -->
+<ng-template #dialogTimeOut2 let-data let-ref="dialogRef">
+  <i [ngStyle]="{ 'color' : payment_status? '#20c997' : 'red' }" (click)="pop_up_close()" class="far fa-window-close close"></i>
+    <nb-card style="width: 30vw;">
+      <nb-card-body class="dialog-border" [ngStyle]="{ 'border' : payment_status? '1px solid #20c997' : '1px solid red' }">
+        <div class="modal-body">
+           <div class="row">
+             <div class="success">
+              <img *ngIf="payment_status" src="../assets/images/success.gif" alt="Push Payment" style="width:100%;">
+              <img *ngIf="!payment_status" src="../assets/images/close_i.png" alt="Push Payment2" style="width:100%;">
+             </div>
+           </div>
+           <div class="row">
+             <div class="massage_body">
+               <p class="body_success" [ngStyle]="{ 'color' : payment_status? '#20c997' : 'red' }">
+                {{payment_status ? 'Success':'Fail'}}
+               </p>
+               <p class="body_status">
+                {{message_type}}
+               </p>
+             </div>
+           </div>
+           <div class="row">
+            
+              <nb-list class="nb-list-details" >
+                <nb-list-item class="list-item list_item">
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      <span>Name</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      {{socket_user_name ? socket_user_name : 'Not Available'}}
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item list_item">
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      <span>Phone Number</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      {{socket_user_phone_number ? socket_user_phone_number : 'Not Available'}}
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item list_item">
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      <span>Email</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      {{socket_user_email ? socket_user_email : 'Not Available'}}
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item list_item">
+                  <div class="row">
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      <span>Status Message</span>
+                    </div>
+                    <div class="col-md-6 col-lg-6 col-xxxl-6">
+                      {{socket_massage ? socket_massage : 'Not Available'}}
+                    </div>
+                  </div>
+                </nb-list-item>      
+              </nb-list>
+           </div>
+           <div class="row">
+            <button class="ok_btn" nbButton style="margin: auto;" type='submit'>Submit</button>
+           </div>
+        </div>
+      </nb-card-body>
+    </nb-card>
+</ng-template>
+
+
+<!-- ideal time out -->
+<!-- <ng-template #dialogTimeOut let-data let-ref="dialogRef">
+  <form>
+    <nb-card class="ideal-time-out">
+      <nb-card-header>You Have Been Idle!</nb-card-header>
+      <nb-card-body >
+
+        {{idleState}}
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="logOut()" style="float: right;">Logout</button>
+        <button nbButton (click)="stay()" style="float: left;" type='submit'>Stay</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template> -->

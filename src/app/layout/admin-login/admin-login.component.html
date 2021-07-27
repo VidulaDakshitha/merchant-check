@@ -1,0 +1,67 @@
+<div class="container">
+	<div class="d-flex justify-content-center h-100">
+		<div class="card">
+			<div class="card-header">
+				<h3>Onepay Merchant Administration</h3>
+			</div>
+			<div class="card-body">
+				<form (ngSubmit)="login()" [formGroup]="login_form_admin">
+					<div class="input-group form-group form-group-margin">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-user"></i></span>
+						</div>
+						<input type="text" formControlName="email" class="form-control" placeholder="Email Address">
+
+						<div class="input_type"
+							*ngIf="login_form_admin.get('email').invalid && (login_form_admin.get('email').dirty ||login_form_admin.get('email').touched)">
+							<small *ngIf="login_form_admin.get('email').errors['required']"
+								class="validation-message">Provider Email is required!</small>
+							<small *ngIf="login_form_admin.get('email').errors['pattern']" class="validation-message">
+								Invalid Email. Please try again!</small>
+						</div>
+
+					</div>
+					<div class="input-group form-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text"><i class="fas fa-key"></i></span>
+						</div>
+						<input type="password" formControlName="password" class="form-control" placeholder="Password">
+
+						<div class="input_type"
+							*ngIf="login_form_admin.get('password').invalid && (login_form_admin.get('password').dirty ||login_form_admin.get('password').touched)">
+							<small *ngIf="login_form_admin.get('password').errors['required']"
+								class="validation-message">Provider Password is required!</small>
+							<small *ngIf="login_form_admin.get('password').errors['pattern']"
+								class="validation-message"> Invalid password. Please try again!</small>
+						</div>
+					</div>
+					<br />
+					<div class="form-group">
+						<input type="submit" value="Login" class="btn float-right login_btn"
+							[disabled]="!login_form_admin.valid">
+					</div>
+				</form>
+				<div style="text-align: center;">
+					<br/><br/>
+					<div class="alert alert-danger" role="alert" *ngIf="is_alert">
+						Oh Snap! {{message}}
+					</div> 
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<div class="sk-circle" *ngIf="is_loading">
+	<div class="sk-circle1 sk-child"></div>
+	<div class="sk-circle2 sk-child"></div>
+	<div class="sk-circle3 sk-child"></div>
+	<div class="sk-circle4 sk-child"></div>
+	<div class="sk-circle5 sk-child"></div>
+	<div class="sk-circle6 sk-child"></div>
+	<div class="sk-circle7 sk-child"></div>
+	<div class="sk-circle8 sk-child"></div>
+	<div class="sk-circle9 sk-child"></div>
+	<div class="sk-circle10 sk-child"></div>
+	<div class="sk-circle11 sk-child"></div>
+	<div class="sk-circle12 sk-child"></div>
+  </div>

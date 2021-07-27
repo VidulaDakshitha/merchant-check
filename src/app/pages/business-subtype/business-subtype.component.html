@@ -1,0 +1,242 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li><a href="#/pages/business-category">Business Type</a></li>
+    <li>{{btype_date && btype_date.type}}</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          <button (click)="openAddSubtype(dialogAddSubtype)" class="button button1">Add Subtype</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Subtype Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Sub Type</th>
+                      <th>Image</th>
+                      <th>description</th>
+                      <th>Update</th>
+                      <th>Delete</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let subtype_data_list of subtype">
+                    
+                      <td >{{subtype_data_list.id? subtype_data_list.id:'Not Available'}}</td>
+                      <td >{{subtype_data_list.subtype? subtype_data_list.subtype:'Not Available'}}</td>
+                      <td><img src='{{image_base_path}}{{subtype_data_list.image}}'></td>
+                      <td >{{subtype_data_list.description? subtype_data_list.description:'Not Available'}}</td>
+                      <td>
+                        <button class="button2"
+                          (click)="openUpdateSubtype(dialogUpdateSubtype,subtype_data_list)">Update</button>
+                      </td>
+                      <td>
+                        <button (click)="openDeleteSubtype(dialogDeleteSubtype,subtype_data_list)"
+                          class="button2">Delete</button>
+                      </td>
+                   
+                    </tr>
+                    <tr *ngIf="subtype && subtype.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                      <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                        <div class="sk-circle">
+                          <div class="sk-circle1 sk-child"></div>
+                          <div class="sk-circle2 sk-child"></div>
+                          <div class="sk-circle3 sk-child"></div>
+                          <div class="sk-circle4 sk-child"></div>
+                          <div class="sk-circle5 sk-child"></div>
+                          <div class="sk-circle6 sk-child"></div>
+                          <div class="sk-circle7 sk-child"></div>
+                          <div class="sk-circle8 sk-child"></div>
+                          <div class="sk-circle9 sk-child"></div>
+                          <div class="sk-circle10 sk-child"></div>
+                          <div class="sk-circle11 sk-child"></div>
+                          <div class="sk-circle12 sk-child"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedAdmin($event)" responsive="true"
+                (pageBoundsCorrection)="pageChangedAdmin($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+<!-- add subtype-->
+<ng-template #dialogAddSubtype let-data let-ref="dialogRef">
+  <form [formGroup]="subtypeAddForm" class="step-container" (ngSubmit)="submit_subtype()">
+    <nb-card class="popup-add">
+      <nb-card-header>Add Subtype</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Subtype Name</label>
+            <input class="form-control input-bottom" formControlName="sub_type" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Subtype Name"
+              [ngClass]="{'form-control-danger': (subtypeAddForm.get('sub_type').dirty || subtypeAddForm.get('sub_type').touched) && subtypeAddForm.get('sub_type').errors}">
+            <div *ngIf="subtypeAddForm.get('sub_type').invalid && (subtypeAddForm.get('sub_type').dirty || subtypeAddForm.get('sub_type').touched)">
+              <small *ngIf="subtypeAddForm.get('sub_type').errors['required']" class="text-danger">
+                Subtype is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Description</label>
+            <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Description"
+              [ngClass]="{'form-control-danger': (subtypeAddForm.get('description').dirty || subtypeAddForm.get('description').touched) && subtypeAddForm.get('description').errors}">
+              <div
+              *ngIf="subtypeAddForm.get('description').invalid && (subtypeAddForm.get('description').dirty || subtypeAddForm.get('description').touched)">
+              <small *ngIf="subtypeAddForm.get('description').errors['required']" class="text-danger">
+                Description is required!</small>
+            </div>
+          </div>
+        </div>
+        
+        
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+            <label class="label-form-control label-name">Subtype image</label>
+            <input class="image-upload" #imageInput name='image' formControlName='image'
+              (change)="onFileChange($event)" type="file" accept="image/*" 
+              [ngClass]="{'form-control-danger': (subtypeAddForm.get('image').dirty || subtypeAddForm.get('image').touched) && subtypeAddForm.get('image').errors}">
+            <div class="center-page">
+              <img class="image_layer" src='{{image}}'>
+            </div>
+            <div *ngIf="subtypeAddForm.get('image').invalid && (subtypeAddForm.get('image').dirty || subtypeAddForm.get('image').touched)">
+              <small *ngIf="subtypeAddForm.get('image').errors['required']" class="text-danger">
+               Subtype image is required!</small>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!subtypeAddForm.valid" >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- update collection -->
+<ng-template #dialogUpdateSubtype let-data let-ref="dialogRef">
+  <form [formGroup]="subtypeUpdateForm" class="step-container" (ngSubmit)="updated_subtype()">
+    <nb-card class="popup-add">
+      <nb-card-header>Add Subtype</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Subtype Name</label>
+            <input class="form-control input-bottom" formControlName="sub_type" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Subtype Name"
+              [ngClass]="{'form-control-danger': (subtypeUpdateForm.get('sub_type').dirty || subtypeUpdateForm.get('sub_type').touched) && subtypeUpdateForm.get('sub_type').errors}">
+            <div *ngIf="subtypeUpdateForm.get('sub_type').invalid && (subtypeUpdateForm.get('sub_type').dirty || subtypeUpdateForm.get('sub_type').touched)">
+              <small *ngIf="subtypeUpdateForm.get('sub_type').errors['required']" class="text-danger">
+                Subtype is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Description</label>
+            <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Description"
+              [ngClass]="{'form-control-danger': (subtypeUpdateForm.get('description').dirty || subtypeUpdateForm.get('description').touched) && subtypeUpdateForm.get('description').errors}">
+              <div
+              *ngIf="subtypeUpdateForm.get('description').invalid && (subtypeUpdateForm.get('description').dirty || subtypeUpdateForm.get('description').touched)">
+              <small *ngIf="subtypeUpdateForm.get('description').errors['required']" class="text-danger">
+                Description is required!</small>
+            </div>
+          </div>
+        </div>
+        
+        
+        
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+            <label class="label-form-control label-name">Subtype image</label>
+            <input class="image-upload" #imageInput name='image_url' 
+              (change)="onFileChange($event)" type="file" accept="image/*" 
+              [ngClass]="{'form-control-danger': (subtypeUpdateForm.get('image_url').dirty || subtypeUpdateForm.get('image_url').touched) && subtypeUpdateForm.get('image_url').errors}">
+            <div class="center-page">
+              <img class="image_layer" src='{{image}}'>
+            </div>
+            <div *ngIf="subtypeUpdateForm.get('image_url').invalid && (subtypeUpdateForm.get('image_url').dirty || subtypeUpdateForm.get('image_url').touched)">
+              <small *ngIf="subtypeUpdateForm.get('image_url').errors['required']" class="text-danger">
+               Subtype image is required!</small>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!subtypeUpdateForm.valid" >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- collection delete -->
+<ng-template #dialogDeleteSubtype let-data let-ref="dialogRef">
+  <form [formGroup]="deleteSubtypeForm" class="step-container" (ngSubmit)="deleteSubtypeData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Subtype</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> subtype?</strong></p>
+          <p>All information associated to this subtype will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

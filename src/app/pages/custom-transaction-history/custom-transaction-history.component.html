@@ -1,0 +1,318 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>Transaction History</li>
+    <li>Custom Transaction History</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <div class="container pagebody">
+        <div class="row">
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <div class="form-group search">
+              <select class="form-control" [(ngModel)]="search_by" [ngModelOptions]="{standalone: true}"
+                placeholder="Select Search By" (ngModelChange)="changeSearchType()">
+                <option value="0" selected>All</option>
+                <option value="1">Phone Number</option>
+                <option value="2">Order Reference Number</option>
+                <option value="3">Onepay Order Reference Number</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <div class="form-group search">
+              <input class="form-control" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text" [disabled]="search_by==0"
+                placeholder="Search.." name="search">
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <button class="button-search" (click)="search_data()">Search</button>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                All Payment Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>User Phone Number</th>
+                      <th>Order Reference</th>
+                      <th>Onepay Order Reference</th>
+                      <th>User Name</th>
+                      <th>Email</th>
+                      <th>Net Amount</th>
+                      <th>Transaction Status</th>
+                      <th>More Details</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let payment of payment_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }"
+                      [ngStyle]="{ 'background-color' : payment.transaction_status? '#ffffff' : '#ffcdcb' }">
+                      <td>{{payment.transaction_id ?payment.transaction_id:'Not Available'}}</td>
+                      <!-- <td>{{payment.customer_phone_no ?payment.customer_phone_no:'Not Available'}}</td> -->
+                      <td>*********{{payment.customer_phone_no ? (payment.customer_phone_no | slice:9:12) : 'Not Available'}}</td>
+                      <td>{{payment.order_reference ?payment.order_reference:'Not Available'}}</td>
+                      <td>{{payment.ref_no ?payment.ref_no:'Not Available'}}</td>
+                      <td>{{payment.customer_name ?payment.customer_name:'Not Available'}}</td>
+                      <!-- <td>{{payment.customer_email ?payment.customer_email:'Not Available'}}</td> -->
+                      <td>*****{{payment.customer_email ? (payment.customer_email | slice:(payment.customer_email.length-9):(payment.customer_email.length)) : 'Not Available'}}</td>
+                      <td>{{payment.net_amount ?payment.net_amount:'Not Available'}}</td>
+                      <td>
+                        <span class="badge badge-success" *ngIf="payment.transaction_status">Success</span>
+                        <span class="badge badge-danger" *ngIf="!payment.transaction_status">Failed</span>
+                      </td>
+                      <td>
+                        <button class="button2" (click)="openViewPayment(dialogViewPayment, payment)">View</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="payment_list && payment_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedPayment($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedPayment($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+<!-- popup custom transaction -->
+<ng-template #dialogViewPayment let-data let-ref="dialogRef">
+  <nb-card style="width: 50vw;max-height: 80vh;">
+    <nb-card-header>Invoice</nb-card-header>
+    <nb-card-body class="dialog-border">
+      <h5 class="payment-view-sub-head">User Details</h5>
+      <nb-list class="nb-list-details">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>User Name</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.customer_name ? custom_payment_details.customer_name : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>User Phone Number</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <!-- <span>{{custom_payment_details.customer_phone_no ? custom_payment_details.customer_phone_no : 'Not Available'}}</span> -->
+              <span >*********{{custom_payment_details.customer_phone_no ? (custom_payment_details.customer_phone_no | slice:9:12) : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>User Email</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <!-- <span>{{custom_payment_details.customer_email ? custom_payment_details.customer_email : 'Not Available'}}</span> -->
+              <span>*****{{custom_payment_details.customer_email ? (custom_payment_details.customer_email | slice:(custom_payment_details.customer_email.length-9):(custom_payment_details.customer_email.length)) : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        
+      <!-- </nb-list> -->
+
+      <h5 class="payment-view-sub-head">Payment Details</h5>
+      <!-- <nb-list class="nb-list-details"> -->
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Tariff</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.tariff ? custom_payment_details.tariff : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>discount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.discount ? custom_payment_details.discount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Onepay Chargers</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.onepay_chargers ? custom_payment_details.onepay_chargers : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Gross Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.gross_amount ? custom_payment_details.gross_amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Net Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.net_amount ? custom_payment_details.net_amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Total Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.total_amount ? custom_payment_details.total_amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        
+      <!-- </nb-list> -->
+
+      <h5 class="payment-view-sub-head">Transaction Details</h5>
+      <!-- <nb-list class="nb-list-details"> -->
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Transation Id</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.transaction_id ? custom_payment_details.transaction_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Onepay reference Number</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.ref_no ? custom_payment_details.ref_no : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Order reference</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.order_reference ? custom_payment_details.order_reference : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Transaction Status</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.transaction_status ? custom_payment_details.transaction_status : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Create Date & Time</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.created_at ? custom_payment_details.created_at : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Payment Type</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.type ? custom_payment_details.type : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Transaction Description</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span>{{custom_payment_details.transaction_description ? custom_payment_details.transaction_description : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

@@ -1,0 +1,750 @@
+
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>package items</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card style="height:auto!important;" size="small">
+     
+          <div class="container">
+
+        
+
+
+
+            <nb-tabset (changeTab)="onChangeTab($event)">
+              <nb-tab [active]="tabs[0]" tabTitle="Package Items">
+
+                <div class="row mt-3">
+                  <div class="row pl-3 pb-2">
+                <button class="button3 button4"  (click)="openAddItems(dialogAddItem)">Add Package item</button>
+                  </div>
+                </div>
+
+                <div class="row mt-3">
+                  <div class="col-md-12">
+
+
+
+                    <div class="card">
+                      <div class="card-header">
+                      View Package Items
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-responsive-sm table-responsive-md table-hover table-outline mb-0">
+                          <thead class="thead-light">
+                            <tr >
+                              <th>ID</th>
+                              <th>Item Name</th>
+                    
+                            
+                              <th>Item Key</th>
+                              <th>Parameter Available</th>
+                             
+                              <th>Admin Customizable</th>
+                              <th>Created Details</th>
+                              <!-- <th>Created On</th> -->
+                              <th>Updated Details</th>
+                              <!-- <th>Updated On</th> -->
+                              <!-- <th>Deleted By</th>
+                              <th>Deleted On</th> -->
+                              <th>Update</th>
+                              <th>Delete</th>
+                            </tr>
+                          </thead>
+                          <tbody  >
+                            <tr *ngFor="let item of package_itemlist| paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total, id:'coupon' }"
+                            [ngClass]="{'table-danger': item.is_active == 0}"
+                             >
+                             
+                            
+                            
+                            <td>{{item.id}}</td>
+                            <td>{{item.name}}</td>
+                            <td>{{item.key}}</td>
+                            <td>{{item.is_parameter_available==1?'yes':'No'}}</td>
+                            <td>{{item.is_admin_customizable==1?'yes':'No'}}</td>
+                            <td> <span style="font-weight: 700;">by</span> {{item.create_by}} <br/> <span style="font-weight: 700;">on</span>  {{item.create_on}}</td>
+                            <!-- <td>{{item.create_on}}</td> -->
+                            <td> <span style="font-weight: 700;">by</span> {{item.last_update_by?item.last_update_by:'N/A'}}<br/> <span style="font-weight: 700;">on</span>  {{item.last_update_on?item.last_update_on:'N/A'}}</td>
+
+                            <!-- <td>{{item.deleted_by}}</td>
+                            <td>{{item.delete_on}}</td> -->
+                            <td>
+                              <button (click)="openUpdateItems(dialogUpdateItem, item)" class="button2">Update</button>
+                            </td>
+                            <td>
+                              <button (click)="openItemDelete(dialogDeleteItem, item)" class="button2">Delete</button>
+                            </td>
+                            </tr>
+
+                            
+                            <tr *ngIf="package_itemlist && package_itemlist.length<1">
+                              <td colspan="10" style="text-align: center;"  *ngIf="!is_loading">
+                                <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                                <span style="display: block;">
+                                  <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                                    style="width:30%;">
+                                </span>
+                              </td>
+                              <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                                <div class="sk-circle">
+                                  <div class="sk-circle1 sk-child"></div>
+                                  <div class="sk-circle2 sk-child"></div>
+                                  <div class="sk-circle3 sk-child"></div>
+                                  <div class="sk-circle4 sk-child"></div>
+                                  <div class="sk-circle5 sk-child"></div>
+                                  <div class="sk-circle6 sk-child"></div>
+                                  <div class="sk-circle7 sk-child"></div>
+                                  <div class="sk-circle8 sk-child"></div>
+                                  <div class="sk-circle9 sk-child"></div>
+                                  <div class="sk-circle10 sk-child"></div>
+                                  <div class="sk-circle11 sk-child"></div>
+                                  <div class="sk-circle12 sk-child"></div>
+                                </div>
+                              </td>
+                            </tr>
+                      
+    
+                          </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageChanged($event)" responsive="true"
+                          (pageBoundsCorrection)="pageChanged($event)" style="float: right" id="coupon">
+                        </pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nb-tab>
+              <nb-tab [active]="tabs[1]" tabTitle="Assign Items to Package">
+
+
+                <div class="row mt-3">
+                  <div class="row pl-3 pb-2">
+                <button class="button3 button4"  (click)="openAddAssign(dialogAssignItem)">Assign Package item</button>
+                  </div>
+                </div>
+
+
+                <div class="row mt-3">
+                  <div class="col-md-12">
+
+                    <!-- <div class="row">
+                      <div class="col-sm-4 col-md-4 col-5">
+                        <div class="form-group search">
+                          <select class="form-control" name="transaction_id" [(ngModel)]="search_by"
+                            (ngModelChange)="OnOptionChanged()" [ngModelOptions]="{standalone: true}">
+                            <option value="0" selected>All</option>
+                            <option value="1">Redeemed</option>
+                            <option value="2">Pending</option>
+                            <option value="3">Expired</option>
+                            <option value="4">Cancelled</option>
+                          </select>
+                        </div>
+                      </div>
+                      
+
+
+                     
+                        <div class="col-sm-7 col-md-7 col-7">
+                      <div class="input-group mb-3">
+                        <input clearable type="text" [ngModelOptions]="{standalone: true}" name="search" autocomplete="off" (ngModelChange)="inSearchChange($event)" style="border-right: none;" [(ngModel)]="search_text" class="form-control searchbox" placeholder="Search by buyer name or phone number" >
+                        <div class="input-group-append">
+                          <button  class="btn searchbtn"  type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </div>
+                      </div>
+                    </div>
+        
+                    </div> -->
+
+
+                
+
+                    <div class="card">
+                      <div class="card-header">
+                      View Package Assigned Items
+                      </div>
+                      <div class="card-body">
+                        <table class="table table-responsive-sm table-responsive-md table-hover table-outline mb-0">
+                          <thead class="thead-light">
+                            <tr >
+                            
+                             
+                              <th>ID</th>                     
+                              <th>Package Name</th>
+                              <th>Item Name</th>
+                              <th>Visualize Name</th>
+                              <th>Parameter Value</th>
+                              <th>Created Details</th>
+                              <!-- <th>Created On</th> -->
+                              <th>Updated Details</th>
+                              <!-- <th>Updated On</th> -->
+                              <!-- <th>Deleted By</th>
+                              <th>Deleted On</th> -->
+                              <th>Update</th>
+                              <th>Delete</th>
+                              
+                            </tr>
+                          </thead>
+                          <tbody  >
+                            <tr *ngFor="let assignitem of package_assignitemlist| paginate: { itemsPerPage: pageSizeHistory, currentPage: pHistory, totalItems: totalHistory, id:'assign' }"
+                            
+                             >
+                             <td >
+                              {{assignitem.id}}
+                               </td>
+                           <td >
+                             {{assignitem.package_name}}
+                              </td>
+                              <td>{{assignitem.item_id__name}}</td>
+                            
+                              <td>{{assignitem.visualize_name}}</td>
+                              <td>{{assignitem.parameter_value}}</td>
+                              <!-- <td>{{assignitem.create_by}}</td> -->
+                      <td> <span style="font-weight: 700;">by</span> {{assignitem.create_by}} <br/> <span style="font-weight: 700;">on</span>  {{assignitem.create_on}}</td>
+                      <td> <span style="font-weight: 700;">by</span> {{assignitem.last_update_by?assignitem.last_update_by:'N/A'}}<br/> <span style="font-weight: 700;">on</span>  {{assignitem.last_update_on?assignitem.last_update_on:'N/A'}}</td>
+                        <!-- <td>{{assignitem.last_update_on}}</td> -->
+                              <!-- <td>{{assignitem.deleted_by}}</td>
+                              <td>{{assignitem.delete_on}}</td> -->
+                          
+                              
+                            
+                            
+
+
+                              <td>
+                                <button (click)="openUpdateAssign(dialogUpdateAssignItem, assignitem)" class="button2">Update</button>
+                              </td>
+                              <td>
+                                <button (click)="openAssignDelete(dialogDeleteAssign, assignitem)" class="button2">Delete</button>
+                              </td>
+    
+    
+    
+                            </tr>
+
+                            <tr *ngIf="package_assignitemlist && package_assignitemlist.length<1">
+                              <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                                <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                                <span style="display: block;">
+                                  <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                                    style="width:30%;">
+                                </span>
+                              </td>
+                              <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                                <div class="sk-circle">
+                                  <div class="sk-circle1 sk-child"></div>
+                                  <div class="sk-circle2 sk-child"></div>
+                                  <div class="sk-circle3 sk-child"></div>
+                                  <div class="sk-circle4 sk-child"></div>
+                                  <div class="sk-circle5 sk-child"></div>
+                                  <div class="sk-circle6 sk-child"></div>
+                                  <div class="sk-circle7 sk-child"></div>
+                                  <div class="sk-circle8 sk-child"></div>
+                                  <div class="sk-circle9 sk-child"></div>
+                                  <div class="sk-circle10 sk-child"></div>
+                                  <div class="sk-circle11 sk-child"></div>
+                                  <div class="sk-circle12 sk-child"></div>
+                                </div>
+                              </td>
+                            </tr>
+                     
+    
+                          </tbody>
+                        </table>
+                        <pagination-controls (pageChange)="pageChangedAssign($event)" responsive="true"
+                          (pageBoundsCorrection)="pageChangedAssign($event)" style="float: right" id="assign">
+                        </pagination-controls>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nb-tab>
+             </nb-tabset>
+
+
+
+
+
+
+  
+          </div>
+       
+
+ 
+
+
+
+
+     
+    </nb-card>
+  </div>
+</div>
+
+<!-- for insert item-->
+<ng-template #dialogAddItem let-data let-ref="dialogRef">
+  <form  [formGroup]="itemAddForm" (ngSubmit)="addPackageItemData()">
+    <nb-card style="width: 50vw;height: 90vh;">
+
+      <nb-card-header>Add Package Items</nb-card-header>
+      <nb-card-body >
+
+    
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Item Name</label>
+            <input class="form-control input-bottom" formControlName="item_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Item Name"
+              [ngClass]="{'form-control-danger': (itemAddForm.get('item_name').dirty || itemAddForm.get('item_name').touched) && itemAddForm.get('item_name').errors}">
+            <div
+              *ngIf="itemAddForm.get('item_name').invalid && (itemAddForm.get('item_name').dirty || itemAddForm.get('item_name').touched)">
+              <small *ngIf="itemAddForm.get('item_name').errors['required']" class="text-danger">
+                Item name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Item Key</label>
+            <input class="form-control input-bottom" formControlName="item_key" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Item Key"
+              [ngClass]="{'form-control-danger': (itemAddForm.get('item_key').dirty || itemAddForm.get('item_key').touched) && itemAddForm.get('item_key').errors}">
+            <div
+              *ngIf="itemAddForm.get('item_key').invalid && (itemAddForm.get('item_key').dirty || itemAddForm.get('item_key').touched)">
+              <small *ngIf="itemAddForm.get('item_key').errors['required']" class="text-danger">
+                Item Key is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+ 
+
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle  labelPosition="start" formControlName="item_status" status="success" >Is package item active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+
+    <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+      <div class="form-group">
+    <nb-toggle  labelPosition="start" formControlName="parameter_available" status="success" >Is it customizable by admin? (No/yes)</nb-toggle>
+
+  </div>
+</div>
+
+
+
+<div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+  <div class="form-group">
+<nb-toggle   labelPosition="start" formControlName="admin_customizable" status="success" >Is item parameter available ? (No/yes)</nb-toggle>
+
+</div>
+</div>
+
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeAddItems()"  style="float: left;">Close</button>
+        <button nbButton [disabled]="!itemAddForm.valid" style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+</ng-template>
+
+
+
+
+<!-- for update item-->
+<ng-template #dialogUpdateItem let-data let-ref="dialogRef">
+  <form  [formGroup]="itemUpdateForm" (ngSubmit)="updatePackageItemData()">
+    <nb-card style="width: 50vw;height: 90vh;">
+
+      <nb-card-header>Update Package Items</nb-card-header>
+      <nb-card-body >
+
+    
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Item Name</label>
+            <input class="form-control input-bottom" formControlName="item_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Item Name"
+              [ngClass]="{'form-control-danger': (itemUpdateForm.get('item_name').dirty || itemUpdateForm.get('item_name').touched) && itemUpdateForm.get('item_name').errors}">
+            <div
+              *ngIf="itemUpdateForm.get('item_name').invalid && (itemUpdateForm.get('item_name').dirty || itemUpdateForm.get('item_name').touched)">
+              <small *ngIf="itemUpdateForm.get('item_name').errors['required']" class="text-danger">
+                Item name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Item Key</label>
+            <input class="form-control input-bottom" formControlName="item_key" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Item Key"
+              [ngClass]="{'form-control-danger': (itemUpdateForm.get('item_key').dirty || itemUpdateForm.get('item_key').touched) && itemUpdateForm.get('item_key').errors}">
+            <div
+              *ngIf="itemUpdateForm.get('item_key').invalid && (itemUpdateForm.get('item_key').dirty || itemUpdateForm.get('item_key').touched)">
+              <small *ngIf="itemUpdateForm.get('item_key').errors['required']" class="text-danger">
+                Item key is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+ 
+
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle  labelPosition="start" formControlName="item_status" status="success" >Is package item active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+
+    <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+      <div class="form-group">
+    <nb-toggle  labelPosition="start" formControlName="parameter_available" status="success" >Is it customizable by admin? (No/yes)</nb-toggle>
+
+  </div>
+</div>
+
+
+
+<div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+  <div class="form-group">
+<nb-toggle   labelPosition="start" formControlName="admin_customizable" status="success" >Is item parameter available ? (No/yes)</nb-toggle>
+
+</div>
+</div>
+
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeUpdateItems()"  style="float: left;">Close</button>
+        <button nbButton [disabled]="!itemUpdateForm.valid" style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+
+</ng-template>
+
+
+
+
+<!-- delete items -->
+<ng-template #dialogDeleteItem let-data let-ref="dialogRef">
+  <form [formGroup]="itemDeleteForm" class="step-container" (ngSubmit)="deleteItemData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Package Item</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span>package item data?</strong></p>
+          <p>All information associated with item will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+        <button nbButton style="float: right;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+
+
+
+<!-- for assign item-->
+<ng-template #dialogAssignItem let-data let-ref="dialogRef">
+  
+  <form  [formGroup]="itemAssignForm" (ngSubmit)="addPackageAssignData()">
+    <nb-card style="width: 50vw;height: 90vh;">
+
+      <nb-card-header>Assign Package Items</nb-card-header>
+      <nb-card-body >
+
+    
+  
+
+
+        <div class="col-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Select Package</label>
+          </div>
+          <nb-select fullWidth class="form-select select-important"  placeholder="Select Package"
+            formControlName="package_id"
+            [ngClass]="{'form-control-danger': (itemAssignForm.get('package_id').dirty || itemAssignForm.get('package_id').touched) && itemAssignForm.get('package_id').errors}">
+            <nb-option>Select Package</nb-option>
+            <nb-option *ngFor="let package  of package_list" value="{{package.id}}">
+              {{package.name}}
+            </nb-option>
+          </nb-select>
+          <div
+          *ngIf="itemAssignForm.get('package_id').invalid && (itemAssignForm.get('package_id').dirty || itemAssignForm.get('package_id').touched)">
+          <small *ngIf="itemAssignForm.get('package_id').errors['required']" class="text-danger">
+            Package type is required!</small>
+        </div>
+          </div>
+
+
+          <div class="col-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Select Item</label>
+            </div>
+            <nb-select fullWidth class="form-select select-important"  placeholder="Select Item"
+              formControlName="item_id"
+              [ngClass]="{'form-control-danger': (itemAssignForm.get('item_id').dirty || itemAssignForm.get('item_id').touched) && itemAssignForm.get('item_id').errors}">
+              <nb-option>Select Package</nb-option>
+              <nb-option *ngFor="let item  of package_item" value="{{item.id}}">
+                {{item.name}}
+              </nb-option>
+            </nb-select>
+            <div
+            *ngIf="itemAssignForm.get('item_id').invalid && (itemAssignForm.get('item_id').dirty || itemAssignForm.get('item_id').touched)">
+            <small *ngIf="itemAssignForm.get('item_id').errors['required']" class="text-danger">
+              Item is required!</small>
+          </div>
+            </div>
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Visualize Name</label>
+            <input class="form-control input-bottom" formControlName="visualize_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter visualize name"
+              [ngClass]="{'form-control-danger': (itemAssignForm.get('visualize_name').dirty || itemAssignForm.get('visualize_name').touched) && itemAssignForm.get('visualize_name').errors}">
+            <div
+              *ngIf="itemAssignForm.get('visualize_name').invalid && (itemAssignForm.get('visualize_name').dirty || itemAssignForm.get('visualize_name').touched)">
+              <small *ngIf="itemAssignForm.get('visualize_name').errors['required']" class="text-danger">
+                Visualize name is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Parameter Value</label>
+            <input class="form-control input-bottom" formControlName="parameter_value" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter parameter value"
+              [ngClass]="{'form-control-danger': (itemAssignForm.get('parameter_value').dirty || itemAssignForm.get('parameter_value').touched) && itemAssignForm.get('parameter_value').errors}">
+            <div
+              *ngIf="itemAssignForm.get('parameter_value').invalid && (itemAssignForm.get('parameter_value').dirty || itemAssignForm.get('parameter_value').touched)">
+              <small *ngIf="itemAssignForm.get('parameter_value').errors['required']" class="text-danger">
+                Parameter value is required!</small>
+            </div>
+          </div>
+        </div>
+
+ 
+
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle labelPosition="start" formControlName="status" status="success" >Is assigned item active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeAddAssign()"  style="float: left;">Close</button>
+        <button nbButton [disabled]="!itemAssignForm.valid" style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+</ng-template>
+
+
+
+
+
+
+
+
+
+
+<!-- for update assign item-->
+<ng-template #dialogUpdateAssignItem let-data let-ref="dialogRef">
+  
+
+  <form  [formGroup]="itemAssignUpdateForm" (ngSubmit)="updatePackageAssignData()">
+    <nb-card style="width: 50vw;height: 90vh;">
+
+      <nb-card-header>Update Assigned Items</nb-card-header>
+      <nb-card-body >
+
+    
+  
+
+
+        <div class="col-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Select Package</label>
+          </div>
+          <nb-select fullWidth class="form-select select-important"  placeholder="Select Package"
+            formControlName="package_id"
+            [ngClass]="{'form-control-danger': (itemAssignUpdateForm.get('package_id').dirty || itemAssignUpdateForm.get('package_id').touched) && itemAssignUpdateForm.get('package_id').errors}">
+            <nb-option>Select Package</nb-option>
+            <nb-option *ngFor="let package  of package_list" value="{{package.id}}">
+              {{package.name}}
+            </nb-option>
+          </nb-select>
+          <div
+          *ngIf="itemAssignUpdateForm.get('package_id').invalid && (itemAssignUpdateForm.get('package_id').dirty || itemAssignUpdateForm.get('package_id').touched)">
+          <small *ngIf="itemAssignUpdateForm.get('package_id').errors['required']" class="text-danger">
+            Package is required!</small>
+        </div>
+          </div>
+
+
+          <div class="pt-2 col-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Select Item</label>
+            </div>
+            <nb-select fullWidth class="form-select select-important"  placeholder="Select Subtype"
+              formControlName="item_id"
+              [ngClass]="{'form-control-danger': (itemAssignUpdateForm.get('item_id').dirty || itemAssignUpdateForm.get('item_id').touched) && itemAssignUpdateForm.get('item_id').errors}">
+              <nb-option>Select Item</nb-option>
+              <nb-option *ngFor="let item  of package_item" value="{{item.id}}">
+                {{item.name}}
+              </nb-option>
+            </nb-select>
+            <div
+            *ngIf="itemAssignUpdateForm.get('item_id').invalid && (itemAssignUpdateForm.get('item_id').dirty || itemAssignUpdateForm.get('item_id').touched)">
+            <small *ngIf="itemAssignUpdateForm.get('item_id').errors['required']" class="text-danger">
+              Item is required!</small>
+          </div>
+            </div>
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Visualize name</label>
+            <input class="form-control input-bottom" formControlName="visualize_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter visualize name"
+              [ngClass]="{'form-control-danger': (itemAssignUpdateForm.get('visualize_name').dirty || itemAssignUpdateForm.get('visualize_name').touched) && itemAssignUpdateForm.get('visualize_name').errors}">
+            <div
+              *ngIf="itemAssignUpdateForm.get('visualize_name').invalid && (itemAssignUpdateForm.get('visualize_name').dirty || itemAssignUpdateForm.get('visualize_name').touched)">
+              <small *ngIf="itemAssignUpdateForm.get('visualize_name').errors['required']" class="text-danger">
+                Visualize name is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Parameter value</label>
+            <input class="form-control input-bottom" formControlName="parameter_value" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter parameter value"
+              [ngClass]="{'form-control-danger': (itemAssignUpdateForm.get('parameter_value').dirty || itemAssignUpdateForm.get('parameter_value').touched) && itemAssignUpdateForm.get('parameter_value').errors}">
+            <div
+              *ngIf="itemAssignUpdateForm.get('parameter_value').invalid && (itemAssignUpdateForm.get('parameter_value').dirty || itemAssignUpdateForm.get('parameter_value').touched)">
+              <small *ngIf="itemAssignUpdateForm.get('parameter_value').errors['required']" class="text-danger">
+                Parameter value is required!</small>
+            </div>
+          </div>
+        </div>
+
+ 
+
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle  labelPosition="start" formControlName="status" status="success" >Is package active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeUpdateAssign()"  style="float: left;">Close</button>
+        <button nbButton [disabled]="!itemAssignUpdateForm.valid" style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+
+</ng-template>
+
+
+
+
+
+<!-- delete items -->
+<ng-template #dialogDeleteAssign let-data let-ref="dialogRef">
+  <form [formGroup]="assignDeleteForm" class="step-container" (ngSubmit)="deleteAssignData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Assign Item</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> assigned data?</strong></p>
+          <p>All information associated with assigned data will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+        <button nbButton style="float: right;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+
+
+
+
+
+
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

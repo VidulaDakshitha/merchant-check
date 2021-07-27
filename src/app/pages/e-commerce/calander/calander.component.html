@@ -1,0 +1,378 @@
+
+<nb-card size="large" style="height: auto;" *ngIf='is_calender && is_calender_events'>
+  <nb-card-body class="card-body-padding">
+    <div class='app-calendar'>
+      <div class="add-event">
+        <button (click)="openAddEvent(dialogEvent)" class="button">Add Event</button>
+      </div>
+      <full-calendar #calendar defaultView="dayGridMonth" [header]="{
+          left: 'prev,next today',
+          center: 'title',
+          right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+        }" eventLimit="true" [plugins]="calendarPlugins" [weekends]="calendarWeekends" [events]="calendarEvents"
+         (eventClick)="eventClickedMCheque($event, dialogDateView, dialogEventView)">
+      </full-calendar>
+    </div>
+  </nb-card-body>
+</nb-card>
+
+<!-- calender date view -->
+<ng-template #dialogDateView let-data let-ref="dialogRef">
+  <nb-card style="width: 45vw;">
+    <nb-card-header>Matured Cheque Details</nb-card-header>
+    <nb-card-body>
+      <nb-list class="dialog-border">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.cheque_id}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Merchant ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.merchant_id}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cheque ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.cheque_id}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Received Date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.received_date}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Description</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.description}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.amount| number:'1.2-2'}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Matured Date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.matured_date | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Created ON</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.created_on | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Updated ON</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.updated_on | date: 'dd/MM/yyyy'}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Bank ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.bank_id}}
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Is Returned</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              {{selected_cheque.is_returned ? 'Returned': 'Not Returned'}}
+            </div>
+          </div>
+        </nb-list-item>
+
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<!-- Event add  -->
+<ng-template #dialogEvent let-data let-ref="dialogRef">
+  <form [formGroup]="addEventForm" class="step-container" (ngSubmit)="addEventAdd()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Add Event</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row row-margin">
+        <div class="col-md-12 col-lg-12 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Event Name</label>
+            <input class="form-control input-bottom" formControlName="event_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Amount">
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Description</label>
+            <textarea class="text-discription" rows="2" nbInput fullWidth shape="round" formControlName="description"
+              placeholder="Text Area"></textarea>
+          </div>
+        </div>
+        </div>
+        <div class="row row-margin">
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Start Date</label>
+            <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+              placeholder="Select Matured Date" [nbDatepicker]="formpicker" formControlName="start_date"
+              selected="1">
+            <nb-datepicker #formpicker></nb-datepicker>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">End Date</label>
+            <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+              placeholder="Select Matured Date" [nbDatepicker]="formpickerend" formControlName="end_date"
+              selected="1">
+            <nb-datepicker #formpickerend></nb-datepicker>
+          </div>
+        </div>
+        </div>
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Event Color</label>
+            <input class="form-control input-bottom" formControlName="color" type="color" nbInput fullWidth
+              shape="rectangle">
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- Event view  -->
+<ng-template #dialogEventView let-data let-ref="dialogRef">
+  <nb-card style="width: 40vw;">
+    <nb-card-header>Event Details</nb-card-header>
+    
+    <nb-card-body class="card-body-event">
+      <div class="row row-margin">
+        <button class="button2" (click)="openEditEvent(dialogEventEdit,selected_event_data,selected_event_id)">Edit</button>
+        <button class="button2" (click)="openDeleteEvent(dialogDeleteEvent)">Delete</button>
+      </div>
+      <nb-list class="dialog-border">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xxxl-4">
+              <span>Event ID</span>
+            </div>
+            <div class="col-md-8 col-lg-8 col-xxxl-8">
+              <span>{{selected_event_id ? selected_event_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xxxl-4">
+              <span>Event Name</span>
+            </div>
+            <div class="col-md-8 col-lg-8 col-xxxl-8">
+              <span>{{selected_event_data.event_name}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xxxl-4">
+              <span>Description</span>
+            </div>
+            <div class="col-md-8 col-lg-8 col-xxxl-8">
+              <span>{{selected_event_data.description}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="ccol-md-4 col-lg-4 col-xxxl-4">
+              <span>Start Date</span>
+            </div>
+            <div class="col-md-8 col-lg-8 col-xxxl-8">
+              <span>{{selected_event_data.start_date | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xxxl-4">
+              <span>End Date</span>
+            </div>
+            <div class="col-md-8 col-lg-8 col-xxxl-8">
+              <span>{{selected_event_data.actual_end_date | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-4 col-lg-4 col-xxxl-4">
+              <span>Create On</span>
+            </div>
+            <div class="col-md-8 col-lg-8 col-xxxl-8">
+              <span>{{selected_event_data.created_at | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+       
+        <!-- <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-10 col-lg-10 col-xxxl-10">
+              hhhhhhhhh
+            </div>
+            <div class="col-md-1 col-lg-1 col-xxxl-1">
+              <button class="button2" (click)="openEditEvent(dialogEventEdit)">Edit</button>
+            </div>
+            <div class="col-md-1 col-lg-1 col-xxxl-1">
+              <button class="button2">Delete</button>
+            </div>
+          </div>
+        </nb-list-item> -->
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+<!-- update -->
+<ng-template #dialogEventEdit let-data let-ref="dialogRef">
+  <form [formGroup]="eventFormUpdate" class="step-container" (ngSubmit)="updateEvent()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Event Update</nb-card-header>
+      <nb-card-body class="dialog-border dialog-border-event-edit">
+        <div class="col-md-12 col-lg-12 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Event Name</label>
+            <input class="form-control input-bottom" formControlName="event_name" type="text" nbInput fullWidth
+              shape="rectangle">
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Description</label>
+            <textarea class="text-discription" rows="2" nbInput fullWidth shape="round" formControlName="description"
+              placeholder="Text Area"></textarea>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Start Date</label>
+              <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+                 [nbDatepicker]="formpickerUpdateStart" formControlName="start_date"
+                selected="1">
+              <nb-datepicker #formpickerUpdateStart></nb-datepicker>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">End Date</label>
+              <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+                 [nbDatepicker]="formpickerUpdateEnd" formControlName="end_date"
+                selected="1">
+              <nb-datepicker #formpickerUpdateEnd></nb-datepicker>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+        <button style="float: left;" type='submit' nbButton>Update</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- delete event -->
+<ng-template #dialogDeleteEvent let-data let-ref="dialogRef">
+  <form [formGroup]="deleteEventForm" class="step-container" (ngSubmit)="deleteEventData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Delete Merchant</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> event</strong></p>
+          <p>All information associated to this event will be permanently deleted.
+          <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

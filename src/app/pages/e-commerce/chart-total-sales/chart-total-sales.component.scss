@@ -1,0 +1,47 @@
+@import '../../../@theme/styles/themes';
+@import '../../pages.component.scss';
+
+@include nb-install-component() {
+  flex: 1;
+
+  .echart {
+    display: block;
+    height: 100%;
+    width: 100%;
+  }
+}
+// summary
+.dialog-border{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: none;
+  border-radius: .25rem;
+}
+.head-card{
+  width: 100%;
+  text-align: center;
+  font-size: 1rem;
+  font-weight: 600;
+  color: white;
+  
+}
+.body-card{
+  text-align: center;
+  width: 100%;
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+.body-card h5 {
+  color: red;
+}
+.body-background{
+  background-color: #20c997;
+}
+.body-background:hover{
+  background-color:#078a78 ;
+}

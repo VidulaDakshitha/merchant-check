@@ -1,0 +1,157 @@
+
+@import '../pages.component.scss';
+//tabs
+nb-tabset {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+  }
+.nb-theme-default nb-card.size-small{
+    height:40rem!important;
+}
+.merchant-id{
+    color:red;
+    font-weight: 200;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+}
+.merchant-id span{
+    color: black;
+    font-size: 0.8rem;
+    
+}
+.table .thead-light th {
+    
+    font-size: 0.8rem;
+    font-weight: 200;
+}
+.table td{
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+.table td a{
+    color: #4CAF50;
+    cursor: pointer;
+}
+//
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding:0.3rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.7rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 100;
+
+   
+  }
+  
+  .button1 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  //search button
+  .button-search{
+    border: none;
+    color: white;
+    padding:0.6rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 100;
+    background-color: #3366ff; 
+    color: white; 
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+   
+  }
+  button:focus {
+    box-shadow: 0 0 0 0.2rem rgba(38, 143, 255, 0.5);
+    outline: none;
+  }
+  //summary
+  .h6{
+      text-align: center;
+      font-weight: 200;
+
+  }
+  .p-4{
+      font-size: 0.8rem!important;
+      font-weight: 100!important;
+  }
+  //serach date
+  
+.date-range{
+    padding: 10px;
+    margin-left: -20px;
+    margin-top: -9px;
+    width: 100%;
+    border-radius: 0.25rem;
+}
+.nb-card{
+    padding: 1rem 0rem;
+}
+.date-search{
+    margin: -7px 6px 14px 6px;
+}
+.search-date{
+    width: 100%!important;
+    padding: 10px;
+    margin-left: 0;
+    margin-top: 0;
+    width: 100%;
+    border-radius: 0.25rem;
+  }
+  .transaction-title{
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin-top: -20px;
+}
+.refund-popup{
+    width: auto;
+    height: auto;
+}
+.dialog-border-event{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+    margin: 12px;
+  
+   } 
+.dialog-border-list{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  }
+  .merchant-view-sub-head{
+    font-size: 0.8rem;
+}
+.list-item {
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+.list-item {
+    padding: 0.5rem 1rem 0.5rem 1rem;
+}

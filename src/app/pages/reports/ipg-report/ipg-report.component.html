@@ -1,0 +1,93 @@
+<ol class="breadcrumb">
+  <li class="breadcrumb-item"><a href="/#/dashboard">Home</a></li>
+  <li class="breadcrumb-item"><a href="/#/dashboard">Reports</a></li>
+  <li class="breadcrumb-item active">Ipg Transaction Report</li>
+</ol>
+<div class="container">
+  <div class="table-wrapper">
+    <div class="table-title">
+      <div class="row">
+        <div class="col-sm-3">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="start_date" [owlDateTime]="start_date_cal"
+              placeholder="Start Date" [owlDateTimeTrigger]="start_date_cal">
+
+            <!-- <div class="input-group-prepend">
+                          <button class="btn btn-outline-secondary cus-outline" type="button">
+                              <span [owlDateTimeTrigger]="start_date_cal" class="cus-outline"><i
+                                      class="fa fa-calendar"></i></span>
+                          </button>
+                      </div> -->
+            <owl-date-time #start_date_cal></owl-date-time>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="input-group">
+            <input type="text" class="form-control" [(ngModel)]="end_date" [owlDateTime]="end_date_cal"
+              placeholder="End Date" [owlDateTimeTrigger]="end_date_cal">
+            <!-- 
+                    <div class="input-group-prepend">
+                        <button class="btn btn-outline-secondary cus-outline" type="button">
+                            <span [owlDateTimeTrigger]="end_date_cal" class="cus-outline"><i
+                                    class="fa fa-calendar"></i></span>
+                        </button>
+                    </div> -->
+            <owl-date-time #end_date_cal></owl-date-time>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="input-group">
+            <select class="form-control" id="sel1" [(ngModel)]="type">
+              <option selected disabled value="">Transaction Type</option>
+              <option value="AEMX">Amex</option>
+              <option value="LQR">Lanka QR</option>
+              <option value="MCARD">Master Card</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-sm-3">
+          <div class="input-group">
+            <input type="text" nbInput fullWidth  shape="rectangle" [(ngModel)]="email" placeholder="Email">
+
+          </div>
+
+        </div>
+       
+      </div>
+      <div class="row">
+        <div class="col-sm-3">
+          <div style="display: block;">
+            <div class="input-group">
+              <label class="pt-2 checkbox-inline"><input type="checkbox" value="0" [(ngModel)]="is_assigned_batch"
+                  (ngModelChange)="filterAssignedBatch()"> &nbsp;Batch Assigned</label>
+  
+            </div>
+          </div>
+          <!-- <div style="display: block;">
+            <div class="input-group">
+              <label class="pt-2 checkbox-inline"><input type="checkbox" value="0" [(ngModel)]="is_approve"
+                  (ngModelChange)="filterActiveWallets()"> &nbsp;With Approved</label>
+  
+            </div>
+          </div> -->
+        </div>
+        <div class="col-sm-3">
+          <!-- <div style="display: block;"> -->
+            <div class="input-group">
+              <label class="pt-2 checkbox-inline"><input type="checkbox" value="0" [(ngModel)]="is_approve"
+                  (ngModelChange)="filterApprovedTransaction()"> &nbsp;With Approved</label>
+  
+            </div>
+          <!-- </div> -->
+        </div>
+        <div class="col-sm-6">
+          <button type="submit" class="button-common" type="submit" (click)="search_data()">Search</button>
+        </div>
+        
+      </div>
+
+    </div>
+    <ngx-op-data-table [data]="items" [headers]="headers" [isLoading]="isLoading" [title]="title" [description]="description"></ngx-op-data-table>
+
+  </div>
+</div>

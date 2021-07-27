@@ -1,0 +1,446 @@
+
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>QR Transaction History</li>
+    <li>QR Transaction</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card style="height:auto!important;" size="small">
+      <nb-tabset fullWidth>
+        <nb-tab tabTitle="OnePay QR Transaction">
+          <div class="container">
+
+            <div class="row">
+              <div class="col-sm-12 col-md-12 col-lg-12">
+                <!-- <p class="merchant-id" *ngIf="transaction_list.length>0">
+                  <span>My ID :
+                  </span>{{transaction_list[0].merchant_id}}
+                </p> -->
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-sm-4 col-md-4 col-5">
+                <div class="form-group search">
+                  <select class="form-control" name="transaction_id" [(ngModel)]="search_by"
+                    (ngModelChange)="changeSearchType()" [ngModelOptions]="{standalone: true}">
+                    <option value="0" selected>All</option>
+                    <option value="1">Transaction Id</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-5">
+                <div class="form-group search">
+                  <input clearable class="form-control" [disabled]="search_by!=1" type="text"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text" placeholder="Search.."
+                    name="search">
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-2">
+                <button class="button-search" (click)="search_data()">Search</button>
+
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    Transaction History
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-responsive-sm table-hover table-outline mb-0">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>ID</th>
+                          <th>App ID</th>
+                          <th>Transaction ID</th>
+                          <th>Amount</th>
+                          <th>Updated On</th>
+                          <th>Status</th>
+                          <th>Refund Status</th>
+                          <th>Refund Transaction</th>
+                          <th>Refund Info</th>
+                          <th>View</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let transaction  of transaction_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total,id: 'onepay' }"
+                          [ngStyle]="{ 'background-color' : transaction.transactionInfo.status ? '#ffffff' : '#ffcdcb' }">
+                          <td>{{transaction.transactionInfo.id}}</td>
+                          <td>{{transaction.transactionInfo.app_id}}</td>
+                          <td>{{transaction.transactionInfo.transaction_id}}</td>
+                          <td>{{transaction.transactionInfo.amount | number:'1.2-2'}}</td>
+                          <td>{{transaction.transactionInfo.updated_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                          <td>{{transaction.transactionInfo.status}}</td>
+                          <td>{{transaction.transactionInfo.is_refund ?'YES':'NO'}}</td>
+                          <td>
+                            <button class="button button1" [nbPopover]="form"
+                              (click)="open4(transaction.transactionInfo.transaction_id)">Refund Now</button>
+                          </td>
+                          <td>
+                            <button class="button button1" (click)="open3(dialog3, transaction.refund_info)">Refund
+                              Info</button>
+                          </td>
+                          <td>
+                            <button class="button button1"
+                              (click)="openOnepayView(dialogOnepayView, transaction.transactionInfo)">View</button>
+                          </td>
+                          <ng-template #form>
+                            <div class="p-4 dialog-border-event">
+                              <form [formGroup]="refundForm" (ngSubmit)="addRefund()">
+                                <p>Add Refund</p>
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="Transaction ID"
+                                    formControlName="transaction_id">
+                                </div>
+                                <div class="form-group">
+                                  <input type="text" class="form-control" placeholder="User Name"
+                                    formControlName="user_name">
+                                </div>
+                                <div class="form-group">
+                                  <textarea class="form-control" placeholder="Reason"
+                                    formControlName="reason"></textarea>
+                                </div>
+
+                                <button type="submit" class="btn btn-primary w-100">Send</button>
+                              </form>
+                            </div>
+                          </ng-template>
+                        </tr>
+                        <tr *ngIf="transaction_list.length<1">
+                          <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                            <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                            <span style="display: block;">
+                              <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                                style="width:30%;">
+                            </span>
+                          </td>
+                            <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                              <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                              </div>
+                            </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="pageChanged($event)" id="onepay" responsive="true"
+                      (pageBoundsCorrection)="pageChanged($event)" style="float: right">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+
+
+        <nb-tab tabTitle="Loro QR Transaction">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm-4 col-md-4 col-5">
+                <div class="form-group search">
+                  <select class="form-control" name="transaction_id" [(ngModel)]="search_by2"
+                    (ngModelChange)="changeSearchType2()" [ngModelOptions]="{standalone: true}">
+                    <option value="0" selected>All</option>
+                    <option value="1">Transaction Id</option>
+                  </select>
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-5">
+                <div class="form-group search">
+                  <input class="form-control" [disabled]="search_by2!=1" type="text"
+                    [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text2" placeholder="Search.."
+                    name="search">
+                </div>
+              </div>
+              <div class="col-sm-4 col-md-4 col-2">
+                <button class="button-search" (click)="search_data2()">Search</button>
+
+              </div>
+
+            </div>
+            <div class="row">
+              <div class="col-md-12">
+                <div class="card">
+                  <div class="card-header">
+                    Loro Transaction
+                  </div>
+                  <div class="card-body">
+                    <table class="table table-responsive-sm table-hover table-outline mb-0">
+                      <thead class="thead-light">
+                        <tr>
+                          <th>ID</th>
+                          <th>App ID</th>
+                          <th>Transaction ID</th>
+                          <th>Amount</th>
+                          <th>Updated On</th>
+                          <th>Transaction Status</th>
+                          <th>Refund Status</th>
+                          <th>Refund</th>
+                          <th>Refund Info</th>
+
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr
+                          *ngFor="let transaction2  of transaction_list2 | paginate: { itemsPerPage: pageSize2, currentPage: p2, totalItems: total2,id: 'loro' }">
+                          <td>{{transaction2.id}}</td>
+                          <td>{{transaction2.app_id}}</td>
+                          <td>{{transaction2.transaction_id}}</td>
+                          <td>{{transaction2.amount | number:'1.2-2'}}</td>
+                          <td>{{transaction2.updated_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                          <td>{{transaction2.status}}</td>
+                          <td>{{transaction2.is_refund ?'YES':'NO'}}</td>
+
+                          <td>
+                            <button class="button button1" [nbPopover]="form">Refund Now</button>
+                          </td>
+                          <td>
+                            <button class="button button1">Refund Info</button>
+                          </td>
+                        </tr>
+                        <tr *ngIf="transaction_list2.length<1">
+                          <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                            <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                            <span style="display: block;">
+                              <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                                style="width:30%;">
+                            </span>
+                          </td>
+                            <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                              <div class="sk-circle">
+                                <div class="sk-circle1 sk-child"></div>
+                                <div class="sk-circle2 sk-child"></div>
+                                <div class="sk-circle3 sk-child"></div>
+                                <div class="sk-circle4 sk-child"></div>
+                                <div class="sk-circle5 sk-child"></div>
+                                <div class="sk-circle6 sk-child"></div>
+                                <div class="sk-circle7 sk-child"></div>
+                                <div class="sk-circle8 sk-child"></div>
+                                <div class="sk-circle9 sk-child"></div>
+                                <div class="sk-circle10 sk-child"></div>
+                                <div class="sk-circle11 sk-child"></div>
+                                <div class="sk-circle12 sk-child"></div>
+                              </div>
+                            </td>
+                        </tr>
+
+                      </tbody>
+                    </table>
+                    <pagination-controls (pageChange)="pageChanged2($event)" id="loro" responsive="true"
+                      (pageBoundsCorrection)="pageChanged2($event)" style="float: right">
+                    </pagination-controls>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </nb-tab>
+      </nb-tabset>
+    </nb-card>
+  </div>
+</div>
+
+<!-- refund information -->
+
+<ng-template #dialog3 let-data let-ref="dialogRef">
+  <nb-card class="refund-popup">
+    <nb-card-header>Refund Information</nb-card-header>
+    <nb-card-body style="padding: 0px;" class="dialog-border-event">
+      <div class="card-body">
+        <table class="table table-responsive-sm table-hover table-outline mb-0">
+          <thead class="thead-light">
+            <tr>
+              <th>id</th>
+              <th>User Name</th>
+              <th>Reason</th>
+              <th>Response Code</th>
+              <th>Status</th>
+              <th>Response Message</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let refund of refund_details">
+              <td>{{refund.id}}</td>
+              <td>{{refund.user_name}}</td>
+              <td>{{refund.reason}}</td>
+              <td>{{refund.response_code}}</td>
+              <td>{{refund.status}}</td>
+              <td>{{refund.response_message}}</td>
+            </tr>
+            <tr *ngIf="refund_details.length<1">
+              <td colspan="10"> Data Not Available</td>
+            </tr>
+
+          </tbody>
+        </table>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+
+</ng-template>
+
+<!--onepay QR transaction view details -->
+<ng-template #dialogOnepayView let-data let-ref="dialogRef">
+  <nb-card style="width: 50vw;" class="collection-popup">
+    <nb-card-header>Onepay Transaction</nb-card-header>
+    <nb-card-body>
+      <nb-list class="dialog-border-list">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.id ? onepay_transaction.id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>App ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.app_id ? onepay_transaction.app_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Transaction ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.transaction_id ? onepay_transaction.transaction_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Refund Status</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.is_refund ? onepay_transaction.is_refund : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Updated On</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.updated_on ? (onepay_transaction.updated_on | date: 'dd/MM/yyyy - hh:mm')  : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.amount ? onepay_transaction.amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Transaction Status</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.status ? onepay_transaction.status : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Transaction Description</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.transaction_description ? onepay_transaction.transaction_description : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Customer Name</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{onepay_transaction.customer_name ? onepay_transaction.customer_name : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Customer Email</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>*****{{onepay_transaction.customer_email ? (onepay_transaction.customer_email | slice:(onepay_transaction.customer_email.length-9):(onepay_transaction.customer_email.length)) : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Customer Phone Numberrrr</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+             
+              <span >*********{{onepay_transaction.customer_phone_no ? (onepay_transaction.customer_phone_no | slice:9:12) : 'Not Available'}}</span>
+              <!-- <span >*********{{onepay_transaction.customer_phone_no | slice:9:12}}</span> -->
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

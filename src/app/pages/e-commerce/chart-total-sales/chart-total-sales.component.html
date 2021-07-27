@@ -1,0 +1,61 @@
+
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li>Home</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-md-4 col-lg-4 col-xxxl-4">
+    <nb-card class="dialog-border">
+      <nb-card-body class="body-background">
+       <div class="col-12">
+         <div class="head-card">
+           Last QR Transaction
+         </div>
+         <div class="body-card">
+          <h5>{{qr_data['amount']| number:'1.2-2'}}</h5>
+         </div>
+       </div>
+      </nb-card-body>
+    </nb-card>
+  </div>
+  <div class="col-md-4 col-lg-4 col-xxxl-4">
+    <nb-card class="dialog-border">
+      <nb-card-body class="body-background">
+       <div class="col-12">
+         <div class="head-card">
+           Yesterday Total Sale
+         </div>
+         <div class="body-card">
+          <h5>{{yesterday_total && yesterday_total.length > 0 && yesterday_total[0].total_amount? yesterday_total[0].total_amount : 'Not Available'}}</h5>
+         </div>
+       </div>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+  <div class="col-md-4 col-lg-4 col-xxxl-4">
+    <nb-card class="dialog-border">
+      <nb-card-body class="body-background">
+       <div class="col-12">
+         <div class="head-card">
+           Today Mature Cheque Amount
+         </div>
+         <div class="body-card">
+         
+          <h5>{{today_cheque_amount}}</h5>
+          <!-- <h5>{{today_cheque_amount && today_cheque_amount['cheque_amount'] ? today_cheque_amount['cheque_amount'] : 'Not Available'}}</h5> -->
+         </div>
+       </div>
+      </nb-card-body>
+    </nb-card>
+
+  </div>
+</div>
+
+<nb-card>
+
+
+  <div echarts [options]="options" class="echart" (chartInit)="onChartInit($event)"></div>
+
+</nb-card>

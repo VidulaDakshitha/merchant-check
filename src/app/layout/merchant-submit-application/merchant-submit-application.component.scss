@@ -1,0 +1,331 @@
+@import '../../app.component.scss';
+:host ::ng-deep nb-stepper .step-content {
+    text-align: center;
+  
+    button {
+      cursor: pointer;
+      margin: 0.5rem;
+    }
+  }
+.head-register{
+    background-color:white ;
+    height: 7vh;
+    padding: 0px 48px 0px 48px;
+    border-bottom: 1px solid rgba(0,0,0,0.3);
+}
+.logo {
+    width: 130px;
+    height: auto;
+  }
+  .srilanka-logo{
+    width: 28px; 
+    height: auto;
+    margin-right: 8px;
+  }
+  .head-info-right{
+    float: right;
+  }
+  .head-info{
+   color: rgba(0,0,0,0.5);
+   font-size: 12px;
+}
+.heda-info-phone-number{
+  font-size: 12px;
+  font-weight: 400;  
+}
+.content-body{
+    height: 100vh;
+    background-color:#E5E5E5 ;
+    padding: 100px 150px 100px 150px;
+}
+.form-contant{
+  padding: 5px 80px 5px 80px;
+}
+.content-body-title-left{
+  margin-bottom: 8px;
+    font-weight: 600;
+    font-size: 14px;
+}
+.content-body-title-right{
+  margin-bottom: 8px;
+  margin-left: 10px;
+  font-weight: 600;
+  font-size: 14px;
+
+}
+.contant-info-body{
+  margin: 0 12px 0 12px!important;
+}
+.required_feeld{
+  color: red;
+  font-size: 12px;
+}
+.label-name{
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(0,0,0,0.5);
+  padding-top: 15px;
+  margin-bottom: 4px;
+}
+.form-control-text{
+  font-weight: 100!important;
+  font-size: 14px!important;
+  background-color: white!important;
+  border-color: rgba(0,0,0,0.3);
+}
+// uplode file
+.uploadfilecontainer {
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  height: 236px;
+  width: 100%;
+  border: 1px dashed #1C8ADB;
+  border-radius: 10px;
+  background-color: white;
+
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: #9ecbec !important;
+  opacity: 0.8;
+}
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10px auto;
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius: 12px;
+  padding: 5px;
+  color: #1c8adb;
+}
+
+.files-list .delete-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.files-list .delete-file img {
+  width: 15px;
+  height: 15px;
+}
+.file-name{
+  margin-top: 20px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+.uplode-icon{
+  display: block;
+}
+.front_side,.back_side{
+  width: 70px;
+  height: 60px;
+  background-color: #F1F1F1;
+  border-radius: 6px;
+  
+}
+.back_side{
+  margin-left: 12px;
+}
+.image-side{
+  font-size: 10px;
+  font-weight: 400;
+  text-align: center;
+}
+.qr-search-button{
+   background-color: #2CC780;
+    color: white;
+    border: 1px solid #2CC780;
+    border-radius: 0.25rem;
+    float: right;
+    font-size: 14px;
+    padding: 5px 15px 5px 15px;
+    margin-right: 14px
+}
+.back_button{
+  background-color: #E8E8E8;
+   color: black;
+   border: 1px solid #E8E8E8;
+   border-radius: 0.25rem;
+  
+   font-size: 14px;
+   padding: 5px 15px 5px 15px;
+}
+.sub-title1{
+  font-size: 14px;
+  font-weight: 600;
+  float: left;
+}
+.sub-title2{
+  font-size: 14px;
+  font-weight: 600; 
+  float: left;
+}
+.sub-price-title{
+  font-size: 10px;
+  color: rgba(0,0,0,0.5);
+  float: left;
+  margin-bottom: 10px;
+}
+.sub-price{
+  float: left;
+  font-weight: 1000;
+  color:#2CC780;
+  font-size: 38px;
+}
+.month{
+  font-size: 10px;
+  color: rgba(0,0,0,0.5);
+}
+.sub_middle_name{
+  border-bottom: 1px solid rgba(0,0,0,0.5);
+    border-top: 1px solid rgba(0,0,0,0.5);
+    margin-top: 20px;
+    padding-top: 15px;
+    padding-bottom: 15px;
+    margin-bottom: 20px;
+}
+.chech-btn{
+  color:#2CC780 ;
+}
+.package-details{
+  font-size: 12px;
+  font-weight: 400;
+  margin-left: 6px;
+
+}
+.package-grid{
+  margin-top: 10px;
+}
+
+.select-important{
+  width: 100%!important;
+ margin-left: -9px;
+ background-color: white!important;
+ margin-top: -9px!important;
+}
+.business_file_drag{
+  font-size: 10px;
+  color: rgba(0,0,0,0.5);
+}
+.uplode-text{
+  display: block;
+  font-size: 12px;
+}
+
+.submit-head{
+  font-size: 18px;
+  font-weight: 600;
+  float: left;
+}
+.submit-body-text{
+  font-size: 13px;
+  color: rgba(0,0,0,0.5);
+}
+.submit-body-head{
+  font-size: 14px;
+  font-weight: 600;
+ 
+}
+.application-image-bac{
+  background-color: #FFFFFF;
+    width: 100%;
+    height: 360px;
+    border-radius: 4px;
+    margin-right: 25px;
+    padding: 26px;
+}
+.agreemet-image-bac{
+  background-color:#EBEDFF ;
+  width: 130px;
+  height: 130px;
+  border-radius: 4px;
+ 
+}
+.uplode-file-bac{
+  background-color:#FFFFFF ;
+  width: 100%;
+  height: 360px;
+  border-radius: 4px;
+  padding: 25px;
+}
+.onboard-pdf{
+  margin-top:8px;
+    font-size: 12px;
+    display: table-caption;
+    font-weight: 600;
+}
+.downlode-application-pdf{
+  background-color: #0E1FC2;
+    color: white;
+    border: 1px solid #0E1FC2;
+    border-radius: 0.25rem;
+    font-size: 12px;
+    padding: 5px 15px 5px 15px;
+    font-weight: 500;
+    float: right;
+}
+.downlode-agreement-pdf{
+  background-color:#0E1FC2;
+    color: white;
+    border: 1px solid #0E1FC2;
+    border-radius: 0.25rem;
+    font-size: 14px;
+    padding: 5px 15px 5px 15px;
+    font-weight: 500;
+    margin-left: 17px;
+    margin-top: 28px;
+}
+.icon-pdf{
+  text-align: -webkit-center;
+    font-size: 40px;
+    color: #84004E;
+}
+.icon-pdf-agreement{
+  text-align: -webkit-center;
+    font-size: 40px;
+    color:#000E90;
+}
+.icon-pdf-meeting{
+  text-align: -webkit-center;
+  font-size: 40px;
+  color:#22B130;
+}
+.icon-pdf-company{
+  text-align: -webkit-center;
+  font-size: 40px;
+  color:#CB5719;
+}
+.back_button{
+  background-color: #E8E8E8;
+   color: black;
+   border: 1px solid #E8E8E8;
+   border-radius: 0.25rem;
+   margin-right: -165px!important;
+   font-size: 14px;
+   padding: 5px 20px 5px 20px;
+}
+
+.paf-down{
+  width: 100%;
+    background-color: red;
+    height: 100px;
+    border-radius: 4px;
+    text-align: center;
+    padding: 30px;
+}
+.check-btn{
+  position: absolute;
+  left: 22px;
+  top: 4px;
+}
+
+
+
+
+
+

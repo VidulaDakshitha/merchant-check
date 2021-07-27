@@ -1,0 +1,1086 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding: 25px;" class="collection-popup">
+      <div>
+        <ul style="color:#7BC8A1" class="bread" style="margin-bottom: 0!important;padding:0;">
+          <li style="color:#7BC8A1"><a style="color:#7BC8A1" href="#/pages/dashboard">Home</a></li>
+          <li style="color:#7BC8A1" >My Profile</li>
+
+        
+        </ul>
+      </div>
+
+      <div class="tab-botton">
+        <button autofocus="state1" (click)="sec1_show()" [class]="state1?'tab-botton-body2':'tab-botton-body'"><i class="fa fa-user" aria-hidden="true"></i> Personal
+          Details</button>
+        <button autofocus="state2" (click)="sec2_show()" [class]="state2?'tab-botton-body2':'tab-botton-body'"><i class="fa fa-book" aria-hidden="true"></i> Company
+          Details</button>
+      </div>
+      <div class="section1" *ngIf='state1'>
+        <div class="dialog-border">
+          <div class="row">
+
+            <div class="col-12 col-sm-2 col-md-2">
+              <div class="row">
+                <div class="image_body">
+                  <div class="middle">
+                    <div (click)="openUpdateProPic(dialogProPicUpdate, merchant_details)" class="text">Update
+                    </div>
+                  </div>
+                  <div class="image_container">
+                    <img *ngIf="merchant_details && merchant_details.logo" style="height:120px" class="img_css"
+                      src='{{image_base_path}}{{merchant_details.logo}}'>
+                      <img *ngIf="!(merchant_details && merchant_details.logo)" class="img_css"
+                      src='../../../assets/images/default_pro_pic.jpg'>
+                  </div>
+                </div>
+              </div>
+              <div class="row pt-3">
+                <span class="user_name">{{merchant_details && merchant_details.business_name}}</span>
+              </div>
+
+            </div>
+            <div class="col-12 col-sm-5 col-md-5">
+
+              <div class="row">
+                <nb-list class="nb-list-details">
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span style="font-family: 'Poppins';">LankaQR MID</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span style="font-family: 'Poppins';">{{merchant_details && merchant_details.qr_mid ? merchant_details.qr_mid : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Business Category</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.business_cat ? merchant_details.business_cat : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Business Type</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.business_type ? merchant_details.business_type : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Date of Registration</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.date_of_reg? merchant_details.date_of_reg : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item *ngIf="merchant_details && merchant_details.business_name" class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Registered Business Name</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.business_name ? merchant_details.business_name : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item" *ngIf="merchant_details && merchant_details.register_no">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Register Number</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.register_no ? merchant_details.register_no : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Title</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.title ?merchant_details.title : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>First Name</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.first_name ?merchant_details.first_name : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Last Name</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.last_name ?merchant_details.last_name : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Identification</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.identification ?merchant_details.identification : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>NIC</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.nic ?merchant_details.nic : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Gender</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.gender ? merchant_details.gender : 'Not Available'}}</span>
+                        
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Designation</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.designation ?merchant_details.designation : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Phone No.</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.user_phone_no ?merchant_details.user_phone_no : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Email</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.user_email ?merchant_details.user_email : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Monthly Income</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.monthly_income ?merchant_details.monthly_income : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Income Tax Number</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.income_tax ? merchant_details.income_tax : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Status</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.status ? merchant_details.status : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+
+
+
+
+
+
+
+                </nb-list>
+              </div>
+            </div>
+            <div class="col-12 col-sm-5 col-md-5">
+              <div class="row">
+                <nb-list class="nb-list-details">
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Bank</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details['account_details'].length>0 && merchant_details['account_details'][0].bank_name? merchant_details['account_details'][0].bank_name : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Bank Acc. Type.</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details['account_details'].length>0 && merchant_details['account_details'][0].type? merchant_details['account_details'][0].type : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Bank Acc. No.</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details['account_details'].length>0 && merchant_details['account_details'][0].account_no? merchant_details['account_details'][0].account_no : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+ <nb-list-item *ngIf="merchant_details"   class="list-item">
+  <div class="row" *ngFor="let details of merchant_details.commission_details">
+    <div class="col-5 item-head">
+      <span>Commission Rate for 
+        <span *ngIf="details.type=='AMEX'">Mastercard</span>
+        <span *ngIf="details.type=='VISA'">Visa</span>
+        <span *ngIf="details.type=='JUSTPAY'">Justpay</span>
+      </span>
+    </div>
+    <div class="col-7 itam-data" style="height: 39px;">
+      <span>{{details && details.rate ?details.rate : 'Not Available'}}</span>
+    </div>
+  </div>
+</nb-list-item>
+
+
+
+
+
+
+
+
+
+
+
+
+                  <!-- <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Commission Rate for JustPay</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.commission_rate_lanka_qr ? merchant_details.commission_rate_lanka_qr : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Commission for RateQR</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.commission_rate_lanka_qr ? merchant_details.commission_rate_lanka_qr : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item> -->
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Merchant Agreement Date</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.merchant_agreement_date ? (merchant_details.merchant_agreement_date| date:"MM/dd/yyyy") : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item" *ngIf="merchant_details && merchant_details.is_setup_fee_waved_off==0">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Setup Fee Amount</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.setup_fee_amount? merchant_details.setup_fee_amount : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item" *ngIf="merchant_details && merchant_details.is_setup_fee_waved_off==0">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Setup Fee Paid Date</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.setup_fee_paid_on? merchant_details.aggregator_signature : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+                  <nb-list-item class="list-item" *ngIf="merchant_details && merchant_details.is_setup_fee_waved_off==1">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Setup Fee Waved off?</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.is_setup_fee_waved_off==1? 'Yes' : 'No'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Correspondence Address</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.address_corr ? merchant_details.address_corr : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>City</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.city ? merchant_details.city : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+                  <nb-list-item class="list-item">
+                    <div class="row">
+                      <div class="col-5 item-head">
+                        <span>Postal Code</span>
+                      </div>
+                      <div class="col-7 itam-data">
+                        <span>{{merchant_details && merchant_details.postal_code ? merchant_details.postal_code : 'Not Available'}}</span>
+                      </div>
+                    </div>
+                  </nb-list-item>
+
+
+
+                  <nb-list-item *ngIf="merchant_details"   class="list-item">
+                    <div *ngFor="let details of merchant_details.shareholder_details;index as i">
+                  
+                    <div class="pt-2 pb-3 row" >
+                      <div class="col-5 item-head">
+                    
+                          <span >Shareholder {{i+1}} Name</span>
+                     
+                      </div>
+                      <div class="col-7 itam-data" style="height: 39px;">
+                        <span>{{details && details.name_shareholder ?details.name_shareholder : 'Not Available'}}</span>
+                      </div>
+                    </div>
+            
+
+                    <div class="pb-3 row" >
+                      <div class="col-5 item-head">
+                    
+                          <span >Shareholder {{i+1}} Percentage</span>
+                     
+                      </div>
+                      <div class="col-7 itam-data" style="height: 39px;">
+                        <span>{{details && details.percentage_shareholder ?details.percentage_shareholder : 'Not Available'}}</span>
+                      </div>
+                    </div>
+
+
+                    <div class="pt-2 pb-3 row" >
+                      <div class="col-5 item-head">
+                    
+                          <span >Shareholder {{i+1}} Phone No.</span>
+                     
+                      </div>
+                      <div class="col-7 itam-data" style="height: 39px;">
+                        <span>{{details && details.phone_number ?details.phone_number : 'Not Available'}}</span>
+                      </div>
+                    </div>
+   
+
+
+
+                  </div>
+
+                  </nb-list-item>
+
+
+
+
+                </nb-list>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="section2" *ngIf='state2'>
+        <div class="col-md-6 offset-md-3">
+          <div class="dialog-border">
+            <!-- <div class="row">
+              <div class="compay-details-update">
+                <button (click)="openUpdateUserCompanyDetail(dialogUpdateUserCompanyDetail, merchant_details)"
+                  class="com-update_botton">Update Company Details</button>
+              </div>
+            </div> -->
+            <div class="row">
+              <nb-list class="nb-list-details">
+                <!-- <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Close Day</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.close_day ? merchant_details.close_day : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Opening Hours</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.opening_hours ? merchant_details.opening_hours : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Redeem Code</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.secret_key ? merchant_details.secret_key : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Parking</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>
+                        {{merchant_details && merchant_details.parking ? 'Yes' : 'NO'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item> -->
+                <!-- <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Others</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.other ? merchant_details.other : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item> -->
+                <!-- <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Service</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.service ? merchant_details.service : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Delivery</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.is_delivery ? merchant_details.is_delivery?'Yes':'No' : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Delivery Range(Km)</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.delivery_range ? merchant_details.delivery_range : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Agreement</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.agreement ? merchant_details.agreement : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Customer Transaction</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.cust_transaction ? 'Yes' : 'NO'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item> -->
+
+                <nb-list-item class="list-item" *ngIf="merchant_details && merchant_details.business_name">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Company Name</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.business_name ? merchant_details.business_name : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+
+                <nb-list-item class="list-item" >
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Company Website</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.business_website ? merchant_details.business_website : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Facebook Page URL</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.facebook_page ? merchant_details.facebook_page : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Instagram Page URL</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.instagrame ? merchant_details.instagrame : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Alternative Mobile Number</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.contact_phone_no ? merchant_details.contact_phone_no : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Contact Email</span>
+                    </div>
+                    <div class="col-7 itam-data">
+                      <span>{{merchant_details && merchant_details.contact_email ? merchant_details.contact_email : 'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-5 item-head">
+                      <span>Location</span>
+                    </div>
+                    <div style="padding-left: 0;" class="col-7">
+                      <!-- <span><button class="address-update_botton"
+                          (click)="openAddress(dialogAddress)">Update</button></span> -->
+                          <div class="col-7 itam-data">
+                            <span>{{merchant_details && merchant_details.city ? merchant_details.city : 'Not Available'}}</span>
+                          </div>
+                    </div>
+                  </div>
+                </nb-list-item>
+              </nb-list>
+
+
+  
+
+
+
+              <!-- <div id="myDIV">
+                <form [formGroup]="banklocationForm" class="step-container" (ngSubmit)="updatelocationData()">
+                  <nb-card style="margin-bottom:0;padding-top: 13px">
+                    <div class="col-md-12">
+                      <div class="form-group">
+                        <input type="text" #search_data class="form-control"
+                          (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location"
+                          autocorrect="off" autocapitalize="off" spellcheck="off" type="text">
+                      </div>
+
+                      <agm-map style="width: auto; height: 200px;" [latitude]="latitude" [longitude]="longitude"
+                        [zoom]="zoom">
+                        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                          (dragEnd)="markerDragEnd($event)"></agm-marker>
+                      </agm-map>
+
+                      <h5>Address: {{address}}</h5>
+                      <div>Latitude: {{latitude}}</div>
+                      <div>Longitude: {{longitude}}</div>
+
+
+                    </div>
+
+                    <nb-card-footer>
+                     
+                      <button nbButton style="float: left;" type='submit'>Submit</button>
+                    </nb-card-footer>
+
+                  </nb-card>
+                </form>
+              </div> -->
+            </div>
+
+            <div>
+  
+            
+
+
+          </div>
+        </div>
+
+
+
+
+
+
+      </div>
+
+</div>
+  
+<div *ngIf="showLocation" class="d-flex justify-content-center">
+
+          <div class="col-6 ">
+            <div class="form-group">
+              <input style="background-color:#F2F2F7; font-size: 12px;" type="text" #search_data class="form-control"
+                (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
+                autocapitalize="off" spellcheck="off" type="text">
+            </div>
+      
+            <agm-map style="width: auto; height: 200px;" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+              <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+                (dragEnd)="markerDragEnd($event)"></agm-marker>
+            </agm-map>
+      
+            <span class="address-head"> Address: {{address}}</span>
+      
+            <div>
+              <span class="lat-lon"> Latitude:
+                <span style="font-size: 10px;font-weight: 100;"> {{latitude}}</span>
+              </span>
+              <span class="lat-lon"> Longitude:
+                <span style="font-size: 10px;font-weight: 100; padding-left: 6px;">{{longitude}}</span>
+              </span>
+              <span>
+                <button class="qr-search-button" (click)="updatelocationData()" type="submit">submit</button>
+              </span>
+            </div>
+      
+          </div>
+    
+        </div>
+
+
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<!-- update company details -->
+<ng-template #dialogUpdateUserCompanyDetail let-data let-ref="dialogRef">
+  <form [formGroup]="userUpdateForm" class="step-container" (ngSubmit)="updateUserData()">
+    <nb-card  style="width: 60vw;max-height: 90vh">
+      <nb-card-header>Update Company Details</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Service</label>
+            <input class="form-control input-bottom" formControlName="service" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter service">
+
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Opening Hours</label>
+              <input class="form-control input-bottom" formControlName="opening_hours" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter opening hours">
+
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Close Day</label>
+              <input class="form-control input-bottom" formControlName="close_day" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter close day">
+
+            </div>
+          </div>
+        </div>
+        <!-- <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Other</label>
+              <input class="form-control input-bottom" formControlName="other" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Other details">
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Parking</label>
+
+              <input class="form-control input-bottom" formControlName="parking" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter parking details">
+
+            </div>
+          </div>
+        </div> -->
+
+
+
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label style="width: 100%;" class="label-form-control label-name">Parking</label>
+            <div class="demo-items demo-radio4">
+              <nb-radio-group class="radio-btn" formControlName="parking">
+                <nb-radio style="padding: 0!important;" class="b" [value]='"true"'>
+                  Yes
+                </nb-radio>
+                <nb-radio class="b" [value]='"false"'>
+                  NO
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Delivery Range</label>
+              <input class="form-control input-bottom" formControlName="delivery_range" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter delivery range">
+
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Alternative Mobile</label>
+              <input class="form-control input-bottom" formControlName="alternative_mobile" type="text" nbInput
+                fullWidth shape="rectangle" [(ngModel)]="alternative_mobile_format"
+                placeholder="Enter alternative mobile">
+
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Agreement</label>
+            <textarea class="text-discription" rows="2" nbInput fullWidth shape="round" formControlName="agreement"
+              placeholder="Enter agreement"></textarea>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Delivery Charge</label>
+              <input class="form-control input-bottom" formControlName="delivery_charge" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Amount" currencyMask
+                [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }">
+
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-4 col-lg-4 col-xxxl-4">
+            <div class="input-group">
+              <label style="width: 100%;" class="label-form-control label-name">Is Delivery</label>
+              <div class="demo-items demo-radio2">
+                <nb-radio-group class="radio-btn" name="is_delivery" formControlName="is_delivery">
+                  <nb-radio style="padding: 0!important;" class="b" [value]="true">
+                    Yes
+                  </nb-radio>
+                  <nb-radio class="b" [value]="false">
+                    NO
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-xxxl-4">
+            <div class="input-group">
+              <label style="width: 100%;" class="label-form-control label-name">Customer Transaction</label>
+              <div class="demo-items demo-radio2">
+                <nb-radio-group class="radio-btn" name="cust_transaction" formControlName="cust_transaction">
+                  <nb-radio style="padding: 0!important;" class="b" [value]='true'>
+                    Yes
+                  </nb-radio>
+                  <nb-radio class="b" [value]='false'>
+                    NO
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-4 col-lg-4 col-xxxl-4">
+            <div class="input-group">
+              <label style="width: 100%;" class="label-form-control label-name">Is Alert</label>
+              <div class="demo-items demo-radio2">
+                <nb-radio-group class="radio-btn" name="is_alert" formControlName="is_alert">
+                  <nb-radio style="padding: 0!important;" class="b" [value]='true'>
+                    Yes
+                  </nb-radio>
+                  <nb-radio class="b" [value]='false'>
+                    NO
+                  </nb-radio>
+                </nb-radio-group>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton  disabled style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+
+</ng-template>
+
+
+
+
+
+    <!-- <div>
+      <div class="form-group">
+        <input style="background-color:#F2F2F7; font-size: 12px;" type="text" #search_data class="form-control"
+          (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
+          autocapitalize="off" spellcheck="off" type="text">
+      </div>
+
+      <agm-map style="width: auto; height: 200px;" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+        <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+          (dragEnd)="markerDragEnd($event)"></agm-marker>
+      </agm-map>
+
+      <span class="address-head"> Address: {{address}}</span>
+
+      <div>
+        <span class="lat-lon"> Latitude:
+          <span style="font-size: 10px;font-weight: 100;"> {{latitude}}</span>
+        </span>
+        <span class="lat-lon"> Longitude:
+          <span style="font-size: 10px;font-weight: 100; padding-left: 6px;">{{longitude}}</span>
+        </span>
+        <span>
+          <button class="qr-search-button" (click)="updatelocationData()" type="submit">submit</button>
+        </span>
+      </div>
+
+    </div> -->
+
+
+
+
+
+
+
+
+<!-- update address -->
+<ng-template #dialogAddress let-data let-ref="dialogRef">
+  <nb-card style="width: 50vw;z-index: 2147483647;" class="collection-popup">
+    <nb-card-header style="font-weight: 700;">Update Location <i (click)="ref.close()"
+        style="float: right;cursor: pointer;" class="fa fa-times" aria-hidden="true"></i></nb-card-header>
+    <nb-card-body>
+      <div>
+        <div class="form-group">
+          <input style="background-color:#F2F2F7; font-size: 12px;z-index: 1000;" type="text" #search_data class="form-control"
+            (keydown.enter)="$event.preventDefault()" placeholder="Search Nearest Location" autocorrect="off"
+            autocapitalize="off" spellcheck="off" type="text">
+        </div>
+
+        <agm-map style="width: auto; height: 200px;" [latitude]="latitude" [longitude]="longitude" [zoom]="zoom">
+          <agm-marker [latitude]="latitude" [longitude]="longitude" [markerDraggable]="true"
+            (dragEnd)="markerDragEnd($event)"></agm-marker>
+        </agm-map>
+
+        <span class="address-head"> Address: {{address}}</span>
+
+        <div>
+          <span class="lat-lon"> Latitude:
+            <span style="font-size: 10px;font-weight: 100;"> {{latitude}}</span>
+          </span>
+          <span class="lat-lon"> Longitude:
+            <span style="font-size: 10px;font-weight: 100; padding-left: 6px;">{{longitude}}</span>
+          </span>
+          <span>
+            <button class="qr-search-button" (click)="updatelocationData()" disabled type="submit">submit</button>
+          </span>
+        </div>
+
+      </div>
+    </nb-card-body>
+  </nb-card>
+</ng-template>
+
+
+<!-- pro pic update -->
+<ng-template #dialogProPicUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="proPicUpdateForm" class="step-container" (ngSubmit)="updateMerchantProPicData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Add Profile Picture</nb-card-header>
+      <nb-card-body class="dialog-border">
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+            <label>Profile Logo</label>
+            <input #imageInput name='logo' class="image-upload" (change)="onFileChange($event)" type="file"
+              accept="image/*">
+            <div class="center-page">
+              <img class="image_layer" src='{{image}}'>
+            </div>
+
+          </div>
+        </div>
+        <!-- <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+            <label>Profile Pictures</label>
+            <input #imageInput name='logo' class="image-upload" (change)="onFileChange($event)"
+              type="file" accept="image/*">
+            <div class="center-page">
+              <img class="image_layer" src='{{image}}'>
+            </div>
+
+          </div>
+        </div> -->
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="close3()" style="float: left;">Close</button>
+        <button nbButton style="float: right;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

@@ -1,0 +1,578 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card>
+      <ul class="bread" style="margin-bottom: 0!important;padding: 8px; margin-left: 14px!important;padding: 8px;">
+        <li><a routerLink="/pages/dashboard">Dashboard</a></li>
+        <li><a href="#">Payment Link</a></li>
+      </ul>
+      <nb-card class="box_shadow">
+        <nb-card-body>
+
+          <div class="form-group row">
+            <div class="col-2 form-group form-group-sm">
+              <button status="info" size="small" (click)="generateLink(dialog)" nbButton style="float: left;"
+                type='button'>Generate Link</button>
+            </div>
+          </div>
+
+          <nb-card-body class="dialog-border box_shadow">
+            <div class="row">
+              <div class="col-4 form-group form-group-sm">
+                <label style="font-size: 0.75rem" for="exampleInputEmail1">Reference Number</label>
+                <input type="email" class="form-control form-control-sm " id="exampleInputEmail1" [(ngModel)]="refernce_filter"
+                  placeholder="">
+              </div>
+              <div class=" col-4 form-group form-group-sm">
+                <label style="font-size: 0.75rem" for="exampleInputEmail1">Status</label>
+                <select class="form-control" id="sel1" [(ngModel)]="status_filter">
+                  <option selected value="ALL">All</option>
+                  <option value="SUCCESS">Success</option>
+                  <option value="ACTIVE">Active</option>
+                  <option value="NOT-ACTIVE">Pending</option>
+                </select>
+              </div>
+            </div>
+
+            <div class="example-items-rows">
+              <div class="col-md-8"></div>
+              <button class="col-md-2" shape="semi-round" status="info" size="small" nbButton style="float: right;"
+                type='button' (click)="filter_data()">Filter</button>
+              <button class="col-md-2" shape="semi-round" status="info" size="small" nbButton
+                style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);" (click)="clear_data()">Clear</button>
+            </div>
+
+          </nb-card-body>
+        </nb-card-body>
+      </nb-card>
+    </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div >
+          <nb-card size="small" style="height: auto;padding-top: 12px;">
+            <div class="container">
+              <div class="card-header">
+                Payment Link Details
+              </div>
+              <div class="row">
+                <div class="col-12">
+                  <nb-card>
+                    <nb-card-body>
+                      <div class="row">
+                        <div class="col-md-12">
+                          <div class="table-responsive">
+                            <table style="border:0.7px solid #D2D2D2; border-radius: 10px;"
+                              class="mb-2 table table-responsive-sm table-hover table-outline mb-0">
+                              <thead class="thead-light">
+                                <tr>
+                                  <th>Link Reference</th>
+                                  <th>Amount (LKR)</th>
+                                  <th>Customer</th>
+                                  <th>Transaction Status</th>
+                                  <th>Link Status</th>
+                                  <th>Status Description</th>
+                                  <th>URL</th>
+                                  <th>Expire on</th>
+                                  <th>Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="let transaction of transaction_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total}">
+                                  <td>{{transaction.reference_no}}</td>
+                                  <td>
+                                    <p style="font-size: small;">{{(transaction.amount ?  transaction.amount : 0) | number : '1.2-2'}}</p>
+                                  </td>
+                                  <td>
+                                    <p style="font-size: small;"><b>Name: </b>{{transaction.customer_first_name}} {{transaction.customer_last_name}}</p>
+                                    <p style="font-size: small;"><b>Email: </b>{{transaction.customer_email}}</p>
+                                    <p style="font-size: small;"><b>Phone_number: </b>{{transaction.customer_mobile_no}}</p>
+                                  </td>
+                                  <td>
+                                    <span *ngIf="transaction.status" class="badge badge-success">Success</span>
+                                    <span *ngIf="!transaction.status" class="badge badge-warning">Pending</span>
+                                  </td>
+                                  <td>
+                                    <span *ngIf="transaction.is_active" class="badge badge-success">Active</span>
+                                    <span *ngIf="!transaction.is_active" class="badge badge-warning">Deactivated</span>
+                                  </td>
+                                  <td>{{transaction.status_description}}</td>
+                                  <td>
+                                    <input [readonly]="true"  #callback_urll value="{{transaction.transaction_link}}"/>
+                                    <button type="button" 
+                                    class="btn btn-default"
+                                    size="tiny"
+                                    type="button"
+                                    style="background-color: #EDEDED;border-color: #EDEDED;color: black;"
+                                    [ngxClipboard]="callback_urll"
+                                    (cbOnSuccess)="copiedSuccess()"
+                                    (cbOnError)="onCopyFailure()"
+                                    [class.btn-success]="isCopied3"
+                                     nbButton> Copy</button>
+                                  </td>
+                                  <td>
+                                    <p style="font-size: small;width: 140px;">{{transaction.expire_datetime ? transaction.expire_datetime:'Not Available'}}</p>
+                                  </td>
+                                  <td>
+                                    <button class="button2"
+                                      (click)="openView(dialog1, transaction)">View</button>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="transaction_list && transaction_list.length<1">
+                                  <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                                    <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                                    <span style="display: block;">
+                                     
+                                    </span>
+                                  </td>
+                                  <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                                    <div class="sk-circle">
+                                      <div class="sk-circle1 sk-child"></div>
+                                      <div class="sk-circle2 sk-child"></div>
+                                      <div class="sk-circle3 sk-child"></div>
+                                      <div class="sk-circle4 sk-child"></div>
+                                      <div class="sk-circle5 sk-child"></div>
+                                      <div class="sk-circle6 sk-child"></div>
+                                      <div class="sk-circle7 sk-child"></div>
+                                      <div class="sk-circle8 sk-child"></div>
+                                      <div class="sk-circle9 sk-child"></div>
+                                      <div class="sk-circle10 sk-child"></div>
+                                      <div class="sk-circle11 sk-child"></div>
+                                      <div class="sk-circle12 sk-child"></div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                          <pagination-controls (pageChange)="pageChanged($event)" responsive="true"
+                            (pageBoundsCorrection)="pageChanged($event)" style="float: right">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+            </div>
+          </nb-card>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!--Create Link-->
+<ng-template hasScroll #dialog let-data let-ref="dialogRef">
+  <form [formGroup]="createLinkForm" class="step-container" (ngSubmit)="createPaymentLink()">
+    <nb-card style="max-height: 95vh;">
+      <nb-card-header>Generate Payment link</nb-card-header>
+      <nb-card-body>
+          <div class="input-group m-2">
+              <div class=" col-ms-12 col-lg-12 col-xxxl-12">
+                  <label style="font-size: 0.75rem; text-align: left;" for="exampleInputEmail1">Amount</label>
+              </div>
+              <div class=" col-ms-12 col-lg-12 col-xxxl-12">
+                  <div class="code" style="font-size: small;" >LKR</div>
+                  <input type="number" style="width: 100%;" class="form-control form-control-sm" id="img_style" formControlName="amount" fullWidth
+                        placeholder="0.00" autocomplete="off">
+              </div>
+              <div class="col-ms-12 col-lg-12 col-xxxl-12">
+                <div *ngIf="createLinkForm.get('amount')?.invalid && (createLinkForm.get('amount')?.dirty|| createLinkForm.get('amount')?.touched)">
+                <small class="font-red" *ngIf="createLinkForm.controls['amount'].hasError('required') && !submit_disable">
+                  Amount is required.
+                </small>
+                <small class="font-red" *ngIf="createLinkForm.controls['amount'].hasError('max')">
+                  Maximum amount is LKR 1,000,000.00
+                </small>
+              </div>
+              <small class="font-red" *ngIf="createLinkForm.controls['amount'].hasError('min')">
+                Minimum amount is LKR 0.00
+              </small>
+              </div>
+          </div>
+
+          <div class="input-group m-2">
+            <div class=" col-ms-12 col-lg-12 col-xxxl-12">
+              <label style="font-size: 0.75rem; text-align: left;" for="exampleInputEmail1">Payment for</label>
+            </div>
+            <div class=" col-ms-12 col-lg-12 col-xxxl-12">
+              <textarea class="form-control form-control-sm" formControlName="pl_description" type="text"
+              fullWidth shape="rectangle" placeholder="Write here" style="background-color: white;"></textarea>
+            </div>
+            <div class=" col-ms-12 col-lg-12 col-xxxl-12">
+              <div *ngIf="createLinkForm.get('pl_description')?.invalid && (createLinkForm.get('pl_description')?.dirty|| createLinkForm.get('pl_description')?.touched)">
+                <small class="font-red" *ngIf="createLinkForm.controls['pl_description'].hasError('required')">
+                  Payment for is required.
+                </small>
+                <small class="font-red" *ngIf="createLinkForm.controls['pl_description'].hasError('pattern')">
+                  Payment for is in invalid format.
+                </small>
+              </div>
+            </div>
+          </div>
+  
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <label style="color: rgb(45, 92, 245);">Gateway Details</label>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="row">
+            <div class="col-6 form-group form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Gateway Application</label>
+              <select style="background-color: white;font-size: 13px;font-family: 'Century Gothic';"  class="form-control" formControlName="app_id">
+                <option value="0" style="background-color: white;font-family: 'Century Gothic';font-size: 13px;" disabled selected>Select gateway</option>
+                <option style="background-color: white;font-family: 'Century Gothic';font-size: 13px;"  *ngFor="let app of applist" [value]="app.id">{{app.app_name}}</option>
+              </select>
+              <div *ngIf="createLinkForm.get('app_id')?.invalid && (createLinkForm.get('app_id')?.dirty|| createLinkForm.get('app_id')?.touched)">
+                <small class="font-red" *ngIf="createLinkForm.controls['app_id'].hasError('required')">
+                  Gateway is required.
+                </small>
+              </div>
+            </div>
+            <div class="col-6 form-group form-group-sm">
+              <div class="tab-margin">
+                <nb-toggle style="align-items: center; color:rgb(9, 9, 247);" [checked]="checked"
+                  (checkedChange)="openInput($event)" status="info">Partial Payment</nb-toggle>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="row">
+            <div class="col-6 form-group form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Reference Number</label>
+              <input type="text" style="background-color: white;"  class="form-control form-control-sm" id="ref" formControlName="reference_id"
+                placeholder="Enter reference number">
+                <div *ngIf="createLinkForm.get('reference_id')?.invalid && (createLinkForm.get('reference_id')?.dirty|| createLinkForm.get('reference_id')?.touched)">
+                  <small class="font-red" *ngIf="createLinkForm.controls['reference_id'].hasError('required')">
+                    Reference number is required.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['reference_id'].hasError('minlength')">
+                    Minimum length is 10 characters.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['reference_id'].hasError('maxlength')">
+                    Maximum length is 20 characters.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['reference_id'].hasError('pattern')">
+                    Last name is in invalid format.
+                  </small>
+                </div>
+            </div>
+            <div *ngIf="!checked" class="col-6 form-group form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Link Expire time</label>
+              <input class="form-control form-control-sm" style="background-color: white;" id="date" 
+                formControlName="expire_datetime" placeholder="" type="datetime-local" [min]="currentDate" name="date"  >
+            </div>
+          </div>
+          <div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <label style="color: rgb(45, 92, 245);">Customer Details</label>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="row">
+            <div class="col-6 form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Customer First Name</label>
+              <input style="background-color: rgb(255, 255, 255);"  type="text" class="form-control form-control-sm " id="cfn" formControlName="customer_first_name"
+                placeholder="Enter first name">
+                <div *ngIf="createLinkForm.get('customer_first_name')?.invalid && (createLinkForm.get('customer_first_name')?.dirty|| createLinkForm.get('customer_first_name')?.touched)">
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_first_name'].hasError('required')">
+                    First name is required.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_first_name'].hasError('pattern')">
+                    First name is in invalid format.
+                  </small>
+                </div>
+            </div>
+            <div class=" col-6 form-group form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Customer Last Name</label>
+              <input style="background-color: white;"  type="text" class="form-control form-control-sm" id="cln" formControlName="customer_last_name"
+                placeholder="Enter last name">
+                <div *ngIf="createLinkForm.get('customer_last_name')?.invalid && (createLinkForm.get('customer_last_name')?.dirty|| createLinkForm.get('customer_last_name')?.touched)">
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_last_name'].hasError('required')">
+                    Last name is required.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_last_name'].hasError('pattern')">
+                    Last name is in invalid format.
+                  </small>
+                </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="row">
+            <div class="col-6 form-group form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Customer Email</label>
+              <input style="background-color: white;"  type="email" class="form-control form-control-sm " id="em" formControlName="customer_email"
+                placeholder="abc@gmail.com">
+                <div *ngIf="createLinkForm.get('customer_email')?.invalid && (createLinkForm.get('customer_email')?.dirty|| createLinkForm.get('customer_email')?.touched)">
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_email'].hasError('required')">
+                    Email is required.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_email'].hasError('pattern')">
+                    Email is in invalid format.
+                  </small>
+                </div>
+            </div>
+
+            <div class="col-6 form-group form-group-sm">
+              <label style="font-size: 0.75rem" for="exampleInputEmail1">Customer Contact Number</label>
+              <div class="code" style="font-size: small;" >+94</div>
+              <input type="number" class="form-control form-control-sm" id="img_style" formControlName="customer_mobile_no"
+                placeholder="771234567"  autocomplete="off">
+                <div *ngIf="createLinkForm.get('customer_mobile_no')?.invalid && (createLinkForm.get('customer_mobile_no')?.dirty|| createLinkForm.get('customer_mobile_no')?.touched)">
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_mobile_no'].hasError('required')">
+                    Phone number is required.
+                  </small>
+                  <small class="font-red" *ngIf="createLinkForm.controls['customer_mobile_no'].hasError('pattern')">
+                    Invalid format.Please use: Eg:-771234567
+                  </small>
+                </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton  type="submit" class="col-md-2"  status="info" size="small" style="float: right; color: rgb(255, 255, 255)" [disabled]="btnStatus() || submit_disable">Submit</button>
+        <button nbButton class="col-md-2"  (click)="close2()" type="button" style="float: right; background-color: white; border-color: white; color: #797979;"  status="info" size="small" >Close</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<!--View Link-->
+<ng-template hasScroll #dialog1 let-data let-ref="dialogRef"> 
+  <nb-card style="max-height: 95vh;">
+    <nb-card-header><label>View payment link details</label></nb-card-header>
+    <nb-card-body>
+               <!--Payment details-->
+          
+               <div class="row  col-md-12">
+                 <div class="col-12 pad-top-no">
+                     <label style="font-weight: 500;font-family: Poppins; font-size: 14px; line-height: 11px;width: 500px; height: 11px; top: 465px;color: #000000;"><b>Payment Details</b></label>
+                 </div>
+               </div>
+               <br>
+               <div class="row  col-md-12">
+                <div class="col-md-4">
+                  <label class="label_app_name" style="width: 100%; height: 30px; top: 312px;font-family: 'Poppins';">Amount</label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    <div>
+                    <label style="width: 100%; height: 42px; line-height: 19px;" class="label_app_name">LKR {{(view_details && view_details.amount ? view_details.amount : 0) | number : '1.2-2'}}</label>
+                    </div>
+                </div>
+              </div>
+               <div class="row  col-md-12">
+                 <div class="col-md-4">
+                     <label class="label_app_name" style="width: 150px; height: 30px; top: 412px;font-family: 'Poppins';">Activity Status</label>
+                 </div>
+                 <div class="col-md-1">:</div>
+                 <div class="col-md-6">
+                   <span *ngIf="view_details.is_active" class="badge badge-success">Active</span>
+                   <span *ngIf="!view_details.is_active" class="badge badge-danger">Deactive</span>
+                 </div>
+               </div>
+               <div class="row  col-md-12">
+                 <div class="col-md-4">
+                     <label class="label_app_name" style="width: 150px; height: 30px; top: 412px;font-family: 'Poppins';">Payment type</label>
+                 </div>
+                 <div class="col-md-1">:</div>
+                 <div class="col-md-6">
+                   <span *ngIf="view_details.is_partial_payments" class="badge badge-warning">Partial Payment</span>
+                   <span *ngIf="!view_details.is_partial_payments" class="badge badge-success">Full Payment</span>
+                 </div>
+               </div>
+         
+               <div class="row  col-md-12">
+                 <div class="col-md-4">
+                   <label class="label_app_name" style="width: 150px; height: 30px; top: 412px;font-family: 'Poppins';">Reference number</label>
+                 </div>
+                 <div class="col-md-1">:</div>
+                 <div class="col-md-4">
+                     <input class="url_link" style=" width: 100%;font-family: 'Poppins';" [readonly]="true" #reference_no  value="{{view_details && view_details.reference_no ? view_details.reference_no : 'Not Available'}}"/>
+                 </div>
+                 <div class="col-md-2">
+                     <button type="button" id="appIDbutton" 
+                     class="btn btn-default"
+                     size="tiny"
+                     type="button"
+                     [ngxClipboard]="reference_no"
+                     (cbOnSuccess)="successCopied()"
+                     (cbOnError)="onCopyFailure()"
+                     [class.btn-success]="successCopied"
+                     style="background-color: #EDEDED;border-color: #EDEDED;color: black;font-family: 'Poppins';"
+                       nbButton >Copy</button>
+                 </div>
+               </div>
+               <div class="row  col-md-12">
+                   <div class="col-md-4">
+                       <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Transaction Link</label>
+                   </div>
+                   <div class="col-md-1">:</div>
+                   <div class="col-md-4">
+                       <input class="url_link" style=" width: 100%;font-family: 'Poppins';" [readonly]="true" #transaction_link  value="{{view_details && view_details.transaction_link ? view_details.transaction_link : 'Not Available'}}"/>
+                   </div>
+                   <div class="col-md-1">
+                       <button type="button" id="appIDbutton" 
+                       class="btn btn-default"
+                       size="tiny"
+                       type="button"
+                       [ngxClipboard]="transaction_link"
+                       (cbOnSuccess)="successCopied()"
+                       (cbOnError)="onCopyFailure()"
+                       [class.btn-success]="successCopied"
+                       style="background-color: #EDEDED;border-color: #EDEDED;color: black;font-family: 'Poppins';"
+                        nbButton >Copy</button>
+                   </div>
+               </div>
+            
+               <div class="row  col-md-12">
+                 <div class="col-md-4">
+                     <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Transaction Status</label>
+                 </div>
+                 <div class="col-md-1">:</div>
+                 <div class="col-md-4">
+                   <span *ngIf="view_details.status" class="badge badge-success">Successful</span>
+                   <span *ngIf="!view_details.status" class="badge badge-warning">Pending</span>
+                 </div>
+               </div>
+               <div class="row  col-md-12">
+                 <div class="col-md-4">
+                   <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Status Description</label>
+                 </div>
+                 <div class="col-md-1">:</div>
+                 <div class="col-md-4">
+                     <div>
+                     <label style="width: 100%; height: 42px;  top: 260px;font-family:'Poppins'; font-style: normal;   line-height: 19px;" class="label_app_name">{{view_details && view_details.status_description ? view_details.status_description : 'Not Available'}}</label>
+                     </div>
+                 </div>
+               </div>
+               <div class="row  col-md-12">
+                 <div class="col-md-4">
+                   <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Payment link Description</label>
+                 </div>
+                 <div class="col-md-1">:</div>
+                 <div class="col-md-6">
+                     <div>
+                     <label style="width: 100%; height: 42px; text-align :'left'; top: 260px;font-family:'Poppins'; font-style: normal;   line-height: 19px;" class="label_app_name">{{view_details && view_details.pl_description ? view_details.pl_description : 'Not Available'}}</label>
+                     </div>
+                 </div>
+               </div>
+               <hr>
+               <!---->
+       
+        <br>
+        <div class="row  col-md-12">
+          <div class="col-12 pad-top-no">
+              <label style="font-weight: 500;font-family: Poppins; font-size: 14px; line-height: 11px;width: 500px; height: 11px; top: 465px;color: #000000;"><b>Customer Details</b></label>
+          </div>
+        </div>
+        <br>
+        <div class="row  col-md-12">
+          <div class="col-md-4">
+            <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Customer Name</label>
+          </div>
+          <div class="col-md-1">:</div>
+          <div class="col-md-6">
+              <div >
+              <label style="width: 100%; height: 42px;  top: 260px;font-family:'Poppins'; font-style: normal; line-height: 19px;" class="label_app_name">{{view_details && view_details.customer_first_name ? view_details.customer_first_name : 'Not Available'}} {{view_details && view_details.customer_last_name ? view_details.customer_last_name : 'Not Available'}}</label>
+              </div>
+          </div>
+        </div>
+        <div class="row  col-md-12">
+          <div class="col-md-4">
+            <label class="label_app_name"style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Customer Contact</label>
+          </div>
+          <div class="col-md-1">:</div>
+          <div class="col-md-6">
+              <div>
+              <label style="width: 100%; height: 42px; top: 260px;font-family:'Poppins'; font-style: normal; line-height: 19px;" class="label_app_name">{{view_details && view_details.customer_mobile_no ? view_details.customer_mobile_no : 'Not Available'}}</label>
+              </div>
+          </div>
+        </div>
+        <div class="row  col-md-12">
+        <div class="col-md-4">
+          <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Customer email</label>
+        </div>
+        <div class="col-md-1">:</div>
+        <div class="col-md-6">
+            <div>
+            <label style="width: 100%; height: 42px; top: 260px;font-family:'Poppins'; font-style: normal; line-height: 19px;" class="label_app_name">{{view_details && view_details.customer_email ? view_details.customer_email : 'Not Available'}}</label>
+            </div>
+        </div>
+        </div>
+        <div class="row  col-md-12">
+          <div class="col-md-4">
+            <label class="label_app_name" style="width: 150px; height: 30px; top: 312px;font-family: 'Poppins';">Date & Time</label>
+          </div>
+          <div class="col-md-1">:</div>
+          <div class="col-md-6">
+              <div>
+              <label style="width: 100%; height: 42px;  top: 260px;font-family:'Poppins'; font-style: normal; line-height: 19px;" class="label_app_name">{{view_details && view_details.datetime ? view_details.datetime : 'Not Available'}}</label>
+              </div>
+          </div>
+        </div>
+        <div class="row  col-md-12">
+                <div class="col-md-4">
+                  <label class="label_app_name" style="width: 150px; height: 30px; top: 412px;font-family: 'Poppins';">Expire Date & Time</label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-6">
+                    <div >
+                    <label style="width: 100%; height: 42px;  top: 260px;font-family:'Poppins'; font-style: normal;line-height: 19px;" class="label_app_name">{{view_details && view_details.expire_datetime ? view_details.expire_datetime : 'Not Available'}}</label>
+                    </div>
+                </div>
+        </div>
+        <hr>
+        <div class="row  col-md-12">
+          <br>
+          <div class="col-12 pad-top-no">
+              <label style="font-weight: 500;font-family: Poppins; font-size: 14px; line-height: 11px;width: 500px; height: 11px; top: 465px;color: #000000;"><b>App Details</b></label>
+          </div>
+        </div>
+        <br>
+        <div class="row  col-md-12">
+          <div class="col-md-4">
+              <label class="label_app_name">App Name:</label>
+          </div>
+          <div class="col-md-7">
+              <label class="app_des">{{view_details && view_details.app_name ? view_details.app_name : 'Not Available'}}</label>
+          </div>
+        </div>
+        <div class="row  col-md-12">
+          <div class="col-md-4">
+              <label class="label_app_name">App ID </label>
+          </div>
+          <div class="col-md-1">:</div>
+          <div class="col-md-5">
+              <label>{{view_details && view_details.id ? view_details.id : 'Not Available'}}</label>
+          </div>
+          <!-- <div class="col-md-2">
+            <button type="button" id="appIDbutton" 
+            class="btn btn-default"
+            size="tiny"
+            type="button"
+            [ngxClipboard]="APPID"
+            (cbOnSuccess)="successCopied()"
+            (cbOnError)="onCopyFailure()"
+            [class.btn-success]="successCopied"
+            style="background-color: #EDEDED;border-color: #EDEDED;color: black;font-family: 'Poppins';"
+             nbButton >Copy</button>
+        </div> -->
+        </div> 
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="closeView()" style="float: right; background-color: #0077E5;box-shadow: 0px 8px 21px rgba(39, 39, 39, 0.15);border-radius: 7px;font-family: 'Poppins';">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template> 

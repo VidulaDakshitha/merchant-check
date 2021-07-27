@@ -1,0 +1,129 @@
+
+
+html,body{
+background-color: #e4e5e6;
+background-size: cover;
+background-repeat: no-repeat;
+height: 100vh;
+font-family: 'Numans', sans-serif;
+
+}
+
+.container{
+height: 100%;
+align-content: center;
+margin-top: 7%;
+}
+
+.card{
+// height: 370px;
+margin-top: auto;
+margin-bottom: auto;
+width: 600px;
+// background-color: rgba(255,255,255,0.6) !important;
+background-color: white;
+}
+.card-body{
+    margin-top: 1.5rem;
+}
+
+.social_icon span{
+font-size: 60px;
+margin-left: 10px;
+color: #FFC312;
+}
+
+.social_icon span:hover{
+color: black;
+cursor: pointer;
+}
+
+.card-header h3{
+color: black;
+font-weight: 100;
+}
+
+.social_icon{
+position: absolute;
+right: 20px;
+top: -45px;
+}
+
+.input-group-prepend span{
+width: 50px;
+background-color: #4ae54a;
+color: white;
+border:0 !important;
+}
+
+input:focus{
+outline: 0 0 0 0  !important;
+box-shadow: 0 0 0 0 !important;
+
+}
+
+.remember{
+color: black;
+font-size: 12px;
+}
+
+.remember input
+{
+width: 12px;
+height: 12px;
+margin-left: 0px;
+margin-right: 5px;
+}
+
+.login_btn{
+color: white;
+background-color: #4ae54a;
+width: 100px;
+}
+
+.login_btn:hover{
+color: white;
+background-color: #0f9200;
+}
+
+.links{
+color: black;
+}
+
+.links a{
+margin-left: 4px;
+}
+.forgot-pw{
+    float: right;
+    font-size: 0.7rem;
+}
+.input_type{
+    display: block;
+}
+.form-group-margin{
+    margin-bottom: 1.5rem!important
+    ;
+}
+.validation-message{
+    color: red;
+    font-size: 0.6rem;
+}
+.input_type{
+    position: absolute;
+    top: 30px;
+}
+.text-feel{
+    position: relative;
+}
+
+.input-group-text{
+    padding-left:17px;
+}
+
+.input_type{
+     margin-top: 5px;
+}
+
+.text-danger2{
+    color: red;
+}

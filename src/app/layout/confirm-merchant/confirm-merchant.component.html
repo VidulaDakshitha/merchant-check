@@ -1,0 +1,319 @@
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3>Merchant Registration</h3>
+      </div>
+      <div class="card-body c-body">
+        <p style="margin-bottom: 0;">Please fill in this form to create an account.</p>
+        <p class="pw-validate">Passwords must contain at least one uppercase letter, one lowercase letter, one number and one special character. The minimum allowed length is eight characters.</p>
+        <form [formGroup]="login_form">
+
+          <div class="input-group form-group form-group-margin">
+            <label class="lable-pw">Password</label>
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-key"></i></span>
+            </div>
+            <input  class="form-control form-control-text" [type]="fieldTextType ? 'text' : 'password'"
+              placeholder="Enter Password" name="psw" formControlName="psw" required
+              [ngClass]="{'form-control-danger': (login_form.get('psw').dirty || login_form.get('psw').touched) && login_form.get('psw').errors}">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa" [ngClass]="{
+                  'fa-eye-slash': !fieldTextType,
+                  'fa-eye': fieldTextType
+                }" (click)="toggleFieldTextType()"></i>
+              </span>
+            </div>
+            <div class="input_type"
+              *ngIf="login_form.get('psw').invalid && (login_form.get('psw').dirty ||login_form.get('psw').touched)">
+              <div
+                *ngIf="login_form.get('psw').invalid && (login_form.get('psw').dirty || login_form.get('psw').touched)">
+                <small *ngIf="login_form.get('psw').errors['required']" class="validation-message">
+                  Password is required!</small>
+                <small *ngIf="login_form.get('psw').errors['minlength']" class="validation-message"> Password must be at
+                  least 8 characters long.</small>
+                <small *ngIf="login_form.get('psw').errors['pattern'] && !login_form.get('psw').errors['minlength']"
+                  class="validation-message">
+                  Please choose a stronger password. Try a mix of letters, numbers and symbols.</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="input-group form-group form-group-margin">
+
+            <label class="lable-pw">Re-Enter Password</label>
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fa fa-key"></i></span>
+            </div>
+            <input class="form-control form-control-text" [type]="fieldTextTypeRepeat ? 'text' : 'password'"
+              placeholder="Repeat Password" formControlName="psw-repeat" name="psw-repeat" required
+              [ngClass]="{'form-control-danger': (login_form.get('psw-repeat').dirty || login_form.get('psw-repeat').touched) && login_form.get('psw-repeat').errors}">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa" [ngClass]="{
+                    'fa-eye-slash': !fieldTextTypeRepeat,
+                    'fa-eye': fieldTextTypeRepeat
+                  }" (click)="toggleFieldTextTypeRepeat()"></i>
+              </span>
+            </div>
+            <div class="input_type"
+              *ngIf="login_form.get('psw-repeat').invalid && (login_form.get('psw-repeat').dirty ||login_form.get('psw-repeat').touched)">
+              <div
+                *ngIf="login_form.get('psw-repeat').invalid && (login_form.get('psw-repeat').dirty || login_form.get('psw-repeat').touched)">
+                <small *ngIf="login_form.get('psw-repeat').errors['required']" class="validation-message">
+                  Password is required!</small>
+                <small *ngIf="login_form.get('psw-repeat').errors['minlength']" class="validation-message"> Password must be at
+                  least 8 characters long.</small>
+                <small *ngIf="login_form.get('psw-repeat').errors['pattern'] && !login_form.get('psw-repeat').errors['minlength']"
+                  class="validation-message">
+                  Please choose a stronger password. Try a mix of letters, numbers and symbols.</small>
+
+              </div>
+            </div>
+
+          </div>
+
+          <div class="form-group">
+            <button class="button1" type='submit' [disabled]="!login_form.valid" (click)="verify_merchant()">Submit</button>
+          </div>
+        </form>
+        <div style="text-align: center;">
+
+          <div class="alert alert-danger" role="alert" *ngIf="is_alert">
+            Oh Snap! {{message}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="logo-img-login">
+      <img class="img-view" src="../../../assets/images/Onepay-pg.png" alt="Smiley face">
+    </div>
+  </div>
+</div>
+
+<div class="col-12 animation-div2" *ngIf=is_loading>
+  <div class="sk-circle">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="main-container">
+  <div>
+    <form [formGroup]="login_form">
+
+      <div class="container-login">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" formControlName="psw" required>
+        <div class="input_type"
+          *ngIf="login_form.get('psw').invalid && (login_form.get('psw').dirty ||login_form.get('psw').touched)">
+          <small *ngIf="login_form.get('psw').errors['required']" class="validation-message">Provider Password is
+            required!</small>
+          <small *ngIf="login_form.get('psw').errors['pattern']" class="text-danger"> Invalid password. Please try
+            again!</small>
+          <small *ngIf="login_form.get('password').errors['minlength']" class="validation-message text-danger"> Password
+            must be at least 8
+            characters
+            long.</small>
+          <small *ngIf="login_form.get('password').errors['maxlength ']" class="validation-message text-danger">
+            Password Maxiximum 20
+            characters</small>
+        </div>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" formControlName="psw-repeat" name="psw-repeat" required>
+        <div class="input_type"
+          *ngIf="login_form.get('psw-repeat').invalid && (login_form.get('psw-repeat').dirty ||login_form.get('psw-repeat').touched)">
+          <small *ngIf="login_form.get('psw-repeat').errors['required']" class="validation-message">Provider Password is
+            required!</small>
+          <small *ngIf="login_form.get('psw-repeat').errors['pattern']" class="text-danger"> Invalid password. Please
+            try again!</small>
+          <small *ngIf="login_form.get('password').errors['minlength']" class="validation-message text-danger"> Password
+            must be at least 8
+            characters
+            long.</small>
+          <small *ngIf="login_form.get('password').errors['maxlength ']" class="validation-message text-danger">
+            Password Maxiximum 20
+            characters</small>
+        </div>
+        <hr>
+        <button type="submit" class="registerbtn" (click)="verify_merchant()">Register</button>
+      </div>
+    </form>
+   
+    <div style="text-align: center;">
+      <br /><br />
+      <div class="alert alert-danger" role="alert" *ngIf="is_alert">
+        Oh Snap! {{message}}
+      </div>
+      <div class="lds-spinner" *ngIf="is_loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div> -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- <div class="main-container">
+
+  <div *ngIf="is_active_onepay_agreement">
+    <h5 class="m-g-head">Merchant Agreement</h5>
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <div class="card-body">
+          <ngx-onepay-agreement></ngx-onepay-agreement>
+        </div>
+      </div>
+    </div>
+    <div class="btn-agrement">
+      <button class="btn-body" (click)="agreeOnepayAgreement()">Agree</button>
+    </div>
+
+  </div>
+
+  <div *ngIf="is_active_bank_agreement">
+    <h5 class="m-g-head">Agreement between Merchant and Acquirer Bank</h5>
+    <div class="container">
+      <div class="d-flex justify-content-center">
+        <div class="card-body">
+          <ngx-bank-agreement></ngx-bank-agreement>
+        </div>
+      </div>
+    </div>
+    <div class="btn-agrement">
+      <button class="btn-body" (click)="agreeBankAgreement()">Agree</button>
+    </div>
+  </div>
+  <div *ngIf="is_pw_change">
+    <form [formGroup]="login_form">
+
+      <div class="container-login">
+        <h1>Register</h1>
+        <p>Please fill in this form to create an account.</p>
+        <hr>
+        <label for="psw"><b>Password</b></label>
+        <input type="password" placeholder="Enter Password" name="psw" formControlName="psw" required>
+        <div class="input_type"
+          *ngIf="login_form.get('psw').invalid && (login_form.get('psw').dirty ||login_form.get('psw').touched)">
+          <small *ngIf="login_form.get('psw').errors['required']" class="validation-message">Provider Password is
+            required!</small>
+          <small *ngIf="login_form.get('psw').errors['pattern']" class="text-danger"> Invalid password. Please try
+            again!</small>
+          <small *ngIf="login_form.get('password').errors['minlength']" class="validation-message text-danger"> Password
+            must be at least 8
+            characters
+            long.</small>
+          <small *ngIf="login_form.get('password').errors['maxlength ']" class="validation-message text-danger">
+            Password Maxiximum 20
+            characters</small>
+        </div>
+
+        <label for="psw-repeat"><b>Repeat Password</b></label>
+        <input type="password" placeholder="Repeat Password" formControlName="psw-repeat" name="psw-repeat" required>
+        <div class="input_type"
+          *ngIf="login_form.get('psw-repeat').invalid && (login_form.get('psw-repeat').dirty ||login_form.get('psw-repeat').touched)">
+          <small *ngIf="login_form.get('psw-repeat').errors['required']" class="validation-message">Provider Password is
+            required!</small>
+          <small *ngIf="login_form.get('psw-repeat').errors['pattern']" class="text-danger"> Invalid password. Please
+            try again!</small>
+          <small *ngIf="login_form.get('password').errors['minlength']" class="validation-message text-danger"> Password
+            must be at least 8
+            characters
+            long.</small>
+          <small *ngIf="login_form.get('password').errors['maxlength ']" class="validation-message text-danger">
+            Password Maxiximum 20
+            characters</small>
+        </div>
+        <hr>
+        <button type="submit" class="registerbtn" (click)="verify_merchant()">Register</button>
+      </div>
+    </form>
+   
+    <div style="text-align: center;">
+      <br /><br />
+      <div class="alert alert-danger" role="alert" *ngIf="is_alert">
+        Oh Snap! {{message}}
+      </div>
+      <div class="lds-spinner" *ngIf="is_loading">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
+    </div>
+  </div>
+</div>
+ -->

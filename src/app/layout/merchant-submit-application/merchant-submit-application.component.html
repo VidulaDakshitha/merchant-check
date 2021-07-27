@@ -1,0 +1,170 @@
+<ngx-no-column-layout style="padding: 0!important;">
+  <div class="row head-register">
+    <div class="col-6 col-sm-6 col-md-6" style="margin: auto;">
+      <img src="../../../assets/images/onepay_logo.png" alt="Smiley face" class="logo">
+    </div>
+    <div class="col-6 col-sm-6 col-md-6" style="margin: auto;">
+      <span class="head-info-right">
+        <img src="../../../assets/images/srilanka-logo.png" alt="Smiley face" class="srilanka-logo">
+        <span class="head-info">You have doubt? callus : </span>
+        <span class="heda-info-phone-number">0118 393030</span>
+      </span>
+    </div>
+  </div>
+
+  <div class="content-body">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+      <div class="row">
+        <span class="submit-head">Lorem Ipsum is simply dummy text</span>
+      </div>
+      <div class="row" style="padding-top: 25px;">
+        <span class="submit-body-text">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+          Ipsum has been the industry's</span>
+      </div>
+
+      <div class="row" style="padding-top: 30px;">
+        <div class="col-md-5" style="padding-left: 0;">
+          <div class="application-image-bac">
+            <div class="row">
+
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #FFEEF8;">
+                      <span class="check-btn"><input  class="chech-agreemet"
+                          type="checkbox" id="conditions" name="conditions" value="true"></span>
+                      <span class="icon-pdf"> <i class="fa fa-download" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row onboard-pdf">
+                  <i style="font-size: 20px;color: #28a745;cursor: pointer" (click)=manualPDFData()
+                  class="fas fa-file-download"></i>
+                  <span style="display: block;font-size: 10px;margin-left: 33px;width: 100%;">Merchant Onboard</span>
+                  <span style="display: block;font-size: 10px;margin-left: 51px;margin-top: -7px;">Application</span>
+                </div>
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color:#EBEDFF;">
+                      <span class="check-btn"><input  class="chech-agreemet"
+                          type="checkbox" id="conditions" name="conditions" value="true"></span>
+                      <span class="icon-pdf-agreement"> <i class="fa fa-download" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row onboard-pdf">
+                  <span style="display: block;font-size: 10px;margin-left: 28px;width: 100%;">Merchant Agreement</span>
+                </div>
+
+              </div>
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #EBFFED;">
+                      <span class="check-btn"><input  class="chech-agreemet"
+                          type="checkbox" id="conditions" name="conditions" value="true"></span>
+                      <span class="icon-pdf-meeting"> <i class="fa fa-download" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row onboard-pdf">
+                  <span style="display: block;font-size: 10px;margin-left: 38px;width: 100%;">Meeting Minutes</span>
+                  <!-- <span style="display: block;font-size: 10px;margin-left: 40px;margin-top: -7px;">Resolution</span> -->
+                </div>
+
+              </div>
+
+            </div>
+            <div class="row" style="margin-top: 16px;">
+
+              <div class="col-4">
+                <div class="row">
+                  <div class="col-12">
+                    <div class="paf-down" style="background-color: #FFF2EB;" >
+                      <span class="check-btn"><input  class="chech-agreemet"
+                          type="checkbox" id="conditions" name="conditions" value="true"></span>
+                      <span class="icon-pdf-company"> <i class="fa fa-download" aria-hidden="true"></i></span>
+                    </div>
+                  </div>
+                </div>
+                <div class="row onboard-pdf">
+                  <span style="display: block;font-size: 10px;margin-left: 28px;width: 100%;">Company resolution</span>
+                </div>
+
+              </div>
+
+
+
+            </div>
+             <div class="row">
+               <div class="col-12">
+                <button class="downlode-application-pdf" type="submit">Download Files</button>
+               </div>
+           
+          </div>
+          </div>
+        </div>
+
+        <div class="col-md-7">
+          <div class="row">
+            <div class="uplode-file-bac">
+              <div class="row">
+                <div class="col-md-12" style="margin-bottom: 12px;">
+                  <span class="submit-body-head">Lorem Ipsum is simply.</span>
+                </div>
+
+              </div>
+
+              <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                (onFileDropped)="uploadFile($event)">
+                <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                <div style="margin-top: 78px;text-align: center;">
+                  <span style="color:#0E1FC2 ;" class="uplode-icon"> <i class="fa fa-upload"
+                      aria-hidden="true"></i></span>
+                  <span class="uplode-text">Darg or click here to upload</span>
+                  <span class="uplode-text">Your Files</span>
+                </div>
+
+              </div>
+              <div class="files-list" *ngFor="let file of files;let i= index">
+                <p class="file-name"> {{ file }} </p>
+
+                <button class="delete-file" (click)="deleteAttachment(i)">
+                  <img src="../../../assets/images/deletebtn.png">
+                </button>
+              </div>
+              <div class="row" style="margin-top: 12px;margin-right: -28px;">
+                <div class="col-md-12">
+                  <!-- <span style="margin-left: 550px;"><a  href="#/login"><button  class="back_button" type="submit">Go to login page</button></a></span> -->
+                  <button class="qr-search-button" type="submit">Submit</button>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div class="col-12 animation-div2" *ngIf=is_loading>
+    <div class="sk-circle">
+      <div class="sk-circle1 sk-child"></div>
+      <div class="sk-circle2 sk-child"></div>
+      <div class="sk-circle3 sk-child"></div>
+      <div class="sk-circle4 sk-child"></div>
+      <div class="sk-circle5 sk-child"></div>
+      <div class="sk-circle6 sk-child"></div>
+      <div class="sk-circle7 sk-child"></div>
+      <div class="sk-circle8 sk-child"></div>
+      <div class="sk-circle9 sk-child"></div>
+      <div class="sk-circle10 sk-child"></div>
+      <div class="sk-circle11 sk-child"></div>
+      <div class="sk-circle12 sk-child"></div>
+    </div>
+  </div>
+</ngx-no-column-layout>

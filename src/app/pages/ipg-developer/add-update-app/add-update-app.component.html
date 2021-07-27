@@ -1,0 +1,175 @@
+<!-- <nb-card>
+
+</nb-card> -->
+
+<div class="row">
+  <div class="col-12">
+      <div style="height: auto;">
+        <div>        
+              <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="addForm" (ngSubmit)="addAppData()">
+                        <nb-card style="width: auto">
+                            <nb-card-body >
+                              <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+                                <li><a routerLink="/pages/dashboard">Dashboard</a></li>
+                                <li><a routerLink="/pages/ipg-developer/app">Apps</a></li>
+                                <li>Add new app</li>
+                              </ul>
+                              <div class="row"><br></div>
+                              <div class="row"></div>
+                                <div class="row">
+                                  <div class="col-md-12">
+                                    <div class="row col-md-6">
+                                    <nb-icon routerLink="/pages/ipg-developer/app" icon="arrow-back-outline"></nb-icon>
+                                    <div class="col-md-1">
+                                    <h5>Add new App</h5>
+                                    </div>
+                                  </div>
+                                </div>
+                                </div>
+                                <div class="row"><br></div>
+                              <nb-card-body class="dialog-border">
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="input-group">
+                                      
+                                      <div class="col-md-3">
+                                          <label class="label-form-control" style="font-family:'Century Gothic'">App Name <a style="color: red;">*</a></label>
+                                      </div>
+                                      <div class="col-md-9">
+                                          <input class="form-control input-bottom" style="font-family:'Century Gothic'" formControlName="app_name" type="text" nbInput fullWidth
+                                          placeholder="Enter App New">
+                                          <div *ngIf="addForm.get('app_name').invalid && (addForm.get('app_name').dirty || addForm.get('app_name').touched)">
+                                            <small style="font-family:'Century Gothic'" *ngIf="addForm.get('app_name').errors['required']" class="text-danger">
+                                              App name is required!
+                                            </small>
+                                            <small class="font-red" *ngIf="addForm.controls['app_name'].hasError('pattern')">
+                                              App name is in invalid format.
+                                            </small>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    </div>
+                                </div>
+                                <div class="row"><br></div>
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="input-group">
+                                    <div class="col-md-3">
+                                        <label class="label-form-control" style="font-family:'Century Gothic'">Description <a style="color: red;">*</a></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                        <textarea class="form-control input-bottom" style="font-family:'Century Gothic'" formControlName="description" type="text" nbInput fullWidth
+                                            placeholder="Enter description"></textarea>
+                                    <div *ngIf="addForm.get('description').invalid && (addForm.get('description').dirty || addForm.get('description').touched)">
+                                      <small style="font-family:'Century Gothic'" *ngIf="addForm.get('description').errors['required']" class="text-danger new-font">
+                                        App description is required!
+                                      </small>
+                                      <small class="font-red" *ngIf="addForm.controls['description'].hasError('pattern')">
+                                        App description is in invalid format.
+                                      </small>
+                                    </div>
+                                  </div>
+                                  </div>
+                                </div>
+                                </div>
+                                <div class="row"><br></div>
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                  <div class="input-group">
+                                      <div class="col-md-3">
+                                      <label class="label-form-control" style="font-family:'Century Gothic'">Attached Services </label>
+                                      </div>
+                                      <div lass="col-md-9">
+                                      <small style="font-family:'Century Gothic'" *ngIf="!ipgProviders.length">There is no available service providers at this moment</small>
+                                      <nb-checkbox status="primary" (change)="onProviderChange($event.target.checked, provider.id)" *ngFor="let provider of ipgProviders" [value]="provider.state">{{provider.provider_name}}</nb-checkbox>
+                                      </div>
+                                  </div>
+                                </div>
+                                </div>
+                              </nb-card-body>
+                              <div class="row"><br></div>
+                                <nb-card-body class="dialog-border">
+                                <div>
+                                  <div class="col-md-12 pad-top-no">
+                                    <div class="input-group">
+                                      <h6 style="font-family:'Century Gothic' "><b>Status Callback Configuration</b></h6>
+                                    </div>
+                                  </div>
+                                </div>
+                                <div class="row"><br></div>
+
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                  <div class="input-group">
+                                  <div class="col-md-3">
+                                      <label style="font-family:'Century Gothic'" class="label-form-control">Callback URL<a style="color: red;">*</a></label>
+                                  </div>   
+                                  <div class="col-md-9">  
+                                    <input class="form-control input-bottom" style="font-family:'Century Gothic'" formControlName="callback_url" type="text" nbInput fullWidth
+                                        placeholder="Enter callback URL">
+                                    <div *ngIf="addForm.get('callback_url').invalid && (addForm.get('callback_url').dirty || addForm.get('callback_url').touched)">
+                                      <small class="text-danger" style="font-family:'Century Gothic'" *ngIf="addForm.get('callback_url').errors['required']" >
+                                        Callback url is required!
+                                      </small>
+                                      <small class="font-red" *ngIf="addForm.controls['callback_url'].hasError('pattern')">
+                                        Callback url is in invalid format.
+                                      </small>
+                                    </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                                
+                                </div>
+                                <div class="row"><br></div>
+
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                  <div class="input-group">
+                                    <div class="col-md-3">
+                                      <label class="label-form-control" style="font-family:'Century Gothic'">Callback Token <a style="color: red;">*</a></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                      <input class="form-control input-bottom" style="font-family:'Century Gothic'" formControlName="callback_token" type="text" nbInput fullWidth
+                                          placeholder="Enter callback token">
+                                      <div *ngIf="addForm.get('callback_token').invalid && (addForm.get('callback_token').dirty || addForm.get('callback_token').touched)">
+                                        <small *ngIf="addForm.get('callback_token').errors['required']" class="text-danger" style="font-family:'Century Gothic'">
+                                          Callback token is required!
+                                        </small>
+                                        <small class="font-red" *ngIf="addForm.controls['callback_token'].hasError('pattern')">
+                                          Callback token is in invalid format.
+                                        </small>
+                                      </div>
+                                    </div>
+                                   
+                                    </div>
+                                  </div>
+
+                                </div>
+                              </nb-card-body>
+                              <div class="row "><br></div>
+                              <div class="example-items-rows">
+                                <div class="col-md-8"></div>
+                                <button  type="submit" class="col-md-2"  status="info" size="small" [disabled]="!(addForm.valid && is_valid_providers())" nbButton style="float: right;" >Save</button>
+                                <button type="button" class="col-md-2"  status="info" size="small" (click)="cancel()" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);">Cancel</button>
+                              </div>
+                              <!-- <div class="row ">
+                                <div class="col-md-6">
+                                  </div>
+                                <div class="col-md-3">
+                                    <button type="button" style="float: right; font-style: 'Century Gothic';" (click)="cancel()" nbButton>Cancel</button>
+                                  </div>
+                                <div class="col-md-2">
+                                    <button type="submit" style="float: right; font-style: 'Century Gothic';" [disabled]="!(addForm.valid && is_valid_providers())" nbButton>Add new App</button>
+                                  </div>
+                              </div> -->
+                            </nb-card-body>
+                        </nb-card>
+                    </form>
+                </div>
+              </div>
+        </div>
+      </div>
+    </div>
+</div>

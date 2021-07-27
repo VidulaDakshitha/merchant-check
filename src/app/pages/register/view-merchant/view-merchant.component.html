@@ -1,0 +1,1106 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li><a href="#/pages/merchant">Merchant List</a></li>
+    <li>View Merchant Details</li>
+  </ul>
+</nb-card>
+
+<div class="col-12" *ngIf="merchant_data">
+  <nb-card size="small" style="height: auto;">
+    <nb-tabset fullWidth>
+      <nb-tab tabTitle="Basic Information">
+        <nb-card-body class="dialog-border">
+          <!-- merchant details -->
+          <h5 class="merchant-view-sub-head">Merchant details <button
+              (click)="openMerchant(dialogMerchant, merchant_data)" class="button2">Update</button></h5>
+          <nb-list class="nb-list-details">
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Business Type</span>
+                  <button style="margin-left: 4px;" (click)="openUpdatebtype(dialogUpdatebtype,merchant_data)"
+                  class="buttonChange">Update business type</button>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.business_type ? merchant_data.business_type : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Business Subtype</span>
+                  <button style="margin-left: 4px;" (click)="openAddNewSubtype(dialogAddNewSubtype,subtype,merchant_data)"
+                    class="buttonChange">Add new subtype</button>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+
+                  <span *ngFor="let subtype_list of merchant_data.sub_type;let i = index">
+                    {{i + 1}} -
+                    {{subtype_list.subtype_id__subtype ? subtype_list.subtype_id__subtype : 'Not Available'}}
+                    <br></span>
+
+                </div>
+              </div>
+            </nb-list-item>
+            <!-- <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Business Subtype</span>
+                </div>
+                <div *ngFor="let subtype_list of merchant_data.sub_type" class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>
+                    {{subtype_list.subtype_id__subtype ? subtype_list.subtype_id__subtype : 'Not Available'}}</span>
+                  <br>
+                 
+
+                </div>
+              </div>
+            </nb-list-item> -->
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Secret Key (redeem code)</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.secret_key ? merchant_data.secret_key : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>MID</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.m_id ? merchant_data.m_id : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>QR ID</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.qr_id ? merchant_data.qr_id : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Business Category</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.business_category ? merchant_data.business_category : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Registered Business Name</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.registered_business_name ? merchant_data.registered_business_name : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Register Number</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.register_number ? merchant_data.register_number : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Tranding Name</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.tranding_name ? merchant_data.tranding_name : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Principal Place</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.principal_place ? merchant_data.principal_place : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Correspondence Address</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.correspondence_address ? merchant_data.correspondence_address : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Location</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.address ? merchant_data.address : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Email</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.email ? merchant_data.email : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Phone Number</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.phone_number ? merchant_data.phone_number : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Nature Of Business</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.nature_of_business ? merchant_data.nature_of_business : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Income Tax File Number</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.income_tax ? merchant_data.income_tax : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Date Of Registration</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.date_of_registration ? merchant_data.date_of_registration : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Merchant Agreement Date</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.merchant_agreement_date ? merchant_data.merchant_agreement_date : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+          </nb-list>
+          <h5 class="merchant-view-sub-head">Bank Account Details
+            <button (click)="openBankAccount(dialogBankAccount, merchant_data)" class="button2">Update</button></h5>
+          <nb-list class="nb-list-details">
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Account Holder Name</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.account_holder_name ? merchant_data.account_holder_name : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Account Number</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.account_number ? merchant_data.account_number : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Bank Name</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.bank ? merchant_data.bank : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Branch Name</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.branch ? merchant_data.branch : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Commission Rate Visa</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.commission_rate_visa ? merchant_data.commission_rate_visa : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Commission Rate Justpay</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.commission_rate_just_pay ? merchant_data.commission_rate_just_pay : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Commission Rate Lanka QR</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.commission_rate_lanka_qr ? merchant_data.commission_rate_lanka_qr : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+
+
+          </nb-list>
+        </nb-card-body>
+      </nb-tab>
+
+
+      <nb-tab tabTitle="Directors">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  All Director Details
+                </div>
+                <div class="card-body">
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>NIC</th>
+                        <th>PEP</th>
+                        <th>Update</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let director  of merchant_data.directors">
+                        <td>{{director.name ? director.name : 'Not Available'}}</td>
+                        <td>{{director.address ? director.address : 'Not Available'}}</td>
+                        <td>{{director.nic ? director.nic : 'Not Available'}}</td>
+                        <td>{{director.director_pep}}</td>
+                        <td>
+                          <button class="button2"
+                            (click)="openDirectorUpdate(dialogDirectorUpdate,director,merchant_data)">Update</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="merchant_data.directors.length<1">
+                        <td colspan="10" style="text-align: center;">
+                          <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                          <span style="display: block;">
+                            <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                              style="width:30%;">
+                          </span>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Shareholder">
+        <div class="container">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card">
+                <div class="card-header">
+                  All Shareholder Details
+                </div>
+                <div class="card-body">
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>Name</th>
+                        <th>Address</th>
+                        <th>Percentage Shsreholder</th>
+                        <th>PEP</th>
+                        <th>Update</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let shareholder of merchant_data.share_holders">
+                        <td>{{shareholder.name_shareholder ? shareholder.name_shareholder : 'Not Available'}}</td>
+                        <td>{{shareholder.address_shareholder ? shareholder.address_shareholder : 'Not Available'}}</td>
+                        <td>
+                          {{shareholder.percentage_shareholder ? shareholder.percentage_shareholder : 'Not Available'}}
+                        </td>
+                        <td>{{shareholder.shareholder_pep}}</td>
+                        <td>
+                          <button class="button2"
+                            (click)="openShareholderUpdate(dialogShareholderUpdate,shareholder,merchant_data)">Update</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="merchant_data.share_holders.length<1">
+                        <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                          <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                          <span style="display: block;">
+                            <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                              style="width:30%;">
+                          </span>
+                        </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-tab>
+      <nb-tab tabTitle="Security">
+        <nb-card-body class="dialog-border">
+          <h5 class="merchant-view-sub-head">Security details</h5>
+          <nb-list class="nb-list-details">
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Created By ID</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.created_by_id ? merchant_data.created_by_id : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Updated By ID</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.updated_by_id ? merchant_data.updated_by_id : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+            <nb-list-item class="list-item">
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>User Activation</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span class="badge badge-success" *ngIf="merchant_data.is_active">Active</span>
+                  <span class="badge badge-danger" *ngIf="!merchant_data.is_active">Deactive</span>
+                  <a class="status_com" style="color:#3EE923; cursor: pointer;"
+                    (click)="openUserActivation(dialogUserActivation,merchant_data)">(change)</a>
+                  <br>
+                  <br>
+                  <span><b class="activation">Status Change Comment By Admin -</b>
+                    {{merchant_data.activation_description ? merchant_data.activation_description : 'Not Available'}}</span>
+                  <br>
+                  <span><b class="activation">Status Changed By -</b>
+                    {{merchant_data.updated_by_id ? merchant_data.updated_by_id : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+
+
+            <nb-list-item class="list-item">
+
+              <div class="row">
+                <div class="col-md-6 col-lg-4 col-xxxl-4">
+                  <span>Approved</span>
+                </div>
+                <div class="col-md-6 col-lg-8 col-xxxl-8">
+                  <span>{{merchant_data.is_approved ? merchant_data.is_approved : 'Not Available'}}</span>
+                </div>
+              </div>
+            </nb-list-item>
+          </nb-list>
+
+          <div *ngIf="!merchant_data.is_approved" class="dialog-border">
+            <form [formGroup]="approvalForm" class="step-container">
+              <h4>Confirmation</h4>
+
+              <div class="col-md-6 offset-md-3">
+                <div class="input-group">
+                  <label class="label-form-control label-name">MID</label>
+                  <input class="form-control input-bottom" formControlName="m_id" type="text" nbInput fullWidth
+                    shape="rectangle" placeholder="Enter MID">
+                </div>
+              </div>
+              <div class="col-md-6 offset-md-3">
+                <div class="input-group">
+                  <label class="label-form-control label-name">QR ID</label>
+                  <input class="form-control input-bottom" formControlName="qr_id" type="text" nbInput fullWidth
+                    shape="rectangle" placeholder="Enter QR Id">
+                </div>
+              </div>
+              <div class="row">
+                <div class="col-md-12 col-lg-12 col-xxxl-12 test">
+                  <div class="uploadfilecontainer" (click)="fileInput.click()" appDragDrop
+                    (onFileDropped)="uploadFile($event)">
+                    <input hidden type="file" #fileInput (change)="uploadFile($event.target.files)">
+                    <p>Upload here</p>
+                  </div>
+                  <div class="files-list" *ngFor="let files of file;let i= index">
+                    <p class="file-name"> {{ files }} </p>
+
+                    <button class="delete-file" (click)="deleteAttachment(i)">
+                      <img src="../../../../assets/images/deletebtn.png">
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <div class="col-md-6 offset-md-3" style="text-align: center;">
+                <button nbButton class="button2 submit-confirm" (click)="submit_application()">confirm</button>
+              </div>
+
+            </form>
+          </div>
+
+        </nb-card-body>
+      </nb-tab>
+    </nb-tabset>
+  </nb-card>
+</div>
+
+<!-- update merchant details -->
+
+<ng-template #dialogMerchant let-data let-ref="dialogRef">
+
+  <form [formGroup]="merchantForm" class="step-container" (ngSubmit)="updateMerchantData()">
+    <nb-card style="width: 70vw;max-height: 90vh;">
+      <nb-card-header>Update Merchant Details</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="input-group">
+          <label class="label-form-control label-name lable-margin">Business Category<span
+              class="required_feeld">*</span></label>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="demo-items">
+              <nb-radio-group class="radio_possion" name="business_category" formControlName="business_category">
+                <nb-radio class="b" *ngFor="let category of business_categories" [value]="category.id">
+                  {{category.type}}
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label style="width: 100%;" class="label-form-control label-name">Secret Key Visibility</label>
+            <div class="demo-items demo-radio2">
+              <nb-radio-group class="radio-btn" name="secret_key" formControlName="secret_key">
+                <nb-radio style="padding: 0!important;" class="b" [value]=1>
+                  Yes
+                </nb-radio>
+                <nb-radio class="b" [value]=0>
+                  NO
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Registered Business Name</label>
+              <input class="form-control input-bottom" formControlName="registered_business_name" type="text" nbInput
+                fullWidth shape="rectangle">
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Register Number</label>
+              <input class="form-control input-bottom" formControlName="register_number" type="text" nbInput fullWidth
+                shape="rectangle">
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">MID</label>
+              <input class="form-control input-bottom" formControlName="m_id" type="text" nbInput
+                fullWidth shape="rectangle">
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">QR ID</label>
+              <input class="form-control input-bottom" formControlName="qr_id" type="text" nbInput fullWidth
+                shape="rectangle">
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Tranding Name<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="tranding_name" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (merchantForm.get('tranding_name').dirty || merchantForm.get('tranding_name').touched) && merchantForm.get('tranding_name').errors}">
+              <div
+                *ngIf="merchantForm.get('tranding_name').invalid && (merchantForm.get('tranding_name').dirty || merchantForm.get('tranding_name').touched)">
+                <small *ngIf="merchantForm.get('tranding_name').errors['required']" class="text-danger">
+                  Designation is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Principal Place<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="principal_place" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (merchantForm.get('principal_place').dirty || merchantForm.get('principal_place').touched) && merchantForm.get('principal_place').errors}">
+              <div
+                *ngIf="merchantForm.get('principal_place').invalid && (merchantForm.get('principal_place').dirty || merchantForm.get('principal_place').touched)">
+                <small *ngIf="merchantForm.get('principal_place').errors['required']" class="text-danger">
+                  Principal Place is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Correspondence Address<span
+                  class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="correspondence_address" type="text" nbInput
+                fullWidth shape="rectangle"
+                [ngClass]="{'form-control-danger': (merchantForm.get('correspondence_address').dirty || merchantForm.get('correspondence_address').touched) && merchantForm.get('correspondence_address').errors}">
+              <div
+                *ngIf="merchantForm.get('correspondence_address').invalid && (merchantForm.get('correspondence_address').dirty || merchantForm.get('correspondence_address').touched)">
+                <small *ngIf="merchantForm.get('correspondence_address').errors['required']" class="text-danger">
+                  Address is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Location</label>
+              <input class="form-control input-bottom" formControlName="address" type="text" nbInput
+                fullWidth shape="rectangle"
+                [ngClass]="{'form-control-danger': (merchantForm.get('address').dirty || merchantForm.get('address').touched) && merchantForm.get('address').errors}">
+              <div
+                *ngIf="merchantForm.get('address').invalid && (merchantForm.get('address').dirty || merchantForm.get('address').touched)">
+                <small *ngIf="merchantForm.get('address').errors['required']" class="text-danger">
+                  Address is required!</small>
+              </div>
+            </div>
+          </div>
+          
+        </div>
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Nature Of Business<span
+                class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="nature_of_business" type="text" nbInput
+              fullWidth shape="rectangle"
+              [ngClass]="{'form-control-danger': (merchantForm.get('nature_of_business').dirty || merchantForm.get('nature_of_business').touched) && merchantForm.get('nature_of_business').errors}">
+            <div
+              *ngIf="merchantForm.get('nature_of_business').invalid && (merchantForm.get('nature_of_business').dirty || merchantForm.get('nature_of_business').touched)">
+              <small *ngIf="merchantForm.get('nature_of_business').errors['required']" class="text-danger">
+                Designation is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Income Tax File Number</label>
+              <input class="form-control input-bottom" formControlName="income_tax" type="text" nbInput fullWidth
+                shape="rectangle">
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Date of Registration<span
+                  class="required_feeld">*</span></label>
+              <input class="form-select"
+                style="padding:7px!important;margin-top:0px!important; border-radius:2px!important;width: 100%!important;margin-left: 0px!important;"
+                selected="1" placeholder="Enter Date of Registration" formControlName="date_of_registration" nbInput
+                placeholder="Form Picker" [nbDatepicker]="formpicker">
+              <nb-datepicker #formpicker></nb-datepicker>
+            </div>
+
+          </div>
+        </div>
+
+        <div class="col-md-6 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Merchant
+              Agreement Date<span class="required_feeld">*</span></label>
+            <input class="form-select"
+              style="padding:7px!important;margin-top:0px!important; border-radius:2px!important;width: 100%!important;margin-left: 0px!important;"
+              selected="1" placeholder="Enter Date of Registration" formControlName="merchant_agreement_date" nbInput
+              placeholder="Form Picker" [nbDatepicker]="formpicker1">
+            <nb-datepicker #formpicker1></nb-datepicker>
+          </div>
+
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+
+</ng-template>
+
+<!-- update bank account details -->
+<ng-template #dialogBankAccount let-data let-ref="dialogRef">
+  <form [formGroup]="bankAccountForm" class="step-container" (ngSubmit)="updateBankAccountData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Add Bank Account Details</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Account Holder Name<span
+                class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="account_holder_name" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (bankAccountForm.get('account_holder_name').dirty || bankAccountForm.get('account_holder_name').touched) && bankAccountForm.get('account_holder_name').errors}">
+            <div
+              *ngIf="bankAccountForm.get('account_holder_name').invalid && (bankAccountForm.get('account_holder_name').dirty || bankAccountForm.get('account_holder_name').touched)">
+              <small *ngIf="bankAccountForm.get('account_holder_name').errors['required']" class="text-danger">
+                Account Holder Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Account Number<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="account_number" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (bankAccountForm.get('account_number').dirty || bankAccountForm.get('account_number').touched) && bankAccountForm.get('account_number').errors}">
+            <div
+              *ngIf="bankAccountForm.get('account_number').invalid && (bankAccountForm.get('account_number').dirty || bankAccountForm.get('account_number').touched)">
+              <small *ngIf="bankAccountForm.get('account_number').errors['required']" class="text-danger">
+                Account Number is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Bank<span class="required_feeld">*</span></label>
+          </div>
+          <nb-select class="form-select select-important" selected="1" placeholder="Select Bank Name"
+            formControlName="bank_id"
+            [ngClass]="{'form-control-danger': (bankAccountForm.get('bank_id').dirty || bankAccountForm.get('bank_id').touched) && bankAccountForm.get('bank_id').errors}">
+            <nb-option *ngFor="let bank of bank_list" [value]="bank.id">
+              {{bank.name}}
+            </nb-option>
+          </nb-select>
+          <div
+            *ngIf="bankAccountForm.get('bank_id').invalid && (bankAccountForm.get('bank_id').dirty || bankAccountForm.get('bank_id').touched)">
+            <small *ngIf="bankAccountForm.get('bank_id').errors['required']" class="text-danger">
+              Bank is required!</small>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Branch Name</label>
+            <input class="form-control input-bottom" formControlName="branch" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (bankAccountForm.get('branch').dirty || bankAccountForm.get('branch').touched) && bankAccountForm.get('branch').errors}">
+            <div
+              *ngIf="bankAccountForm.get('branch').invalid && (bankAccountForm.get('branch').dirty || bankAccountForm.get('branch').touched)">
+              <small *ngIf="bankAccountForm.get('branch').errors['required']" class="text-danger">
+                Branch Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Commission Rate Visa</label>
+            <input class="form-control input-bottom" formControlName="commission_rate_visa" type="text" nbInput
+              fullWidth shape="rectangle"
+              [ngClass]="{'form-control-danger': (bankAccountForm.get('commission_rate_visa').dirty || bankAccountForm.get('commission_rate_visa').touched) && bankAccountForm.get('commission_rate_visa').errors}">
+            <div
+              *ngIf="bankAccountForm.get('commission_rate_visa').invalid && (bankAccountForm.get('commission_rate_visa').dirty || bankAccountForm.get('commission_rate_visa').touched)">
+              <small *ngIf="bankAccountForm.get('commission_rate_visa').errors['required']" class="text-danger">
+                Commission Rate is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">2.16.1.2 Commission Rate Just Pay
+            </label>
+            <input class="form-control form-control-text input-bottom" formControlName="commission_rate_just_pay"
+              type="text" nbInput fullWidth shape="rectangle" placeholder="Enter Commission Rate Jast Pay">
+            <div
+              *ngIf="bankAccountForm.get('commission_rate_just_pay').invalid && (bankAccountForm.get('commission_rate_just_pay').dirty || bankAccountForm.get('commission_rate_just_pay').touched)">
+              <small *ngIf="bankAccountForm.get('commission_rate_just_pay').errors['required']" class="text-danger">
+                Commission Rate Just Pay is required!</small>
+              <small *ngIf="bankAccountForm.get('commission_rate_just_pay').errors['pattern']" class="text-danger">
+                Invalid Rate Format.Try again!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">2.16.1.3 Commission Rate Lanka QR
+              Account<span class="required_feeld">*</span></label>
+            <input class="form-control form-control-text input-bottom" formControlName="commission_rate_lanka_qr"
+              type="text" nbInput fullWidth shape="rectangle" placeholder="Enter Commission Rate Current">
+            <div
+              *ngIf="bankAccountForm.get('commission_rate_lanka_qr').invalid && (bankAccountForm.get('commission_rate_lanka_qr').dirty || bankAccountForm.get('commission_rate_lanka_qr').touched)">
+              <small *ngIf="bankAccountForm.get('commission_rate_lanka_qr').errors['required']" class="text-danger">
+                Commission Rate Lanka QR is required!</small>
+              <small *ngIf="bankAccountForm.get('commission_rate_lanka_qr').errors['pattern']" class="text-danger">
+                Invalid Rate Format.Try again!</small>
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton  style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- director update -->
+<ng-template #dialogDirectorUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="directorUpdateForm" class="step-container" (ngSubmit)="updateDirectorData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Director Details</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Name<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="name" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (directorUpdateForm.get('name').dirty || directorUpdateForm.get('name').touched) && directorUpdateForm.get('name').errors}">
+            <div
+              *ngIf="directorUpdateForm.get('name').invalid && (directorUpdateForm.get('name').dirty || directorUpdateForm.get('name').touched)">
+              <small *ngIf="directorUpdateForm.get('name').errors['required']" class="text-danger">
+                Name is required!</small>
+            </div>
+
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Address<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="address" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (directorUpdateForm.get('address').dirty || directorUpdateForm.get('address').touched) && directorUpdateForm.get('address').errors}">
+            <div
+              *ngIf="directorUpdateForm.get('address').invalid && (directorUpdateForm.get('address').dirty || directorUpdateForm.get('address').touched)">
+              <small *ngIf="directorUpdateForm.get('address').errors['required']" class="text-danger">
+                Address is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">NIC<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="nic" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (directorUpdateForm.get('nic').dirty || directorUpdateForm.get('nic').touched) && directorUpdateForm.get('nic').errors}">
+            <div
+              *ngIf="directorUpdateForm.get('nic').invalid && (directorUpdateForm.get('nic').dirty || directorUpdateForm.get('nic').touched)">
+              <small *ngIf="directorUpdateForm.get('nic').errors['required']" class="text-danger">
+                NIC is required!</small>
+              <small *ngIf="directorUpdateForm.get('nic').errors['pattern']" class="text-danger">
+                Invalid NIC.Try again!</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <label class="label-form-control label-name">Director PEP<span class="required_feeld">*</span></label>
+          <div class="demo-items demo-radio2">
+            <nb-radio-group class="radio-btn" formControlName="director_pep">
+              <nb-radio style="padding: 0!important;" class="c" [value]="'true'">
+                Yes
+              </nb-radio>
+              <nb-radio class="c" [value]="'false'">
+                NO
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton [disabled]="!directorUpdateForm.valid" style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- shareholder update -->
+<ng-template #dialogShareholderUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="shareholderUpdateForm" class="step-container" (ngSubmit)="shareholderDirectorData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Director Details</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Name<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="name_shareholder" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('name_shareholder').dirty || shareholderUpdateForm.get('name_shareholder').touched) && shareholderUpdateForm.get('name_shareholder').errors}">
+            <div
+              *ngIf="shareholderUpdateForm.get('name_shareholder').invalid && (shareholderUpdateForm.get('name_shareholder').dirty || shareholderUpdateForm.get('name_shareholder').touched)">
+              <small *ngIf="shareholderUpdateForm.get('name_shareholder').errors['required']" class="text-danger">
+                Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Address<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="address_shareholder" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('address_shareholder').dirty || shareholderUpdateForm.get('address_shareholder').touched) && shareholderUpdateForm.get('address_shareholder').errors}">
+            <div
+              *ngIf="shareholderUpdateForm.get('address_shareholder').invalid && (shareholderUpdateForm.get('address_shareholder').dirty || shareholderUpdateForm.get('address_shareholder').touched)">
+              <small *ngIf="shareholderUpdateForm.get('address_shareholder').errors['required']" class="text-danger">
+                Address is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Percentage Shareholder<span
+                class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="percentage_shareholder" type="text" nbInput
+              fullWidth shape="rectangle"
+              [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('percentage_shareholder').dirty || shareholderUpdateForm.get('percentage_shareholder').touched) && shareholderUpdateForm.get('percentage_shareholder').errors}">
+            <div
+              *ngIf="shareholderUpdateForm.get('percentage_shareholder').invalid && (shareholderUpdateForm.get('percentage_shareholder').dirty || shareholderUpdateForm.get('percentage_shareholder').touched)">
+              <small *ngIf="shareholderUpdateForm.get('percentage_shareholder').errors['required']" class="text-danger">
+                Percentage is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <label class="label-form-control label-name">Shareholder PEP<span class="required_feeld">*</span></label>
+          <div class="demo-items demo-radio2">
+            <nb-radio-group class="radio-btn" formControlName="shareholder_pep">
+              <nb-radio style="padding: 0!important;" class="c" [value]="'true'">
+                Yes
+              </nb-radio>
+              <nb-radio class="c" [value]="'false'">
+                NO
+              </nb-radio>
+            </nb-radio-group>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton [disabled]="!shareholderUpdateForm.valid" style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- user activation -->
+<ng-template #dialogUserActivation let-data let-ref="dialogRef">
+  <form [formGroup]="userActivationForm" class="step-container" (ngSubmit)="addUserActivation()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Change Activation
+      </nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Comment</label>
+            <input class="form-control input-bottom" formControlName="activation_description" type="text" nbInput
+              fullWidth shape="rectangle" placeholder="Enter Comment"
+              [ngClass]="{'form-control-danger': (userActivationForm.get('activation_description').dirty || userActivationForm.get('activation_description').touched) && userActivationForm.get('activation_description').errors}">
+            <div
+              *ngIf="userActivationForm.get('activation_description').invalid && (userActivationForm.get('activation_description').dirty || userActivationForm.get('activation_description').touched)">
+              <small *ngIf="userActivationForm.get('activation_description').errors['required']" class="text-danger">
+                Comment is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label style="width: 100%;" class="label-form-control label-name">Status</label>
+            <div class="demo-items demo-radio2">
+              <nb-radio-group class="radio-btn" formControlName="is_active">
+                <nb-radio style="padding: 0!important;" class="c" [value]="true">
+                  Yes
+                </nb-radio>
+                <nb-radio class="c" [value]="false">
+                  NO
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!userActivationForm.valid">Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- add new sub type -->
+<ng-template #dialogAddNewSubtype let-data let-ref="dialogRef">
+  <form [formGroup]="addNewsubtypeForm" class="step-container" (ngSubmit)="addNewsubtype()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Add New Subtype</nb-card-header>
+
+      <nb-card-body class="dialog-border-event">
+
+
+        <div class="input-group">
+          <label class="label-form-control label-name lable-margin">Business Type</label>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="demo-items">
+              <nb-radio-group disabled (ngModelChange)="choose($event)" class="radio_possion" 
+                name="business_type" formControlName="business_type">
+                <nb-radio class="b" *ngFor="let b_type of business_type" [value]="b_type.id">
+                  {{b_type.type}}
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+        <span *ngIf="subtype.length">
+          <div class="input-group">
+            <label class="label-form-control label-name lable-margin">Subtype<span
+                class="required_feeld">*</span></label>
+  
+            <div  class="col-md-12 col-lg-12 col-xxxl-12">
+              <div class="demo-items" >
+                <nb-checkbox  *ngFor="let subtype_data_list of subtype"   formControlName="sub_type" name="sub_type"  [value]="subtype_data_list.id" (change)="setCheckedStatus($event, subtype_data_list.id)" >
+                  {{subtype_data_list.subtype}}
+                </nb-checkbox>
+              </div>
+            </div>
+          </div>
+        </span>
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;"  type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- update business type -->
+<ng-template #dialogUpdatebtype let-data let-ref="dialogRef">
+  <form [formGroup]="updateBtypeForm" class="step-container" (ngSubmit)="updatebusinesstype()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Update business type</nb-card-header>
+
+      <nb-card-body class="dialog-border-event">
+        <div class="input-group">
+          <label class="label-form-control label-name lable-margin">Business Type<span
+              class="required_feeld">*</span></label>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="demo-items">
+              <nb-radio-group class="radio_possion" name="business_type" formControlName="business_type">
+                <nb-radio class="b" *ngFor="let b_type of business_type" [value]="b_type.id">
+                  {{b_type.type}}
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;"  type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

@@ -1,0 +1,220 @@
+<nb-card>
+    <ul style="font-family: 'Poppins';" class="bread" style="margin-bottom: 0!important;padding: 8px;">
+      <li><a href="#/pages/admin-dashboard">Home</a></li>
+      <li>Business Category</li>
+    </ul>
+  </nb-card>
+  
+  <div class="row">
+    <div class="col-12">
+      <nb-card size="small" style="height: auto;padding-top: 12px;">
+        <div class="container">
+          <div class="row">
+            <button style="font-family: 'Poppins';" (click)="openAddCategory(dialogAddBCategory)" class="button button1">Add Business Category</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-bottom">
+                <div style="font-family: 'Poppins';" class="card-header">
+                  Business Category Details
+                </div>
+                <div class="card-body">
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead style="font-family: 'Poppins';" class="thead-light">
+                      <tr>
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Key</th>
+                        <th>Description</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody style="font-family: 'Poppins';">
+                      <tr *ngFor="let b_category of business_category | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                        <td>{{b_category.id? b_category.id:'Not Available'}}</td>
+                        <td>{{b_category.type? b_category.type:'Not Available'}}</td>
+                        <td>{{b_category.key? b_category.key:'Not Available'}}</td>
+                        <td style="max-width: 10px;">
+                            <span *ngIf="!b_category.showMore">{{ trimString( b_category.description , 30) }}</span>
+                            <span  style="word-wrap: break-word;" *ngIf="b_category.showMore">{{b_category.description}}</span>
+                            <div style="color: #2260FF; cursor: pointer;" *ngIf="b_category.description.length > 30" (click)="b_category.showMore = !b_category.showMore">Show
+                              <span>{{b_category.showMore ? 'less' : 'More..'}}</span>
+                            </div>
+                        </td>
+                        <td>
+                          <button class="button2" (click)="openBCategoryUpdate(dialogUpdateBCategory,b_category)">Update</button>
+                        </td>
+                        <td>
+                          <button class="button2" (click)="openBCategoryDelete(dialogDeleteBCategory,b_category)">Delete</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="business_category && business_category.length<1">
+                        <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                          <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                          <span style="display: block;">
+                           
+                          </span>
+                        </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="pageChangedAdmin($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedAdmin($event)" style="float: right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+    </div>
+  </div>
+  <!-- ADD B CATEGORY -->
+  <ng-template #dialogAddBCategory let-data let-ref="dialogRef">
+    <form [formGroup]="bCategoryForm" class="step-container" (ngSubmit)="addBCategory()">
+      <nb-card style="width: 30vw;">
+        <nb-card-header style="font-family: 'Poppins';"><label><b>Add Business Category</b></label></nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+  
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Category Name</label>
+              <input class="form-control input-bottom" formControlName="type" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter category name"
+                [ngClass]="{'form-control-danger': (bCategoryForm.get('type').dirty || bCategoryForm.get('type').touched) && bCategoryForm.get('type').errors}">
+              <div
+                *ngIf="bCategoryForm.get('type').invalid && (bCategoryForm.get('type').dirty || bCategoryForm.get('type').touched)">
+                <small *ngIf="bCategoryForm.get('type').errors['required']" class="text-danger">
+                  Business category name is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Category Key</label>
+              <input class="form-control input-bottom" formControlName="key" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter key"
+                [ngClass]="{'form-control-danger': (bCategoryForm.get('key').dirty || bCategoryForm.get('key').touched) && bCategoryForm.get('key').errors}">
+              <div
+                *ngIf="bCategoryForm.get('key').invalid && (bCategoryForm.get('key').dirty || bCategoryForm.get('key').touched)">
+                <small *ngIf="bCategoryForm.get('key').errors['required']" class="text-danger">
+                  Key is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Description</label>
+              <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Description"
+                [ngClass]="{'form-control-danger': (bCategoryForm.get('description').dirty || bCategoryForm.get('description').touched) && bCategoryForm.get('description').errors}">
+              <div
+                *ngIf="bCategoryForm.get('description').invalid && (bCategoryForm.get('description').dirty || bCategoryForm.get('description').touched)">
+                <small *ngIf="bCategoryForm.get('description').errors['required']" class="text-danger">
+                  Description is required!</small>
+              </div>
+            </div>
+          </div>
+ 
+        </nb-card-body>
+        <nb-card-footer style="font-family: 'Poppins';">
+          <div class="col-md-6"></div>
+          <button  type="submit" class="col-md-2" nbButton [nbSpinner]="loading" nbSpinnerStatus="success" status="info" size="small" style="float: right;" [disabled]="!bCategoryForm.valid" type='submit'>Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);"  (click)="closeAddBCategory()" >Close</button>
+        </nb-card-footer>
+  
+      </nb-card>
+    </form>
+  </ng-template>
+  
+  <!-- UPDATE B CATE -->
+  <ng-template #dialogUpdateBCategory let-data let-ref="dialogRef">
+    <form [formGroup]="UpdateBCategoryForm" class="step-container" (ngSubmit)="updateBCategory()">
+      <nb-card style="width: 40vw;">
+        <nb-card-header style="font-family: 'Poppins';"><label><b>Update Business Category</b></label></nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Category Key</label>
+              <input class="form-control input-bottom" formControlName="key" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Business Category key"
+                [ngClass]="{'form-control-danger': (UpdateBCategoryForm.get('key').dirty || UpdateBCategoryForm.get('key').touched) && UpdateBCategoryForm.get('key').errors}">
+              <div
+                *ngIf="UpdateBCategoryForm.get('key').invalid && (UpdateBCategoryForm.get('key').dirty || UpdateBCategoryForm.get('key').touched)">
+                <small *ngIf="UpdateBCategoryForm.get('key').errors['required']" class="text-danger">
+                  Key is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Type</label>
+              <input class="form-control input-bottom" formControlName="type" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Business Type"
+                [ngClass]="{'form-control-danger': (UpdateBCategoryForm.get('type').dirty || UpdateBCategoryForm.get('type').touched) && UpdateBCategoryForm.get('type').errors}">
+              <div
+                *ngIf="UpdateBCategoryForm.get('type').invalid && (UpdateBCategoryForm.get('type').dirty || UpdateBCategoryForm.get('type').touched)">
+                <small *ngIf="UpdateBCategoryForm.get('type').errors['required']" class="text-danger">
+                  Business Type is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Description</label>
+              <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Description"
+                [ngClass]="{'form-control-danger': (UpdateBCategoryForm.get('description').dirty || UpdateBCategoryForm.get('description').touched) && UpdateBCategoryForm.get('description').errors}">
+                <div
+                  *ngIf="UpdateBCategoryForm.get('description').invalid && (UpdateBCategoryForm.get('description').dirty || UpdateBCategoryForm.get('description').touched)">
+                  <small *ngIf="UpdateBCategoryForm.get('description').errors['required']" class="text-danger">
+                    Description is required!</small>
+                </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer style="font-family: 'Poppins';">
+          <button  type="submit" class="col-md-2"  status="info" [nbSpinner]="loading" nbSpinnerStatus="success" size="small" style="float: right;" nbButton [disabled]="!UpdateBCategoryForm.valid"  type='submit'>Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);" (click)="closeBtypUpdate()">Close</button>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </ng-template> 
+
+  <!-- DELETE B CATE -->
+  <ng-template #dialogDeleteBCategory let-data let-ref="dialogRef">
+    <form [formGroup]="deletebCategoryForm" class="step-container" (ngSubmit)="deleteBCategoryData()">
+      <nb-card style="width: 30vw;">
+        <nb-card-header style="font-family: 'Poppins';"><label><b>Delete Buisness Category</b></label></nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+          <div class="modal-body">
+            <p><strong>Are you sure you want to delete <span class="text-primary"></span> buisness category?</strong></p>
+            <p>All information associated to this bussiness type will be permanently deleted.
+              <span class="text-danger">This operation can not be undone.</span>
+            </p>
+          </div>
+        </nb-card-body>
+        <nb-card-footer style="font-family: 'Poppins';">
+          <button  type="submit" class="col-md-2" [nbSpinner]="loading" nbSpinnerStatus="success" nbButton status="info" size="small" style="float: right;">Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);" (click)="ref.close()">Close</button>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </ng-template>

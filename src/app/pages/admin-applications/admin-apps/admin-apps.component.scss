@@ -1,0 +1,101 @@
+.thead-light th{
+    font-size: 0.8rem;
+    font-weight: 200;
+  }
+  table td{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+  table.table td{
+    padding: 4px 15px;
+    vertical-align: middle;
+  }
+
+  ul.bread li {
+    display: inline;
+    font-size: 0.8rem;
+  }
+  ul.bread li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+  ul.bread li a {
+    color: #0275d8;
+    text-decoration: none;
+  }
+.filter-inputs {
+  font-size: small;
+    color: gray;
+    height: 35px;
+}
+.filter-btn{
+  background: #2260FF;
+  border: none;
+  color: #FFF;
+  cursor: pointer;
+  font-family: 'Poppins';
+  float: right;
+  border-radius: 7px;
+  width: 120px;
+  height: 42px;
+  box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.21);
+  border-radius: 7px;
+}
+.dialog-border{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #cdd2d6;
+  border-radius: .25rem;
+}
+.thead-light th{
+  background-color:rgba(123, 200, 161, 0.12) !important;
+  color:#225B46 !important;
+  font-family: 'Poppins' !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.table{
+  border-radius: 10px !important;
+}
+tbody tr{
+  font-family: 'Poppins' !important;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 26px;
+  color: #878787;
+}
+.headerStyle{
+  font-family: 'Poppins';
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  color: #000000;
+  border-bottom: none !important;
+}
+input{
+  background: #FFFFFF !important;
+  border: 0.8px solid #DFDFDF !important;
+  box-sizing: border-box;
+  font-family: 'Poppins' !important;
+  color: #A7A7A7 !important;
+  font-weight: 400 !important;
+}
+.button2{
+  background: #225B46;
+  border-radius: 7px;
+  color:white;
+  font-size: 11px;
+  width:66px;
+  line-height: 20px;
+}

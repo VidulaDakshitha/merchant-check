@@ -1,0 +1,378 @@
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding: 25px;">
+      <div>
+        <ul class="bread" style="margin-bottom: 0!important;padding:0;">
+          <li><a href="#/pages/dashboard">Home</a></li>
+          <li>Coupon Transactions</li>
+        </ul>
+      </div>
+      <div class="table-head">
+       <span>All Coupon Purchase Details</span>
+      </div>
+      <div class="dialog-border">
+        <div class="row search-icon">
+            <div class="col-12 col-sm-3 col-md-3">
+              <div class="form-group search">
+                <select class="form-control" style="font-size: 12px;" name="transaction_id" [(ngModel)]="search_by"
+                  (ngModelChange)="OnOptionChanged()" [ngModelOptions]="{standalone: true}">
+                  <option value="0" selected>All</option>
+                  <option value="1">Redeemed</option>
+                  <option value="2">Pending</option>
+                  <option value="3">Expired</option>
+                  <option value="4">Cancelled</option>
+                </select>
+              </div>
+            </div>
+            <div class="col-12 col-sm-3 col-md-4">
+              <div class="input-group">
+               
+                <input  clearable type="text" [ngModelOptions]="{standalone: true}" name="search" autocomplete="off"
+                  (ngModelChange)="inSearchChange($event)" style="border-right: none;" [(ngModel)]="search_text"
+                  class="form-control searchbox" placeholder="Search by buyer name or phone number">
+                  <div class="input-group-append">
+                    <button class="btn searchbtn" type="button"><i class="fa fa-search" aria-hidden="true"></i></button>
+                  </div>
+               
+              </div>
+            </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div style="border: 0;" class="card card-bottom">
+              <div style="padding: 0;" class="card-body">
+                <table class="table table-responsive-sm table-responsive-md table-hover table-outline mb-0">
+                  <thead class="table-head-text">
+                    <tr>
+                      <th>Buyer Name</th>
+                      <th>Phone Number</th>
+                      <th>Coupon Name</th>
+                      <th>Type</th>
+                      <th>Net Amount(LKR)</th>
+                      <th>Purchased Date</th>
+                      <th>Expire Date</th>
+                      <th>Used Date</th>
+                      <th>View</th>
+
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let item of purchase_list| paginate: { itemsPerPage: pageSizeHistory, currentPage: pHistory, totalItems: totalHistory, id:'purchase' }"
+                      [ngClass]="{'table-danger': item.is_cancelled == true,'table-success': item.is_settled == true}">
+
+                      <td>
+                        {{item.buyer_name}}
+                      </td>
+
+                      <td>{{item.buyer_phone_no}}</td>
+                      <td>{{item.name}}</td>
+                      <td>{{item.is_item?'Item':'Coupon'}}</td>
+                      <td class="text-right pr-5">{{item.net_amount?item.net_amount:item.amount}}</td>
+                      <td>{{item.purchase_date| date:"MM/dd/yyyy 'at' h:mma"}}</td>
+                      <td>{{item.expire_date| date:"MM/dd/yyyy"}}</td>
+
+
+
+
+                      <td>{{item.used_date?(item.used_date| date:"MM/dd/yyyy 'at' h:mma"):'Not yet used'}}</td>
+
+
+                      <td>
+
+                        <button class="button button2" (click)="openHistoryviewCoupon(purchaseHistoryView,item)">View
+                        </button>
+                      </td>
+
+
+
+
+                    </tr>
+
+                    <tr *ngIf="purchase_list && purchase_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                      <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                        <div class="sk-circle">
+                          <div class="sk-circle1 sk-child"></div>
+                          <div class="sk-circle2 sk-child"></div>
+                          <div class="sk-circle3 sk-child"></div>
+                          <div class="sk-circle4 sk-child"></div>
+                          <div class="sk-circle5 sk-child"></div>
+                          <div class="sk-circle6 sk-child"></div>
+                          <div class="sk-circle7 sk-child"></div>
+                          <div class="sk-circle8 sk-child"></div>
+                          <div class="sk-circle9 sk-child"></div>
+                          <div class="sk-circle10 sk-child"></div>
+                          <div class="sk-circle11 sk-child"></div>
+                          <div class="sk-circle12 sk-child"></div>
+                        </div>
+                      </td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedCouponHistory($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedCouponHistory($event)" style="float: right" id="purchase">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+            
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+<!-- popup custom transaction -->
+<ng-template #purchaseHistoryView let-data let-ref="dialogRef">
+  <nb-card style="width: 50vw;" class="collection-popup list-card">
+    <nb-card-header>View purchase History</nb-card-header>
+    <nb-card-body>
+      <nb-list class="dialog-border-list">
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Reference Number</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.ref_no ? purchaseobject.ref_no : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Buyer Name</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.buyer_name ? purchaseobject.buyer_name : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Buyer Phone Number</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.buyer_phone_no ? purchaseobject.buyer_phone_no : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseCouponWording}} Name</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.name ? purchaseobject.name : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Is purchased coupon an item?</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.is_item==0 ? 'No' : 'Yes'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Gross Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.amount ? 'LKR ' + purchaseobject.amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Discount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.discount_price ? 'LKR '+purchaseobject.discount_price  : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Net Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.net_amount ? 'LKR '+purchaseobject.net_amount : purchaseobject.amount}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Purchased Date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.purchase_date ? (purchaseobject.purchase_date| date:"MM/dd/yyyy 'at' h:mma") : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_used">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Is redeemed?</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.is_used ? 'Yes' : 'No'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_used">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseCouponWording}} redeemed date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.used_date ? (purchaseobject.used_date| date:"MM/dd/yyyy 'at' h:mma") : 'Not yet used'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_settled">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseCouponWording}} settled?</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.is_settled ? 'Yes' : 'No'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_pending">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseCouponWording}} pending?</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.is_pending ? 'Yes' : 'No'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_cancelled">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseCouponWording}} cancelled?</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.is_cancelled ? 'Yes' : 'No'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_cancelled">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cancellation date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.cancellation_date ? (purchaseobject.cancellation_date| date:"MM/dd/yyyy 'at' h:mma") : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_cancelled">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cancellation reason</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseobject.cancellation_reason ? purchaseobject.cancellation_reason: 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_disputed">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{purchaseCouponWording}} disputed?</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+
+              <span>{{purchaseobject.is_disputed ? 'Yes' : 'No'}}</span>
+              <!-- <span >*********{{onepay_transaction.customer_phone_no | slice:9:12}}</span> -->
+            </div>
+          </div>
+        </nb-list-item>
+
+
+        <nb-list-item class="list-item" *ngIf="purchaseobject.is_disputed">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Disputed reason</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+
+              <span>{{purchaseobject.disputed_reason ? purchaseobject.disputed_reason : 'Not Available'}}</span>
+              <!-- <span >*********{{onepay_transaction.customer_phone_no | slice:9:12}}</span> -->
+            </div>
+          </div>
+        </nb-list-item>
+
+        <!-- <nb-list-item class="list-item" >
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Coupon toppings</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+             
+
+              <div *ngIf="purchaseobject.toppings.length!==0; else elseBlockss2">
+                <span  *ngFor="let item of purchaseobject.toppings"  class="mr-2 badge badge-warning">Topping:- {{item.topping}}, Charge:- {{item.charge}}</span>
+              
+              </div>
+              <ng-template #elseBlockss2>Not Available.</ng-template>      
+              </div>  
+
+
+
+            </div>
+         
+        </nb-list-item> -->
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

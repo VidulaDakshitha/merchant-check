@@ -1,0 +1,180 @@
+<div style="margin: 4px;">
+  <div class="row">
+    <div class="col-lg-12 col-md-12 col-sm-12">
+      <h6 class="doc-head">Thank you for submitting your application. We are in the process of reviewing your application.</h6>
+    </div>
+  </div>
+  <!-- <div class="row" style="margin: 34px 30px 10px 30px;">
+    <div class="col-md-12 col-lg-12 col-xxxl-12">
+      <nb-stepper #stepper>
+        <nb-step label="Submit Document">
+        </nb-step>
+        <nb-step label="Business Details">
+        </nb-step>
+        <nb-step label="Settlement account Details">
+        </nb-step>
+      </nb-stepper>
+
+    </div>
+  </div> -->
+  <div class="content-body" style="margin-top: 55px;">
+
+    <div class="row">
+
+
+
+      <div class="col-lg-6 col-md-6 col-sm-12">
+
+        <div class="left-div">
+
+          <div *ngFor="let file of merchant_fils" class="row left-item">
+            <div class="col-10" style="padding-top: 3px;">
+              <span></span>
+              <span *ngIf="file.status === 'APPROVED'" class="icon-left"><i class="fa fa-check-circle"
+                  aria-hidden="true"></i></span>
+              <span *ngIf="file.status === 'RESUBMITTED' || file.status === 'PENDING_FOR_APPROVAL'"
+                class="icon2-left"><i class="fa fa-spinner" aria-hidden="true"></i></span>
+              <span *ngIf="file.status === 'REJECT' || file.status === 'REQUESTED'" class="icon3-left"><i
+                  class="fa fa-times-circle" aria-hidden="true"></i></span>
+
+              <span *ngIf="file.type == 'filePFS' && identification_merchant == 'NIC'" class="title-left">NIC Verification-Front Side</span>
+              <span *ngIf="file.type == 'filePBS' && identification_merchant == 'NIC'" class="title-left">NIC Verification-Back Side</span>
+
+              <span *ngIf="file.type == 'filePFS' && identification_merchant == 'Passport'" class="title-left">Passport Verification-Front Side</span>
+
+              <span *ngIf="file.type == 'filePFS' && identification_merchant == 'Driving License'" class="title-left">Driving License Verification-Front Side</span>
+              <span *ngIf="file.type == 'filePBS' && identification_merchant == 'Driving License'" class="title-left">Driving License Verification-Back Side</span>
+
+
+
+
+
+              <span *ngIf="file.type === 'filePQ'" class="title-left">Certified copy of professional
+                qualification</span>
+              <span *ngIf="file.type === 'fileGS'" class="title-left">Income certificate endorsed by Grama
+                Niladari</span>
+              <span *ngIf="file.type === 'Common files'" class="title-left">Common file</span>
+              <span *ngIf="file.type === 'filePTH'" class="title-left">Freelance Site Transaction history report</span>
+              <span *ngIf="file.type === 'fileMM'" class="title-left">Meeting minutes</span>
+              <span *ngIf="file.type === 'fileCM'" class="title-left">List of executive committee members</span>
+              <span *ngIf="file.type === 'fileBR'" class="title-left">BR Copy</span>
+              <span *ngIf="file.type === 'fileApplication'" class="title-left">Partnership Agreement</span>
+              <span *ngIf="file.type === 'fileFrom1'" class="title-left">Form 1</span>
+              <span *ngIf="file.type === 'fileFrom20'" class="title-left">Latest Form 20</span>
+              <span *ngIf="file.type === 'fileFrom15'" class="title-left">Form 15</span>
+              <span *ngIf="file.type === 'fileArticles'" class="title-left">Articles of Association</span>
+              <span *ngIf="file.type === 'fileST'" class="title-left">Bank statement</span>
+              <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+
+            </div>
+            <div *ngIf="file.status === 'RESUBMITTED'" class="col-2"> <button class="left-button left-b-resubmit"
+                type="submit">Proccessing</button></div>
+
+            <div *ngIf="file.status === 'APPROVED'" class="col-2"> <button class="left-button left-b-resolved"
+                type="submit">Approved</button></div>
+
+            <div *ngIf="file.status === 'REQUESTED'" class="col-2"> <button
+                (click)="openUpdateFile(dialogUpdateFile,file)" class="left-button left-b-requested"
+                type="submit">Requested</button></div>
+
+            <div *ngIf="file.status ==='PENDING_FOR_APPROVAL'" class="col-2"> <button
+                class="left-button left-b-resubmit" type="submit">Processing</button></div>
+
+            <div *ngIf="file.status === 'REJECT'" class="col-2"> <button (click)="openUpdateFile(dialogUpdateFile,file)"
+                class="left-button left-b-rejcted">Rejected</button></div>
+          </div>
+
+        </div>
+      </div>
+      <div class="col-lg-6 col-md-6 col-sm-12">
+        <div class="right-div">
+          <p class="right-dev-text"> We will be notifying you once your application is approved from the bank. 
+            Thank you for your patience.</p>
+            <br>
+            <p class="right-dev-text-hotline"> If anything, Please reach us anytime
+            </p>
+            <div class="hot_line">
+              <span class="right-address">Hotline - +94 (11) 702 1540</span>
+              <span class="right-address">Mobile - +94 (76) 052 3025 (Amila)</span>
+              <span class="right-address">Mobile - +94 (70) 741 6677 (Anuradha) </span>
+              <span class="right-address"> Email - info@onepay.lk</span>
+
+            </div>
+          <div class="right-dev-info">
+            <p style="font-size: 13px;">Please send the original documents to the following address.</p>
+            <div class="right-address-ref">
+              <span class="right-address">SPEMAI(PVT)LTD</span>
+              <span class="right-address">1st Floor,</span>
+              <span class="right-address"> No 410/22, </span>
+              <span class="right-address"> Galle Road, </span>
+              <span class="right-address">Colombo 3</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- file uplodage -->
+<ng-template #dialogUpdateFile let-data let-ref="dialogRef">
+  <form [formGroup]="updateFileForm" class="step-container" (ngSubmit)="updateFileData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Upload File</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row" style="margin: 4px;">
+          <label class="label-form-control label-name">Upload Image
+            <span [ngClass]="(image ? true : false) ? 'add-image' : 'none-image'"><i class="fa fa-check-circle"
+                aria-hidden="true"></i></span>
+          </label>
+          <div class="col-md-12 test">
+
+            <div class="row">
+              <div nbPopover="Upload only one image" nbPopoverTrigger="hover"
+                [ngClass]="(image ? true : false) ? 'class-add' : 'class-none'"
+                class="uploadfilecontainer-identification" (click)="imageInput.click()">
+                <input style="font-size: 8px;width: 61px;display: none;" class="image-upload" #imageInput
+                  (change)="onFileChangeImage($event)" type="file" accept="image/*">
+                <div style="margin-top: 5px;text-align: center;">
+                  <span class="uplode-icon"> <i class="fa fa-upload" aria-hidden="true"></i></span>
+                  <span class="uplode-text">Click here to upload</span>
+                </div>
+              </div>
+              <div *ngIf="file_doc" class="files-list">
+                <p class="file-name"> {{file_doc}} </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton [disabled]="!image" style="float: right;" type='submit'>Upload</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+
+
+<div class="col-12 animation-div2" *ngIf=is_loading>
+  <div class="sk-circle">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>
+</div>

@@ -1,0 +1,134 @@
+@import '../pages.component.scss';
+.row-margin{
+    margin-right: 2px;
+    margin-left: -3px;
+  }
+  .card-bottom{
+      margin-bottom: 12px;
+  }
+  .button {
+    border: none;
+    color: white;
+    padding:0.6rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 100;
+  }
+  
+  .button1 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    margin: 10px 10px 20px 14px;
+  }
+  .button2 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  .text-discription{
+    border-radius: 0.2rem!important;
+  }
+  // cheque deposit table
+.table .thead-light th {
+    
+    font-size: 0.8rem;
+    font-weight: 200;
+  }
+  .table td{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+  .button-search{
+    border: none;
+    color: white;
+    padding:0.6rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 100;
+    background-color: #3366ff; 
+    color: white; 
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+   
+  }
+  .list-item{
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+  .dialog-border{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+    margin: 12px;
+  }
+  .dialog-border-list{
+    position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  }
+  
+    .label-name{
+      margin-top: 0.5rem!important;
+      font-size: 0.9rem;
+      font-weight: 100;
+    }
+    .input-bottom{
+      font-size: 0.8rem!important;
+      font-weight: 100!important;
+    }
+    .list-item {
+      font-size: 0.8rem;
+      font-weight: 100;
+  }
+ .select-important{
+   width: 100%;
+ }
+ .text-discription{
+   font-size: 0.8rem!important;
+   font-weight: 100!important;
+ }
+ .pagebody{
+   padding-top: 12px;
+ }
+ .collection-popup{
+  width: auto;
+  height: 90vh;
+}
+// gif image
+.success{
+  width: 80px;
+    height: 80%;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -24px;
+}
+.payment-view-sub-head{
+  font-size: 0.8rem;
+}
+
+ 

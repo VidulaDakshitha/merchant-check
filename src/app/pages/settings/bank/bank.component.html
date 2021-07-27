@@ -1,0 +1,273 @@
+
+  <nb-card>
+    <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+      <li><a href="#/pages/admin-dashboard">Home</a></li>
+      <li>Banks</li>
+    </ul>
+  </nb-card>
+  
+  <div style="font-family: 'Poppins';" class="row">
+    <div class="col-12">
+      <nb-card size="small" style="height: auto;">
+        <div class="container">
+          <div class="row">
+            <button style="font-family: 'Poppins';" (click)="open2(dialog)" class="button button1">Add Bank</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-bottom">
+                <div style="font-family: 'Poppins';" class="card-header">
+                  All Bank Details
+                </div>
+                <div class="card-body">
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                      <tr style="font-family: 'Poppins';">
+                        <th>ID</th>
+                        <th>Bank name</th>
+                        <th>Bank code</th>
+                        <th>Bank key</th>
+                        <th>Bank logo</th>
+                        <th>Updated details</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="font-family: 'Poppins';" *ngFor="let bank  of bank_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                        <td>{{bank.id ? bank.id :'Not Available'}}</td>
+                        <td>{{bank.name ? bank.name :'Not Available'}}</td>
+                        <td>{{bank.code ? bank.code :'Not Available'}}</td>
+                        <td>{{bank.key ? bank.key :'Not Available' }}</td>
+                        <td>
+                          <span *ngIf="bank.image">
+                            <img src='{{image_base_path}}{{bank.image}}'>
+                          </span>
+                          <span *ngIf="!bank.image">
+                            <a>Not Available</a>
+                          </span>
+                        </td>
+                        <td>
+                          <p><label><b>Updated by: </b>{{bank.last_update_by_id ? bank.last_update_by_id :'Not Available' }}</label></p>
+                          <p><label><b>Updated on: </b>{{bank.last_update_on ? bank.last_update_on :'Not Available' }}</label></p>
+                        </td>
+                        <td>
+                          <span class="badge badge-success" *ngIf="bank.status">
+                              Active
+                          </span>
+                          <span class="badge badge-danger" *ngIf="!bank.status">
+                              Inactive
+                          </span>
+                        </td>
+                        <td>
+                          <p><b><button size="tiny" (click)="open3(dialog3, bank)" class="button2">Update</button></b></p>
+                          <br>
+                          <p><button size="tiny" (click)="openDeleteBank(dialogDeleteBank, bank)" class="button2">Delete</button></p>
+                        </td>
+                      </tr>
+                      <tr *ngIf="bank_list && bank_list.length < 1">
+                        <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                          <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                          <span style="display: block;">
+                           
+                          </span>
+                        </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="pageChangedAdmin($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedAdmin($event)" style="float: right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+    </div>
+  </div>
+  
+  <!-- //popup add bank -->
+  <ng-template #dialog let-data let-ref="dialogRef">
+    <form [formGroup]="bankForm" style="font-family: 'Poppins';" class="step-container" (ngSubmit)="addBankData()">
+      <nb-card style="width: 40vw;">
+        <nb-card-header style="font-family: 'Poppins';">Add bank Details</nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Bank Name</label>
+              <input class="form-control input-bottom" formControlName="name" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Bank Name"
+                [ngClass]="{'form-control-danger': (bankForm.get('name').dirty || bankForm.get('name').touched) && bankForm.get('name').errors}">
+              <div *ngIf="bankForm.get('name').invalid && (bankForm.get('name').dirty || bankForm.get('name').touched)">
+                <small *ngIf="bankForm.get('name').errors['required']" class="text-danger">
+                  Bank Name is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Bank Key</label>
+              <input class="form-control input-bottom" formControlName="key" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Bank Key"
+                [ngClass]="{'form-control-danger': (bankForm.get('key').dirty || bankForm.get('key').touched) && bankForm.get('key').errors}">
+              <div *ngIf="bankForm.get('key').invalid && (bankForm.get('key').dirty || bankForm.get('key').touched)">
+                <small *ngIf="bankForm.get('key').errors['required']" class="text-danger">
+                  Bank Key is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Bank Code</label>
+              <input class="form-control input-bottom" formControlName="code" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Bank Code"
+                [ngClass]="{'form-control-danger': (bankForm.get('code').dirty || bankForm.get('code').touched) && bankForm.get('code').errors}">
+              <div *ngIf="bankForm.get('code').invalid && (bankForm.get('code').dirty || bankForm.get('code').touched)">
+                <small *ngIf="bankForm.get('code').errors['required']" class="text-danger">
+                  Bank Code is required!</small>
+                <small *ngIf="bankForm.get('code').errors['pattern']" class="text-danger">
+                  Invalid Bank Code.Try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="form-group">
+              <label class="label-form-control label-name">Bank Logo</label>
+              <input class="image-upload" #imageInput name='image' formControlName='image'
+                (change)="onFileChange($event)" type="file" accept="image/*">
+              <div class="center-page">
+                <img class="image_layer" src='{{image}}'>
+              </div>
+            </div>
+          </div>
+         
+        </nb-card-body>
+        <nb-card-footer>
+          <button  type="submit" class="col-md-2"  status="info" size="small" style="float: right;" nbButton [nbSpinner]="loading" nbSpinnerStatus="success"  [disabled]="!bankForm.valid">Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" (click)="close2()" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);" >Close</button>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </ng-template>
+  
+  <!-- Bank updated -->
+  <ng-template #dialog3 let-data let-ref="dialogRef">
+    <form [formGroup]="bankUpdateForm" class="step-container" (ngSubmit)="updateBankData()">
+      <nb-card style="width: 40vw;">
+        <nb-card-header style="font-family: 'Poppins';">Update bank Details</nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+  
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name lable-margin">Bank Name</label>
+              <input class="form-control input-bottom" formControlName="name" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Bank Name"
+                [ngClass]="{'form-control-danger': (bankUpdateForm.get('name').dirty || bankUpdateForm.get('name').touched) && bankUpdateForm.get('name').errors}">
+              <div
+                *ngIf="bankUpdateForm.get('name').invalid && (bankUpdateForm.get('name').dirty || bankUpdateForm.get('name').touched)">
+                <small *ngIf="bankUpdateForm.get('name').errors['required']" class="text-danger">
+                  Bank Name is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Bank Key</label>
+              <input class="form-control input-bottom" formControlName="key" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Bank Key"
+                [ngClass]="{'form-control-danger': (bankUpdateForm.get('key').dirty || bankUpdateForm.get('key').touched) && bankUpdateForm.get('key').errors}">
+              <div
+                *ngIf="bankUpdateForm.get('key').invalid && (bankUpdateForm.get('key').dirty || bankUpdateForm.get('key').touched)">
+                <small *ngIf="bankUpdateForm.get('key').errors['required']" class="text-danger">
+                  Bank Key is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Bank Code</label>
+              <input class="form-control input-bottom" formControlName="code" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Bank Code"
+                [ngClass]="{'form-control-danger': (bankUpdateForm.get('code').dirty || bankUpdateForm.get('code').touched) && bankUpdateForm.get('code').errors}">
+              <div
+                *ngIf="bankUpdateForm.get('code').invalid && (bankUpdateForm.get('code').dirty || bankUpdateForm.get('code').touched)">
+                <small *ngIf="bankUpdateForm.get('code').errors['required']" class="text-danger">
+                  Bank Code is required!</small>
+                <small *ngIf="bankUpdateForm.get('code').errors['pattern']" class="text-danger">
+                  Invalid Bank Code.Try again!</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="form-group">
+              <label>Bank Logo</label>
+              <input #imageInput name='image' class="image-upload" (change)="onFileChange($event)"
+                 type="file" accept="image/*">
+              <div class="center-page">
+                <img class="image_layer" src='{{image}}'>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button  type="submit" class="col-md-2"  status="info" size="small" [nbSpinner]="loading" nbSpinnerStatus="success" style="float: right;" nbButton  [disabled]="!bankUpdateForm.valid">Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);"  (click)="close3()" >Close</button>
+        </nb-card-footer>
+  
+      </nb-card>
+    </form>
+  </ng-template>
+
+  <!-- delete bank -->
+  <ng-template #dialogDeleteBank let-data let-ref="dialogRef">
+    <form [formGroup]="deleteBankForm" class="step-container" (ngSubmit)="deleteBankData()">
+      <nb-card style="width: 30vw;">
+        <nb-card-header style="font-family: 'Poppins';">Delete Bank</nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+          <div class="modal-body">
+            <p><strong style="font-family: 'Poppins';">Are you sure you want to delete <span class="text-primary"></span> bank?</strong></p>
+            <p>All information associated to this bank will be permanently deleted.
+              <span class="text-danger" style="font-family: 'Poppins';">This operation can not be undone.</span>
+            </p>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button  type="submit" class="col-md-2"  status="info" size="small" [nbSpinner]="loading" nbSpinnerStatus="success" style="float: right;" nbButton >Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);"  (click)="ref.close()">Close</button>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </ng-template>
+
+  <div class="sk-circle" *ngIf="is_loading">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>

@@ -1,0 +1,250 @@
+@import '../../pages.component.scss';
+:host ::ng-deep nb-stepper .step-content {
+  text-align: center;
+
+  button {
+    cursor: pointer;
+    margin: 0.5rem;
+   
+  }
+}
+//radio button
+.radio_possion{
+  text-align: left!important;
+}
+
+//form feeld
+
+//form sub title
+.sub-head
+{
+  font-size: 16px;
+  font-weight: 200;
+  margin-top: 30px;
+}
+//date
+
+.form-control{
+  
+  letter-spacing: 1px;
+}
+.form-control-text{
+  text-transform: uppercase;
+}
+.select-important{
+  width: 100%!important;
+ margin-left: -23px;
+}
+.form-select {
+  height: auto;
+  margin-top: 0;
+}
+.select-button {
+  cursor: pointer;
+  margin:none!important;
+}
+.sub-head-background{
+  width: 100%;
+  height: 100%;
+  background-color: #d7d1c9;
+}
+
+.input-group > .form-control {
+  width: 100%;
+  margin: 6px 0 6px 0;
+}
+nb-radio.b {
+  display: inline-block;
+}
+.Sbt-form {
+
+  font-weight: 100;
+}
+nb-card-body h4 {
+  font-weight: 100;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+}
+.inner-circle {
+  border-radius: 0 !important;
+}
+.label-name{
+  font-size: 0.9rem;
+  margin-bottom: 0;
+  margin-top: 8px;
+}
+.form-control{
+  font-size: 0.8rem;
+  font-weight: 200;
+
+}
+.form-control-danger{
+  border-color: red;
+}
+textarea { 
+  resize:none; 
+}
+.overflow-hide{
+  overflow-x: scroll;
+}
+.text-center{
+  font-weight: 200;
+  font-size: 0.8rem;
+  text-align: left;
+
+}
+.nb-theme-default nb-radio .inner-circle {
+  height: 0.5rem;
+  width: 0.5rem;
+}
+nb-radio.c {
+  display: inline-block; 
+}
+.nb-theme-default nb-radio .outer-circle, .nb-theme-default nb-radio .inner-circle {
+  height: 0.8rem;
+  width: 0.8rem;
+}
+.outer-circle{
+  border-radius: 0!important;
+}
+.demo-radio2 >.nb-theme-default nb-radio .text{
+  font-size: 0.7rem!important;
+  font-weight: 200!important;
+}
+.test{
+  float: left;
+}
+.label-name{
+  display: inline-block;
+}
+.input-name{
+  display: inline-block;
+}
+
+.form-select{
+ 
+  width: 100%;
+}
+nb-stepper .step-content button{
+  margin: 6px 0 0 0!important;
+}
+.form-select{
+  padding: 0.2rem!important;
+}
+// .nb-theme-default nb-select.size-medium:not(.full-width){
+//   max-width: 25rem!important;
+// }
+.btn-baccolor{
+  background-color: red;
+  color: white;
+  border-radius:0.25rem;
+  border-color: red;
+}
+
+.uploadfilecontainer {
+  background-image: url("../../../../assets/images/upload-icon-1.png");
+  background-repeat: no-repeat;
+  background-size: 100px;
+  background-position: center;
+  height: 200px;
+  width: 80%;
+  margin: 20px auto;
+  border: 2px dashed #1C8ADB;
+  border-radius: 10px;
+}
+
+.uploadfilecontainer:hover {
+  cursor: pointer;
+  background-color: #9ecbec !important;
+  opacity: 0.8;
+}
+
+.files-list {
+  display: flex;
+  justify-content: space-between;
+  width: 80%;
+  margin: 10px auto;
+  background: #ffffff;
+  border: 1px dashed;
+  border-radius: 12px;
+  padding: 5px;
+  color: #1c8adb;
+}
+
+.files-list .delete-file {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+}
+
+.files-list .delete-file img {
+  width: 15px;
+  height: 15px;
+
+}
+.file-name{
+  margin-top: 20px;
+  overflow-y: scroll;
+  overflow-x: scroll;
+}
+.dd{
+  text-align: center;
+}
+//text area director and sharholder
+.text-area{
+  padding: 10px;
+}
+.add-btn{
+  font-size: 0.6rem;
+  font-weight: 100;
+  padding: 4px;
+  background-image: linear-gradient(90deg,#2ce69b,#00d68f);
+    border: none;
+    box-shadow: 0 0 0 0 #00b887, 0 0 0 0 #00997a, 0 0 transparent;
+    color: #fff;
+    border-color: #00d68f!important;
+}
+.reset-btn{
+  font-size: 0.6rem;
+    font-weight: 100;
+    padding: 4px;
+    background-image: linear-gradient(90deg,#2ce69b,#00d68f);
+    border: none;
+    box-shadow: 0 0 0 0 #00b887, 0 0 0 0 #00997a, 0 0 transparent;
+    color: #fff;
+    border-color: #00d68f!important;
+}
+.delete-btn{
+  font-size: 0.6rem;
+    font-weight: 100;
+    padding: 4px;
+    background-image: linear-gradient(90deg,#ff708d,#ff3d71);
+    border: none;
+    box-shadow: 0 0 0 0 #db2c66, 0 0 0 0 #b81d5b, 0 0 transparent;
+    border-color: #ff3d71!important;
+
+}
+.button2 {
+  background-color: #3366ff;
+  color: white;
+  border: 1px solid #3366ff;
+  border-radius: 0.25rem;
+  float: left;
+  font-size: 0.7rem;
+  padding: 3px;
+}
+tbody textarea{
+  text-transform: uppercase;
+}
+.required_feeld{
+  color: red;
+}
+
+
+
+
+
+
+
+
+

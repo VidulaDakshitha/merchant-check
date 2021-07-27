@@ -1,0 +1,198 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li>Merchant List</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          <button [routerLink]="['/pages/merchant/add']" class="button button1">Add Merchant</button>
+          <!-- <button (click)=exportPDF()>Export to pdf</button> -->
+
+        </div>
+        <div class="row">
+          <div class="col-sm-4 col-md-4 col-5">
+            <div class="form-group search">
+              <select class="form-control" name="transaction_id" [(ngModel)]="search_by"
+                (ngModelChange)="changeSearchType()" [ngModelOptions]="{standalone: true}">
+                <option value="0" selected>All</option>
+                <option value="1">Merchant Id</option>
+                <option value="2">Register Business Name</option>
+                <option value="3">Register Number</option>
+                <option value="4">Email</option>
+                <option value="5">Phone Number</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-5">
+            <div class="form-group search">
+              <input class="form-control" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text"
+                placeholder="Search.." name="search" [disabled]="search_by==0">
+            </div>
+          </div>
+          <div class="col-sm-4 col-md-4 col-2">
+            <button class="button-search" (click)="search_data()">Search</button>
+
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Merchant Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Email</th>
+                      <th>Phone Number</th>
+                      <th>Bussiness Name</th>
+                      <th>Agreement Date</th>
+                      <th>Status</th>
+                      <th>PDF</th>
+                      <th>Delete</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let merchant  of merchant_details | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }"
+                      [ngStyle]="{ 'background-color' : merchant.is_approved? '#ffffff' : '#ffcdcb' }">
+                      <td>{{merchant.id}}</td>
+                      <td>{{merchant.email}} <button
+                          (click)="openUpdateMerchantEmail(dialogUpdateMerchantEmail, merchant)"
+                          class="buttonChange">Change</button></td>
+                      <td>{{merchant.phone_number}}</td>
+                      <td>{{merchant.registered_business_name}}</td>
+                      <td>{{merchant.merchant_agreement_date | date: 'dd/MM/yyyy'}}</td>
+                      <td>
+                        <span class="badge badge-success" *ngIf="merchant.is_approved">Success</span>
+                        <span class="badge badge-danger" *ngIf="!merchant.is_approved">Failed</span>
+                      </td>
+                      <td>
+                        <i style="font-size: 20px;color: #28a745;cursor: pointer" (click)=manualPDFData(merchant)
+                          class="fas fa-file-download"></i>
+
+                      </td>
+                      <td>
+                        <button (click)="openDeleteMerchant(dialogDeleteMerchant,merchant)"
+                          class="button2">Delete</button>
+                      </td>
+                      <td>
+                        <button class="button2" class="button2"
+                          [routerLink]="['/pages/merchant/view-merchant', merchant.id]">View</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="merchant_details.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                      <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                        <div class="sk-circle">
+                          <div class="sk-circle1 sk-child"></div>
+                          <div class="sk-circle2 sk-child"></div>
+                          <div class="sk-circle3 sk-child"></div>
+                          <div class="sk-circle4 sk-child"></div>
+                          <div class="sk-circle5 sk-child"></div>
+                          <div class="sk-circle6 sk-child"></div>
+                          <div class="sk-circle7 sk-child"></div>
+                          <div class="sk-circle8 sk-child"></div>
+                          <div class="sk-circle9 sk-child"></div>
+                          <div class="sk-circle10 sk-child"></div>
+                          <div class="sk-circle11 sk-child"></div>
+                          <div class="sk-circle12 sk-child"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls *ngIf="merchant_details.length >1" (pageChange)="pageChangedMerchant($event)"
+                  responsive="true" (pageBoundsCorrection)="pageChangedMerchant($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+<!-- delete merchant -->
+<ng-template #dialogDeleteMerchant let-data let-ref="dialogRef">
+  <form [formGroup]="deleteMerchantForm" class="step-container" (ngSubmit)="deleteMerchantData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Merchant</nb-card-header>
+      <nb-card-body>
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> profile?</strong></p>
+          <p>All information associated to this user profile will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeMerchantDelete()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- update email -->
+<ng-template #dialogUpdateMerchantEmail let-data let-ref="dialogRef">
+  <form [formGroup]="emailUpdateMerchantForm" class="step-container" (ngSubmit)="updateMerchantEmailData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Change Merchant Email</nb-card-header>
+      <nb-card-body>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Email</label>
+            <input class="form-control input-bottom" formControlName="new_email" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (emailUpdateMerchantForm.get('new_email').dirty || emailUpdateMerchantForm.get('new_email').touched) && emailUpdateMerchantForm.get('new_email').errors}">
+            <div
+              *ngIf="emailUpdateMerchantForm.get('new_email').invalid && (emailUpdateMerchantForm.get('new_email').dirty || emailUpdateMerchantForm.get('new_email').touched)">
+              <small *ngIf="emailUpdateMerchantForm.get('new_email').errors['required']" class="text-danger">
+                Email is required!</small>
+              <small *ngIf="emailUpdateMerchantForm.get('new_email').errors['pattern']" class="text-danger">
+                Invalid Email.Try again!</small>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeUpdateMerchantEmail()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+
+<button (click)=exportPDF()>Export to pdf</button>

@@ -1,0 +1,99 @@
+
+@import '../../pages.component.scss';
+
+.button {
+    background-color: #4CAF50; /* Green */
+    border: none;
+    color: white;
+    padding:0.5rem;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 0.8125rem;
+    margin: 0 16px 16px 16px;
+    cursor: pointer;
+    font-weight: 200;
+  }
+  
+  .button1 {
+    background-color: #3366ff; 
+    color: white; 
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+  }
+  .thead-light th{
+    font-size: 0.8rem;
+    font-weight: 200;
+  }
+  tbody tr{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+   //search button
+   .button-search{
+    border: none;
+    color: white;
+    padding:0.6rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.9rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 100;
+    background-color: #3366ff; 
+    color: white; 
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+   
+  }
+  .button2 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  .list-item{
+    padding: 0.5rem 1rem 0.5rem 1rem;
+  }
+  .input-bottom{
+    width: 100%;
+  }
+  .buttonChange{
+    background-color: #79d70f;
+    color: black;
+    border: 1px solid #79d70f;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    padding: 1px;
+    margin-left: 5px;
+  }
+  .card-bottom {
+    margin-bottom: 12px;
+}
+.dialog-border{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  margin: 12px;
+
+ }
+ .merchant-view-sub-head{
+  font-size: 0.8rem;
+}
+.list-item{
+  padding: 0.6rem!important;
+  font-size: 0.8rem!important;
+}
+.nb-list-details{
+  overflow: initial;
+}

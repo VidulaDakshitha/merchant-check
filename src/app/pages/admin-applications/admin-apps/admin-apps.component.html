@@ -1,0 +1,143 @@
+<div class="row">
+  <div class="col-12">
+      <nb-card>
+        
+        <ul class="bread" style="margin-bottom: 0!important;padding: 8px; margin-left: 14px!important;padding: 8px;">
+          <li><a href="#/pages/dashboard">Home</a></li>
+          <li><a href="#">App Details</a> </li>
+        </ul>
+       
+        <nb-card class="box_shadow">
+          <nb-card-body >
+            <nb-card-body class="dialog-border box_shadow">
+  
+            <form [formGroup]="FilterForm" (ngSubmit)="transactionSubmit()">
+                <div class="row">
+                  <div class="col-lg-5 col-md-12 col-12">
+                    <br>
+                    <label for="status" class="label">Status</label>
+                    <select nbInput fullWidth style="background-color:rgb(255, 255, 255);" class="form-control form-control-sm " placeholder="Select Status"
+                      formControlName="status">
+                      <option value="" disabled selected>Select App Status</option>
+                      <option value="ALL">All Apps</option>
+                      <option value="APPROVED">Approved Apps</option>
+                      <option value="PENDING">Pending Apps</option>
+                      <option value="NOT_APPROVED">Not Approved</option>
+                    </select>
+                  </div>
+                  <div class="col-lg-5 col-md-12 col-12">
+                    <br>
+                    <div class="form-group">
+                      <label for="email" class="label">Email</label>
+                      <input type="text" style="background-color:rgb(255, 255, 255);" class="form-control form-control-sm " nbInput formControlName="email" fullWidth placeholder="Enter email">
+                    </div>
+                  </div>
+                </div>
+                <div class="d-flex justify-content-end">
+                  <button type="button" style="color: #818181; font-size: 12px;text-decoration: none;width: 120px;" type="button"
+                  class="btn btn-link" (click)="resetFields()">CLEAR</button>
+                  <button [disabled]="!(FilterForm.get('status').value || FilterForm.get('email').value)" type="submit" 
+                    nbButton size="small" class="filter-btn">Filter</button>
+                </div>
+            </form>
+
+            </nb-card-body>
+          </nb-card-body>
+        </nb-card>
+      </nb-card>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-12">
+    <div class="row">
+      <div class="col-md-12">
+        <div >
+          <nb-card size="small" style="height: auto;padding-top: 12px;">
+            <div class="container">
+              <div class="card-header">
+                Payment Link Details
+              </div>
+                <div class="row">
+                  <div class="col-12">
+                    <nb-card>
+                      <nb-card-body>
+                        <div class="row">
+                          <div class="col-md-12">
+
+                            <div class="table-responsive">
+                              <table style="border:0.7px solid #D2D2D2; border-radius: 10px;"
+                                class="mb-2 table table-responsive-sm table-hover table-outline mb-0">
+                                <thead class="thead-light">
+                                  <tr>
+                                  <th>ID</th>
+                                  <th>App ID</th>
+                                  <th>App Name</th>
+                                  <th>Email</th>
+                                  <th>Status</th>
+                                  <th>Created Date</th>
+                                  <th class="text-center">Actions</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr
+                                  *ngFor="let transaction of app_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total}">
+                                  <td>{{transaction.id}}</td>
+                                  <td>{{transaction.app_id}}</td>
+                                  <td>{{transaction.app_name}}</td>
+                                  <td>{{transaction.merchant_email}}</td>
+                                  <td>
+                                    <span *ngIf="transaction.is_approved">
+                                      <span class="badge badge-success">Live</span>
+                                    </span>
+                                    <span *ngIf="!transaction.is_approved">
+                                      <span *ngIf="transaction.is_submit_approve" class="badge badge-warning">Requested to go Live</span>
+                                      <span *ngIf="!transaction.is_submit_approve" class="badge badge-secondary">Development</span>
+                                    </span>
+                                  </td>
+                                  <td>{{transaction.datetime ? transaction.datetime: 'N/A'}}</td>
+                                  <td class="text-center">
+                                    <button class="button2" (click)="navigateViews(transaction.id)">View</button>
+                                  </td>
+                                </tr>
+                                <tr *ngIf="app_list && app_list.length<1">
+                                  <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                                    <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                                  </td>
+                                  <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                                    <div class="sk-circle">
+                                      <div class="sk-circle1 sk-child"></div>
+                                      <div class="sk-circle2 sk-child"></div>
+                                      <div class="sk-circle3 sk-child"></div>
+                                      <div class="sk-circle4 sk-child"></div>
+                                      <div class="sk-circle5 sk-child"></div>
+                                      <div class="sk-circle6 sk-child"></div>
+                                      <div class="sk-circle7 sk-child"></div>
+                                      <div class="sk-circle8 sk-child"></div>
+                                      <div class="sk-circle9 sk-child"></div>
+                                      <div class="sk-circle10 sk-child"></div>
+                                      <div class="sk-circle11 sk-child"></div>
+                                      <div class="sk-circle12 sk-child"></div>
+                                    </div>
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+
+                          </div>
+                          <pagination-controls (pageChange)="pageChanged($event)" responsive="true"
+                            (pageBoundsCorrection)="pageChanged($event)" style="float: right">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </nb-card-body>
+                  </nb-card>
+                </div>
+              </div>
+          </div>
+        </nb-card>
+      </div>
+    </div>
+  </div>
+</div>
+</div>

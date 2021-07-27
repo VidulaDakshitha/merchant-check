@@ -1,0 +1,121 @@
+/* Add application styles & imports to this file! */
+@import '~@fullcalendar/core/main.css';
+@import '~@fullcalendar/daygrid/main.css';
+@import '~@fullcalendar/timegrid/main.css';
+
+.card-body-padding{
+    padding: 2rem 2.25rem;
+}
+.fc-day-number{
+    padding: 12px!important;
+}
+
+ .dialog-border{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+ }
+ .dialog-border-event{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  margin: 12px;
+
+ }
+ .dialog-border-event-edit{
+  margin: 12px;
+ }
+ .list-item{
+    padding: 0.6rem!important;
+    font-size: 0.8rem!important;
+    overflow: hidden;
+}
+.nb-list-details{
+    overflow: hidden!important;
+}
+.table .thead-light th {
+    
+    font-size: 0.8rem;
+    font-weight: 200;
+  }
+  .table td{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+  .nb-card-box{
+    box-shadow: none;
+    margin-bottom:none!important;
+  }
+  .add-event{
+    position: absolute;
+    top: 25px;
+    left: 206px;
+  }
+  .button2 {
+    background-color: #3366ff;
+    color: white;
+    border:none;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    padding: 3px;
+    margin: 6px;
+  }
+  .button2:focus{
+     outline: none!important;
+  }
+  .button {
+    text-align: center;
+    cursor: pointer;
+    padding:0.5rem;
+    font-weight: 100;
+    text-decoration: none;
+    background-color: #2C3E50;
+    color: white;
+    border: none;
+    border-radius: 0.25rem;
+    float: left;
+    margin: 10px 10px 20px 14px;
+  }
+
+  .test{
+    background-color: green !important;
+  }
+  .text-discription{
+    border-radius: 0.2rem!important;
+  }
+  .input-bottom{
+    margin-bottom: 6px;
+    font-size: 0.8rem!important;
+    font-weight: 400!important;
+  }
+  .text-discription{
+    font-size: 0.8rem!important;
+    font-weight: 400!important;
+  }
+  .label-name{
+    font-size: 0.9rem;
+    width: 100%;
+    margin-top: 6px;
+    margin-bottom: 2px;
+    // padding-left: 12px;
+  }
+  .row-margin{
+    margin-right: 2px;
+    margin-left: -3px;
+  }
+  .card-body-event{
+    padding: 0rem 1rem 1rem 1rem;  
+  }
+  

@@ -1,0 +1,186 @@
+<!-- <nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+      <li><a routerLink="/pages/dashboard">Dashboard</a></li>
+      <li><a routerLink="/pages/ipg-developer/app">Apps</a></li>
+      <li>Update app {{this.update_form.value['app_name']}}</li>
+  </ul>
+</nb-card> -->
+
+<div class="row" *ngIf="!this.update_form.value['app_name']">
+  <div class="col-12">
+    {{loading_message}}
+  </div>
+</div>
+
+<div class="row" *ngIf="this.update_form.value['app_name']">
+  <div class="col-12">
+      <div style="height: auto;">
+        <div>        
+              <div class="row">
+                <div class="col-12">
+                    <form [formGroup]="update_form" (ngSubmit)="addAppData()">
+                        <nb-card style="width: auto">
+                            <nb-card-body >
+                              <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+                                <li><a routerLink="/pages/dashboard">Dashboard</a></li>
+                                <li><a routerLink="/pages/ipg-developer/app">Apps</a></li>
+                                <li>Update app {{this.update_form.value['app_name']}}</li>
+                              </ul>
+                              <div class="row"><br></div>
+                              <div class="row"></div>
+                              <div class="row">
+                                <div class="col-md-12">
+                                  <div class="row col-md-6">
+                                  <nb-icon routerLink="/pages/ipg-developer/app" icon="arrow-back-outline"></nb-icon>
+                                  <div class="col-md-10">
+                                  <h5>Update App</h5>
+                                  </div>
+                                  </div>
+                              </div>
+                              </div>
+                              <div class="row"><br></div>
+                              <nb-card-body class="dialog-border">
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="input-group">
+                                      <div class="col-md-3">
+                                    <label class="label-form-control label-name">App Name<a style="color: red;">*</a></label>
+                                    </div>
+                                    <div class="col-md-9">
+                                    <input class="form-control input-bottom" formControlName="app_name" type="text" nbInput fullWidth
+                                        placeholder="Enter App New">
+                                        <div *ngIf="update_form.get('app_name').invalid && (update_form.get('app_name').dirty || update_form.get('app_name').touched)">
+                                          <small *ngIf="update_form.get('app_name').errors['required']" class="text-danger">
+                                            App name is required!
+                                          </small>
+                                          <small class="font-red" *ngIf="update_form.controls['app_name'].hasError('pattern')">
+                                            App name is in invalid format.
+                                          </small>
+                                      </div>
+                                      </div>
+                                    </div>
+                                </div>
+                                </div>
+                                <div class="row"><br></div>
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="input-group">
+                                      <div class="col-md-3">
+                                      <label class="label-form-control label-name">Description<a style="color: red;">*</a></label>
+                                      </div>
+                                      <div class="col-md-9">
+                                      <textarea class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+                                          placeholder="Enter description"></textarea>
+                                      <div *ngIf="update_form.get('description').invalid && (update_form.get('description').dirty || update_form.get('description').touched)">
+                                        <small *ngIf="update_form.get('description').errors['required']" class="text-danger">
+                                          App description is required!
+                                        </small>
+                                        <small class="font-red" *ngIf="update_form.controls['description'].hasError('pattern')">
+                                          App description is in invalid format.
+                                        </small>
+                                      </div>
+                                      </div>
+                                    </div>
+                                    </div>
+                                </div>
+
+                                <div class="row"><br></div>
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                    <div class="input-group">
+                                      <div class="col-md-3">
+                                      <label class="label-form-control label-name">Attached Services <a style="color: red;">*</a></label>
+                                      </div>
+                                      <div class="col-md-9">
+                                      <small *ngIf="!ipgProviders.length">There is no avalialbe service providers at this moment</small>
+                                      <nb-checkbox status="primary" (change)="onProviderChange($event.target.checked, provider.id)" *ngFor="let provider of ipgProviders" [value]="provider.state">{{provider.provider_name}}</nb-checkbox>
+                                      <!-- <div *ngIf="update_form.get('description').invalid && (update_form.get('description').dirty || update_form.get('description').touched)">
+                                        <small *ngIf="update_form.get('description').errors['required']" class="text-danger">
+                                          app description is required!
+                                        </small>
+                                      </div> -->
+                                    </div>
+                                    </div>
+                                  </div>
+                                </div>
+                              </nb-card-body>
+
+                              <div class="row"><br></div>
+                                <nb-card-body class="dialog-border">
+                                <div>
+                                  <div class="col-md-12 pad-top-no">
+                                    <div class="input-group">
+                                      <h6 style="font-family:'Century Gothic' "><b>Status Callback Configuration</b></h6>
+                                    </div>
+                                  </div>
+                                </div>
+
+                                <div class="row"><br></div>
+
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                  <div class="input-group">
+                                    <div class="col-md-3">
+                                    <label class="label-form-control label-name">Callback URL<a style="color: red;">*</a></label>
+                                    </div>
+                                    <div class="col-md-9">    
+                                    <input class="form-control input-bottom" formControlName="callback_url" type="text" nbInput fullWidth
+                                        placeholder="Enter callback URL">
+                                    
+                                    <div *ngIf="update_form.get('callback_url').invalid && (update_form.get('callback_url').dirty || update_form.get('callback_url').touched)">
+                                      <small *ngIf="update_form.get('callback_url').errors['required']" class="text-danger">
+                                        Callback url is required!
+                                      </small>
+                                      <small class="font-red" *ngIf="update_form.controls['callback_url'].hasError('pattern')">
+                                        Callback url is in invalid format.
+                                      </small>
+                                    </div>
+                                  </div>
+                                  </div>
+                                  </div>
+                                
+                                </div>
+                                <div class="row"><br></div>
+                                <div class="col-md-12">
+                                  <div class="col-md-12">
+                                  <div class="input-group">
+                                    <div class="col-md-3">
+                                  <label class="label-form-control label-name">Callback Token<a style="color: red;">*</a></label>
+                                  </div>
+                                  <div class="col-md-9">
+                                  <input class="form-control input-bottom" formControlName="callback_token" type="text" nbInput fullWidth
+                                      placeholder="Enter callback token">
+                                      <div *ngIf="update_form.get('callback_token').invalid && (update_form.get('callback_token').dirty || update_form.get('callback_token').touched)">
+                                        <small *ngIf="update_form.get('callback_token').errors['required']" class="text-danger">
+                                          Callback token is required!
+                                        </small>
+                                        <small class="font-red" *ngIf="update_form.controls['callback_token'].hasError('pattern')">
+                                          Callback token is in invalid format.
+                                        </small>
+                                    </div>
+                                  </div>
+
+                                  </div>
+                                  </div>
+                                </div>
+                              </nb-card-body>
+                                <div class="row"><br></div>
+                                <div class="example-items-rows">
+                                  <div class="col-md-8"></div>
+                                  <button  type="submit" class="col-md-2"  status="info" size="small" style="float: right;" [disabled]="!(update_form.valid && is_valid_providers())" nbButton>Update app</button>
+                                  <button type="button" class="col-md-2"  status="info" size="small" (click)="cancel()"  nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);">Cancel</button>
+                                </div>
+
+ 
+                                
+                                </nb-card-body>
+                        </nb-card>
+                    </form>
+                </div>
+              </div>
+
+        </div>
+      </div>
+      </div>
+
+</div>

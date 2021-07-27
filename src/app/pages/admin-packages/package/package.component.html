@@ -1,0 +1,1177 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li>Package Details</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card style="height:auto!important;" size="small">
+     
+          <div class="container">
+
+<nb-tabset (changeTab)="onChangeTab($event)">
+  <nb-tab [active]="tabs[0]" tabTitle="Packages">
+
+<div class="row">
+  <div class="col-12">
+
+      <div class="container">
+        <div class="row">
+          <button (click)="openAddPackage(dialogAddPackage)" class="button button1">Add Package</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                All package details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Package Name</th>
+                      <th>Package Key</th>
+                      <th>Package Image</th>
+                      <th>Status</th>
+                      
+                      <!-- <th>Created Details</th> -->
+                      <!-- <th>Created On</th> -->
+                      <!-- <th>Updated Details</th> -->
+                      <!-- <th>Updated On</th> -->
+                      <!-- <th>Deleted By</th>
+                      <th>Deleted On</th> -->
+                      <th>Actions</th>
+                 
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr *ngFor="let package  of package_list| paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total, id:'package' }">
+              
+                      <td>{{package.id}}</td>
+                      <td>{{package.name}}</td>
+                      <td>{{package.key}}</td>
+                      <td >
+                        <img style="height: 70px;width: 100px;" src={{image_base_path}}{{package.image}} />
+                      </td>
+                     <td>
+                      <span class="badge badge-success">{{package.status=="1" ? 'Active' : ''}}</span>
+                      <span class="badge badge-warning">{{package.status=="0" ? 'In Active' : ''}}</span>
+                     </td>
+                      
+                      <!-- <td>{{package.create_by}}</td> -->
+                      <!-- <td> <span style="font-weight: 700;">by</span> {{package.create_by}} <br/> <span style="font-weight: 700;">on</span>  {{package.create_on}}</td> -->
+                      <!-- <td> <span style="font-weight: 700;">by</span> {{package.last_update_by?package.last_update_by:'N/A'}}<br/> <span style="font-weight: 700;">on</span>  {{package.last_update_on?package.last_update_on:'N/A'}}</td> -->
+                      <!-- <td>{{package.last_update_on?package.last_update_on:'N/A'}}</td> -->
+                      <!-- <td>{{package.deleted_by}}</td>
+                      <td>{{package.delete_on}}</td> -->
+                      <td>
+                        <button (click)="openPackageView(dialogViewPackage, package)" class="button2  mr-2">View</button>
+
+                        <button (click)="openUpdatePackage(dialog3, package)" class="button2 mr-2">Update</button>
+                  
+                        <button (click)="openPackageDelete(dialogDeletePackage, package)" class="button2">Delete</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChanged($event)" responsive="true"
+                (pageBoundsCorrection)="pageChanged($event)" style="float: right" id="package">
+              </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+  </div>
+</div>
+
+</nb-tab>
+<nb-tab [active]="tabs[1]" tabTitle="Assign Budget to Package">
+
+
+
+  <div class="row">
+    <div class="col-12">
+  
+        <div class="container">
+          <div class="row">
+            <button (click)="openAddBudget(dialogAddBudget)" class="button button1">Assign Budget</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-bottom">
+                <div class="card-header">
+                  All Package Budget Details
+                </div>
+                <div class="card-body">
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                      <tr>
+                        <th>ID</th>
+                        <th>Package Name</th>
+                        <th>Period</th>
+                        <th>Gross Amount</th>
+                        <th>Handling Fee</th>
+             
+                        <th>Discount</th>
+                    
+                        <th>Net Amount</th>
+                        <th>Status</th>
+                        <!-- <th>Updated Details</th> -->
+                   
+                        <!-- <th>Updated By</th>
+                        <th>Updated On</th>
+                        <th>Deleted By</th>
+                        <th>Deleted On</th> -->
+                        <th class="text-center">Actions</th>
+                  
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr *ngFor="let budget  of budget_list| paginate: { itemsPerPage: pageSizeHistory, currentPage: pHistory, totalItems: totalHistory, id:'budget' }" style="height: 2.5rem;">
+                
+                        <td>{{budget.id}}</td>
+                        <td>{{budget.package_name}}</td>
+                        <td>
+                          
+                          <span>{{budget.period=="MN"?"Monthly":""}}</span>
+                          <span>{{budget.period=="DY"?"Daily":""}}</span>
+                          <span>{{budget.period=="AN"?"Yearly":""}}</span>
+                          <span>{{budget.period=="QU"?"Quarterly":""}}</span>
+                        
+                        
+                        </td>
+                        <td>{{budget.gross_amount}}</td>
+                        <td>{{budget.handing_fee}}</td>
+              
+                        <td>{{budget.discount?budget.discount:0.00}}</td>
+                        <td>{{budget.net_amount}}</td>
+                        <td>
+                          <span class="badge badge-success">{{budget.status=="1" ? 'Active' : ''}}</span>
+                          <span class="badge badge-warning">{{budget.status=="0" ? 'In Active' : ''}}</span>
+                         </td>
+                        <!-- <td> <span style="font-weight: 700;">by</span> {{budget.last_update_by?budget.last_update_by:'N/A'}}<br/> <span style="font-weight: 700;">on</span>  {{budget.last_update_on?budget.last_update_on:'N/A'}}</td> -->
+
+                        <!-- <td>{{budget.create_on}}</td>
+                        <td>{{budget.create_by_id}}</td> -->
+                        
+                        <!-- <td>{{package.last_update_by}}</td>
+                        <td>{{package.last_update_on}}</td>
+                        <td>{{package.deleted_by}}</td>
+                        <td>{{package.delete_on}}</td> -->
+                        <td class="d-flex justify-content-center">
+                          <button (click)="openViewBudget(dialogViewBudget, budget)" class="button2  mr-2">View</button>
+  
+                          <button (click)="openUpdateBudget(dialogUpdateBudget, budget)" class="button2 mr-2">Update</button>
+                    
+                          <button (click)="openBudgetDelete(dialogDeleteBudget, budget)" class="button2">Delete</button>
+                        </td>
+                        <!-- <td>
+                          <button (click)="openUpdateBudget(dialogUpdateBudget, budget)" class="button2">Update</button>
+                        </td>
+                        <td>
+                          <button (click)="openBudgetDelete(dialogDeleteBudget, budget)" class="button2">Delete</button>
+                        </td> -->
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="pageChangedBudget($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedBudget($event)" style="float: right" id="budget">
+                </pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+  
+    </div>
+  </div>
+
+  
+
+
+</nb-tab>
+</nb-tabset>
+</div>
+</nb-card>
+</div>
+</div>
+
+
+
+
+
+
+<ng-template #dialogViewPackage let-data let-ref="dialogRef">
+  <nb-card style="width: 60vw; max-height: 90vh">
+    <nb-card-header class="headerStyle">View Package
+    </nb-card-header>
+    <nb-card-body class="dialog-border">
+      <nb-list class="nb-list-details">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic" >Package Id</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer" >{{view_package.id ? view_package.id : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Package Image</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <img style="height: 100px;" src={{image_base_path}}{{view_package.image}}/>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Package Name</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_package.name ? view_package.name : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Package Image Caption</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_package.on_image_caption ? view_package.on_image_caption : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Created By</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_package.create_by ? view_package.create_by : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Created On</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_package.create_on ? view_package.create_on : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Updated By</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_package.last_update_by ? view_package.last_update_by : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Updated On</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_package.last_update_on ? view_package.last_update_on : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Package Status</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <div class="col-md-6 col-lg-8 col-xxxl-8">
+                <span class="badge badge-success">{{view_package.status=="1" ? 'Active' : ''}}</span>
+                <span class="badge badge-warning">{{view_package.status=="0" ? 'In Active' : ''}}</span>
+              </div>
+            </div>
+          </div>
+        </nb-list-item>
+
+
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Package Assigned Items</span>
+            </div>
+            <div  class="col-md-6 col-lg-8 col-xxxl-8">
+             <div  *ngFor="let details of view_package.package_assigned_item_data;index as i">
+              <nb-list class="pb-4" >
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span class="topic">Item {{i+1}} Name </span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="answer">{{details.item_id__name ? details.item_id__name : 'N/A'}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span class="topic">Item {{i+1}} Parameter Value</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="answer">{{details.parameter_value ? details.parameter_value : 'N/A'}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span>Item {{i+1}} Status</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="badge badge-success">{{details.status=="1" ? 'Active' : ''}}</span>
+                      <span class="badge badge-warning">{{details.status=="0" ? 'In Active' : ''}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+              </nb-list>
+ 
+            </div>
+            <span class="answer" *ngIf="view_package.package_assigned_item_data.length==0">
+              N/A
+            </span>
+          </div>
+          </div>
+        </nb-list-item>
+
+
+
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span>Package Budget</span>
+            </div>
+            <div   class="col-md-6 col-lg-8 col-xxxl-8">
+             <div *ngFor="let details of view_package.package_budget_data;index as i">
+              <nb-list class="pb-3" >
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span class="topic">Budget {{i+1}} Gross Amount</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="answer">{{details.gross_amount ? 'LKR '+ details.gross_amount : 'N/A'}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span class="topic">Budget {{i+1}} Handling Fee</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="answer">{{details.handing_fee ? 'LKR '+ details.handing_fee : 'N/A'}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span>Budget {{i+1}} Net Amount</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="answer">{{details.net_amount ? 'LKR '+ details.net_amount : 'N/A'}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span>Budget {{i+1}} Period</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="answer">{{details.period ? details.period : 'N/A'}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+
+                <nb-list-item class="list-item" >
+
+                  <div class="row">
+                    <div class="col-md-6 col-lg-4 col-xxxl-4">
+                      <span>Budget {{i+1}} Status</span>
+                    </div>
+                    <div class="col-md-6 col-lg-8 col-xxxl-8">
+                      <span class="badge badge-success">{{details.status=="1" ? 'Active' : ''}}</span>
+                      <span class="badge badge-warning">{{details.status=="0" ? 'In Active' : ''}}</span>
+                    </div>
+                  </div>
+
+                </nb-list-item> 
+
+
+              </nb-list>
+       
+            </div>
+            <span class="answer" *ngIf="view_package.package_budget_data.length==0">
+              N/A
+            </span>
+          </div>
+          </div>
+        </nb-list-item>
+
+
+
+       
+      </nb-list>
+
+
+
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+
+
+<!-- // package add -->
+<ng-template #dialogAddPackage let-data let-ref="dialogRef">
+  <form  [formGroup]="PackageAddForm" (ngSubmit)="addPackageData()">
+    <nb-card style="width: 40vw;height: 90vh;">
+
+      <nb-card-header>Add Package Details</nb-card-header>
+      <nb-card-body >
+
+    
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Name</label>
+            <input class="form-control input-bottom" formControlName="package_name" type="text" maxlength="32" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Name"
+              [ngClass]="{'form-control-danger': (PackageAddForm.get('package_name').dirty || PackageAddForm.get('package_name').touched) && PackageAddForm.get('package_name').errors}">
+            <div
+              *ngIf="PackageAddForm.get('package_name').invalid && (PackageAddForm.get('package_name').dirty || PackageAddForm.get('package_name').touched)">
+              <small *ngIf="PackageAddForm.get('package_name').errors['required']" class="text-danger">
+                Package Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Key</label>
+            <input class="form-control input-bottom" formControlName="package_key" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Key"
+              [ngClass]="{'form-control-danger': (PackageAddForm.get('package_key').dirty || PackageAddForm.get('package_key').touched) && PackageAddForm.get('package_key').errors}">
+            <div
+              *ngIf="PackageAddForm.get('package_key').invalid && (PackageAddForm.get('package_key').dirty || PackageAddForm.get('package_key').touched)">
+              <small *ngIf="PackageAddForm.get('package_key').errors['required']" class="text-danger">
+                Package Key is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Description</label>
+            <textarea maxlength="300"  class="form-control input-bottom" formControlName="package_description" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Description (Max 300 words)"
+              [ngClass]="{'form-control-danger': (PackageAddForm.get('package_description').dirty || PackageAddForm.get('package_description').touched) && PackageAddForm.get('package_description').errors}">
+            </textarea>
+            <div
+              *ngIf="PackageAddForm.get('package_description').invalid && (PackageAddForm.get('package_description').dirty || PackageAddForm.get('package_description').touched)">
+              <small *ngIf="PackageAddForm.get('package_description').errors['required']" class="text-danger">
+                Package description is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="pt-2 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle    labelPosition="start" formControlName="package_status" status="success" >Is package active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+            <label class="label-form-control label-name">Package Image</label>
+            <input class="image-upload" #imageInput name='image' formControlName='package_image'
+              (change)="onFileChange($event)" type="file" accept="image/*">
+            <div class="center-page">
+              <img class="image_layer" src='{{image}}'>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Image Caption</label>
+            <input class="form-control input-bottom" formControlName="package_image_caption" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter package image caption"
+              [ngClass]="{'form-control-danger': (PackageAddForm.get('package_image_caption').dirty || PackageAddForm.get('package_image_caption').touched) && PackageAddForm.get('package_image_caption').errors}">
+            <div
+              *ngIf="PackageAddForm.get('package_image_caption').invalid && (PackageAddForm.get('package_image_caption').dirty || PackageAddForm.get('package_image_caption').touched)">
+              <small *ngIf="PackageAddForm.get('package_image_caption').errors['required']" class="text-danger">
+                Package image caption is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeAddPackage()"  style="float: left;">Close</button>
+        <button nbButton [disabled]="!PackageAddForm.valid" style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+</ng-template>
+
+
+<!-- package updated -->
+<ng-template #dialog3 let-data let-ref="dialogRef">
+  <form  [formGroup]="PackageUpdateForm" (ngSubmit)="updatePackageData()">
+    <nb-card style="width: 40vw;height: 90vh;">
+
+      <nb-card-header>Update Package Details</nb-card-header>
+      <nb-card-body >
+
+    
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Name</label>
+            <input class="form-control input-bottom" formControlName="package_name_update" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Name"
+              [ngClass]="{'form-control-danger': (PackageUpdateForm.get('package_name_update').dirty || PackageUpdateForm.get('package_name_update').touched) && PackageUpdateForm.get('package_name_update').errors}">
+            <div
+              *ngIf="PackageUpdateForm.get('package_name_update').invalid && (PackageUpdateForm.get('package_name_update').dirty || PackageUpdateForm.get('package_name_update').touched)">
+              <small *ngIf="PackageUpdateForm.get('package_name_update').errors['required']" class="text-danger">
+                Package Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Key</label>
+            <input class="form-control input-bottom" formControlName="package_key_update" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Key"
+              [ngClass]="{'form-control-danger': (PackageUpdateForm.get('package_key_update').dirty || PackageUpdateForm.get('package_key_update').touched) && PackageUpdateForm.get('package_key_update').errors}">
+            <div
+              *ngIf="PackageUpdateForm.get('package_key_update').invalid && (PackageUpdateForm.get('package_key_update').dirty || PackageUpdateForm.get('package_key_update').touched)">
+              <small *ngIf="PackageUpdateForm.get('package_key_update').errors['required']" class="text-danger">
+                Package Key is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Description</label>
+            <textarea  class="form-control input-bottom" formControlName="package_description_update" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Key"
+              [ngClass]="{'form-control-danger': (PackageUpdateForm.get('package_description_update').dirty || PackageUpdateForm.get('package_description_update').touched) && PackageUpdateForm.get('package_description_update')!.errors}">
+            </textarea>
+            <div
+              *ngIf="PackageUpdateForm.get('package_description_update').invalid && (PackageUpdateForm.get('package_description_update').dirty || PackageUpdateForm.get('package_description_update').touched)">
+              <small *ngIf="PackageUpdateForm.get('package_description_update').errors['required']" class="text-danger">
+                Package description is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="pt-2 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle  labelPosition="start" formControlName="package_status_update" status="success" >Is package active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+            <label class="label-form-control label-name">Package Image</label>
+            <input class="image-upload" #imageInput name='image' formControlName="package_image_update"
+              (change)="onFileChange($event)" type="file" accept="image/*">
+            <div class="center-page">
+              <img class="image_layer" src='{{image}}'>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Package Image Caption</label>
+            <input class="form-control input-bottom" formControlName="package_image_caption_update" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter package image caption"
+              [ngClass]="{'form-control-danger': (PackageUpdateForm.get('package_image_caption_update').dirty || PackageUpdateForm.get('package_image_caption_update').touched) && PackageUpdateForm.get('package_image_caption_update').errors}">
+            <div
+              *ngIf="PackageUpdateForm.get('package_image_caption_update').invalid && (PackageUpdateForm.get('package_image_caption_update').dirty || PackageUpdateForm.get('package_image_caption_update').touched)">
+              <small *ngIf="PackageUpdateForm.get('package_image_caption_update').errors['required']" class="text-danger">
+                Package image caption is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button type="button" nbButton (click)="closeUpdatePackage()"  style="float: left;">Close</button>
+        <button nbButton [disabled]="!(PackageUpdateForm.get('package_image_caption_update').value && PackageUpdateForm.get('package_description_update').value && PackageUpdateForm.get('package_key_update').value && PackageUpdateForm.get('package_name_update').value )" style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+</ng-template>
+
+
+
+<!-- delete package -->
+<ng-template #dialogDeletePackage let-data let-ref="dialogRef">
+  <form [formGroup]="deletePackageForm" class="step-container" (ngSubmit)="deletePackageData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Package</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> package?</strong></p>
+          <p>All information associated to this package will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+        <button nbButton style="float: right;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+
+
+
+
+
+<!-- For budget -->
+
+
+
+
+<ng-template #dialogViewBudget let-data let-ref="dialogRef">
+  <nb-card style="width: 60vw; max-height: 90vh">
+    <nb-card-header class="headerStyle">View Budget
+    </nb-card-header>
+    <nb-card-body class="dialog-border">
+      <nb-list class="nb-list-details">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic" >Budget Id</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer" >{{view_budget.id ? view_budget.id : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Package Name</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.package_name ? view_budget.package_name : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Period</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.period ? view_budget.period : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Gross Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.gross_amount ? 'LKR '+view_budget.gross_amount : 'LKR 0.00'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Handle Fee</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.handing_fee ? 'LKR '+view_budget.handing_fee : 'LKR 0.00'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Discount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.discount ? 'LKR '+view_budget.discount : 'LKR 0.00'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Net Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.net_amount ? 'LKR '+view_budget.net_amount : 'LKR 0.00'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Created By</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.create_by ? view_budget.create_by : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Created On</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.create_on ? view_budget.create_on : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Updated By</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.last_update_by ? view_budget.last_update_by : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Updated On</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <span class="answer">{{view_budget.last_update_on ? view_budget.last_update_on : 'N/A'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-4 col-xxxl-4">
+              <span class="topic">Budget Status</span>
+            </div>
+            <div class="col-md-6 col-lg-8 col-xxxl-8">
+              <div class="col-md-6 col-lg-8 col-xxxl-8">
+                <span class="badge badge-success">{{view_budget.status=="1" ? 'Active' : ''}}</span>
+                <span class="badge badge-warning">{{view_budget.status=="0" ? 'In Active' : ''}}</span>
+              </div>
+            </div>
+          </div>
+        </nb-list-item>
+
+
+
+
+
+
+
+
+
+       
+      </nb-list>
+
+
+
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+
+
+
+
+<ng-template #dialogAddBudget let-data let-ref="dialogRef">
+  <form  [formGroup]="BudgetAddForm" (ngSubmit)="addPackageBudgetData()">
+    <nb-card style="width: 50vw;height: 90vh;">
+
+      <nb-card-header>Assign Package Budget</nb-card-header>
+      <nb-card-body >
+
+      
+
+
+        <div class="col-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Select Package</label>
+          </div>
+          <nb-select fullWidth class="form-select select-important"  placeholder="Select Package"
+            formControlName="package_id"
+            [ngClass]="{'form-control-danger': (BudgetAddForm.get('package_id').dirty || BudgetAddForm.get('package_id').touched) && BudgetAddForm.get('package_id').errors}">
+            <nb-option>Select Package</nb-option>
+            <nb-option *ngFor="let package  of All_package_list" value="{{package.id}}">
+              {{package.name}}
+            </nb-option>
+          </nb-select>
+          <div
+          *ngIf="BudgetAddForm.get('package_id').invalid && (BudgetAddForm.get('package_id').dirty || BudgetAddForm.get('package_id').touched)">
+          <small *ngIf="BudgetAddForm.get('package_id').errors['required']" class="text-danger">
+            Package type is required!</small>
+        </div>
+          </div>
+
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Gross Amount</label>
+            <input class="form-control input-bottom" formControlName="gross_amount" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Gross Amount"
+              [ngClass]="{'form-control-danger': (BudgetAddForm.get('gross_amount').dirty || BudgetAddForm.get('gross_amount').touched) && BudgetAddForm.get('gross_amount').errors}"  currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.',allowNegative:false,align :'left' }">
+            <div
+              *ngIf="BudgetAddForm.get('gross_amount').invalid && (BudgetAddForm.get('gross_amount').dirty || BudgetAddForm.get('gross_amount').touched)">
+              <small *ngIf="BudgetAddForm.get('gross_amount').errors['required']" class="text-danger">
+                Gross amount is required!</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Handling Fee</label>
+            <input class="form-control input-bottom" formControlName="handing_fee" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Handing Amount"
+              [ngClass]="{'form-control-danger': (BudgetAddForm.get('handing_fee').dirty || BudgetAddForm.get('handing_fee').touched) && BudgetAddForm.get('handing_fee').errors}"  currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.',allowNegative:false,align :'left' }">
+            <div
+              *ngIf="BudgetAddForm.get('handing_fee').invalid && (BudgetAddForm.get('handing_fee').dirty || BudgetAddForm.get('handing_fee').touched)">
+              <small *ngIf="BudgetAddForm.get('handing_fee').errors['required']" class="text-danger">
+                Handling fee is required!</small>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Discount</label>
+            <input class="form-control input-bottom" formControlName="discount" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Discount"
+              [ngClass]="{'form-control-danger': (BudgetAddForm.get('discount').dirty || BudgetAddForm.get('discount').touched) && BudgetAddForm.get('discount').errors}"  currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.',allowNegative:false,align :'left'}">
+            <div
+              *ngIf="BudgetAddForm.get('discount').invalid && (BudgetAddForm.get('discount').dirty || BudgetAddForm.get('discount').touched)">
+              <small *ngIf="BudgetAddForm.get('discount').errors['required']" class="text-danger">
+                Discount is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Period</label>
+          </div>
+          <nb-select fullWidth class="form-select select-important"  placeholder="Select Package"
+            formControlName="period"
+            [ngClass]="{'form-control-danger': (BudgetAddForm.get('period').dirty || BudgetAddForm.get('period').touched) && BudgetAddForm.get('period').errors}">
+            <nb-option>Select Period</nb-option>
+            <nb-option value="DY">
+              Daily
+             </nb-option>
+            <nb-option value="MN">
+             Monthly
+            </nb-option>
+            <nb-option value="QU">
+              Quarterly
+             </nb-option>
+             <nb-option value="AN">
+              Yearly
+             </nb-option>
+          </nb-select>
+          <div
+          *ngIf="BudgetAddForm.get('period').invalid && (BudgetAddForm.get('period').dirty || BudgetAddForm.get('period').touched)">
+          <small *ngIf="BudgetAddForm.get('period').errors['required']" class="text-danger">
+            Package budget period is required!</small>
+        </div>
+          </div>
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle  labelPosition="start" formControlName="status" status="success" >Is package budget active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeAddBudget()"  style="float: left;">Close</button>
+        <button  [disabled]="!BudgetAddForm.valid" nbButton style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+</ng-template>
+
+
+
+<!-- for update budget -->
+
+<ng-template #dialogUpdateBudget let-data let-ref="dialogRef">
+  <form  [formGroup]="BudgetUpdateForm" (ngSubmit)="updatePackageBudgetData()">
+    <nb-card style="width: 50vw;height: 90vh;">
+
+      <nb-card-header>Assign Package Budget Update</nb-card-header>
+      <nb-card-body >
+
+      
+
+
+        <div class="col-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Select Package</label>
+          </div>
+          <nb-select disabled  fullWidth class="form-select select-important"  placeholder="Select Package"
+            formControlName="package_id"
+            [ngClass]="{'form-control-danger': (BudgetUpdateForm.get('package_id').dirty || BudgetUpdateForm.get('package_id').touched) && BudgetUpdateForm.get('package_id').errors}">
+            <nb-option>Select Package</nb-option>
+            <nb-option *ngFor="let package  of All_package_list" value="{{package.id}}">
+              {{package.name}}
+            </nb-option>
+          </nb-select>
+          <div
+          *ngIf="BudgetUpdateForm.get('package_id').invalid && (BudgetUpdateForm.get('package_id').dirty || BudgetUpdateForm.get('package_id').touched)">
+          <small *ngIf="BudgetUpdateForm.get('package_id').errors['required']" class="text-danger">
+            Package type is required!</small>
+        </div>
+          </div>
+
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Gross Amount</label>
+            <input class="form-control input-bottom" formControlName="gross_amount" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Gross Amount"
+              [ngClass]="{'form-control-danger': (BudgetUpdateForm.get('gross_amount').dirty || BudgetAddForm.get('gross_amount').touched) && BudgetUpdateForm.get('gross_amount').errors}"  currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.',allowNegative:false,align :'left'  }">
+            <div
+              *ngIf="BudgetUpdateForm.get('gross_amount').invalid && (BudgetUpdateForm.get('gross_amount').dirty || BudgetUpdateForm.get('gross_amount').touched)">
+              <small *ngIf="BudgetUpdateForm.get('gross_amount').errors['required']" class="text-danger">
+                Gross Amount is required!</small>
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Handling Fee</label>
+            <input class="form-control input-bottom" formControlName="handing_fee" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Handing Key"
+              [ngClass]="{'form-control-danger': (BudgetUpdateForm.get('handing_fee').dirty || BudgetUpdateForm.get('handing_fee').touched) && BudgetUpdateForm.get('handing_fee').errors}"  currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.',allowNegative:false,align :'left'  }">
+            <div
+              *ngIf="BudgetUpdateForm.get('handing_fee').invalid && (BudgetAddForm.get('handing_fee').dirty || BudgetUpdateForm.get('handing_fee').touched)">
+              <small *ngIf="BudgetUpdateForm.get('handing_fee').errors['required']" class="text-danger">
+                Handling fee is required!</small>
+            </div>
+          </div>
+        </div>
+
+        
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Discount</label>
+            <input class="form-control input-bottom" formControlName="discount" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Discount"
+              [ngClass]="{'form-control-danger': (BudgetUpdateForm.get('discount').dirty || BudgetUpdateForm.get('discount').touched) && BudgetUpdateForm.get('discount').errors}"  currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.',allowNegative:false,align :'left'  }">
+            <div
+              *ngIf="BudgetUpdateForm.get('discount').invalid && (BudgetUpdateForm.get('discount').dirty || BudgetUpdateForm.get('discount').touched)">
+              <small *ngIf="BudgetUpdateForm.get('discount').errors['required']" class="text-danger">
+                Discount is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+        <div class="col-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Period</label>
+          </div>
+          <nb-select fullWidth class="form-select select-important"  placeholder="Select Package"
+            formControlName="period"
+            [ngClass]="{'form-control-danger': (BudgetUpdateForm.get('period').dirty || BudgetUpdateForm.get('period').touched) && BudgetUpdateForm.get('period').errors}">
+            <nb-option>Select Period</nb-option>
+            <nb-option value="DY">
+              Daily
+             </nb-option>
+            <nb-option value="MN">
+             Monthly
+            </nb-option>
+            <nb-option value="QU">
+              Quarterly
+             </nb-option>
+             <nb-option value="AN">
+              Yearly
+             </nb-option>
+          </nb-select>
+          <div
+          *ngIf="BudgetUpdateForm.get('period').invalid && (BudgetUpdateForm.get('period').dirty || BudgetUpdateForm.get('period').touched)">
+          <small *ngIf="BudgetUpdateForm.get('period').errors['required']" class="text-danger">
+            Package budget period is required!</small>
+        </div>
+          </div>
+
+
+        <!-- <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Period</label>
+            <input  class="form-control input-bottom" formControlName="period" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Package Period"
+              [ngClass]="{'form-control-danger': (BudgetUpdateForm.get('period').dirty || BudgetUpdateForm.get('period').touched) && BudgetAddForm.get('period').errors}"/>
+        
+            <div
+              *ngIf="BudgetUpdateForm.get('period').invalid && (BudgetUpdateForm.get('period').dirty || BudgetUpdateForm.get('period').touched)">
+              <small *ngIf="BudgetUpdateForm.get('period').errors['required']" class="text-danger">
+                Package Key is required!</small>
+            </div>
+          </div>
+        </div> -->
+
+
+        <div class="pt-3 col-md-12 col-lg-12 col-xxxl-12">
+          <div class="form-group">
+        <nb-toggle   labelPosition="start" formControlName="status" status="success" >Is package budget active ? (No/yes)</nb-toggle>
+
+      </div>
+    </div>
+
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeUpdateBudget()"  style="float: left;">Close</button>
+        <button [disabled]="!BudgetUpdateForm.valid" nbButton style="float: right;" type='submit' >Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+
+  </form>
+</ng-template>
+
+
+
+<!-- delete package -->
+<ng-template #dialogDeleteBudget let-data let-ref="dialogRef">
+  <form [formGroup]="deleteBudgetForm" class="step-container" (ngSubmit)="deleteBudgetData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Budget</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> Budget data?</strong></p>
+          <p>All information associated to this budget will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+        <button nbButton style="float: right;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>
+
+
+<div class="sk-circle" *ngIf="is_loading"> 
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

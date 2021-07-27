@@ -1,0 +1,44 @@
+.table{
+  border-radius: 10px !important;
+}
+
+input{
+  background: #FFFFFF !important;
+  border: 0.8px solid #DFDFDF !important;
+  box-sizing: border-box;
+  border-radius: 6px !important;
+  font-size: 14px !important;
+  font-family: 'Poppins' !important;
+  color: #A7A7A7 !important;
+  font-weight: 400 !important;
+
+}
+
+.label{
+  font-size: 12px;
+  line-height: 15px;
+/* identical to box height */
+  color: #5E5858;
+
+}
+
+::placeholder { /* Chrome, Firefox, Opera, Safari 10.1+ */
+  font-family: 'poppins' !important;
+  font-size: 14px !important;
+  color: #A7A7A7 !important;
+}
+
+@import '../../pages.component.scss';
+
+.button-common{
+  background-color: #2CC780;
+  color: white;
+  border: 1px solid #2CC780;
+  border-radius: 0.25rem;
+  float: right;
+  font-size: 14px;
+  padding: 6px 15px;
+  margin-top: 16px;
+}
+
+

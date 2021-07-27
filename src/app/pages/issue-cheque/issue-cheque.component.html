@@ -1,0 +1,464 @@
+<!-- <div class="col-12">
+  <ul class="breadcrumb">
+    <li><a href="/pages/dashboard">Home</a></li>
+    <li>Cheque Manager</li>
+    <li>Issue Cheque</li>
+  </ul>
+</div> -->
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>Cheque Manager</li>
+    <li>Issue Cheque</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <div class="container">
+        <div class="row">
+          <button (click)="openIssueCheque(dialogIssueCheque)" class="button button1">Add Cheque</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <div class="form-group search">
+              <select class="form-control" name="service_category_id" [(ngModel)]="search_by"
+                [ngModelOptions]="{standalone: true}" placeholder="Select Search By"
+                (ngModelChange)="changeSearchType()">
+                <option value="0" selected>All</option>
+                <option value="1">Cheque ID</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <div class="form-group search">
+              <input class="form-control" type="text" [ngModelOptions]="{standalone: true}" [(ngModel)]="search_text"
+                placeholder="Search.." name="search">
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <button class="button-search" (click)="search_data()">Search</button>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                All Cheque Deposit
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>Cheque Book ID</th>
+                      <th>Cheque Id</th>
+                      <th>Amount</th>
+                      <th>Matured Date</th>
+                      <th>Updated On</th>
+                      <th>Is Cancelled</th>
+                      <th>Action</th>
+                      <th>View</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let issue_cheque  of issue_cheque_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                      <td>{{issue_cheque.id}}</td>
+                      <td>{{issue_cheque.chequebook_id}}</td>
+                      <td>{{issue_cheque.cheque_id}}</td>
+                      <td>{{issue_cheque.amount}}</td>
+                      <td>{{issue_cheque.matured_date | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{issue_cheque.updated_on | date: 'dd/MM/yyyy'}}</td>
+                      <td>{{issue_cheque.is_cancelled? 'Yes':'No' }}</td>
+                      <td>
+                        <button class="button2"
+                          (click)="openIssueChequeUpdate(dialogIssueChequeUpdate, issue_cheque)">Update</button>
+                      </td>
+                      <td>
+                        <button class="button2"
+                          (click)="openIssueChequeView(dialogIssueChequeView, issue_cheque)">View</button>
+                      </td>
+                    </tr>
+                    <tr *ngIf="issue_cheque_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr>
+
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedIssueCheque($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedIssueCheque($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+<!-- //popup cheque deposite -->
+<ng-template #dialogIssueCheque let-data let-ref="dialogRef">
+  <form [formGroup]="issueChequeForm" class="step-container" (ngSubmit)="addIssueChequeData()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Issue Cheque Details</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="col-md-6 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Bank</label>
+          </div>
+          <nb-select class="form-select select-important" selected="1" placeholder="Select Bank Name"
+            formControlName="bank_id" (selectedChange)="getChequeId($event)"
+            [ngClass]="{'form-control-danger': (issueChequeForm.get('bank_id').dirty || issueChequeForm.get('bank_id').touched) && issueChequeForm.get('bank_id').errors}">
+            <nb-option *ngFor="let bank of bank_list" [value]="bank.id" >
+              {{bank.name}}
+            </nb-option>
+          </nb-select>
+          <div
+            *ngIf="issueChequeForm.get('bank_id').invalid && (issueChequeForm.get('bank_id').dirty || issueChequeForm.get('bank_id').touched)">
+            <small *ngIf="issueChequeForm.get('bank_id').errors['required']" class="text-danger">
+              Bank is required!</small>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Cheque ID</label>
+              <input class="form-control input-bottom" placeholder="Enter Cheque ID" formControlName="cheque_id" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('cheque_id').dirty || issueChequeForm.get('cheque_id').touched) && issueChequeForm.get('cheque_id').errors}">
+              <div
+                *ngIf="issueChequeForm.get('cheque_id').invalid && (issueChequeForm.get('cheque_id').dirty || issueChequeForm.get('cheque_id').touched)">
+                <small *ngIf="issueChequeForm.get('cheque_id').errors['required']" class="text-danger">
+                  Cheque ID is required!</small>
+                  <small *ngIf="issueChequeForm.get('cheque_id').errors['pattern']" class="text-danger">
+                    Invalid Cheque ID try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Cheque Book ID</label>
+              <input class="form-control input-bottom" placeholder="Enter Cheque Book ID" formControlName="chequebook_id" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('chequebook_id').dirty || issueChequeForm.get('chequebook_id').touched) && issueChequeForm.get('chequebook_id').errors}">
+              <div
+                *ngIf="issueChequeForm.get('chequebook_id').invalid && (issueChequeForm.get('chequebook_id').dirty || issueChequeForm.get('chequebook_id').touched)">
+                <small *ngIf="issueChequeForm.get('chequebook_id').errors['required']" class="text-danger">
+                  Cheque Book ID is required!</small>
+                  <small *ngIf="issueChequeForm.get('chequebook_id').errors['pattern']" class="text-danger">
+                    Invalid Cheque Book ID try again!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Amount</label>
+              <input class="form-control input-bottom" formControlName="amount" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Amount" currencyMask
+                [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('amount').dirty || issueChequeForm.get('amount').touched) && issueChequeForm.get('amount').errors}">
+              <div
+                *ngIf="issueChequeForm.get('amount').invalid && (issueChequeForm.get('amount').dirty || issueChequeForm.get('amount').touched)">
+                <small *ngIf="issueChequeForm.get('amount').errors['required']" class="text-danger">
+                  Amount is required!</small>
+                  <small *ngIf="issueChequeForm.get('amount').errors['pattern']" class="text-danger">
+                    Invalid Amount try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Matured Date</label>
+              <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+                placeholder="Select Matured Date" [nbDatepicker]="formpicker" formControlName="matured_date"
+                selected="1"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('matured_date').dirty || issueChequeForm.get('matured_date').touched) && issueChequeForm.get('matured_date').errors}">
+              <div
+                *ngIf="issueChequeForm.get('matured_date').invalid && (issueChequeForm.get('matured_date').dirty || issueChequeForm.get('matured_date').touched)">
+                <small *ngIf="issueChequeForm.get('matured_date').errors['required']" class="text-danger">
+                  Matured Date is required!</small>
+              </div>
+              <nb-datepicker #formpicker></nb-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Description</label>
+            <textarea class="text-discription" rows="2" nbInput fullWidth shape="round" formControlName="description"
+              placeholder="Enter Description"
+              [ngClass]="{'form-control-danger': (issueChequeForm.get('description').dirty || issueChequeForm.get('description').touched) && issueChequeForm.get('description').errors}"></textarea>
+            <div
+              *ngIf="issueChequeForm.get('description').invalid && (issueChequeForm.get('description').dirty || issueChequeForm.get('description').touched)">
+              <small *ngIf="issueChequeForm.get('description').errors['required']" class="text-danger">
+                Description is required!</small>
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeIssueCheque()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- popup cheque view -->
+<ng-template #dialogIssueChequeView let-data let-ref="dialogRef">
+  <nb-card style="width: 40vw;">
+    <nb-card-header>Cheque Details</nb-card-header>
+    <nb-card-body>
+      <nb-list class="dialog-border-list">
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Issue Cheque ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.id ? issue_cheque_list.id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cheque Book ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.chequebook_id ? issue_cheque_list.chequebook_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cheque ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.cheque_id ? issue_cheque_list.cheque_id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Amount</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.amount ? issue_cheque_list.amount : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Description</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.description ? issue_cheque_list.description : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Matured Date</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.matured_date | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Created On</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.created_on | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Updated On</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.updated_on | date: 'dd/MM/yyyy'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Issue Cheque ID</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.id ? issue_cheque_list.id : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Is Cancelled</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.is_cancelled ? 'Yes' : 'No'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+        <nb-list-item class="list-item">
+          <div class="row">
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>Cancellation Reason</span>
+            </div>
+            <div class="col-md-6 col-lg-6 col-xxxl-6">
+              <span>{{issue_cheque_list.cancellation_reason ? issue_cheque_list.cancellation_reason : 'Not Available'}}</span>
+            </div>
+          </div>
+        </nb-list-item>
+      </nb-list>
+    </nb-card-body>
+    <nb-card-footer>
+      <button style="float: right;" nbButton (click)="ref.close()">Close</button>
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+<!-- popup Update issue cheque -->
+<ng-template #dialogIssueChequeUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="issueChequeFormUpdate" class="step-container" (ngSubmit)="updateIssueData()">
+    <nb-card style="width: 50vw;">
+      <nb-card-header>Issue Cheque Update</nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Cheque ID</label>
+              <input class="form-control input-bottom" formControlName="cheque_id" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('cheque_id').dirty || issueChequeForm.get('cheque_id').touched) && issueChequeForm.get('cheque_id').errors}">
+              <div
+                *ngIf="issueChequeForm.get('cheque_id').invalid && (issueChequeForm.get('cheque_id').dirty || issueChequeForm.get('cheque_id').touched)">
+                <small *ngIf="issueChequeForm.get('cheque_id').errors['required']" class="text-danger">
+                  Cheque ID is required!</small>
+                  <small *ngIf="issueChequeForm.get('cheque_id').errors['pattern']" class="text-danger">
+                    Invalid Cheque ID try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Cheque Book ID</label>
+              <input class="form-control input-bottom" formControlName="chequebook_id" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('chequebook_id').dirty || issueChequeForm.get('chequebook_id').touched) && issueChequeForm.get('chequebook_id').errors}">
+              <div
+                *ngIf="issueChequeForm.get('chequebook_id').invalid && (issueChequeForm.get('chequebook_id').dirty || issueChequeForm.get('chequebook_id').touched)">
+                <small *ngIf="issueChequeForm.get('chequebook_id').errors['required']" class="text-danger">
+                  Cheque Book ID is required!</small>
+                  <small *ngIf="issueChequeForm.get('chequebook_id').errors['pattern']" class="text-danger">
+                    Invalid Cheque Book ID try again!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row row-margin">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Amount</label>
+              <input class="form-control input-bottom" formControlName="amount" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Amount" currencyMask
+                [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('amount').dirty || issueChequeForm.get('amount').touched) && issueChequeForm.get('amount').errors}">
+              <div
+                *ngIf="issueChequeForm.get('amount').invalid && (issueChequeForm.get('amount').dirty || issueChequeForm.get('amount').touched)">
+                <small *ngIf="issueChequeForm.get('amount').errors['required']" class="text-danger">
+                  Amount is required!</small>
+                  <small *ngIf="issueChequeForm.get('amount').errors['pattern']" class="text-danger">
+                    Invalid Amount try again!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Matured Date</label>
+              <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+                placeholder="Select Matured Date" [nbDatepicker]="formpicker" formControlName="matured_date"
+                selected="1"
+                [ngClass]="{'form-control-danger': (issueChequeForm.get('matured_date').dirty || issueChequeForm.get('matured_date').touched) && issueChequeForm.get('matured_date').errors}">
+              <div
+                *ngIf="issueChequeForm.get('matured_date').invalid && (issueChequeForm.get('matured_date').dirty || issueChequeForm.get('matured_date').touched)">
+                <small *ngIf="issueChequeForm.get('matured_date').errors['required']" class="text-danger">
+                  Matured Date is required!</small>
+              </div>
+              <nb-datepicker #formpicker></nb-datepicker>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-6 col-xxxl-6">
+          <div class="input-group">
+            <label class="label-form-control label-name">Description</label>
+            <textarea class="text-discription" rows="2" nbInput fullWidth shape="round" formControlName="description"
+              placeholder="Text Area"
+              [ngClass]="{'form-control-danger': (issueChequeForm.get('description').dirty || issueChequeForm.get('description').touched) && issueChequeForm.get('description').errors}"></textarea>
+            <div
+              *ngIf="issueChequeForm.get('description').invalid && (issueChequeForm.get('description').dirty || issueChequeForm.get('description').touched)">
+              <small *ngIf="issueChequeForm.get('description').errors['required']" class="text-danger">
+                Description is required!</small>
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="closeIssueChequeUpdate()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

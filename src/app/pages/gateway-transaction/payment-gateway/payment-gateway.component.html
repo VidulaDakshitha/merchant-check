@@ -1,0 +1,289 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>Setting</li>
+    <li>Payment Gateway</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          <button (click)="openAddIpgUser(dialogaddIpgUser)" class="button button1">Make IPG User</button>
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Collection Type Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>ID</th>
+                      <th>User Name</th>
+                      <th>Password</th>
+                      <th>Activation</th>
+                      <th>Date & Time</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>44</td>
+                      <td>test</td>
+                      <td>Shsejjdh
+                        <button
+                          (click)="openViewPassword(dialogViewPassword)"
+                          class="buttonChange">View</button>
+                      </td>
+                      <td>
+                        <a class="status_com" style="color:#3EE923; cursor: pointer;"
+                        (click)="openUserActivationChange(dialogUserActivationChange)">(change)</a>
+                      </td>
+                      <td>2020/01/01</td>
+                      <td>
+                        <button class="button2" [routerLink]="['/pages/ipg-user', 1]">View</button>
+                      </td>
+                    </tr>
+                    <!-- <tr *ngIf="collections_list && collections_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr> -->
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+<!-- add ipg user-->
+<ng-template #dialogaddIpgUser let-data let-ref="dialogRef">
+  <form [formGroup]="addIpgUserForm" class="step-container" (ngSubmit)="addIpgUserData()">
+    <nb-card style="width: 35vw;">
+      <nb-card-header>Create IPG User</nb-card-header>
+
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">User Name</label>
+            <input class="form-control input-bottom" formControlName="user_name" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter User Name"
+              [ngClass]="{'form-control-danger': (addIpgUserForm.get('user_name').dirty || addIpgUserForm.get('user_name').touched) && addIpgUserForm.get('user_name').errors}">
+            <div
+              *ngIf="addIpgUserForm.get('user_name').invalid && (addIpgUserForm.get('user_name').dirty || addIpgUserForm.get('user_name').touched)">
+              <small *ngIf="addIpgUserForm.get('user_name').errors['required']" class="text-danger">
+                User name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Password</label>
+            <input class="form-control form-control-text" [type]="fieldTextType ? 'text' : 'password'"
+              placeholder="Enter Password" name="password" formControlName="password" required
+              [ngClass]="{'form-control-danger': (addIpgUserForm.get('password').dirty || addIpgUserForm.get('password').touched) && addIpgUserForm.get('password').errors}">
+            <div class="input-group-append">
+              <span class="input-group-text">
+                <i class="fa" [ngClass]="{
+												 'fa-eye-slash': !fieldTextType,
+												 'fa-eye': fieldTextType
+												 }" (click)="toggleFieldTextType()"></i>
+              </span>
+            </div>
+            <div class="input_type_pw"
+              *ngIf="addIpgUserForm.get('password').invalid && (addIpgUserForm.get('password').dirty ||addIpgUserForm.get('password').touched)">
+              <div
+                *ngIf="addIpgUserForm.get('password').invalid && (addIpgUserForm.get('password').dirty || addIpgUserForm.get('password').touched)">
+                <small *ngIf="addIpgUserForm.get('password').errors['required']" class="validation-message text-danger">
+                  Password is required!</small>
+                <small *ngIf="addIpgUserForm.get('password').errors['minlength']"
+                  class="validation-message text-danger text-danger"> Password must be at
+                  least 8 characters long.</small>
+                <small
+                  *ngIf="addIpgUserForm.get('password').errors['pattern'] && !addIpgUserForm.get('password').errors['minlength']"
+                  class="validation-message text-danger">
+                  Please choose a stronger password.</small>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Designation(Optional)</label>
+            <textarea class="text-discription" rows="2" nbInput fullWidth shape="round" formControlName="description"
+              placeholder="Text Area"
+              [ngClass]="{'form-control-danger': (addIpgUserForm.get('description').dirty || addIpgUserForm.get('description').touched) && addIpgUserForm.get('description').errors}"></textarea>
+          </div>
+          <div
+            *ngIf="addIpgUserForm.get('description').invalid && (addIpgUserForm.get('description').dirty || addIpgUserForm.get('description').touched)">
+            <small *ngIf="addIpgUserForm.get('description').errors['required']" class="text-danger">
+              Designation is required!</small>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" [disabled]="!addIpgUserForm.valid" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- view password -->
+<ng-template #dialogViewPassword let-data let-ref="dialogRef">
+  <form [formGroup]="viewPasswordForm" class="step-container" (ngSubmit)="viewPasswordData()">
+    <nb-card style="width: 35vw;">
+      <nb-card-header>View Password For user Harshan</nb-card-header>
+
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label style="text-align: center;" class="label-form-control label-name">Enter your administrater password</label>
+            <input class="form-control form-control-text" type="password"
+              placeholder="Enter Password" name="administrater_password" formControlName="administrater_password" required
+              [ngClass]="{'form-control-danger': (viewPasswordForm.get('administrater_password').dirty || viewPasswordForm.get('administrater_password').touched) && viewPasswordForm.get('administrater_password').errors}">
+              <!-- <div class="input-group-append">
+                <span class="input-group-text">
+                  <i class="fa" [ngClass]="{
+                           'fa-eye-slash': !fieldTextType,
+                           'fa-eye': fieldTextType
+                           }" (click)="toggleFieldTextType()"></i>
+                </span>
+              </div> -->
+            <div class="input_type_pw"
+              *ngIf="viewPasswordForm.get('administrater_password').invalid && (viewPasswordForm.get('administrater_password').dirty ||viewPasswordForm.get('administrater_password').touched)">
+              <div
+                *ngIf="viewPasswordForm.get('administrater_password').invalid && (viewPasswordForm.get('administrater_password').dirty || viewPasswordForm.get('administrater_password').touched)">
+                <small *ngIf="viewPasswordForm.get('administrater_password').errors['required']" class="validation-message text-danger">
+                  Password is required!</small>
+                <small *ngIf="viewPasswordForm.get('administrater_password').errors['minlength']"
+                  class="validation-message text-danger text-danger"> Password must be at
+                  least 8 characters long.</small>
+                <small
+                  *ngIf="viewPasswordForm.get('administrater_password').errors['pattern'] && !viewPasswordForm.get('administrater_password').errors['minlength']"
+                  class="validation-message text-danger">
+                  Please choose a stronger password.</small>
+
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <span class="pw-viewbutton">
+              <button class="pw-view-button"
+              (click)="toggleFieldTextType()"
+              >View Password</button>
+            </span>
+            <input class="form-control form-control-text" [type]="fieldTextType ? 'text' : 'password'"
+              placeholder="Enter Password" name="password" formControlName="password" required
+              [ngClass]="{'form-control-danger': (viewPasswordForm.get('password').dirty || viewPasswordForm.get('password').touched) && viewPasswordForm.get('password').errors}">
+            <div class="input_type_pw"
+              *ngIf="viewPasswordForm.get('password').invalid && (viewPasswordForm.get('password').dirty ||viewPasswordForm.get('password').touched)">
+              <div
+                *ngIf="viewPasswordForm.get('password').invalid && (viewPasswordForm.get('password').dirty || viewPasswordForm.get('password').touched)">
+                <small *ngIf="viewPasswordForm.get('password').errors['required']" class="validation-message text-danger">
+                  Password is required!</small>
+                <small *ngIf="viewPasswordForm.get('password').errors['minlength']"
+                  class="validation-message text-danger text-danger"> Password must be at
+                  least 8 characters long.</small>
+                <small
+                  *ngIf="viewPasswordForm.get('password').errors['pattern'] && !viewPasswordForm.get('password').errors['minlength']"
+                  class="validation-message text-danger">
+                  Please choose a stronger password.</small>
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" [disabled]="!viewPasswordForm.valid" type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- user activation -->
+<ng-template #dialogUserActivationChange let-data let-ref="dialogRef">
+  <form [formGroup]="userActivationForm" class="step-container" (ngSubmit)="addUserActivation()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Change Activation
+      </nb-card-header>
+      <nb-card-body class="dialog-border">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label style="width: 100%;" class="label-form-control label-name">Are you sure you want change activation,this user</label>
+            <div class="demo-items demo-radio2">
+              <nb-radio-group class="radio-btn" formControlName="is_active_user">
+                <nb-radio style="padding: 0!important;" class="c" [value]="true">
+                  Yes
+                </nb-radio>
+                <nb-radio class="c" [value]="false">
+                  NO
+                </nb-radio>
+              </nb-radio-group>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit' [disabled]="!userActivationForm.valid">Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

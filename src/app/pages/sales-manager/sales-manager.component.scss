@@ -1,0 +1,158 @@
+@import '../pages.component.scss';
+nb-checkbox {
+    margin-bottom: 1rem;
+  }
+  
+  .form-inline [fullWidth] {
+    flex: 1;
+  }
+  
+  .form-inline > * {
+    margin: 0 1.5rem 1.5rem 0;
+  }
+  
+  nb-card.inline-form-card nb-card-body {
+    padding-bottom: 0;
+  }
+.manual-date{
+  width: 112%;
+}
+.radio-btn{
+  display: inline;
+}
+.radio-g{
+  margin: 5px 5px 15px 12px;
+}
+.form-group{
+  margin-top: 0;
+}
+// cheque deposit table
+.table .thead-light th {
+    
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+.table td{
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+.table td a{
+  color: #4CAF50;
+  cursor: pointer;
+}
+.button {
+  border: none;
+  color: white;
+  padding:0.6rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.8rem;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 100;
+}
+
+.button1 {
+  background-color: #3366ff;
+  color: white;
+  border: 1px solid #3366ff;
+  border-radius: 0.25rem;
+  float: left;
+  margin: 10px 10px 20px 14px;
+}
+.button2 {
+  background-color: #3366ff;
+  color: white;
+  border: 1px solid #3366ff;
+  border-radius: 0.25rem;
+  float: left;
+  font-size: 0.7rem;
+  padding: 3px;
+}
+// popup window
+.popup-size{
+  max-width: 600px;
+    max-height: 500px;
+}
+.input-bottom{
+  margin-bottom: 6px;
+}
+.label-name{
+  font-size: 0.9rem;
+  width: 100%
+}
+.row-margin{
+  margin-right: 2px;
+  margin-left: -3px;
+}
+.radio-group-body{
+  width: 100%;
+  margin: -10px 5px 3px 1px;
+}
+.text-discription{
+  border-radius: 0.2rem!important;
+}
+//search button
+.button-search{
+  border: none;
+  color: white;
+  padding:0.6rem;
+  text-align: center;
+  text-decoration: none;
+  font-size: 0.9rem;
+  margin: 0;
+  cursor: pointer;
+  font-weight: 100;
+  background-color: #3366ff; 
+  color: white; 
+  border: 1px solid #3366ff;
+  border-radius: 0.25rem;
+ 
+}
+.search-date{
+  width: 125%!important;
+}
+.update-cheque{
+  color: #4CAF50;
+  cursor: pointer;
+}
+//popup cheque details view
+.list-item{
+  padding: 0.5rem 1rem 0.5rem 1rem;
+}
+.box_shadow{
+  box-shadow: none;
+}
+.dialog-border{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+}
+.label-name{
+  margin-top: 0.5rem!important;
+  font-size: 0.9rem;
+  font-weight: 100;
+}
+.input-bottom{
+  font-size: 0.8rem!important;
+  font-weight: 100!important;
+}
+.dialog-border-event{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  word-wrap: break-word;
+  background-color: #fff;
+  background-clip: border-box;
+  border: 1px solid #c8ced3;
+  border-radius: .25rem;
+  margin: 12px;
+
+ }

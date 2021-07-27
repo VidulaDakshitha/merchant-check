@@ -1,0 +1,616 @@
+
+
+<div class="row">
+    <div class="col-12">
+        <form [formGroup]="developerForm" class="step-container" (ngSubmit)="updateDeveloperData()">
+            <nb-card>
+                    <ul class="bread" style="margin-bottom: 0!important;padding: 8px; margin-left: 14px!important;padding: 8px;">
+                        <li><a routerLink="/pages/dashboard">Dashboard</a></li>
+                        <li><a routerLink="/pages/ipg-developer/app">Apps</a></li>
+                    </ul>
+                <nb-card class="box_shadow">
+                  <nb-card-body >  
+                    <nb-card-body class="dialog-border box_shadow">
+                            <div class="row">
+                                    <div style="font-family: 'Poppins';" class="input-group col-md-6">
+                                        <div class="col-md-4">
+                                            <label style="font-family: 'Poppins';" class="label-form-control label-name"><b> Developer Name</b></label>
+                                        </div>
+                                        <div class="col-md-8">
+                                            <input class="form-control input-bottom" style="font-family: 'Poppins';" formControlName="developer_name" type="text" nbInput fullWidth
+                                                shape="rectangle" placeholder="Enter Developer Name"
+                                                [ngClass]="{'form-control-danger': (developerForm.get('developer_name').dirty || developerForm.get('developer_name').touched) && developerForm.get('developer_name').errors}">
+                                        </div>
+                                    </div>
+                                    <div style="font-family: 'Poppins';" class="input-group col-md-6">
+                                        <div class="col-md-5">
+                                            
+                                        <label class="label-form-control label-name" style="font-family: 'Poppins';">
+                                            <b>Developer Phone No.</b>
+                                        </label>
+                                        </div>
+                                        <div class="col-md-7">
+                                            <!-- <img class="amount_button" src="../../../../assets/images/Rectangle 247.png"> -->
+                                            <div class="code" style="font-size: small;" >+94</div>
+                                            <input class="form-control input-bottom" style="font-family: 'Poppins';" formControlName="developer_phone_no" type="text" nbInput fullWidth
+                                                shape="rectangle" placeholder="771234567" id="img_style" autocomplete="off"
+                                                [ngClass]="{'form-control-danger': (developerForm.get('developer_phone_no').dirty || developerForm.get('developer_phone_no').touched) && developerForm.get('developer_phone_no').errors}">
+                                                <div *ngIf="developerForm.get('developer_phone_no')?.invalid && (developerForm.get('developer_phone_no')?.dirty|| developerForm.get('developer_phone_no')?.touched)">
+                                                    <small class="font-red" *ngIf="developerForm.controls['developer_phone_no'].hasError('required')">
+                                                      Phone number is required.
+                                                    </small>
+                                                    <small class="font-red" *ngIf="developerForm.controls['developer_phone_no'].hasError('pattern')">
+                                                      Please enter the valid format (Eg:- 771234567) 
+                                                    </small>
+                                                </div>
+                                        </div>
+                                    </div>
+                            </div>
+                            <br>
+                            <div class="row">
+                                <div class="input-group col-md-6">
+                                    <div class="col-md-4">
+                                    <label style="font-family: 'Poppins';" class="label-form-control label-name"><b>Developer Email</b></label>
+                                    </div>
+                                    <div class="col-md-8">
+                                    <input style="font-family: 'Poppins';" class="form-control input-bottom" formControlName="developer_email" type="text" nbInput fullWidth
+                                        placeholder="Enter Developer email"
+                                        [ngClass]="{'form-control-danger': (developerForm.get('developer_email').dirty || developerForm.get('developer_email').touched) && developerForm.get('developer_email').errors}">
+                                    </div>
+                                </div>
+                                <div style="font-family: 'Poppins';" class="input-group col-md-6">
+                                    <div class="col-md-5"></div>
+                                    <div class="col-md-7">
+                                        <button nbButton  [nbSpinner]="loading" nbSpinnerStatus="success"  style="font-family: 'Poppins';float: right;height: 42px;width: 145.5370330810547px;left: 1205.3296508789062px;top: 276px;border-radius: 7px;" type='submit' [disabled]="!developerForm.valid">Update</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </nb-card-body>
+                   </nb-card-body>
+                </nb-card>
+            </nb-card>
+        </form>
+    </div>
+</div>
+        
+<div class="row">
+    <div class="col-12">
+        <div style="height:auto; background-color:#E5E5E5; ">
+        <nb-card>
+            <nb-card-body style="font-family:'Poppins';">
+                <div class="row ">
+                    <div class="col-md-9">
+                        <button type="button" size="medium" (click)="navigateToAdd()" style="float: left; background-color: #225B46; border-color: #225B46;width: 157px;height:
+                        38.21px; top: 420px;left:303px; border-radius: 7px; mix-blend-mode: normal ;font-family: 'Poppins';"  nbButton>Add new App</button>
+                    </div>
+                    <div class="col-md-3">
+                        <br>
+                    </div>
+                </div>
+                <br>
+                <div class="container">
+                <div class="row col-12">
+                    <div class="col-12 col-sm-12 col-md-12 col-lg-12" *ngIf="!applist.length">
+                        <p style="text-align: center;">There are no apps available.</p>
+                    </div>
+                    <div class="col-xs-4 col-sm-4 col-md-4 col-lg-4" *ngFor="let app of applist">
+                        <nb-card class="apps">
+                            <nb-card-body>
+                                    <div class="row">
+                                        <div class="col-md-6">
+                                            <label class="app_heading">{{app.app_name}}</label>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <span *ngIf="app.is_approved">
+                                                <label style="background-color:#FFCCCC; color: #FF0000;" class="app_status" text="Live">Live</label>
+                                            </span>
+                                            <span *ngIf="!app.is_approved">
+                                                <div *ngIf="app.is_submit_approve">
+                                                    <label style="background-color:#CCFFE7; color:#008F28," class="app_status" text="Submitted to Approval">Submitted for Approval</label>
+                                                </div>
+                                                <div *ngIf="!app.is_submit_approve">
+                                                    <label style="background-color:#ECECEC;  color:#5B5B5B ;"  class="app_status" text="On Development">On Development</label>
+                                                </div>
+                                            </span>
+                                        </div>
+                                    </div>
+                                    <div class="row col-12"> 
+                                        <label class="app_descr">Description</label>
+                                    </div>
+                                    <div class="row" style="margin-bottom: 1em;">
+                                        <div class="col-md-12">
+                                        <div class="appDes">
+                                            <span  *ngIf="!app.showMore">{{trimString(app.app_description,30)}}</span>
+                                            <span style="word-wrap: break-word;" *ngIf="app.showMore">	{{app.app_description}} </span>
+                                            <div  style="color: #2260FF; cursor: pointer;" *ngIf="app.app_description.length> 30" (click)="app.showMore = !app.showMore">Show
+                                            <span  >{{app.showMore ? 'less' : 'More..'}}</span>
+                                            </div>
+                                          </div>
+                                        </div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="app_id_service"><b>APP ID:</b></label>
+                                        </div>  
+                                        <div class="col-md-9">
+                                            <label class="app_id_url">{{app.app_id}}</label>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-md-3">
+                                            <label class="app_id_service"><b>Services:</b></label>
+                                        </div>
+                                        <div class="col-md-9">
+                                            <label class="app_id_url" style="word-wrap: break-word;">{{getServiceString(app.assign_providers)}}</label>
+                                        </div>
+                                    </div>
+
+                                    <!--Apps buttons-->
+                                    <div class="card-footer px-0" style="background-color: hsl(0, 0%, 100%); border-color: #ffffff;" >
+                                        <div class="row justify-content-center col-ms-12 px-0">
+                                            <div class="col-ms-4 m-1">
+                                                    <!-- <a  style="color: #235B46;" (click)="opendisableApp(dialog4, app)" class="app_buttons"><b>Disable App</b></a> -->
+                                            </div>
+                                            <div class="col-ms-4 m-1">
+                                                    <a style="color: #235B46;" (click)="openView(dialog1, app)" class="app_buttons"><b>View</b></a>
+                                            </div>
+                                            <div class="col-ms-4 m-1" *ngIf="!app.is_approved">
+                                                <span *ngIf="!app.is_submit_approve">
+                                                   <a style="color: #235B46;"  (click)="openUpdate(app.id)" class="app_buttons" ><b>Update</b></a>
+                                                </span>
+                                            </div>
+                                            <div class="col-ms-4 m-1" *ngIf="app.is_submit_approve">
+                                                   <a style="color: #235B46;"  (click)="updateRequestOpen(dialog3,app)" class="app_buttons"><b>Request Update</b></a>
+                                            </div>
+                                            <div class="col-ms-4 m-1">
+                                                <div *ngIf="!app.is_approved">
+                                                    <div *ngIf="!app.is_submit_approve">
+                                                        <a style="color: #235B46;" (click)="requestLive(dialog2, app)" class="app_buttons"><b>Submit for Approval</b></a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div><!---->
+                            </nb-card-body>
+                          </nb-card>
+                    </div>
+                </div>    
+                </div>
+            </nb-card-body>
+        </nb-card>
+        </div>
+    </div>
+</div>
+
+<!--View App Details-->
+<ng-template style="border-color:rgb(23, 100, 243)" #dialog1 let-data let-ref="dialogRef">   
+      <nb-card style="width: 50vw; max-height: 95vh;">
+        <nb-card-header class="header_text" ><label>View App details</label></nb-card-header>
+        <nb-card-body>
+            <div class="row  col-md-12">
+                <br>
+                <div class="col-md-2 ">
+                    <label class="label_app_name">App Name :</label>
+                </div>
+                <div class="col-md-9">
+                    <label class="app_des">{{view_details && view_details.app_name ? view_details.app_name : 'Not Available'}}</label>
+                </div>
+            </div>
+          
+            <div class="row  col-md-12">
+                <div class="col-md-2 ">
+                <label style="width: 77px; height: 30px; left: 395px; top: 227px;" class="label-style"><b>Description</b></label>
+                </div>
+            </div>
+            <div class="row  col-md-12">
+                <div class="col-md-10">
+                <label style="width: 552px; height: 42px; left: 395px; top: 260px; font-size: 11px; line-height: 19px;" class="label-style">{{view_details && view_details.app_description ? view_details.app_description : 'Not Available'}}</label>
+                </div>
+            </div>
+ 
+            <div class="row  col-md-12">
+                <div class="col-md-2">
+                    <label class="label-style" style="width: 92px; height: 30px; left: 395px; top: 312px;">Services</label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-9">
+                    <label class="url_link" style="width: 217px; height: 30px; left: 499px; top: 318px;">{{getServiceString(view_details.assign_providers)}}</label>
+                </div>
+            </div>
+            <div class="row  col-md-12">
+                <div class="col-md-2">
+                    <label class="label-style" style="width: 91px; height: 30px; left: 395px; top: 353px;">App ID</label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-7">
+                    <input class="url_link" style="font-size: 12px; width: 100%;" [readonly]="true" #APPID value="{{view_details && view_details.app_id ? view_details.app_id : 'Not Available'}}"/>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="appIDbutton" 
+                    class="btn btn-default"
+                    size="tiny"
+                    type="button"
+                    [ngxClipboard]="APPID"
+                    (cbOnSuccess)="successCopied()"
+                    (cbOnError)="onCopyFailure()"
+                    [class.btn-success]="isCopied2"
+                    style="background-color: #EDEDED;border-color: #EDEDED;color: black; font-family: 'Poppins';"
+                     nbButton >Copy</button>
+                </div>
+            </div> 
+            <div class="row  col-md-12">
+                <div class="col-md-2">
+                    <label class="label-style">App Token</label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-7">
+                    <input class="url_link" style="font-size: 12px; width: 100%;" [readonly]="true" #APPTOKEN  value="{{view_details && view_details.app_token ? view_details.app_token : 'Not Available'}}"/>
+                </div>
+                <div class="col-md-1">
+                    <button type="button" id="appIDbutton" 
+                    class="btn btn-default"
+                    size="tiny"
+                    type="button"
+                    [ngxClipboard]="APPTOKEN"
+                    (cbOnSuccess)="successCopied()"
+                    (cbOnError)="onCopyFailure()"
+                    [class.btn-success]="isCopied2"
+                    style="background-color: #EDEDED;border-color: #EDEDED;color: black; font-family: 'Poppins';"
+                     nbButton >Copy</button>
+                </div>
+                <div class="col-md-1">
+                    <button class="url_link" nbButton size="tiny" style="background-color: white; color: #FF3838;border: white; font-family: 'Poppins';" (click)="refreshToken(view_details.id)">Change</button>
+                </div>
+            </div>
+            <div class="row  col-md-12">
+                <div class="col-md-2">
+                    <label class="label-style" style="width: 92px; height: 30px; left: 395px; top: 389px;">Hash Salute</label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-7">
+                    <input class="url_link" style="font-size: 11px; width: 100%;font-family: 'Poppins';" [readonly]="true" #hash_salt  value="{{view_details && view_details.hash_salt ? view_details.hash_salt : 'Not Available'}}"/>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="appIDbutton" 
+                    class="btn btn-default"
+                    size="tiny"
+                    type="button"
+                    [ngxClipboard]="hash_salt"
+                    (cbOnSuccess)="successCopied()"
+                    (cbOnError)="onCopyFailure()"
+                    [class.btn-success]="successCopied"
+                    style="background-color: #EDEDED;border-color: #EDEDED;color: black;font-family: 'Poppins';"
+                     nbButton >Copy</button>
+                </div>
+            </div>
+            <hr>
+            <div class="row  col-md-12">
+                <div class="col-12 pad-top-no">
+                    <label style="font-weight: 500;font-family: Poppins; font-size: 16px; line-height: 11px;width: 132px; height: 11px; left: 395px; top: 465px;color: #000000;"><b>Status Callback</b></label>
+                </div>
+            </div>
+            <br>
+            <div class="row  col-md-12">
+                <div class="col-md-2">
+                    <label class="label-style" style="width: 104px; height: 30px; left: 395px; top: 499px;">Callback URL </label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-7">
+                    <input class="url_link" style="font-size: 11px; width: 100%;font-family: 'Poppins';"  [readonly]="true" #callback_url  value="{{view_details && view_details.callback_url ? view_details.callback_url : 'Not Available'}}"/>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="appIDbutton" 
+                    class="btn btn-default"
+                    size="tiny"
+                    type="button"
+                    [ngxClipboard]="callback_url"
+                    (cbOnSuccess)="successCopied()"
+                    (cbOnError)="onCopyFailure()"
+                    [class.btn-success]="isCopied2"
+                    style="background-color: #EDEDED;border-color: #EDEDED;color: black;"
+                     nbButton >Copy</button>
+                </div>
+            </div>
+            <div class="row  col-md-12">
+                <div class="col-md-2">
+                    <label class="label-style" style="width: 106px; height: 30px; left: 395px; top: 535px;">Callback Token </label>
+                </div>
+                <div class="col-md-1">:</div>
+                <div class="col-md-7">
+                    <input class="url_link" style="font-size: 11px;width: 100%;" [readonly]="true" #callback_token  value="{{view_details && view_details.callback_token ? view_details.callback_token : 'Not Available'}}"/>
+                </div>
+                <div class="col-md-2">
+                    <button type="button" id="appIDbutton" 
+                    class="btn btn-default"
+                    size="tiny"
+                    type="button"
+                    [ngxClipboard]="callback_token"
+                    (cbOnSuccess)="successCopied()"
+                    (cbOnError)="onCopyFailure()"
+                    [class.btn-success]="isCopied2"
+                    style="font-family: 'Poppins';background-color: #EDEDED;border-color: #EDEDED;color: black;"
+                     nbButton >Copy</button>
+                </div>
+            </div>
+  
+            <div *ngIf="view_details.is_approved">
+                <hr>
+                <br>
+                <!--Authentization-->
+                <div class="row  col-md-12">
+                    <div class="col-md-12 pad-top-no">
+                        <label style="font-family: 'Poppins';font-size: 16px;width: 108px; height: 11px; left: 395px; top: 607px;"><b>Authentization</b></label>
+                    </div>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <div class="col-md-4">
+                        <label class="approved_button" style="width: 41px; height: 30px;">Status</label>
+                        <nb-badge *ngIf="view_details.status && view_details.status" style="background-color: #27C153;"  status="success" text="Approved"></nb-badge>
+                        <nb-badge *ngIf="view_details.status && !view_details.status" status="danger" text="Not Approved"></nb-badge>
+                        <nb-badge *ngIf="!view_details.status"  status="danger" text="Not Available"></nb-badge>
+                    </div>
+                    <div class="col-md-4" style="width: 10px; height: 30px;font-size: 11px;">
+                        <label style="font-size: 12px;"> Approved On :</label>
+                        <label style="font-family: 'Inter';">{{view_details && view_details.status ? view_details.status : ' Not Available'}}</label>
+                    </div>
+                    <div class="col-md-4" style="width: 41px; height: 30px;font-size: 13px;">
+                        <label style="font-size: 13px;"> Approved By :</label>
+                        <label style="font-family: 'Inter';">{{view_details && view_details.status ? view_details.status : ' Not Available'}}</label>
+                    </div>
+                </div>
+                <div >
+                    <div class="row  col-md-12">
+                        <div class="col-md-12 label-style">
+                        <label style="font-size: 13px; color: #004E96;font-family: 'Poppins';"><b>VPN CIDR</b></label>
+                        </div>
+                    </div>
+                  
+                    <div class="row  col-md-12">
+                        <div class="col-md-12 label-style">
+                        <label nbInput style="width: 600px; height: 107px; left: 395px; top: 739px; background-color: #ECF4FF; border-radius: 4px;" fullWidth></label>
+                        </div>
+                    </div>
+                </div>
+                </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button nbButton (click)="closeView()"  style="float: right; background-color: #0077E5;
+          box-shadow: 0px 8px 21px rgba(39, 39, 39, 0.15);
+          border-radius: 7px;font-family: 'Poppins';">Close</button>
+        </nb-card-footer>
+      </nb-card>
+  </ng-template>
+
+<!--Request to go to live-->
+<ng-template style="border-color:rgb(23, 100, 243);font-family: 'Poppins';" hasScroll #dialog2 let-data let-ref="dialogRef">
+        <nb-card style="width: 100%; max-height: 95vh;font-family: 'Poppins';">
+                <nb-card-body>
+                    <div class="row col-md-12">
+                    <br>
+                    <div style="text-align: center; font-size: 16px;font-family: 'Poppins';" >Request to Go Live</div>
+                    </div>
+                <hr>      
+                <form [formGroup]="requestLiveForm" (ngSubmit)="requestLivedata()">
+                     <div class="row col-md-12">
+                    <div class="col-md-2">
+                        <label class="input_text2">App Name</label>
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-9">
+                        <label class="app_des" >{{request_live && request_live.app_name ? request_live.app_name : 'Not Available'}}</label>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-2">
+                        <label class="input_text2">App ID</label>
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-9">
+                        <label style="border-color: #ffffff;" class="input_text">{{request_live && request_live.app_id ? request_live.app_id : 'Not Available'}}</label>
+                    </div>
+                </div> 
+             
+                <br>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="input_text2" style="width: 100%;">Request permission for CIDR</label>
+                    </div>
+                </div>
+                
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <textarea nbInput rows="4" formControlName="ips" placeholder="*&#10;192.168.8.1&#10;172.16.17.30/20" fullWidth></textarea>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="input_text2">Note</label>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                       <label class="label_text2" style="color: #FD0000;">After you request to go live you cannot make any modification without onepay administrator permission.</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <div class="col-md-1">
+                        <input type="checkbox" status="primary"  [checked]="checkbox1" (change)="checkbox1 = !checkbox1" formControlName="check" required/>
+                    </div>
+                    <div class="col-md-11">
+                        <label class="label_text2" style="font-family: 'Poppins';width: 100%">Agreed with onepay payment gateway terms and conditions</label>
+                    </div>
+                </div>
+                <br>
+                <div>
+                <div class="row col-md-12">
+                    <div class="col-md-6"></div>
+                    <button nbButton type="button" size="small" class="col-md-2 button_style_close" style="font-family: 'Poppins'; font-size: 14px; text-align: center; background-color: #ffffff;border-color: #FFFFFF; color: #797979;" (click)="closeApproval()" nbButton >Cancel</button>
+                    <button nbButton type="submit" size="small" class="col-md-4 button_style"  [disabled]="!requestLiveForm.valid || !checkbox1" >Request to go live</button>
+                </div>
+                </div>
+                <br>
+                <br>
+        </form>
+    </nb-card-body>
+    </nb-card>
+</ng-template>
+
+<!--Request for modification-->
+<ng-template hasScroll #dialog3 let-data let-ref="dialogRef">
+            <nb-card style="width: 100%; max-height: 95vh;font-family: 'Poppins';">
+                <nb-card-body>
+                <div class="row col-md-12">
+                    <br>
+                    <div style="text-align: center; font-size: 16px;font-family: 'Poppins';" >Request Modification</div>
+                </div>
+      
+                <hr>
+                <form [formGroup]="requestUpdateForm" (ngSubmit)="requestRequestUpdatedata()">         
+
+                <div class="row col-md-12">
+                    <div class="col-md-2">
+                        <label class="input_text2">App Name</label>
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-9">
+                        <label class="app_des" >{{request_open && request_open.app_name ? request_open.app_name : 'Not Available'}}</label>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-2">
+                        <label class="input_text2">App ID</label>
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-9">
+                        <label style="border-color: #ffffff;" class="input_text">{{request_open && request_open.app_id ? request_open.app_id : 'Not Available'}}</label>
+                    </div>
+                </div> 
+             
+                <div class="row col-md-12">
+                    <div class="col-md-2">
+                        <label class="input_text2">Topic</label>
+                    </div>
+                    <div class="col-md-1">:</div>
+                    <div class="col-md-9">
+                        <input formControlName="title" style="width: 100%;height: 36px; left: 560px; top: 350px; background: #FFFFFF; border: 0.7px solid #B7B7B7; box-sizing: border-box; border-radius: 7px;" class="input_text" fullwidth name="topic"/>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="input_text2">Request</label>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <textarea formControlName="description" fullWidth style="width: 100%; height: 98px; left: 456px; top: 430px; background: #FFFFFF; border: 0.7px solid #B7B7B7; box-sizing: border-box; border-radius: 7px;"a></textarea>
+                    </div>
+                </div>
+              
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="input_text2">Note</label>
+                    </div>
+                </div>
+                <div class="row col-md-12">
+                    <div class="col-md-12">
+                        <label class="label_text2" style="color: #FD0000;">Our agent will contact you using developer contacts details within 48h.Please be ready.</label>
+                    </div>
+                </div>
+                <br>
+                <div class="row col-md-12">
+                    <div class="col-md-1">
+                        <input type="checkbox" status="primary"  [checked]="checkbox2" (change)="checkbox2 = !checkbox2"  required/>
+                    </div>
+                    <div class="col-md-11">
+                    <label class="input_text2" style="font-family: 'Poppins';width: 100%">Disable app till apply modification</label>
+                    </div>
+                </div>
+                <hr>
+                <div class="row col-md-12">
+                <div class="col-md-6"></div>
+                <button nbButton type="button" size="small" class="col-md-2 button_style_close" style="font-family: 'Poppins'; font-size: 14px; text-align: center; background-color: #ffffff;border-color: #FFFFFF; color: #797979;" (click)="closeUpdateRequest()" >Cancel</button>
+                <button nbButton type="submit" size="small" [disabled]="!checkbox2 || !requestUpdateForm.valid" class="col-md-4 button_style"  >Request Modification</button>
+                </div>
+                <br>
+                <br>
+             </form>
+          </nb-card-body>
+        </nb-card>
+  
+</ng-template>
+
+<!--Disable App-->
+<ng-template #dialog4 let-data let-ref="dialogRef">
+    <nb-card style="width: 40vw; max-height: 95vh;font-family: 'Poppins';">
+        <nb-card-body>
+                <div class="row col-md-12">
+                    <br>
+                    <div style="text-align: left;font-size: 16px;font-family: 'Poppins';" >Disable App</div>
+                </div>
+                <hr>      
+                <form [formGroup]="disableAppForm" (ngSubmit)="disableAppData()">
+
+                    <div class="row col-md-12">
+                        <div class="col-md-2">
+                            <label class="input_text2">App Name</label>
+                        </div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-9">
+                            <label class="app_des" >{{ disacle_details &&  disacle_details.app_name ? disacle_details.app_name : 'Not Available'}}</label>
+                        </div>
+                    </div>
+                    <div class="row col-md-12">
+                        <div class="col-md-2">
+                            <label class="input_text2">App ID</label>
+                        </div>
+                        <div class="col-md-1">:</div>
+                        <div class="col-md-9">
+                            <label class="input_text2">{{disacle_details && disacle_details.app_id ? disacle_details.app_id : 'Not Available'}}</label>
+                        </div>
+                    </div> 
+          
+                    <div class="row col-md-12">
+                        <label class="col-md-6">
+                            <input type="radio" style="width:13px; height:13px; border: 1px solid #0069E4; box-sizing: border-box; border-radius: 2px;" value="0" formControlName="is_permanent">
+                              <span> Temporary Deactive</span>
+                          </label>
+                          <label class="col-md-6">
+                            <input type="radio" style="width:13px; height:13px; border: 1px solid #0069E4; box-sizing: border-box; border-radius: 2px;" value="1" formControlName="is_permanent">
+                              <span> Permanently Deactive</span>
+                          </label>
+                        <!-- <nb-radio-group formControlName="is_permanent" >
+                            <div class="col-md-6">
+                                <nb-radio  [value]="1" >Temporary Deactive</nb-radio>
+                            </div>
+                            <div class="col-md-6">
+                                <nb-radio  [value]="0" >Permanently Deactive</nb-radio>
+                            </div>
+                        </nb-radio-group> -->
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label class="input_text2">Reason</label>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                    <div class="col-md-12">
+                            <textarea formControlName="reason" nbInput fullWidth style="width: 100%; height: 98px; left: 456px; top: 549px; background: #FFFFFF; border: 0.7px solid #B7B7B7; box-sizing: border-box; border-radius: 7px;" ></textarea>
+                        </div>
+                    </div>
+          
+
+            <nb-card-footer>
+                    <div class="row">
+                    <div class="col-md-6"></div>
+                    <button type="button" class="col-md-2" size="small" class="col-md-2 button_style_close"  size="small" (click)="closeDisableApp()" nbButton style="font-family: 'Poppins'; font-size: 14px; text-align: right; background-color: #ffffff;border-color: #FFFFFF; color: #797979;" >Cancel</button>
+                    <button type="submit" class="col-md-4" size="small" size="small" class="col-md-4 button_style"  nbButton >Deactive</button>
+                    </div>
+            </nb-card-footer>
+                </form>
+    </nb-card-body>
+    </nb-card>
+</ng-template>

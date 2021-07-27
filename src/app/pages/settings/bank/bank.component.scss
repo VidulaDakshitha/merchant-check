@@ -1,0 +1,199 @@
+
+@import '../../pages.component.scss';
+.button2 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  .button {
+    border: none;
+    color: white;
+    padding:0.6rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 0.8rem;
+    margin: 0;
+    cursor: pointer;
+    font-weight: 100;
+  }
+  
+  .button1 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    float: left;
+    margin: 10px 10px 20px 14px;
+  }
+  .thead-light th{
+    font-size: 0.8rem;
+    font-weight: 200;
+  }
+  table td{
+    font-size: 0.8rem;
+    font-weight: 100;
+  }
+  .dialog-border{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+    margin: 12px;
+  
+   }
+   .label-name{
+    margin-top: 0.5rem!important;
+    font-size: 0.9rem;
+    font-weight: 100;
+  }
+  .card-bottom {
+    margin-bottom: 12px;
+  }
+  .image-upload{
+    margin: 10px 6px 0px 6px;
+  }
+  .image_layer{
+    width:75px;
+    height: auto;
+    max-height: 100px;
+    margin-top: 15px;
+  }
+  .center-page{
+    text-align: center;
+  }
+  img{
+    height: 30px;
+    width: auto;
+    margin-right: 4px;
+  }
+  //table css
+  table.table td{
+    padding: 4px 15px;
+    vertical-align: middle;
+  }
+  .dialog-border-img{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 2px solid #20c997;
+    border-radius: 50%;
+    padding: 5px;
+    z-index: 10;
+  }
+  .header{
+    text-align: center;
+    font-weight: 100;
+  }
+  .nb-theme-default nb-user.size-medium .user-picture {
+    height: 8.5rem!important;
+    width: 8.5rem!important;
+  }
+  label{
+    font-size: 13px;
+    letter-spacing: 0em;
+    text-align: left;
+    font-family: 'Century Gothic';
+  }
+  h5{
+
+    width: 140px;
+    height: 27px;
+    left: 100px;
+    top: 180px;
+
+    font-style: normal;
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 27px;
+    color: #000000;
+  }
+  .input-bottom{
+    background-color: white;
+    font-size: 0.8rem!important;
+    font-weight: 100!important;
+  }
+  .image_name{
+    text-align: center;
+    width: 100%;
+    margin-bottom: 2px;
+    margin-left: 12px;
+    margin-top: 60px;
+  }
+  .merchant_name{
+    font-size: 1.2rem;
+    font-weight: 400;
+  }
+  .widget{
+    border-bottom-width: 1cm;
+    max-height: 100%;
+    width: 100%;
+  }
+  ng-template {
+    overflow: hidden scroll;
+    margin-right: -5px;
+    overflow-y: scroll !important; 
+    max-height: 95vh; 
+  }
+  .flex-row .thumbnail,
+  .flex-row .caption {
+    display: flex;
+    flex: 1 0 auto;
+    flex-direction: column;
+  }
+  .flex-row .caption p.flex-text {
+    flex-grow: 1;
+  }
+  .flex-row img {
+    width: 100%;
+    height: auto;
+  }
+  .table-row.row,
+  .table-row-equal {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+    word-wrap: break-word;
+  }
+  .table-row.row [class*="col-"] {
+    width: 25%;
+  }
+  .table-row.row [class*="col-"],
+  .table-row-equal .thumbnail {
+    float: none;
+    display: table-cell;
+    vertical-align: top;
+  }
+  .table-row-equal {
+    border-spacing: 30px 0px;
+  }
+  .table-row-equal .thumbnail {
+    width: 1%;
+  }
+  .bootflex .well {
+        flex-grow: 1;
+    }
+  pre {
+    display: flex;
+    flex: 1;
+  }
+  .flex-row.flex-code.row > [class*='col-'] .flex-text {
+    flex-grow: 1;
+    display: flex;
+  }
+
+
+
+

@@ -1,0 +1,86 @@
+<div class="container">
+  <div class="d-flex justify-content-center h-100">
+    <div class="card">
+      <div class="card-header">
+        <h3>Forgot Password</h3>
+      </div>
+      <div class="card-body c-body">
+        <p>Please check your email. Your code is 4 characters in length.</p>
+        <form (ngSubmit)="getVerification()" [formGroup]="otp_verification_from">
+          <div class="input-group form-group form-group-margin">
+            <div class="input-group-prepend">
+              <span class="input-group-text"><i class="fas fa-user"></i></span>
+            </div>
+            <input class="form-control form-control-text" formControlName="phone_number" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Register Phone Number" disabled
+              [ngClass]="{'form-control-danger': (otp_verification_from.get('phone_number').dirty || otp_verification_from.get('phone_number').touched) && otp_verification_from.get('phone_number').errors}">
+            <div class="input_type"
+              *ngIf="otp_verification_from.get('phone_number').invalid && (otp_verification_from.get('phone_number').dirty || otp_verification_from.get('phone_number').touched)">
+              <small *ngIf="otp_verification_from.get('phone_number').errors['required']" class="text-danger">
+                Register Phone Number is required!</small>
+              <small *ngIf="otp_verification_from.get('phone_number').errors['pattern']" class="text-danger">
+                Invalid Phone Number try again!</small>
+            </div>
+
+          </div>
+          
+          <div class="row">
+            <div class="col-md-12 col-lg-6 col-xxxl-6">
+              <div class="input-group form-group form-group-margin">
+                <input class="form-control form-control-text" formControlName="otp" type="text"
+                nbInput fullWidth shape="rectangle" placeholder="Enter Verification Code"
+                [ngClass]="{'form-control-danger': (otp_verification_from.get('otp').dirty || otp_verification_from.get('otp').touched) && otp_verification_from.get('otp').errors}">
+              <div class="input_type"
+                *ngIf="otp_verification_from.get('otp').invalid && (otp_verification_from.get('otp').dirty || otp_verification_from.get('otp').touched)">
+                <small *ngIf="otp_verification_from.get('otp').errors['required']" class="text-danger">
+                  OTP Code is required!</small>
+              </div>
+    
+              </div>
+            </div>
+            <div class="col-md-12 col-lg-6 col-xxxl-6">
+              <div class="input-group">
+                <span style="font-size: 0.7rem;">We sent your code to:</span>
+                <span style="font-size: 10px;font-weight: 600;" *ngIf="email_data">{{email_data}}</span>
+              </div>
+            </div>
+          </div>
+          
+          <br />
+          <div class="form-group">
+            <a routerlink = '/login' href="login" class="back-to-login">Back to login</a>
+            <input type="submit" value="Request Password" class="btn float-right login_btn" [disabled]="!otp_verification_from.valid">
+          </div>
+        </form>
+        <div style="text-align: center;">
+         
+          <div class="alert alert-danger" role="alert" *ngIf="is_alert">
+            Oh Snap! {{message}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="logo-img-login">
+      <img class="img-view" src="../../../../assets/images/Onepay-pg.png" alt="Smiley face">
+    </div>
+  </div>
+</div>
+
+<div class="col-12 animation-div2" *ngIf=is_loading>
+  <div class="sk-circle">
+    <div class="sk-circle1 sk-child"></div>
+    <div class="sk-circle2 sk-child"></div>
+    <div class="sk-circle3 sk-child"></div>
+    <div class="sk-circle4 sk-child"></div>
+    <div class="sk-circle5 sk-child"></div>
+    <div class="sk-circle6 sk-child"></div>
+    <div class="sk-circle7 sk-child"></div>
+    <div class="sk-circle8 sk-child"></div>
+    <div class="sk-circle9 sk-child"></div>
+    <div class="sk-circle10 sk-child"></div>
+    <div class="sk-circle11 sk-child"></div>
+    <div class="sk-circle12 sk-child"></div>
+  </div>
+  </div>

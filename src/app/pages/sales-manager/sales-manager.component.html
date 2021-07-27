@@ -1,0 +1,250 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/dashboard">Home</a></li>
+    <li>Sale Manager</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <nb-tabset fullWidth>
+        <!-- manual transaction Summary -->
+        <nb-tab tabTitle="Add Summary of Manual transaction">
+          <div class="row">
+            <div class="col-md-12">
+              <form [formGroup]="manualForm" class="step-container" (ngSubmit)="addManualData()">
+                <nb-card class="inline-form-card box_shadow">
+                  <nb-card-header>Add Manual Transaction</nb-card-header>
+                  <nb-card-body class="dialog-border">
+
+                    <div class="row">
+                      <div class="col-md-4 col-lg-4 col-xxxl-4">
+                        <div class="input-group">
+                          <label class="label-form-control label-name">Transaction Date</label>
+                          <input class="input-bottom" style="width: 100%;max-width:initial;" nbInput
+                            placeholder="Select Update Date" [nbDatepicker]="formpicker6" formControlName="updated_on"
+                            selected="1">
+                          <nb-datepicker #formpicker6></nb-datepicker>
+
+                        </div>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col-md-6 col-lg-4 col-xxxl-4">
+                        <label class="label-form-control label-name">Cash Transaction Amount</label>
+                        <input class="form-control input-bottom" formControlName="cash_amount" type="text" nbInput
+                          id="cash_amount" fullWidth shape="rectangle" placeholder="Enter Cash Amount" currencyMask
+                          [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }">
+                      </div>
+                      <div class="col-md-6 col-lg-4 col-xxxl-4">
+                        <label class="label-form-control label-name">Cheque Transaction Amount</label>
+                        <input class="form-control input-bottom" formControlName="cheque_amount" type="text" nbInput
+                          fullWidth shape="rectangle" placeholder="Enter Cheque Amount" currencyMask
+                          [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }">
+                      </div>
+                      <div class="col-md-6 col-lg-4 col-xxxl-4">
+                        <label class="label-form-control label-name">Card Transaction Amount</label>
+                        <input class="form-control input-bottom" formControlName="card_amount" type="text" nbInput
+                          fullWidth shape="rectangle" placeholder="Enter Card Amount" currencyMask
+                          [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }">
+                      </div>
+
+                    </div>
+
+
+                    <div class="col-md-12 col-lg-2 col-xxxl-2">
+                      <button nbButton [disabled]="!manualForm.valid" style="float: left;padding: 4px 0px 12px -3px; margin: 10px 0px 15px -15px;"
+                        type='submit'>Submit</button>
+                    </div>
+                  </nb-card-body>
+                </nb-card>
+              </form>
+            </div>
+          </div>
+
+        </nb-tab>
+
+        <!-- cheque transaction -->
+        <nb-tab tabTitle="Manual Transaction History">
+          <div class="row">
+            <div class="col-12">
+              <nb-card class="box_shadow" style="height:auto!important;" size="small">
+                <div class="container">
+                  <div class="row">
+                    <div class="col-sm-12 col-md-12 col-lg-12">
+                      <p class="merchant-id" *ngIf="transaction_manual_list.length > 0">
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-sm-4 col-md-4 col-5">
+                      <div class="form-group search">
+                        <select class="form-control" name="transaction_id" [(ngModel)]="search_by_manual"
+                          (ngModelChange)="changeSearchType_manual()" [ngModelOptions]="{standalone: true}">
+                          <option value="0" selected>All</option>
+                          <option value="1">Transaction Date</option>
+                        </select>
+                      </div>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-5">
+                      <input class="search-date" nbInput [disabled]="search_by_manual!=1"
+                        placeholder="Enter dates Range" [nbDatepicker]="rangepicker" [(ngModel)]="date_range">
+                      <nb-rangepicker #rangepicker></nb-rangepicker>
+                    </div>
+                    <div class="col-sm-4 col-md-4 col-2">
+                      <button class="button-search" (click)="search_data_manual()">Search</button>
+                    </div>
+
+                  </div>
+                  <div class="row">
+                    <div class="col-md-12">
+                      <div class="card">
+                        <div class="card-header">
+                          Transaction History
+                        </div>
+                        <div class="card-body">
+                          <table class="table table-responsive-sm table-hover table-outline mb-0">
+                            <thead class="thead-light">
+                              <tr>
+                                <th>ID</th>
+                                <th>Type</th>
+                                <th>Amount</th>
+                                <th>Updated On</th>
+                                <th>Update</th>
+                                <th>Delete</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <tr
+                                *ngFor="let transaction_manual of transaction_manual_list | paginate: { itemsPerPage: pageSize2, currentPage: p2, totalItems: total2 }">
+                                <td>{{transaction_manual.id}}</td>
+                                <td>
+                                  {{transaction_manual.type == 'CQ' ? 'CHEQUE' : transaction_manual.type == 'CH' ? 'CASH' : 'CARD'}}
+                                </td>
+                                <td>{{transaction_manual.amount| number : '1.2-2'}}</td>
+                                <td>{{transaction_manual.updated_on | date: 'dd/MM/yyyy - hh:mm'}}</td>
+                                <td>
+                                  <button class="button2"
+                                    (click)="openUpdateManualTransaction(dialogUpdateManualTransaction,transaction_manual)">Update</button>
+                                </td>
+                                <td>
+                                  <button
+                                    (click)="openDeleteManualTransaction(dialogDeleteManualTransaction,transaction_manual)"
+                                    class="button2">Delete</button>
+                                </td>
+                              </tr>
+                              <tr *ngIf="transaction_manual_list.length<1">
+                                <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                                  <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                                  <span style="display: block;">
+                                    <img src="../../../../../assets/images/data-not-available.gif"
+                                      alt="Data not Available" style="width:30%;">
+                                  </span>
+                                </td>
+                                <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                                  <div class="sk-circle">
+                                    <div class="sk-circle1 sk-child"></div>
+                                    <div class="sk-circle2 sk-child"></div>
+                                    <div class="sk-circle3 sk-child"></div>
+                                    <div class="sk-circle4 sk-child"></div>
+                                    <div class="sk-circle5 sk-child"></div>
+                                    <div class="sk-circle6 sk-child"></div>
+                                    <div class="sk-circle7 sk-child"></div>
+                                    <div class="sk-circle8 sk-child"></div>
+                                    <div class="sk-circle9 sk-child"></div>
+                                    <div class="sk-circle10 sk-child"></div>
+                                    <div class="sk-circle11 sk-child"></div>
+                                    <div class="sk-circle12 sk-child"></div>
+                                  </div>
+                                </td>
+                              </tr>
+
+                            </tbody>
+                          </table>
+                          <pagination-controls (pageChange)="pageChangedManual($event)" responsive="true"
+                            (pageBoundsCorrection)="pageChangedManual($event)" style="float: right">
+                          </pagination-controls>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </nb-card>
+            </div>
+          </div>
+
+        </nb-tab>
+
+      </nb-tabset>
+    </nb-card>
+  </div>
+</div>
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+
+<!-- update manual transaction -->
+<ng-template #dialogUpdateManualTransaction let-data let-ref="dialogRef">
+  <form [formGroup]="updateManualTransactionForm" class="step-container" (ngSubmit)="updateManualTransaction()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Update Manual Transaction</nb-card-header>
+
+      <nb-card-body class="dialog-border-event">
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Amount</label>
+            <input class="form-control input-bottom" formControlName="amount" type="text" nbInput fullWidth
+              shape="rectangle" placeholder="Enter Collection Type"
+              [ngClass]="{'form-control-danger': (updateManualTransactionForm.get('amount').dirty || updateManualTransactionForm.get('amount').touched) && updateManualTransactionForm.get('amount').errors}"
+              currencyMask [options]="{ prefix: 'LKR ', thousands: ',', decimal: '.' }">
+            <div
+              *ngIf="updateManualTransactionForm.get('amount').invalid && (updateManualTransactionForm.get('amount').dirty || updateManualTransactionForm.get('amount').touched)">
+              <small *ngIf="updateManualTransactionForm.get('amount').errors['required']" class="text-danger">
+                Amount is required!</small>
+              <small *ngIf="updateManualTransactionForm.get('amount').errors['pattern']" class="text-danger">
+                Invalid Amount.Try again!</small>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" [disabled]="!updateManualTransactionForm.valid"
+          type='submit'>Submit</button>
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- delete manual transaction -->
+<ng-template #dialogDeleteManualTransaction let-data let-ref="dialogRef">
+  <form [formGroup]="deleteManualTransactionForm" class="step-container" (ngSubmit)="deleteManualTransaction()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Delete Manual Transaction</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="modal-body">
+          <p><strong>Are you sure you want to delete <span class="text-primary"></span> manual transaction?</strong></p>
+          <p>All information associated to this manual transaction will be permanently deleted.
+            <span class="text-danger">This operation can not be undone.</span>
+          </p>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton (click)="ref.close()" style="float: right;">Close</button>
+        <button nbButton style="float: left;" type='submit'>Submit</button>
+      </nb-card-footer>
+    </nb-card>
+  </form>
+</ng-template>

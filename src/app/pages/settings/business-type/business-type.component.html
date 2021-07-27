@@ -1,0 +1,229 @@
+  <nb-card>
+    <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+      <li><a href="#/pages/admin-dashboard">Home</a></li>
+      <li>Business type</li>
+    </ul>
+  </nb-card>
+  
+  <div class="row">
+    <div class="col-12">
+      <nb-card size="small" style="height: auto;padding-top: 12px;">
+        <div class="container">
+          <div class="row">
+            <button style="font-family: 'Poppins';" (click)="openAddType(dialogAddBType)" class="button button1">Add Business Type</button>
+          </div>
+          <div class="row">
+            <div class="col-md-12">
+              <div class="card card-bottom">
+                <div style="font-family: 'Poppins';" class="card-header">
+                  Business Type Details
+                </div>
+                <div class="card-body">
+                  <table class="table table-responsive-sm table-hover table-outline mb-0">
+                    <thead class="thead-light">
+                      <tr style="font-family: 'Poppins';">
+                        <th>ID</th>
+                        <th>Type</th>
+                        <th>Image</th>
+                        <th>Description</th>
+                        <th>Update</th>
+                        <th>Delete</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr style="font-family: 'Poppins';" *ngFor="let b_type of business_type | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total } ; let i = index">
+                        <td>{{b_type.id? b_type.id:'Not Available'}}</td>
+                        <td>{{b_type.type? b_type.type:'Not Available'}}</td>
+                        <td>
+                          <span *ngIf="b_type.image">
+                            <img src='{{image_base_path}}{{b_type.image}}'>
+                          </span>
+                         <span *ngIf="!b_type.image">
+                            <a>Not Available</a>
+                         </span>
+                        </td>
+                        <td style="max-width: 10px;">
+                          <span *ngIf="!b_type.showMore">{{ trimString( b_type.description , 30) }}</span>
+                          <span  style="word-wrap: break-word;" *ngIf="b_type.showMore">{{b_type.description}}</span>
+                          <div style="color: #2260FF; cursor: pointer;" *ngIf="b_type.description.length > 30" (click)="b_type.showMore = !b_type.showMore">Show
+                            <span>{{b_type.showMore ? 'less' : 'More..'}}</span>
+                          </div>
+                        </td>
+                        <td>
+                          <button class="button2" (click)="openBTypeUpdate( dialogUpdateBType , b_type )">Update</button>
+                        </td>
+                        <td>
+                          <button class="button2" (click)="openBTypeDelete(dialogDeleteBType,b_type)">Delete</button>
+                        </td>
+                      </tr>
+                      <tr *ngIf="business_type && business_type.length < 1">
+                        <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                          <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                          <span style="display: block;">
+                           
+                          </span>
+                        </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                  <pagination-controls (pageChange)="pageChangedAdmin($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedAdmin($event)" style="float: right">
+                  </pagination-controls>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </nb-card>
+    </div>
+  </div>
+
+  <!-- ADD b type -->
+  <ng-template #dialogAddBType let-data let-ref="dialogRef">
+    <form [formGroup]="bTypeForm" class="step-container" (ngSubmit)="addBType()">
+      <nb-card style="width: 30vw;">
+        <nb-card-header style="font-family: 'Poppins';">Add Business Type</nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+  
+  
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Type</label>
+              <input class="form-control input-bottom" formControlName="type" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Business Type"
+                [ngClass]="{'form-control-danger': (bTypeForm.get('type').dirty || bTypeForm.get('type').touched) && bTypeForm.get('type').errors}">
+              <div
+                *ngIf="bTypeForm.get('type').invalid && (bTypeForm.get('type').dirty || bTypeForm.get('type').touched)">
+                <small *ngIf="bTypeForm.get('type').errors['required']" class="text-danger">
+                  Business Type is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Description</label>
+              <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Description"
+                [ngClass]="{'form-control-danger': (bTypeForm.get('type').dirty || bTypeForm.get('type').touched) && bTypeForm.get('type').errors}">
+              <div
+                *ngIf="bTypeForm.get('description').invalid && (bTypeForm.get('description').dirty || bTypeForm.get('description').touched)">
+                <small *ngIf="bTypeForm.get('description').errors['required']" class="text-danger">
+                  Description is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="form-group">
+              <label class="label-form-control label-name">Business Type Image</label>
+              <input class="image-upload" #imageInput name='image' formControlName='image'
+                (change)="onFileChange($event)" type="file" accept="image/*" 
+                [ngClass]="{'form-control-danger': (bTypeForm.get('image').dirty || bTypeForm.get('image').touched) && bTypeForm.get('image').errors}">
+              <div class="center-page">
+                <img class="image_layer" src='{{image}}'>
+              </div>
+              <div *ngIf="bTypeForm.get('image').invalid && (bTypeForm.get('image').dirty || bTypeForm.get('image').touched)">
+                <small *ngIf="bTypeForm.get('image').errors['required']" class="text-danger">
+                 Image is required!</small>
+              </div>
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button  type="submit" class="col-md-2"  status="info" [nbSpinner]="loading" nbSpinnerStatus="success" size="small" style="float: right;" nbButton  [disabled]="!bTypeForm.valid" type='submit'>Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);" (click)="closeAddBtype()" >Close</button>
+        </nb-card-footer>
+  
+      </nb-card>
+    </form>
+  </ng-template>
+  
+  <!-- UPDATE b type -->
+  <ng-template #dialogUpdateBType let-data let-ref="dialogRef">
+    <form [formGroup]="UpdateBTypeForm" class="step-container" (ngSubmit)="updateBType()">
+      <nb-card style="width: 40vw;">
+        <nb-card-header style="font-family: 'Poppins';">Update Business Type</nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+          
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Business Type</label>
+              <input class="form-control input-bottom" formControlName="type" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Business Type"
+                [ngClass]="{'form-control-danger': (UpdateBTypeForm.get('type').dirty || UpdateBTypeForm.get('type').touched) && UpdateBTypeForm.get('type').errors}">
+              <div
+                *ngIf="UpdateBTypeForm.get('type').invalid && (UpdateBTypeForm.get('type').dirty || UpdateBTypeForm.get('type').touched)">
+                <small *ngIf="UpdateBTypeForm.get('type').errors['required']" class="text-danger">
+                  Business Type is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Description</label>
+              <input class="form-control input-bottom" formControlName="description" type="text" nbInput fullWidth
+                shape="rectangle" placeholder="Enter Description"
+                [ngClass]="{'form-control-danger': (UpdateBTypeForm.get('description').dirty || UpdateBTypeForm.get('description').touched) && UpdateBTypeForm.get('description').errors}">
+                <div
+                *ngIf="UpdateBTypeForm.get('description').invalid && (UpdateBTypeForm.get('description').dirty || UpdateBTypeForm.get('description').touched)">
+                <small *ngIf="UpdateBTypeForm.get('description').errors['required']" class="text-danger">
+                  Description is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="form-group">
+              <label class="label-form-control label-name">Business type image</label>
+              <input class="image-upload" #imageInput name='image' 
+                (change)="onFileChange($event)" type="file" accept="image/*" >
+              <div class="center-page">
+                <img class="image_layer" src='{{image}}'>
+              </div>
+
+            </div>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button  type="submit" class="col-md-2"  status="info" size="small" [nbSpinner]="loading" nbSpinnerStatus="success" style="float: right;" nbButton [disabled]="!UpdateBTypeForm.valid" >Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);"  (click)="closeBtypUpdate()">Close</button>
+        </nb-card-footer>
+  
+      </nb-card>
+    </form>
+  </ng-template>
+
+  <!-- DELETE b type -->
+  <ng-template #dialogDeleteBType let-data let-ref="dialogRef">
+    <form [formGroup]="deleteBTypeForm" class="step-container" (ngSubmit)="deleteBtypeData()">
+      <nb-card style="font-family: 'Poppins';" style="width: 30vw;">
+        <nb-card-header style="font-family: 'Poppins';" >Delete buisness type</nb-card-header>
+        <nb-card-body style="font-family: 'Poppins';" class="dialog-border">
+          <div class="modal-body">
+            <p><strong>Are you sure you want to delete <span class="text-primary"></span> bussiness type?</strong></p>
+            <p>All information associated to this bussiness type will be permanently deleted.
+              <span class="text-danger">This operation can not be undone.</span>
+            </p>
+          </div>
+        </nb-card-body>
+        <nb-card-footer>
+          <button  type="submit" class="col-md-2"  status="info" size="small" [nbSpinner]="loading" nbSpinnerStatus="success" style="float: right;" nbButton type='submit'>Submit</button>
+          <button  type="button" class="col-md-2"  status="info" size="small" nbButton style="float: right; background-color: white; border-color: white; color: rgb(112, 108, 108);" (click)="closeDeleteBtype()" >Close</button>
+        </nb-card-footer>
+      </nb-card>
+    </form>
+  </ng-template>

@@ -1,0 +1,317 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+            <div class="col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                    <nb-card style="width: auto">
+                        <nb-card-body>
+                          <nb-card style="width: auto">
+                              <div class="col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+                                    <li><a href="#/pages/dashboard">Home</a></li>
+                                    <li><a href="#/pages/admin-apps">App Details</a></li>
+                                    <li>View App Details</li>
+                                  </ul>
+                            </div>
+                        </nb-card>
+                        <div class="row" *ngIf="!is_loading">
+                            <div class="col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                <nb-card style="height:auto!important;" size="small">
+                                    <div class="container">
+                                          <span *ngIf="!app_list.is_approved && app_list.is_submit_approve">
+                                            <br>
+                                            <button type="button" style="float: right;" class="btn btn-primary" (click)="approveApp()">Approve App</button>
+                                            <br/>
+                                          </span>
+                                          <nb-tabset>
+                                            <nb-tab tabTitle="Basic data" class="tab-padding">
+                                              <nb-card>
+                                                <nb-card-body>
+                                                  <form [formGroup]="updateForm" (ngSubmit)="updateData()">
+                                                    <nb-card-body *ngIf="(updateForm.get('name').value!=app_list.app_name) || (updateForm.get('description').value!=app_list.app_description) || (updateForm.get('url').value!=app_list.callback_url)||(updateForm.get('token').value!=app_list.callback_token)">
+                                                      <div >
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                              <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                                <button type="submit" style="float: right;" class="pull-right assign_prov_btn" nbButton
+                                                                 >Update</button>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                      </div>
+                                                      <br>
+                                                  </nb-card-body>
+                                                    <nb-card-body class="dialog-border">
+                                                        <div class="col-xs-12 col-sm-12 col-lg-12 col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                          <div class="input-group">
+                                                              <div class="col-xs-3 col-sm-3 col-lg-3 col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                <span>Application Status</span>
+                                                              </div>
+                                                              <div class="col-xs-9 col-sm-9 col-lg-9 col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                                <span *ngIf="app_list">{{app_list.is_approved? 'APPROVED': app_list.is_submit_approve ? 'PENDING FOR APPROVAL': 'ON DEVELOPMENT'}}</span>
+                                                              </div>
+                                                          </div>
+                                                          </div>
+                                                      </nb-card-body>
+                                                      <br>
+                                                      <!---->
+                                                      <nb-card-body class="dialog-border">
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                <span>App Name</span>
+                                                                </div>
+                                                                <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9 content-background">
+                                                                  <input fullWidth formControlName="name" nbInput class="form-control content-background" />
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          <br>
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                              <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                  <span>Description</span>
+                                                                </div>
+                                                                <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                                  <textarea fullWidth formControlName="description" nbInput class="form-control content-background"></textarea>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                          <br>
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                              <div class="input-group">
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                    <span>App ID</span>
+                                                                  </div>
+                                                                  <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                                                    <span *ngIf="app_list" class="hideOverflow">{{app_list.app_id}}</span>
+                                                                  </div>
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                    <button (click)="copyMessage(app_list.app_id)" type="button"
+                                                                      class="btn btn-outline-success  btn-sm"><i class="fa fa-copy pr-2"></i>Copy</button>
+                                                                  </div>
+                                                                </div>
+                                                              </div>
+                                                          <br>
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                              <div class="input-group">
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                    <span>Hash Salt</span>
+                                                                  </div>
+                                                                  <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                                                    <span *ngIf="app_list" class="hideOverflow">{{app_list.hash_salt}}</span>
+                                                                  </div>
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                    <button (click)="copyMessage(app_list.hash_salt)" type="button"
+                                                                      class="btn btn-outline-success  btn-sm"><i class="fa fa-copy pr-2"></i>Copy</button>
+                                                                  </div>
+                                                                </div>
+                                                            </div>
+                                                          <br>
+ 
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                              <div class="input-group">
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                    <span>Token</span>
+                                                                  </div>
+                                                                  <div class="col-xs-6 col-sm-6 col-lg-6 col-md-6">
+                                                                    <span *ngIf="app_list" class="hideOverflow">{{app_list.app_token}}</span>
+                                                                  </div>
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                    <button (click)="copyMessage(app_list.app_token)" type="button"
+                                                                      class="btn btn-outline-success  btn-sm"><i class="fa fa-copy pr-2"></i>Copy</button>
+                                                                </div>
+                                                              </div>
+                                                            </div>
+                                                           
+                                                      </nb-card-body>
+                                                      <br>
+                                                      <!---->
+                                                      <nb-card-body class="dialog-border">
+
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                  <span>Callback URL</span>
+                                                                </div>
+                                                                <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                                  <input fullWidth formControlName="url" nbInput class="form-control content-background" />
+                                                                </div>
+                                                            </div>
+                                                          </div>
+                                                    
+                                                        <br>
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                              <span>Callback Token</span>
+                                                            </div>
+                                                            <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                              <input fullWidth formControlName="token" nbInput class="form-control content-background" />
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </nb-card-body>
+                                                      <!---->
+                                                      <br>
+                                                      <nb-card-body class="dialog-border">
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                              <div class="input-group">
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                <span>Developer Name</span>
+                                                              </div>
+                                                              <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                                <span *ngIf="app_list">{{app_list.developer_name?app_list.developer_name:'N/A'}}</span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        <br>
+                                                            <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                              <div class="input-group">
+                                                                  <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                <span>Developer Email</span>
+                                                              </div>
+                                                              <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                                <span *ngIf="app_list">{{app_list.developer_email?app_list.developer_email:'N/A'}}</span>
+                                                              </div>
+                                                            </div>
+                                                          </div>
+                                                        <br>
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                                  <span>Developer Contact Number</span>
+                                                                </div>
+                                                                <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                                  <span *ngIf="app_list">{{app_list.developer_phone_number?app_list.developer_phone_number:'N/A'}}</span>
+                                                                </div>
+                                                            </div>
+                                                          </div>
+
+                                                      </nb-card-body>
+                                                      <!---->
+                                                      <br>
+                                                      <nb-card-body class="dialog-border">
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                              <span>Approved By</span>
+                                                            </div>
+                                                            <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                              <span *ngIf="app_list">{{app_list.reviewed_by?app_list.reviewed_by:'N/A'}}</span>
+                                                            </div>
+                                                        </div>
+                                                        </div>
+                                                        <br>
+                                                          <div class="col-xs-12 col-sm-12 col-lg-12 col-md-12">
+                                                            <div class="input-group">
+                                                                <div class="col-xs-3 col-sm-3 col-lg-3 col-md-3">
+                                                              <span>Approved On</span>
+                                                            </div>
+                                                            <div class="col-xs-9 col-sm-9 col-lg-9 col-md-9">
+                                                              <span *ngIf="app_list">{{app_list.datetime?app_list.datetime:'N/A'}}</span>
+                                                            </div>
+                                                          </div>
+                                                        </div>
+                                                      </nb-card-body>
+                                                      <br>
+                                                    
+
+                                                  </form>
+                                                </nb-card-body>
+                                              </nb-card>
+
+                                            </nb-tab>
+
+                                            <nb-tab tabTitle="Providers" class="tab-padding">
+                                              <nb-card>
+                                                <nb-card-body>
+                                                  <button type="button" class="btn btn-success assign_prov_btn" (click)="openColumnSelection(addModel)">Assign Provider</button>
+                                                  <table class="table table-responsive-sm table-hover table-outline">
+                                                    <thead class="thead-light">
+                                                      <tr>
+                                                        <th>Provider</th>
+                                                        <th>Collection Account</th>
+                                                        <th>Actions</th>
+                                                      </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                      <tr *ngFor="let provider of providers; index as i">
+                                                        <td>{{provider.ipg_provider_name}}</td>
+                                                        <td *ngIf="provider.is_merchant_available" >
+                                                          <div class="row">
+                                                            <div class="col">
+                                                              <select class="form-control" (change)="changeMerchant(i)" #merchant_data [disabled]="!app_list.is_submit_approve">
+                                                                <option *ngFor="let merchant of getValidMerchants(provider.ipg_provider_key)" [value]="merchant.id" [selected]="merchant.id == provider.ipg_provider_merchant_id" [disabled]="merchant.is_test_merchant">{{merchant.merchant_identifier}}</option>
+                                                              </select>
+                                                            </div>
+                                                            <div class="col" *ngIf="provider.is_updated">
+                                                                <button type="button" class="btn btn-primary" (click)="updateMerchantInProvider(merchant_data.value, provider.ipg_provider_id, i)">Update Merchant</button>
+                                                            </div>
+                                                          </div>
+                                                        </td>
+                                                        <td *ngIf="!provider.is_merchant_available">
+                                                          <div class="row">
+                                                            <div class="col">
+                                                              <input [value]="provider.personal_collection_account" #account (keyup)="changeMerchant(i)" placeholder="Personal Account Number (Optional)" type="text" class="form-control">
+                                                            </div>
+                                                            <div class="col" *ngIf="provider.is_updated">
+                                                              <button type="button" class="btn btn-primary" (click)="updateAccountNumberInProvider(account.value, provider.ipg_provider_id, i)">Update Account</button>
+                                                            </div>
+                                                          </div>
+                                                        </td>
+                                                        <td>
+                                                          <a (click)="deleteProvider(provider.ipg_provider_id)">(remove)</a>
+                                                        </td>
+                                                      </tr>
+                                                    </tbody>
+                                                  </table>
+                                                </nb-card-body>
+                                              </nb-card>
+                                            </nb-tab>
+                                            <nb-tab tabTitle="Networks">
+                                              <p>Development in progress</p>
+                                            </nb-tab>
+                                            <nb-tab tabTitle="Statistics">
+                                              <p>Development in progress</p>
+                                            </nb-tab>
+                                          </nb-tabset>
+                                    </div>
+                                </nb-card>
+                            </div>
+                        </div>
+                    </nb-card-body>
+                </nb-card>
+            </div>
+        </div>
+</div>
+<ng-template style="border-color:rgb(23, 100, 243)" #addModel let-data let-ref="dialogRef">
+  <nb-card style="width: 50vw; max-height: 95vh;">
+      <nb-card-header class="header_text"><label>Add New Service Provider</label></nb-card-header>
+      <nb-card-body>
+          <div class="form-group">
+            <label>Service Provider:</label>
+            <select class="form-control" #addProvider>
+              <option selected disabled value="0">Please select Provider</option>
+              <option *ngFor="let provider of all_service_providers" [value]="provider.id">{{provider.provider_name}}</option>
+            </select>
+          </div>
+      </nb-card-body>
+      <nb-card-footer>
+          <button nbButton (click)="cancel()">Close</button>
+          <button type="submit" class="btn btn-success" (click)="addNewProvider(addProvider.value)">Assign Provider</button>
+        </nb-card-footer>
+  </nb-card>
+</ng-template>
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

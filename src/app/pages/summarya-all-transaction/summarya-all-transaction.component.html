@@ -1,0 +1,122 @@
+
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="/pages/dashboard">Home</a></li>
+    <li>Transaction Summary</li>
+  </ul>
+</nb-card>
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <div class="container">
+        
+        <div class="row row-padding">
+          <div class="col-md-12 col-lg-4 col-xxxl-4" >
+            <div class="form-group search">
+              <input class="search-date" [(ngModel)]="date_range" nbInput
+                placeholder="Enter Your Dates Range" [nbDatepicker]="rangepicker">
+              <nb-rangepicker #rangepicker></nb-rangepicker>
+            </div>
+          </div>
+          
+          <div class="col-md-12 col-lg-4 col-xxxl-4">
+            <button class="button-search" (click)="search_data()">Search</button>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                All Transaction Summary
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>Date</th>
+                      <th>QR Amount</th>
+                      <th>Loro Amount</th>
+                      <th>Cheque Amount</th>
+                      <th>Card Amount</th>
+                      <th>Cheque Amount</th>
+                      <th>Push Payment</th>
+                      <th>Institute Payment</th>
+                      <th>Total Amount</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let transaction of transaction_all_history_list | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                      <td>{{transaction.date}}</td>
+                      <td>{{transaction.total_loro_transaction_amount}}</td>
+                      <td>{{transaction.total_qr_transaction_amount}}</td>
+                      <td>{{transaction.total_ch_transaction_amount}}</td>
+                      <td>{{transaction.total_cd_transaction_amount}}</td>
+                      <td>{{transaction.total_cq_transaction_amount}}</td>
+                      <td>{{transaction.total_pushpayment_transaction_amount}}</td>
+                      <td>{{transaction.total_institutepayment_transaction_amount}}</td>
+                      <td>{{transaction.total_amount}}</td> 
+                    </tr>
+                    <tr *ngIf="transaction_all_history_list.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                        <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                          <div class="sk-circle">
+                            <div class="sk-circle1 sk-child"></div>
+                            <div class="sk-circle2 sk-child"></div>
+                            <div class="sk-circle3 sk-child"></div>
+                            <div class="sk-circle4 sk-child"></div>
+                            <div class="sk-circle5 sk-child"></div>
+                            <div class="sk-circle6 sk-child"></div>
+                            <div class="sk-circle7 sk-child"></div>
+                            <div class="sk-circle8 sk-child"></div>
+                            <div class="sk-circle9 sk-child"></div>
+                            <div class="sk-circle10 sk-child"></div>
+                            <div class="sk-circle11 sk-child"></div>
+                            <div class="sk-circle12 sk-child"></div>
+                          </div>
+                        </td>
+                    </tr>
+
+
+                  </tbody>
+                </table>
+                <pagination-controls (pageChange)="pageChangedHistory($event)" responsive="true"
+                  (pageBoundsCorrection)="pageChangedHistory($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+
+
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>

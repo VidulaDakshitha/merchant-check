@@ -1,0 +1,225 @@
+@import '../../pages.component.scss';
+
+.dialog-border {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+}
+.merchant-view-sub-head{
+    font-size: 0.8rem;
+}
+.list-item{
+    padding: 0.6rem!important;
+    font-size: 0.8rem!important;
+}
+.nb-list-details{
+    overflow: hidden!important;
+}
+.thead-light th{
+    font-size: 0.8rem;
+    font-weight: 200;
+}
+tbody tr
+{
+    font-size: 0.8rem;
+    font-weight: 100;
+}
+.button2 {
+    background-color: #3366ff;
+    color: white;
+    border: 1px solid #3366ff;
+    border-radius: 0.25rem;
+    font-size: 0.7rem;
+    padding: 3px;
+  }
+  //radio button
+.radio_possion{
+    text-align: left!important;
+  }
+  nb-radio.b {
+    display: inline-block;
+  }
+  .nb-theme-default nb-radio .inner-circle {
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+  nb-radio.c {
+    display: inline-block; 
+  }
+  .nb-theme-default nb-radio .outer-circle, .nb-theme-default nb-radio .inner-circle {
+    height: 0.8rem;
+    width: 0.8rem;
+  }
+  .nb-theme-default >nb-radio .text{
+    font-size: 0.8rem!important;
+    font-weight: 100!important;
+ 
+  }
+  .row-margin{
+    margin-right: 2px;
+    margin-left: -3px;
+  }
+  .lable-margin{
+    margin-left: 10px;
+  }
+  .input-bottom{
+    width: 100%;
+    font-size: 0.8rem;
+  }
+  .label-name{
+   margin-bottom: 0.2rem;
+    margin-top: 0.3rem;
+    font-size: 0.8rem;
+    
+  }
+  .dialog-border-event{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #c8ced3;
+    border-radius: .25rem;
+    margin: 12px;
+  
+   }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   .uploadfilecontainer {
+    background-image: url("../../../../assets/images/upload-icon-1.png");
+    background-repeat: no-repeat;
+    background-size: 100px;
+    background-position: center;
+    height: 200px;
+    width: 80%;
+    margin: 20px auto;
+    border: 2px dashed #1C8ADB;
+    border-radius: 10px;
+    text-align: center;
+  }
+  
+  .uploadfilecontainer:hover {
+    cursor: pointer;
+    background-color: #9ecbec !important;
+    opacity: 0.8;
+  }
+  
+  .files-list {
+    display: flex;
+    justify-content: space-between;
+    width: 80%;
+    margin: 10px auto;
+    background: #ffffff;
+    border: 1px dashed;
+    border-radius: 12px;
+    padding: 5px;
+    color: #1c8adb;
+  }
+  
+  .files-list .delete-file {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+  }
+  
+  .files-list .delete-file img {
+    width: 15px;
+    height: 15px;
+  
+  }
+  .file-name{
+    margin-top: 20px;
+    overflow-y: scroll;
+    overflow-x: scroll;
+  }
+  .dd{
+    text-align: center;
+  }
+  //text area director and sharholder
+  .text-area{
+    padding: 10px;
+  }
+  .add-btn{
+    font-size: 0.6rem;
+    font-weight: 100;
+    padding: 4px;
+    background-image: linear-gradient(90deg,#2ce69b,#00d68f);
+      border: none;
+      box-shadow: 0 0 0 0 #00b887, 0 0 0 0 #00997a, 0 0 transparent;
+      color: #fff;
+      border-color: #00d68f!important;
+  }
+  .reset-btn{
+    font-size: 0.6rem;
+      font-weight: 100;
+      padding: 4px;
+      background-image: linear-gradient(90deg,#2ce69b,#00d68f);
+      border: none;
+      box-shadow: 0 0 0 0 #00b887, 0 0 0 0 #00997a, 0 0 transparent;
+      color: #fff;
+      border-color: #00d68f!important;
+  }
+  .delete-btn{
+    font-size: 0.6rem;
+      font-weight: 100;
+      padding: 4px;
+      background-image: linear-gradient(90deg,#ff708d,#ff3d71);
+      border: none;
+      box-shadow: 0 0 0 0 #db2c66, 0 0 0 0 #b81d5b, 0 0 transparent;
+      border-color: #ff3d71!important;
+  
+  }
+  tbody textarea{
+    text-transform: uppercase;
+  }
+  .required_feeld{
+    color: red;
+  }
+  .dialog-border h4{
+    font-size: 1.2rem;
+    font-weight: 100;
+    text-align: center;
+  }
+  .submit-confirm{
+    margin-bottom: 8px;
+  }
+  // activation
+  .activation{
+    font-weight: 600;
+  }
+
+  .pac-container{
+    z-index: 9999;
+}
+.buttonChange {
+  background-color: #79d70f;
+  color: black;
+  border: 1px solid #79d70f;
+  border-radius: 0.25rem;
+  font-size: 0.7rem;
+  padding: 1px;
+  margin-left: 5px;
+}

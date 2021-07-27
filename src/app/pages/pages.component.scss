@@ -1,0 +1,61 @@
+@import '../@theme/styles/themes';
+
+@include nb-install-component() {
+  ::ng-deep router-outlet + * {
+    display: block;
+    animation: fade 1s;
+
+    @keyframes fade {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+/* Display list items side by side */
+ul.bread li {
+  display: inline;
+  font-size: 0.8rem;
+}
+
+/* Add a slash symbol (/) before/behind each list item */
+ul.bread li+li:before {
+  padding: 8px;
+  color: black;
+  content: "/\00a0";
+}
+
+/* Add a color to all links inside the list */
+ul.bread li a {
+  color: #0275d8;
+  text-decoration: none;
+}
+
+/* Add a color on mouse-over */
+// ul.breadcrumb li a:hover {
+//   color: #01447e;
+//   text-decoration: underline;
+// }
+// ul.breadcrumb {
+//   padding: 12px 16px!important;
+//   list-style: none!important;
+//   position: relative!important;
+//   top: -36px!important;
+//   width: 100vw!important;
+//   left: -57px!important;
+//   background-color: white!important;
+// }
+// .breadcrumb{
+//   margin-bottom: 0!important;
+//   border-radius: 0px!important;
+// }
+.bread{
+  background-color: none;
+  margin-bottom: 0!important;
+}
+    

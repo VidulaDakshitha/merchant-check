@@ -1,0 +1,100 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li>Merchant List</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;padding-top: 12px;">
+      <div class="container">
+        <div class="row">
+          
+
+        </div>
+        <div class="row">
+          <div class="col-md-12">
+            <div class="card card-bottom">
+              <div class="card-header">
+                Merchant Details
+              </div>
+              <div class="card-body">
+                <table class="table table-responsive-sm table-hover table-outline mb-0">
+                  <thead class="thead-light">
+                    <tr>
+                      <th>User ID</th>
+                      <th>Merchant Name</th>
+                      <th>Category</th>
+                      <th>Business Type</th>
+                      <th>Contact Number</th>
+                      <th>Status</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr
+                      *ngFor="let merchant of merchant_details | paginate: { itemsPerPage: pageSize, currentPage: p, totalItems: total }">
+                      <td>{{merchant.user_id?merchant.user_id:'Not Available'}}</td>
+                      <td>{{merchant.business_name?merchant.business_name:'Not Available'}}</td>
+                      <td>{{merchant.business_type?merchant.business_type:'Not Available'}}</td>
+                      <td>{{merchant.business_cat? merchant.business_cat:'Not Available'}}</td>
+                      <td>{{merchant.contact_phone_no?merchant.contact_phone_no:'Not Available'}}</td>
+                      <td>{{merchant.status?merchant.status:'Not Available'}}</td>
+                      <td style="color: green;cursor: pointer;" [routerLink]="['/pages/view-pending-merchant', merchant.id]">(View)</td>
+                    </tr>
+                    <tr *ngIf="merchant_details.length<1">
+                      <td colspan="10" style="text-align: center;" *ngIf="!is_loading">
+                        <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                        <span style="display: block;">
+                          <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                            style="width:30%;">
+                        </span>
+                      </td>
+                      <td colspan="10" *ngIf="is_loading" style="text-align: center;">
+                        <div class="sk-circle">
+                          <div class="sk-circle1 sk-child"></div>
+                          <div class="sk-circle2 sk-child"></div>
+                          <div class="sk-circle3 sk-child"></div>
+                          <div class="sk-circle4 sk-child"></div>
+                          <div class="sk-circle5 sk-child"></div>
+                          <div class="sk-circle6 sk-child"></div>
+                          <div class="sk-circle7 sk-child"></div>
+                          <div class="sk-circle8 sk-child"></div>
+                          <div class="sk-circle9 sk-child"></div>
+                          <div class="sk-circle10 sk-child"></div>
+                          <div class="sk-circle11 sk-child"></div>
+                          <div class="sk-circle12 sk-child"></div>
+                        </div>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <pagination-controls *ngIf="merchant_details.length >1" (pageChange)="pageChangedMerchant($event)"
+                  responsive="true" (pageBoundsCorrection)="pageChangedMerchant($event)" style="float: right">
+                </pagination-controls>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </nb-card>
+  </div>
+</div>
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+

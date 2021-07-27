@@ -1,0 +1,96 @@
+  /* Display list items side by side */
+  ul.bread li {
+    display: inline;
+    font-size: 0.8rem;
+  }
+  ul.bread li+li:before {
+    padding: 8px;
+    color: black;
+    content: "/\00a0";
+  }
+  ul.bread li a {
+    color: #0275d8;
+    text-decoration: none;
+  }
+  .hideOverflow{
+      overflow:hidden;
+      white-space:nowrap;
+      text-overflow:ellipsis;
+      width:100%;
+      display:block;
+  }
+  .dialog-border{
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    background-color: #fff;
+    background-clip: border-box;
+    border: 1px solid #e9eaec;
+    border-radius: .25rem;
+  }
+  .tab-padding{
+    padding: 17px 0px 0px 0px;
+  }
+  .nb-list-item{
+    border: none !important;
+  }
+  .assign_prov_btn{
+    border: none;
+    margin-bottom: 1em;
+    color: #FFF;
+    cursor: pointer;
+    float: left;
+    border-radius: 7px;
+    width: auto;
+    height: auto;
+    box-shadow: 0px 4px 18px rgba(0, 0, 0, 0.21);
+    border-radius: 7px;
+  }
+  .input-group{
+    font-size: 14px;
+  }
+  .content-background, .input-group{
+    background-color: #FFFf;
+  }
+
+.thead-light th{
+  background-color:rgba(123, 200, 161, 0.12) !important;
+  color:#225B46 !important;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 15px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+.thead-light th tbody tr .headerStyle .assign_prov_btn{
+  font-family: 'Poppins' !important;
+}
+tbody tr{
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 26px;
+  color: #878787;
+}
+.thead-light th{
+  font-size: 0.8rem;
+  font-weight: 200;
+}
+table td{
+  font-size: 0.8rem;
+  font-weight: 100;
+}
+table.table td{
+  padding: 4px 15px;
+  vertical-align: middle;
+}
+.headerStyle{
+  font-style: normal;
+  font-weight: 500;
+  font-size: 20px;
+  line-height: 26px;
+  color: #000000;
+  border-bottom: none !important;
+}
+  

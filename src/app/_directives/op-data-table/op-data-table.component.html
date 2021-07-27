@@ -1,0 +1,99 @@
+<div class="row">
+    <div class="col-md-12 align-right">
+        <div class="btn-group export-btns" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary radius-none" (click)="exportToExcel()">
+                <i class="fa fa-table" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary radius-none" (click)="exportPDF()">
+                <i class="fa fa-table" aria-hidden="true"></i>
+            </button>
+            <button type="button" class="btn btn-secondary radius-none" (click)="openColumnSelection(selectionModel)">
+                <i class="fa fa-align-justify fa-sm"></i>
+            </button>
+        </div>
+    </div>
+</div>
+
+<div style="overflow-x:auto;">
+    <table class="table table-striped table-hover">
+        <thead>
+            <tr class="header">
+                <th *ngFor="let header of headCellRender()">{{header.head}}</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let item of data | paginate: { itemsPerPage: 10, currentPage: p }" height="50">
+                <td *ngFor="let head of headCellRender()">{{renderCells(item, head)}}</td>
+            </tr>
+            <tr *ngIf="!data.length" height="50">
+                <td [attr.colspan]="headCellRender().length">
+                    <div class="row">
+                        <div class="col-md-12 loader-area" *ngIf="isLoading">
+                            Loading....
+                        </div>
+                        <div class="col-md-12 lo
+                      +1ader-area" *ngIf="!isLoading">
+                            No Data Available.
+                        </div>
+                    </div>
+
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="row">
+    <div class="col-md-12 align-right">
+        <br /><br />
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
+    </div>
+</div>
+
+
+<!-- <div bsModal #selectionModel="bs-modal" animated="false" class="modal fade" tabindex="-1" role="dialog"
+  aria-labelledby="myModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-lg">
+      <div class="modal-content">
+          <form>
+              <div class="modal-header">
+                  <p><b>Please select rows to view in table</b></p>
+              </div>
+              <div class="modal-body">
+                  <div class="row">
+                      <div class="col-md-4" *ngFor="let header of allHeaders">
+                          <label class="checkbox-inline"><input type="checkbox"
+                                  [checked]="getSelectionCheckStatus(header)" [disabled]="header['fixed']"
+                                  (change)="changeSelectionStatus(header, $event)"> &nbsp;&nbsp;
+                              {{header['head']}}</label>
+                      </div>
+                  </div>
+              </div>
+              <div class="modal-footer">
+                  <input type="button" class="btn btn-default" data-dismiss="modal" value="Close" (click)="cancel()">
+              </div>
+          </form>
+      </div>
+  </div>
+</div> -->
+
+
+<ng-template style="border-color:rgb(23, 100, 243)" #selectionModel let-data let-ref="dialogRef">
+    <nb-card style="width: 50vw; max-height: 95vh;">
+        <nb-card-header class="header_text"><p><b>Please select rows to view in table</b></p></nb-card-header>
+        <nb-card-body>
+            <div class="row">
+                <div class="col-md-4" *ngFor="let header of allHeaders">
+                    <label class="checkbox-inline"><input type="checkbox"
+                            [checked]="getSelectionCheckStatus(header)" [disabled]="header['fixed']"
+                            (change)="changeSelectionStatus(header, $event)"> &nbsp;&nbsp;
+                        {{header['head']}}</label>
+                </div>
+            </div>
+        </nb-card-body>
+        <nb-card-footer>
+            <button nbButton class="btn btn-default" (click)="cancel()">Close</button>
+          </nb-card-footer>
+    </nb-card>
+
+</ng-template>

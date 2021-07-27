@@ -1,0 +1,2178 @@
+<nb-card>
+  <ul class="bread" style="margin-bottom: 0!important;padding: 8px;">
+    <li><a href="#/pages/admin-dashboard">Home</a></li>
+    <li><a href="#/pages/pending-merchant">Pending Merchant</a></li>
+    <li>Details</li>
+  </ul>
+</nb-card>
+
+<div class="row">
+  <div class="col-12">
+    <nb-card size="small" style="height: auto;">
+      <nb-tabset fullWidth>
+        <nb-tab tabTitle="Basic Data">
+          <h6 style="font-size: 14px;font-weight: 600;color: red;">STATUS:{{merchant? merchant.status :'' }}</h6>
+          <div class="row" style="border: solid 2px rgba(0, 0, 0, 0.2);border-radius: 4px;margin-bottom: 15px;">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <nb-list class="nb-list-details">
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Reviewed and Approved By(ID):</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant && merchant.basic_data_approved_by_id?merchant.basic_data_approved_by_id:'Not
+                        Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Reviewed and Approved On:</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant && merchant.basic_data_approved_on?merchant.basic_data_approved_on:'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+              </nb-list>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <nb-list class="nb-list-details">
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Last Update By(ID):</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant && merchant.last_update_by_id ?merchant.last_update_by_id :'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Last Update On:</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant && merchant.last_update_on?merchant.last_update_on:'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+              </nb-list>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-12">
+              <button [disabled]="merchant.is_basic_data_approved ==1"
+                (click)="openBasicDataApproval(dialogBasicDataApproval,merchant)" class="button-common">Approve</button>
+              <button (click)="openResentEmail(dialogResentEmail)" class="resent-email">Resend email</button>
+
+            </div>
+          </div>
+
+
+          <div class="row">
+            <div class="col-12">
+              <form [formGroup]="merchantUpdateForm" (ngSubmit)="updateMerchantData()">
+
+                <div class="row">
+                  <div class="col-12">
+                    <button type="submit" class="button-common" type="submit">Update Info</button>
+
+                  </div>
+                </div>
+                <!-- basic info form -->
+                <div class="row">
+                  <div class="col-12">
+                    <h6 style="font-size: 14px;font-weight: 600;">Personal Information</h6>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="row">
+                      <div class="col-6">
+                        <div class="input-group">
+                          <label class="label-form-control label-name">Title<span class="required_feeld"><i
+                                class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                          <nb-select class="form-select select-important" selected="1" formControlName="title">
+                            <nb-option [value]="'Mr'">
+                              <span class="option-name">Mr</span>
+                            </nb-option>
+                            <nb-option [value]="'Mrs'">
+                              <span class="option-name">Mrs</span>
+                            </nb-option>
+                            <nb-option [value]="'Ms'">
+                              <span class="option-name">Ms</span>
+                            </nb-option>
+                            <nb-option [value]="'Miss'">
+                              <span class="option-name">Miss</span>
+                            </nb-option>
+                            <nb-option [value]="'Dr (Male)'">
+                              <span class="option-name">Dr</span>
+                            </nb-option>
+
+                            <nb-option [value]="'Prof'">
+                              <span class="option-name">Prof</span>
+                            </nb-option>
+                            <nb-option [value]="'Rev'">
+                              <span class="option-name">Rev</span>
+                            </nb-option>
+                          </nb-select>
+                        </div>
+                      </div>
+                      <div class="col-6">
+                        <div class="input-group">
+                          <label class="label-form-control label-name">Gender<span class="required_feeld"><i
+                                class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                          <nb-select class="form-select select-important" selected="1" formControlName="gender">
+                            <nb-option [value]="'Male'">
+                              <span class="option-name">Male</span>
+                            </nb-option>
+                            <nb-option [value]="'Female'">
+                              <span class="option-name">Female</span>
+                            </nb-option>
+                          </nb-select>
+                        </div>
+                      </div>
+
+                    </div>
+
+
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">First name<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input style="background-color: red;" class="form-control form-control-text "
+                        formControlName="first_name" type="text" nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Middle name</label>
+                      <input class="form-control form-control-text " formControlName="middle_name" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Last name</label>
+                      <input class="form-control form-control-text" formControlName="last_name" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">NIC number<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input style="background-color: red;" class="form-control form-control-text "
+                        formControlName="nic" type="text" nbInput fullWidth shape="rectangle">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Email Address<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text " formControlName="contact_email" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Designation<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input style="background-color: red;" class="form-control form-control-text "
+                        formControlName="designation" type="text" nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Date of Birth</label>
+                      <input class="form-select"
+                        style="padding: 5px 10px 5px 10px!important;margin-top:0px!important; border-radius:4px!important;width: 100%;font-size: 14px;font-weight: 100;max-width: none!important;"
+                        selected="1" placeholder="Enter Date of Registration" formControlName="dob" nbInput
+                        placeholder="Form Picker" [nbDatepicker]="formpicker">
+                      <nb-datepicker #formpicker></nb-datepicker>
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Address<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="address" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">City</label>
+                      <input class="form-control form-control-text " formControlName="city" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Postal Code<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text " formControlName="postal_code" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Mobile Number<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="contact_phone_no" type="text"
+                        nbInput fullWidth shape="rectangle" [(ngModel)]="phone_number_format">
+
+                    </div>
+                  </div>
+                </div>
+
+                <div class="row" style="margin: 4px;">
+                  <div class="col-12">
+                    <label style="float: left;margin-left: -18px;" class="label-form-control label-name">Monthly
+                      personal Income<span class="required_feeld"><i class="fa fa-question-circle"
+                          aria-hidden="true"></i></span></label>
+                  </div>
+                  <div class="row" style="width: 100%;text-align: left;">
+                    <div class="col-4">
+                      <div class="custom-control custom-radio">
+                        <input id="100000" type="radio" class="custom-control-input" value="Less than Rs.100,000"
+                          name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="100000">Less than Rs.100,000</label>
+                      </div>
+
+                      <div class="custom-control custom-radio">
+                        <input id="300001-400000" type="radio" class="custom-control-input"
+                          value="Rs.300,001-Rs.400,000" name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="300001-400000">Rs.300,001-Rs.400,000</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input id="1000000" type="radio" class="custom-control-input" value="Above Rs.1,000,000"
+                          name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="1000000">Above Rs.1,000,000</label>
+                      </div>
+                    </div>
+                    <div class="col-4">
+
+                      <div class="custom-control custom-radio radio-2">
+                        <input id="100,001-200,000" type="radio" class="custom-control-input"
+                          value="Rs.100,001-Rs.200,000" name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="100,001-200,000">Rs.100,001-Rs.200,000</label>
+                      </div>
+
+                      <div class="custom-control custom-radio radio-2">
+                        <input id="400,001-500,000" type="radio" class="custom-control-input"
+                          value="Rs.400,001-Rs.500,000" name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="400,001-500,000">Rs.400,001-Rs.500,000</label>
+                      </div>
+                    </div>
+                    <div class="col-4">
+
+                      <div class="custom-control custom-radio radio-3">
+                        <input id="200,001-300,000" type="radio" class="custom-control-input"
+                          value="Rs.200,001-Rs.300,000" name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="200,001-300,000">Rs.200,001-Rs.300,000</label>
+                      </div>
+
+                      <div class="custom-control custom-radio radio-3">
+                        <input id="500,001-Rs.600,000" type="radio" class="custom-control-input"
+                          value="Rs.500,001-600,000" name="monthly_income" formControlName="monthly_income">
+                        <label class="custom-control-label" for="500,001-600,000">Rs.500,001-Rs.600,000</label>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row" style="margin: 4px;">
+                  <div class="col-12">
+                    <label style="float: left;margin-left: -18px;" class="label-form-control label-name">Wealth
+                      Generated Form<span class="required_feeld"><i class="fa fa-question-circle"
+                          aria-hidden="true"></i></span></label>
+                  </div>
+                  <div class="row" style="width: 100%;text-align: left;">
+                    <div class="col-4">
+                      <div class="custom-control custom-radio">
+                        <input id="business-ownership" type="radio" class="custom-control-input"
+                          value="Business Ownership" name="wealth_generate" formControlName="wealth_generate">
+                        <label class="custom-control-label" for="business-ownership">Business Ownership</label>
+                      </div>
+                      <div class="custom-control custom-radio">
+                        <input id="inheritance" type="radio" class="custom-control-input" value="Inheritance"
+                          name="wealth_generate" formControlName="wealth_generate">
+                        <label class="custom-control-label" for="inheritance">Inheritance</label>
+                      </div>
+                    </div>
+                    <div class="col-4">
+
+                      <div class="custom-control custom-radio radio-2">
+                        <input id="employeement-Professional-income" type="radio" class="custom-control-input"
+                          value="Employeement/Professional income" name="wealth_generate"
+                          formControlName="wealth_generate">
+                        <label class="custom-control-label"
+                          for="employeement-Professional-income">Employeement/Professional income</label>
+                      </div>
+
+                    </div>
+                    <div class="col-4">
+
+                      <div class="custom-control custom-radio radio-3">
+                        <input id="investments" type="radio" class="custom-control-input" value="Investments"
+                          name="wealth_generate" formControlName="wealth_generate">
+                        <label class="custom-control-label" for="investments">Investments</label>
+                      </div>
+
+                    </div>
+                  </div>
+
+                </div>
+                <!-- bussiness form -->
+                <hr>
+                <div class="row">
+                  <div class="col-12">
+                    <h6 style="font-size: 14px;font-weight: 600;">Business Information</h6>
+                  </div>
+                </div>
+                <div class="row">
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Business Category<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <nb-select disabled (ngModelChange)="chooseBtype($event)" class="form-select select-important"
+                        formControlName="business_type">
+                        <nb-option *ngFor="let b_type of business_type" [value]="b_type.id">
+                          {{b_type.type}}
+                        </nb-option>
+
+                      </nb-select>
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Business Type<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <nb-select disabled class="form-select select-important" formControlName="business_category">
+                        <nb-option *ngFor="let category of business_catogory" [value]="category.id">
+                          {{category.type}}
+                        </nb-option>
+                      </nb-select>
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <div class="row">
+                  <div class="col-md-4" *ngIf="itemBusinessNumber === true">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Registed Business number<span
+                          class="required_feeld"><i class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="register_number" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label *ngIf="itemBusinessName === false" class="label-form-control label-name">Trading
+                        name<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+                      <label *ngIf="itemBusinessName === true" class="label-form-control label-name">Club or
+                        Society name<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="trading_name" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4" *ngIf="itemBusinessName === false">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Registed Business name<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+
+                      <input class="form-control form-control-text" formControlName="registered_business_name"
+                        type="text" nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label *ngIf="itemBusinessName === false" class="label-form-control label-name">Principle
+                        place of business<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+                      <label *ngIf="itemBusinessName === true" class="label-form-control label-name">Principle
+                        place of activity<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text " formControlName="principal_place" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">City<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text " formControlName="city_b_details" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Postal code<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="postal_code_b_details" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Correspondence address<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="correspondence_address" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Email Address<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text " formControlName="email" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Phone number<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text " formControlName="phone_number"
+                        [(ngModel)]="phone_number_format2" type="text" nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label *ngIf="itemindividual ? itemindividual === false : true"
+                        class="label-form-control label-name">Date of registration<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <label *ngIf="itemindividual === true" class="label-form-control label-name">Business
+                        commence date<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+
+                      <input class="form-select"
+                        style="padding: 5px 10px 5px 10px!important;margin-top:0px!important; border-radius:4px!important;width: 100%;font-size: 14px;font-weight: 100;max-width: none!important;"
+                        selected="1" formControlName="date_of_registration" nbInput placeholder="Form Picker"
+                        [nbDatepicker]="formpickerDOF">
+                      <nb-datepicker #formpickerDOF></nb-datepicker>
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Income tax file no</label>
+                      <input class="form-control form-control-text " formControlName="income_tax_file_no" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">TIN Number<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="tin_number" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-8">
+                    <div class="input-group">
+                      <label *ngIf="itemBusinessName === false" class="label-form-control label-name">Nature of
+                        business<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+                      <label *ngIf="itemBusinessName === true" class="label-form-control label-name">Nature of
+                        the activity<span class="required_feeld"><i class="fa fa-question-circle"
+                            aria-hidden="true"></i></span></label>
+                      <textarea class="text-area" rows="2" nbInput fullWidth shape="round"
+                        formControlName="nature_of_business"></textarea>
+
+
+
+                    </div>
+
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Merchant agreement date<span
+                          class="required_feeld"><i class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-select"
+                        style="padding: 5px 10px 5px 10px!important;margin-top:0px!important; border-radius:4px!important;width: 100%;font-size: 14px;font-weight: 100;max-width: none!important;"
+                        selected="1" formControlName="merchant_agreement_date" nbInput placeholder="Form Picker"
+                        [nbDatepicker]="formpickerMAD">
+                      <nb-datepicker #formpickerMAD></nb-datepicker>
+
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Business website<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="business_website" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Facebook page url<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <input class="form-control form-control-text" formControlName="facebook_page" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Instagram</label>
+                      <input class="form-control form-control-text" formControlName="instagrame" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+
+                </div>
+
+                <hr style="margin-top: 30px;">
+                <div class="row">
+                  <div class="col-12">
+                    <h6 style="font-size: 14px;font-weight: 600;">Settlement Account Information</h6>
+                  </div>
+                </div>
+
+
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Account holder name<span
+                          class="required_feeld">*</span></label>
+                      <input class="form-control form-control-text" formControlName="account_holder_name" type="text"
+                        nbInput fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Account number<span
+                          class="required_feeld">*</span></label>
+                      <input class="form-control form-control-text" formControlName="account_number" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Account Type<span
+                          class="required_feeld">*</span></label>
+                      <nb-select class="form-select select-important" formControlName="type">
+                        <nb-option [value]="'Savings'">
+                          <span class="option-name">Savings</span>
+                        </nb-option>
+                        <nb-option [value]="'Current'">
+                          <span class="option-name">Current</span>
+                        </nb-option>
+                      </nb-select>
+
+                    </div>
+                  </div>
+
+                </div>
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Bank<span class="required_feeld"><i
+                            class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                      <nb-select class="form-select select-important" formControlName="bank">
+                        <nb-option *ngFor="let bank of bank_list" [value]="bank.id">
+                          {{bank.name}}
+                        </nb-option>
+                      </nb-select>
+
+                    </div>
+                  </div>
+                  <!-- <div class="col-md-4">
+                    <div class="input-group">
+                      <label style="width: 100%;" class="label-form-control label-name">Bank<span
+                          class="required_feeld">*</span></label>
+                      <nb-select selected class="form-select select-important" formControlName="bank">
+                        <nb-option *ngFor="let bank of bank_list" [value]="bank.id">
+                          {{bank.name}}
+                        </nb-option>
+
+                      </nb-select>
+
+                    </div>
+                  </div> -->
+                  <div class="col-md-4">
+
+
+                    <div class="input-group">
+                      <label class="label-form-control label-name">Branch<span class="required_feeld">*</span></label>
+                      <input class="form-control form-control-text" formControlName="branch" type="text" nbInput
+                        fullWidth shape="rectangle">
+
+                    </div>
+
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+
+          <div *ngIf="itemShareholder === true" class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <label class="label-form-control label-name">Shareholder Information</label>
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>Percentage</th>
+                    <th>Address</th>
+                    <th>PEP</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let shareholder of merchant.shareholder_details">
+                    <td>{{shareholder.id}}</td>
+                    <td>{{shareholder.name_shareholder ? shareholder.name_shareholder : 'Not Available'}}</td>
+                    <td>{{shareholder.address_shareholder ? shareholder.address_shareholder : 'Not Available'}}</td>
+                    <td>{{shareholder.percentage_shareholder ? shareholder.percentage_shareholder : 'Not Available'}}
+                    </td>
+                    <td>{{shareholder.address_shareholder ? shareholder.address_shareholder : 'Not Available'}}</td>
+                    <td>{{shareholder.shareholder_pep == true ? 'YES':'NO'}}</td>
+                    <td>{{shareholder.phone_number ? shareholder.phone_number : 'Not Available'}}</td>
+                    <td>{{shareholder.email ? shareholder.email : 'Not Available'}}</td>
+                    <td style="color: green;cursor: pointer;"
+                      (click)="openShareholderUpdate(dialogShareholderUpdate,shareholder,merchant)">(Update)</td>
+
+
+                  </tr>
+                  <tr *ngIf="merchant.shareholder_details.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div *ngIf="itemDirector === true" class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <label class="label-form-control label-name">Director Information</label>
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Name</th>
+                    <th>Address</th>
+                    <th>NIC</th>
+                    <th *ngIf="itemPartnershipname === true" class="text-center">Business ownership
+                    </th>
+                    <th *ngIf="itemPartnershipname === false" class="text-center">Partnership</th>
+                    <th>PEP</th>
+                    <th>Income Level</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let director of merchant.owner_details">
+                    <td>{{director.id}}</td>
+                    <td>{{director.name ? director.name : 'Not Available'}}</td>
+                    <td>{{director.address ? director.address : 'Not Available'}}</td>
+                    <td>{{director.nic ? director.nic : 'Not Available'}}</td>
+                    <td>{{director.partnership ? director.partnership : 'Not Available'}}
+                    </td>
+                    <td>{{director.pep == true ? 'YES' : 'NO'}}</td>
+                    <td>{{director.income_level ? director.income_level : 'Not Available'}}</td>
+                    <td>{{director.phone_number ? director.phone_number : 'Not Available'}}</td>
+                    <td>{{director.email ? director.email : 'Not Available'}}</td>
+                    <td style="color: green;cursor: pointer;"
+                      (click)="openDirectorUpdate(dialogDirectorUpdate,director,merchant)">(Update)</td>
+
+                  </tr>
+                  <tr *ngIf="merchant.owner_details.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </nb-tab>
+
+
+        <nb-tab tabTitle="Documents">
+          <h6 style="font-size: 14px;font-weight: 600;color: red;">STATUS:{{merchant_doc_data? merchant_doc_data.status:''}}</h6>
+          <div class="row" style="border: solid 2px rgba(0, 0, 0, 0.2);border-radius: 4px;margin-bottom: 15px;">
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <nb-list class="nb-list-details">
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Document Approved By(ID):</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant_doc_data && merchant_doc_data.doc_approved_by_id?merchant_doc_data.doc_approved_by_id:'Not
+                        Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Document Approved On:</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant_doc_data && merchant_doc_data.doc_approved_on? merchant_doc_data.doc_approved_on:'Not
+                        Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+              </nb-list>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-12">
+              <nb-list class="nb-list-details">
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Last Update By(ID):</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant_doc_data && merchant_doc_data.last_update_by_id ? merchant_doc_data.last_update_by_id :'Not
+                        Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Last Update On:</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{merchant_doc_data && merchant_doc_data.last_update_on? merchant_doc_data.last_update_on:'Not
+                        Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+              </nb-list>
+            </div>
+          </div>
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-12">
+
+              <button [disabled]="merchant.is_document_approved ==1"
+                (click)="openApproveDocumentAll(dialogApproveDocumentAll)" class="button-common">Approve</button>
+
+            </div>
+          </div>
+          <div *ngIf="merchant_doc_data.identification === 'NIC'" class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Format</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Approved</th>
+                    <th>Last Reviewed By</th>
+                    <th>Last Reviewed Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let file of merchant_document">
+                  
+                    <td>
+                     
+
+                      <span *ngIf="file.type == 'filePFS'" class="title-left">NIC Verification-Front Side</span>
+                      <span *ngIf="file.type == 'filePBS'" class="title-left">NIC Verification-Back Side</span>
+
+                      <span *ngIf="file.type === 'filePQ'" class="file-name">Certificate Copy of Professional
+                        qualification</span>
+                      <span *ngIf="file.type === 'fileGS'" class="file-name">Income Certificate Endorsed by Grama
+                        Niladari</span>
+                      <span *ngIf="file.type === 'filePTH'" class="file-name">Freelance Site Transaction history
+                        report</span>
+                      <span *ngIf="file.type === 'fileMM'" class="file-name">Meeting minutes</span>
+                      <span *ngIf="file.type === 'fileCM'" class="file-name">List of executive committee members</span>
+                      <span *ngIf="file.type === 'fileBR'" class="file-name">BR Copy</span>
+                      <span *ngIf="file.type === 'fileApplication'" class="file-name">Partnership Agreement</span>
+                      <span *ngIf="file.type === 'fileFrom1'" class="file-name">Form 1</span>
+                      <span *ngIf="file.type === 'fileFrom20'" class="file-name">Latest Form 20</span>
+                      <span *ngIf="file.type === 'fileFrom15'" class="file-name">Form 15</span>
+                      <span *ngIf="file.type === 'fileArticles'" class="file-name">Articles of Association</span>
+                      <span *ngIf="file.type === 'fileST'" class="file-name">Bank statement</span>
+                    </td>
+                    <td>{{file.format ? file.format : 'Not Available'}}</td>
+                    <td><span (click)="openDocumentApprove(dialogDocumentApprove,file,merchant)"
+                        style="color: green;cursor: pointer;">View </span>
+                        <span  class="m-agreement"><a [href]="image_base_path + file.file_name" download>
+                          <button  class="download-button" type="submit">Download</button>
+                        </a></span>
+                     
+                    </td>
+                    <td>{{file.status ? file.status : 'Not Available'}}</td>
+                    <td>{{file.is_approved == 1 ? 'YES' : 'NO'}}</td>
+                    <td>{{file.last_update_by_id ? file.last_update_by_id : 'Not Available'}}</td>
+                    <td>{{file.last_update_on ? file.last_update_on : 'Not Available'}}</td>
+
+                  </tr>
+
+                  <tr *ngIf="merchant_document.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div *ngIf="merchant_doc_data.identification === 'Passport'" class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Format</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Approved</th>
+                    <th>Last Reviewed By</th>
+                    <th>Last Reviewed Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let file of merchant_document">
+                   
+                    <td>
+                    
+
+                      <span *ngIf="file.type == 'filePFS'" class="title-left">Passport Verification-Front Side</span>
+
+                      <span *ngIf="file.type === 'filePQ'" class="file-name">Certificate Copy of Professional
+                        qualification</span>
+                      <span *ngIf="file.type === 'fileGS'" class="file-name">Income Certificate Endorsed by Grama
+                        Niladari</span>
+                      <span *ngIf="file.type === 'filePTH'" class="file-name">Freelance Site Transaction history
+                        report</span>
+                      <span *ngIf="file.type === 'fileMM'" class="file-name">Meeting minutes</span>
+                      <span *ngIf="file.type === 'fileCM'" class="file-name">List of executive committee members</span>
+                      <span *ngIf="file.type === 'fileBR'" class="file-name">BR Copy</span>
+                      <span *ngIf="file.type === 'fileApplication'" class="file-name">Partnership Agreement</span>
+                      <span *ngIf="file.type === 'fileFrom1'" class="file-name">Form 1</span>
+                      <span *ngIf="file.type === 'fileFrom20'" class="file-name">Latest Form 20</span>
+                      <span *ngIf="file.type === 'fileFrom15'" class="file-name">Form 15</span>
+                      <span *ngIf="file.type === 'fileArticles'" class="file-name">Articles of Association</span>
+                      <span *ngIf="file.type === 'fileST'" class="file-name">Bank statement</span>
+                    </td>
+                    <td>{{file.format ? file.format : 'Not Available'}}</td>
+                    <td><span (click)="openDocumentApprove(dialogDocumentApprove,file,merchant)"
+                        style="color: green;cursor: pointer;">View </span>
+                        <span  class="m-agreement"><a [href]="image_base_path + file.file_name" download>
+                          <button  class="download-button" type="submit">Download</button>
+                        </a></span>
+                      
+                    </td>
+                    <td>{{file.status ? file.status : 'Not Available'}}</td>
+                    <td>{{file.is_approved == 1 ? 'YES' : 'NO'}}</td>
+                    <td>{{file.last_update_by_id ? file.last_update_by_id : 'Not Available'}}</td>
+                    <td>{{file.last_update_on ? file.last_update_on : 'Not Available'}}</td>
+
+                  </tr>
+
+
+
+                  <tr *ngIf="merchant_document.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+          <div *ngIf="merchant_doc_data.identification === 'Driving License'" class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Document Name</th>
+                    <th>Format</th>
+                    <th>Action</th>
+                    <th>Status</th>
+                    <th>Approved</th>
+                    <th>Last Reviewed By</th>
+                    <th>Last Reviewed Date & Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+
+                  <tr *ngFor="let file of merchant_document">
+                    <td>
+                   
+
+                      <span *ngIf="file.type == 'filePFS'" class="title-left">Driving License Verification-Front
+                        Side</span>
+                      <span *ngIf="file.type == 'filePBS'" class="title-left">Driving License Verification-Back
+                        Side</span>
+
+                      <span *ngIf="file.type === 'filePQ'" class="file-name">Certificate Copy of Professional
+                        qualification</span>
+                      <span *ngIf="file.type === 'fileGS'" class="file-name">Income Certificate Endorsed by Grama
+                        Niladari</span>
+                      <span *ngIf="file.type === 'filePTH'" class="file-name">Freelance Site Transaction history
+                        report</span>
+                      <span *ngIf="file.type === 'fileMM'" class="file-name">Meeting minutes</span>
+                      <span *ngIf="file.type === 'fileCM'" class="file-name">List of executive committee members</span>
+                      <span *ngIf="file.type === 'fileBR'" class="file-name">BR Copy</span>
+                      <span *ngIf="file.type === 'fileApplication'" class="file-name">Partnership Agreement</span>
+                      <span *ngIf="file.type === 'fileFrom1'" class="file-name">Form 1</span>
+                      <span *ngIf="file.type === 'fileFrom20'" class="file-name">Latest Form 20</span>
+                      <span *ngIf="file.type === 'fileFrom15'" class="file-name">Form 15</span>
+                      <span *ngIf="file.type === 'fileArticles'" class="file-name">Articles of Association</span>
+                      <span *ngIf="file.type === 'fileST'" class="file-name">Bank statement</span>
+                    </td>
+                    <td>{{file.format ? file.format : 'Not Available'}}</td>
+                    <td><span (click)="openDocumentApprove(dialogDocumentApprove,file,merchant)"
+                        style="color: green;cursor: pointer;">View </span>
+                        <span  class="m-agreement"><a [href]="image_base_path + file.file_name" download>
+                          <button  class="download-button" type="submit">Download</button>
+                        </a></span>
+                     
+                    </td>
+                    <td>{{file.status ? file.status : 'Not Available'}}</td>
+                    <td>{{file.is_approved == 1 ? 'YES' : 'NO'}}</td>
+                    <td>{{file.last_update_by_id ? file.last_update_by_id : 'Not Available'}}</td>
+                    <td>{{file.last_update_on ? file.last_update_on : 'Not Available'}}</td>
+
+                  </tr>
+
+
+                  <tr *ngIf="merchant_document.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+
+
+          <div class="row" style="text-align: center;margin-top: 10px;">
+            <div class="col-12">
+              <button (click)="openRequestDoc(dialogRequestDoc)" class="button-common-doc">Request Another
+                Document</button>
+            </div>
+
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <span style="margin-bottom: 5px;">
+                <span> <label class="label-form-control label-name-doc">Registration From Hard Copy</label></span>
+                <span><button class="button-hard-copy" (click)="openHardCopy(dialogHardCopy)">Mark as
+                    Received</button></span>
+              </span>
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>File name</th>
+                    <th>Ref No</th>
+                    <th>Receved By ID</th>
+                    <th>Receved On</th>
+                    <th>Update</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let hard_copy of hard_copyes">
+                    <td>{{hard_copy.id ? hard_copy.id : 'Not Available'}}</td>
+                    <td>{{hard_copy.file_name ? hard_copy.file_name : 'Not Available'}}</td>
+                    <td>{{hard_copy.ref_no ? hard_copy.ref_no : 'Not Available'}}</td>
+                    <td>{{hard_copy.received_by ? hard_copy.received_by : 'Not Available'}}</td>
+                    <td>{{hard_copy.received_on ? hard_copy.received_on : 'Not Available'}}</td>
+                    <td (click)="openUpdateHardCopy(dialogUpdateHardCopy,hard_copy)"
+                      style="color: green;cursor: pointer;">(View)
+                    </td>
+
+
+                  </tr>
+                  <tr *ngIf="hard_copyes.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+
+              </table>
+            </div>
+          </div>
+
+
+        </nb-tab>
+        <nb-tab tabTitle="Package & payment">
+          <h6 style="font-size: 14px;font-weight: 600;color: red;">STATUS : {{package_data?package_data.status:''}}</h6>
+
+
+
+          <div class="row"
+            style="border: solid 2px rgba(0, 0, 0, 0.2);border-radius: 4px;margin-bottom: 15px;padding-bottom: 8px;padding-top: 8px;">
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-6">
+                  <span class="lable-head">Processed By (ID)</span>
+                </div>
+                <div class="col-6">
+                  <span class="lable-data">{{package_data && package_data.processed_by ? package_data.processed_by:'Not
+                    Available'}}</span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6">
+              <div class="row">
+                <div class="col-6">
+                  <span class="lable-head">Processed On</span>
+                </div>
+                <div class="col-6">
+                  <span class="lable-data">{{package_data && package_data.processed_on ? package_data.processed_on:'Not
+                    Available'}}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="row" style="margin-bottom: 10px;">
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-5">
+                  <span class="lable-head">Initial Setup fee :</span>
+                </div>
+                <div class="col-7">
+                  <span class="lable-data">{{package_data && package_data.initial_setup_fee == 1 ? 'Applyed' : 'Not Applyed'}} <span
+                      style="color: green; cursor: pointer;"
+                      (click)="openInitialSetupFee(dialogInitialSetupFee,merchant)">(Change)</span></span>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="row">
+                <div class="col-5">
+                  <span class="lable-head">Requested Package: </span>
+                </div>
+                <div class="col-7">
+                  <span class="lable-data">{{package_budget_data && package_budget_data.package_name?package_budget_data.package_name:'Not
+                    Available'}} <span style="color: green; cursor: pointer;"
+                      (click)="openChangePackage(dialogChangePackage,package_list,package_budget_data.package_id)">(Change)</span></span>
+                </div>
+              </div>
+            </div>
+
+            <div class="col-4">
+
+              <button [disabled]="merchant.is_setup_fee_paid ==1 && merchant.is_setup_fee_waved_off ==1"
+                (click)="openApprovePackage(dialogApprovePackage)" class="button-common">Approve</button>
+            </div>
+          </div>
+
+          <!-- 
+          <div class="row">
+
+            <div class="col-md-12">
+              <div class="input-group">
+                <label class="label-form-control label-name">Requested Package<span class="required_feeld"><i
+                      class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+                <nb-select class="form-select select-important" >
+                  <nb-option *ngFor="let package_name of package_list"  [value]=package_name.id>
+                    {{package_name.name}}
+                  </nb-option>
+
+                </nb-select>
+
+              </div>
+            </div>
+          </div> -->
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <span style="margin-bottom: 5px;">
+                <span> <label class="label-form-control label-name-doc">Customized Package Items</label></span>
+              </span>
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>Item ID</th>
+                    <th>Item Name</th>
+                    <th>Default Limit</th>
+                    <th>Custom Limit</th>
+                    <th>Amount</th>
+                    <th>Budget Decrease</th>
+                    <th>Budget Increase</th>
+
+                    <th>Created By</th>
+                    <th>Created On</th>
+                    <th>Last Updated By</th>
+                    <th>Last Updated On</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let customized_item of merchant_customized_item">
+
+                    <td>{{customized_item.id ? customized_item.id : 'Not Available'}}</td>
+                    <td>{{customized_item.item_name ? customized_item.item_name : 'Not Available'}}</td>
+                    <td>{{customized_item.default_limit ? customized_item.default_limit : 'Not Available'}}</td>
+                    <td>{{customized_item.custom_limit ? customized_item.custom_limit : 'Not Available'}}</td>
+                    <td>{{customized_item.amount ? customized_item.amount : 'Not Available'}}</td>
+                    <td>{{customized_item.is_budget_decrease == 1 ? 'Decrease' : 'No Change'}}</td>
+                    <td>{{customized_item.is_budget_increase == 1 ? 'Increase' : 'No Change'}}</td>
+
+                    <td>{{customized_item.create_by_id ? customized_item.create_by_id : 'Not Available'}}</td>
+                    <td>{{customized_item.create_on ? customized_item.create_on : 'Not Available'}}</td>
+                    <td>{{customized_item.last_update_by_id ? customized_item.last_update_by_id : 'Not Available'}}</td>
+                    <td>{{customized_item.last_update_on ? customized_item.last_update_on : 'Not Available'}}</td>
+                    <td style="cursor: pointer;color: green;"
+                      (click)="openUpdateCustomizedItem(dialogUpdateCustomizedItem,customized_item)">(Update)</td>
+
+                  </tr>
+                  <tr *ngIf="merchant_customized_item && merchant_customized_item.length<1">
+                    <td colspan="12" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+          <div class="row" style="text-align: center;margin-top: 10px;">
+            <div class="col-12">
+              <button class="button-common-doc" (click)="openCustomizeItem(dialogCustomizeItem)">Add Customized
+                Items</button>
+            </div>
+
+          </div>
+          <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6">
+              <nb-list class="nb-list-details">
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Default Budget</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{package_budget_data.default_budget ? package_budget_data.default_budget :'Not
+                        Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Deduction from customization</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{package_budget_data.deduction_from_customization ?
+                        package_budget_data.deduction_from_customization :'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Additions from customization</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>{{package_budget_data.additions_from_customization ?
+                        package_budget_data.additions_from_customization :'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+                <nb-list-item class="list-item">
+                  <div class="row">
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span>Gross package amount</span>
+                    </div>
+                    <div class="col-lg-6 col-md-6 col-sm-12">
+                      <span style="font-weight: 600;">{{package_budget_data.gross_package_amount ?
+                        package_budget_data.gross_package_amount :'Not Available'}}</span>
+                    </div>
+                  </div>
+                </nb-list-item>
+
+              </nb-list>
+
+            </div>
+          </div>
+          <div class="row" style="margin-top: 20px;">
+            <div class="col-12">
+              <span style="margin-bottom: 5px;">
+                <span> <label class="label-form-control label-name-doc">Package Payments</label></span>
+              </span>
+              <table class="table table-responsive-sm table-hover table-outline mb-0">
+                <thead class="thead-light">
+                  <tr>
+                    <th>ID</th>
+                    <th>Type</th>
+                    <th>Amount</th>
+                    <th>Status</th>
+                    <th>Date and Time</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let data of payment_data">
+                    <td>{{data.id ? data.id:'Not Available' }}</td>
+                    <td>{{data.type ?data.type:'Not Available' }}</td>
+                    <td>{{data.amount ?data.amount:'Not Available' }}</td>
+                    <td>{{data.status ==1 ?'success':'Fail' }}</td>
+                    <td>{{data.date ?data.date:'Not Available' }}</td>
+
+
+                  </tr>
+                  <tr *ngIf="payment_data.length<1">
+                    <td colspan="10" style="text-align: center;">
+                      <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                      <span style="display: block;">
+                        <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                          style="width:20%;">
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+          </div>
+
+
+        </nb-tab>
+      </nb-tabset>
+    </nb-card>
+  </div>
+</div>
+
+
+
+
+
+<div class="sk-circle" *ngIf="is_loading">
+  <div class="sk-circle1 sk-child"></div>
+  <div class="sk-circle2 sk-child"></div>
+  <div class="sk-circle3 sk-child"></div>
+  <div class="sk-circle4 sk-child"></div>
+  <div class="sk-circle5 sk-child"></div>
+  <div class="sk-circle6 sk-child"></div>
+  <div class="sk-circle7 sk-child"></div>
+  <div class="sk-circle8 sk-child"></div>
+  <div class="sk-circle9 sk-child"></div>
+  <div class="sk-circle10 sk-child"></div>
+  <div class="sk-circle11 sk-child"></div>
+  <div class="sk-circle12 sk-child"></div>
+</div>
+<!-- update shareholder -->
+<ng-template #dialogShareholderUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="shareholderUpdateForm" class="step-container" (ngSubmit)="shareholderData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Update Shareholder</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Name<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="name_shareholder" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('name_shareholder').dirty || shareholderUpdateForm.get('name_shareholder').touched) && shareholderUpdateForm.get('name_shareholder').errors}">
+              <div
+                *ngIf="shareholderUpdateForm.get('name_shareholder').invalid && (shareholderUpdateForm.get('name_shareholder').dirty || shareholderUpdateForm.get('name_shareholder').touched)">
+                <small *ngIf="shareholderUpdateForm.get('name_shareholder').errors['required']" class="text-danger">
+                  Name is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Address<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="address_shareholder" type="text" nbInput
+                fullWidth shape="rectangle"
+                [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('address_shareholder').dirty || shareholderUpdateForm.get('address_shareholder').touched) && shareholderUpdateForm.get('address_shareholder').errors}">
+              <div
+                *ngIf="shareholderUpdateForm.get('address_shareholder').invalid && (shareholderUpdateForm.get('address_shareholder').dirty || shareholderUpdateForm.get('address_shareholder').touched)">
+                <small *ngIf="shareholderUpdateForm.get('address_shareholder').errors['required']" class="text-danger">
+                  Address is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Percentage Shareholder<span
+                  class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="percentage_shareholder" type="text" nbInput
+                fullWidth shape="rectangle"
+                [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('percentage_shareholder').dirty || shareholderUpdateForm.get('percentage_shareholder').touched) && shareholderUpdateForm.get('percentage_shareholder').errors}">
+              <div
+                *ngIf="shareholderUpdateForm.get('percentage_shareholder').invalid && (shareholderUpdateForm.get('percentage_shareholder').dirty || shareholderUpdateForm.get('percentage_shareholder').touched)">
+                <small *ngIf="shareholderUpdateForm.get('percentage_shareholder').errors['required']"
+                  class="text-danger">
+                  Percentage is required!</small>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group" style="display: block;">
+              <label class="label-form-control label-name-radio">Pep<span class="required_feeld">*</span></label>
+              <div class="custom-control custom-radio">
+                <input id="shareholder-true" type="radio" class="custom-control-input" value="true"
+                  name="shareholder_pep" formControlName="shareholder_pep">
+                <label class="custom-control-label" for="shareholder-true">YES</label>
+              </div>
+
+              <div class="custom-control custom-radio">
+                <input id="shareholder-false" type="radio" class="custom-control-input" value="false"
+                  name="shareholder_pep" formControlName="shareholder_pep">
+                <label class="custom-control-label" for="shareholder-false">NO</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Email<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="email" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('email').dirty || shareholderUpdateForm.get('email').touched) && shareholderUpdateForm.get('email').errors}">
+              <div
+                *ngIf="shareholderUpdateForm.get('email').invalid && (shareholderUpdateForm.get('email').dirty || shareholderUpdateForm.get('email').touched)">
+                <small *ngIf="shareholderUpdateForm.get('email').errors['required']" class="text-danger">
+                  Email is required!</small>
+              </div>
+              <!-- <small *ngIf="shareholderUpdateForm.get('email').errors['pattern']" class="text-danger">
+                Invalid email.Try again!</small> -->
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Phone Number<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="phone_number" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (shareholderUpdateForm.get('phone_number').dirty || shareholderUpdateForm.get('phone_number').touched) && shareholderUpdateForm.get('phone_number').errors}">
+              <div
+                *ngIf="shareholderUpdateForm.get('phone_number').invalid && (shareholderUpdateForm.get('phone_number').dirty || shareholderUpdateForm.get('phone_number').touched)">
+                <small *ngIf="shareholderUpdateForm.get('phone_number').errors['required']" class="text-danger">
+                  Percentage is required!</small>
+              </div>
+              <!-- <small *ngIf="shareholderUpdateForm.get('phone_number').errors['pattern']" class="text-danger">
+                Invalid phone number.Try again!</small> -->
+            </div>
+          </div>
+        </div>
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton [disabled]="!shareholderUpdateForm.valid" style="float: right;" type='submit'>Submit</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- update director -->
+<ng-template #dialogDirectorUpdate let-data let-ref="dialogRef">
+  <form [formGroup]="directorUpdateForm" class="step-container" (ngSubmit)="directorData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Update Director</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Name<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="name" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (directorUpdateForm.get('name').dirty || directorUpdateForm.get('name').touched) && directorUpdateForm.get('name').errors}">
+              <div
+                *ngIf="directorUpdateForm.get('name').invalid && (directorUpdateForm.get('name').dirty || directorUpdateForm.get('name').touched)">
+                <small *ngIf="directorUpdateForm.get('name').errors['required']" class="text-danger">
+                  Name is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Address<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="address" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (directorUpdateForm.get('address').dirty || directorUpdateForm.get('address').touched) && directorUpdateForm.get('address').errors}">
+              <div
+                *ngIf="directorUpdateForm.get('address').invalid && (directorUpdateForm.get('address').dirty || directorUpdateForm.get('address').touched)">
+                <small *ngIf="directorUpdateForm.get('address').errors['required']" class="text-danger">
+                  Address is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Partnership<span class="required_feeld">*</span></label>
+              <select class="partnership" formControlName="partnership" name="partnership" id="partnership">
+                <option selected disabled value="">Select</option>
+                <option *ngFor="let partnership_type of partnership_types" [value]="partnership_type">
+                  {{partnership_type}}
+                </option>
+              </select>
+              <div
+                *ngIf="directorUpdateForm.get('partnership').invalid && (directorUpdateForm.get('partnership').dirty || directorUpdateForm.get('partnership').touched)">
+                <small *ngIf="directorUpdateForm.get('partnership').errors['required']" class="text-danger">
+                  Partnership is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Income Level<span class="required_feeld">*</span></label>
+              <select class="partnership" formControlName="income_level" name="income_level" id="income_level">
+                <option selected disabled value="">Select</option>
+                <option *ngFor="let income_level of income_levels" [value]="income_level">
+                  {{income_level}}</option>
+              </select>
+              <div
+                *ngIf="directorUpdateForm.get('income_level').invalid && (directorUpdateForm.get('income_level').dirty || directorUpdateForm.get('income_level').touched)">
+                <small *ngIf="directorUpdateForm.get('income_level').errors['required']" class="text-danger">
+                  Income Level is required!</small>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">NIC<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="nic" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (directorUpdateForm.get('nic').dirty || directorUpdateForm.get('nic').touched) && directorUpdateForm.get('nic').errors}">
+              <div
+                *ngIf="directorUpdateForm.get('nic').invalid && (directorUpdateForm.get('nic').dirty || directorUpdateForm.get('nic').touched)">
+                <small *ngIf="directorUpdateForm.get('nic').errors['required']" class="text-danger">
+                  NIC is required!</small>
+              </div>
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group" style="display: block;">
+              <label class="label-form-control label-name-radio">Pep<span class="required_feeld">*</span></label>
+              <div class="custom-control custom-radio">
+                <input id="director-true" type="radio" class="custom-control-input" value="true" name="director_pep"
+                  formControlName="director_pep">
+                <label class="custom-control-label" for="director-true">YES</label>
+              </div>
+
+              <div class="custom-control custom-radio">
+                <input id="director-false" type="radio" class="custom-control-input" value="false" name="director_pep"
+                  formControlName="director_pep">
+                <label class="custom-control-label" for="director-false">NO</label>
+              </div>
+            </div>
+
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Email<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="email" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (directorUpdateForm.get('email').dirty || directorUpdateForm.get('email').touched) && directorUpdateForm.get('email').errors}">
+              <div
+                *ngIf="directorUpdateForm.get('email').invalid && (directorUpdateForm.get('email').dirty || directorUpdateForm.get('email').touched)">
+                <small *ngIf="directorUpdateForm.get('email').errors['required']" class="text-danger">
+                  Email is required!</small>
+              </div>
+              <!-- <small *ngIf="shareholderUpdateForm.get('email').errors['pattern']" class="text-danger">
+                Invalid email.Try again!</small> -->
+            </div>
+          </div>
+          <div class="col-md-6 col-lg-6 col-xxxl-6">
+            <div class="input-group">
+              <label class="label-form-control label-name">Phone Number<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="phone_number" type="text" nbInput fullWidth
+                shape="rectangle"
+                [ngClass]="{'form-control-danger': (directorUpdateForm.get('phone_number').dirty || directorUpdateForm.get('phone_number').touched) && directorUpdateForm.get('phone_number').errors}">
+              <div
+                *ngIf="directorUpdateForm.get('phone_number').invalid && (directorUpdateForm.get('phone_number').dirty || directorUpdateForm.get('phone_number').touched)">
+                <small *ngIf="directorUpdateForm.get('phone_number').errors['required']" class="text-danger">
+                  Percentage is required!</small>
+              </div>
+              <!-- <small *ngIf="shareholderUpdateForm.get('phone_number').errors['pattern']" class="text-danger">
+                Invalid phone number.Try again!</small> -->
+            </div>
+          </div>
+        </div>
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton [disabled]="!directorUpdateForm.valid" style="float: right;" type='submit'>Submit</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- image view and approval -->
+<ng-template #dialogDocumentApprove let-data let-ref="dialogRef">
+  <!-- <form [formGroup]="documentApproveForm" class="step-container"> -->
+  <nb-card style="width: 50vw; max-height: 90vh">
+    <nb-card-header>Approve Select Docuent</nb-card-header>
+    <nb-card-body class="dialog-border-event">
+
+      <div *ngIf="fileType!='pdf'" style="text-align: center;">
+        <img class="view-image" src='{{image}}'>
+      </div>
+
+      <div *ngIf="fileType=='pdf'">
+      <pdf-viewer src="{{image}}"
+      [render-text]="true"
+      style="display: block;"
+      [original-size]="false"
+></pdf-viewer>
+</div>
+    
+    </nb-card-body>
+    <nb-card-footer>
+      <button [disabled]="file_status =='REQUESTED'" nbButton (click)="openApprobeData(1)"
+        style="float: right;">Approve</button>
+      <button [disabled]="file_status =='REQUESTED'" nbButton (click)="openApprobeData(2)"
+        style="float: right;margin-right: 10px;" type='submit'>Reject</button>
+      <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+
+    </nb-card-footer>
+  </nb-card>
+  <!-- </form> -->
+</ng-template>
+<!-- request new document -->
+<ng-template #dialogRequestDoc let-data let-ref="dialogRef">
+  <form [formGroup]="documentRequestForm" class="step-container" (ngSubmit)="documentRequestData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Request New Document</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">File Type<span class="required_feeld">*</span></label>
+            <nb-select class="form-select select-important" selected="1" formControlName="file_type"
+              [ngClass]="{'form-control-danger': (documentRequestForm.get('file_type').dirty || documentRequestForm.get('file_type').touched) && documentRequestForm.get('file_type').errors}">
+              <nb-option [value]="'filePFS'">
+                <span class="option-name">NIC Verfication-Front Side</span>
+              </nb-option>
+              <nb-option [value]="'filePBS'">
+                <span class="option-name">NIC Verfication-Back Side</span>
+              </nb-option>
+              <nb-option [value]="'filePQ'">
+                <span class="option-name">Certificate copy of Professional Qualification</span>
+              </nb-option>
+              <nb-option [value]="'fileGS'">
+                <span class="option-name">Income Certificate Endorsed by Grama Niladari</span>
+              </nb-option>
+              <nb-option [value]="'filePTH'">
+                <span class="option-name">Freelance Site Transaction history report</span>
+              </nb-option>
+              <nb-option [value]="'fileMM'">
+                <span class="option-name">Meeting minutes</span>
+              </nb-option>
+              <nb-option [value]="'fileCM'">
+                <span class="option-name">List of executive committee members</span>
+              </nb-option>
+              <nb-option [value]="'fileBR'">
+                <span class="option-name">BR Copy</span>
+              </nb-option>
+              <nb-option [value]="'fileApplication'">
+                <span class="option-name">Partnership Agreement</span>
+              </nb-option>
+              <nb-option [value]="'fileFrom1'">
+                <span class="option-name">Form 1</span>
+              </nb-option>
+              <nb-option [value]="'fileFrom20'">
+                <span class="option-name">Latest Form 20</span>
+              </nb-option>
+              <nb-option [value]="'fileFrom15'">
+                <span class="option-name">Form 15</span>
+              </nb-option>
+              <nb-option [value]="'fileArticles'">
+                <span class="option-name">Articles of Association</span>
+              </nb-option>
+              <nb-option [value]="'fileST'">
+                <span class="option-name">Bank statement</span>
+              </nb-option>
+              <nb-option [value]="'fileAV'">
+                <span class="option-name">Address Verification Document</span>
+              </nb-option>
+            </nb-select>
+            <div
+              *ngIf="documentRequestForm.get('file_type').invalid && (documentRequestForm.get('file_type').dirty || documentRequestForm.get('file_type').touched)">
+              <small *ngIf="documentRequestForm.get('file_type').errors['required']" class="text-danger">
+                File type is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">Format<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="format" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (documentRequestForm.get('format').dirty || documentRequestForm.get('format').touched) && documentRequestForm.get('format').errors}">
+            <div
+              *ngIf="documentRequestForm.get('format').invalid && (documentRequestForm.get('format').dirty || documentRequestForm.get('format').touched)">
+              <small *ngIf="documentRequestForm.get('format').errors['required']" class="text-danger">
+                Format is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" type='submit'>Request</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!--add hard copy -->
+<ng-template #dialogHardCopy let-data let-ref="dialogRef">
+  <form [formGroup]="markHardCopyForm" class="step-container" (ngSubmit)="hardCopyData()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Mark Hard Copy as Received</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">File Name<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="file_name" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (markHardCopyForm.get('file_name').dirty || markHardCopyForm.get('file_name').touched) && markHardCopyForm.get('file_name').errors}">
+            <div
+              *ngIf="markHardCopyForm.get('file_name').invalid && (markHardCopyForm.get('file_name').dirty || markHardCopyForm.get('file_name').touched)">
+              <small *ngIf="markHardCopyForm.get('file_name').errors['required']" class="text-danger">
+                File Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">File Red No<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="ref_no" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (markHardCopyForm.get('ref_no').dirty || markHardCopyForm.get('ref_no').touched) && markHardCopyForm.get('ref_no').errors}">
+            <div
+              *ngIf="markHardCopyForm.get('ref_no').invalid && (markHardCopyForm.get('ref_no').dirty || markHardCopyForm.get('ref_no').touched)">
+              <small *ngIf="markHardCopyForm.get('ref_no').errors['required']" class="text-danger">
+                Reference Number is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" type='submit'>Received</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- Updare hard copy -->
+<ng-template #dialogUpdateHardCopy let-data let-ref="dialogRef">
+  <form [formGroup]="updateHardCopyForm" class="step-container" (ngSubmit)="updatehardCopyData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Mark Hard Copy as Received</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">File Name<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="file_name" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (markHardCopyForm.get('file_name').dirty || markHardCopyForm.get('file_name').touched) && markHardCopyForm.get('file_name').errors}">
+            <div
+              *ngIf="markHardCopyForm.get('file_name').invalid && (markHardCopyForm.get('file_name').dirty || markHardCopyForm.get('file_name').touched)">
+              <small *ngIf="markHardCopyForm.get('file_name').errors['required']" class="text-danger">
+                File Name is required!</small>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-12 col-lg-12 col-xxxl-12">
+          <div class="input-group">
+            <label class="label-form-control label-name">File Red No<span class="required_feeld">*</span></label>
+            <input class="form-control input-bottom" formControlName="ref_no" type="text" nbInput fullWidth
+              shape="rectangle"
+              [ngClass]="{'form-control-danger': (markHardCopyForm.get('ref_no').dirty || markHardCopyForm.get('ref_no').touched) && markHardCopyForm.get('ref_no').errors}">
+            <div
+              *ngIf="markHardCopyForm.get('ref_no').invalid && (markHardCopyForm.get('ref_no').dirty || markHardCopyForm.get('ref_no').touched)">
+              <small *ngIf="markHardCopyForm.get('ref_no').errors['required']" class="text-danger">
+                Reference Number is required!</small>
+            </div>
+          </div>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" type='submit'>Received</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- basic data approval -->
+<ng-template #dialogBasicDataApproval let-data let-ref="dialogRef">
+  <form [formGroup]="basicDataApproveForm" class="step-container" (ngSubmit)="basicDataApproval()">
+    <nb-card style="width: 35vw;">
+      <nb-card-header>Basic Data Approved</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <p><strong>Are you sure you want to approve <span class="text-primary"></span> profile?</strong></p>
+        <p>All information associated to this user.
+          <span class="text-danger">This operation can not be undone.</span>
+
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" type='submit'>Approve</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+
+<!-- all document approval -->
+<ng-template #dialogApproveDocumentAll let-data let-ref="dialogRef">
+
+  <nb-card style="width: 40vw;">
+    <nb-card-header>Document Approve</nb-card-header>
+    <nb-card-body class="dialog-border-event">
+
+      <p></p>
+
+
+
+    </nb-card-body>
+    <nb-card-footer>
+      <button nbButton (click)="openApproveAllDoc()" style="float: right;">Approve</button>
+      <button nbButton (click)="ref.close()" style="float: left;">Close</button>
+
+    </nb-card-footer>
+  </nb-card>
+</ng-template>
+
+
+<!-- ///////////////////////////////////////////////////////////package and payment -->
+<ng-template #dialogApprovePackage let-data let-ref="dialogRef">
+  <form [formGroup]="approvePackageForm" class="step-container" (ngSubmit)="approvePackage()">
+    <nb-card style="width: 40vw;">
+      <nb-card-header>Approve Package</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="col-12">
+          <table class="table table-responsive-sm table-hover table-outline mb-0">
+            <thead class="thead-light">
+              <tr>
+                <th>Item ID</th>
+                <th>Limit</th>
+                <th>Customization Info</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let package_info of merchant_requested_p_info">
+                <td>{{package_info.item_id ? package_info.item_id : 'Not Available'}}</td>
+                <td>{{package_info.limit ? package_info.limit : ' - '}}</td>
+                <td>{{package_info.customization_info ? package_info.customization_info : 'Not Available'}}</td>
+
+              </tr>
+              <tr *ngIf="merchant_requested_p_info.length<1">
+                <td colspan="10" style="text-align: center;">
+                  <span style="display: block;padding-bottom: 7px;">Data Not Available</span>
+                  <span style="display: block;">
+                    <img src="../../../../../assets/images/data-not-available.gif" alt="Data not Available"
+                      style="width:20%;">
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" type='submit'>Approve</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- initial setup free -->
+<ng-template #dialogInitialSetupFee let-data let-ref="dialogRef">
+  <form [formGroup]="initialSetupFeeForm" class="step-container" (ngSubmit)="initialSetupFeeData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Initial Setup Fee</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="custom-control custom-radio radio-identification" style="padding-left: 0;">
+              <input (ngModelChange)="choose($event)" id="wavedoff" type="radio" class="custom-control-input"
+                value="true" name="is_setup_fee_waved_off" formControlName="is_setup_fee_waved_off">
+              <label class="custom-control-label" for="wavedoff">Wave Off</label>
+            </div>
+            <div class="custom-control custom-radio">
+              <input (ngModelChange)="choose($event)" id="wavedoff_false" type="radio" class="custom-control-input"
+                value="false" name="is_setup_fee_waved_off" formControlName="is_setup_fee_waved_off">
+              <label class="custom-control-label" for="wavedoff_false">Chargers Applied</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="row" *ngIf="item === true">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Amount (optional)</label>
+              <input class="form-control input-bottom" formControlName="setup_fee_amount" type="number" nbInput
+                fullWidth shape="rectangle" name="setup_fee_amount" ng-model="setup_fee_amount | number : 2"
+                ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01">
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button *ngIf="item ==true" [disabled]="!this.initialSetupFeeForm.valid" nbButton style="float: right;"
+          type='submit'>Send Payment
+          Link</button>
+        <button *ngIf="item ==false" [disabled]="!this.initialSetupFeeForm.valid" nbButton style="float: right;"
+          type='submit'>Submit</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- add customize package item -->
+<ng-template #dialogCustomizeItem let-data let-ref="dialogRef">
+  <form [formGroup]="addCustomizeItemForm" class="step-container" (ngSubmit)="addCutomizeItemData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Customize package Item</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row">
+          <div class="col-md-12">
+            <div class="input-group">
+              <label style="width: 100%;" class="label-form-control label-name">Item Type<span
+                  class="required_feeld">*</span></label>
+              <nb-select selected class="form-select select-important" formControlName="item_id">
+                <nb-option *ngFor="let item_c of customized_item" [value]="item_c.id">
+                  {{item_c.name}}
+                </nb-option>
+
+              </nb-select>
+
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Customized Limit<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="custom_limit" type="number" name="custom_limit"
+                ng-model="custom_limit | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01" nbInput
+                fullWidth shape="rectangle"
+                [ngClass]="{'form-control-danger': (addCustomizeItemForm.get('custom_limit').dirty || addCustomizeItemForm.get('custom_limit').touched) && addCustomizeItemForm.get('custom_limit').errors}">
+              <div
+                *ngIf="addCustomizeItemForm.get('custom_limit').invalid && (addCustomizeItemForm.get('custom_limit').dirty || addCustomizeItemForm.get('custom_limit').touched)">
+                <small *ngIf="addCustomizeItemForm.get('custom_limit').errors['required']" class="text-danger">
+                  Customized Limit is required!</small>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label style="width: 100%;" class="label-form-control label-name">Increase / Decrease (optional)</label>
+              <input class="chech-agreemet" type="checkbox" id="conditions" formControlName="is_budget_increase"
+                name="conditions" value="true">
+              <label class="check-lable" for="conditions"> Increase</label>
+              <input style="margin-left: 15px;" formControlName="is_budget_decrease" class="chech-agreemet"
+                type="checkbox" id="conditions" name="conditions" value="true">
+              <label class="check-lable" for="conditions"> Decrease</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Amount(optional)<span class="required_feeld">*</span></label>
+              <input type="number" name="amount" ng-model="amount | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                step="0.01" class="form-control input-bottom" formControlName="amount" nbInput fullWidth
+                shape="rectangle">
+
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton [disabled]=!(this.addCustomizeItemForm.valid) style="float: right;"
+          type='submit'>Submit</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- update customized item -->
+<ng-template #dialogUpdateCustomizedItem let-data let-ref="dialogRef">
+  <form [formGroup]="updateCustomizeItemForm" class="step-container" (ngSubmit)="updateCutomizeItemData()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Update Customize Package Item</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Customized Limit<span class="required_feeld">*</span></label>
+              <input class="form-control input-bottom" formControlName="custom_limit" nbInput fullWidth type="number"
+                name="custom_limit" ng-model="custom_limit | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/"
+                step="0.01" shape="rectangle"
+                [ngClass]="{'form-control-danger': (updateCustomizeItemForm.get('custom_limit').dirty || updateCustomizeItemForm.get('custom_limit').touched) && updateCustomizeItemForm.get('custom_limit').errors}">
+              <div
+                *ngIf="updateCustomizeItemForm.get('custom_limit').invalid && (updateCustomizeItemForm.get('custom_limit').dirty || updateCustomizeItemForm.get('custom_limit').touched)">
+                <small *ngIf="updateCustomizeItemForm.get('custom_limit').errors['required']" class="text-danger">
+                  Customized Limit is required!</small>
+
+              </div>
+
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label style="width: 100%;" class="label-form-control label-name">Increase / Decrease (optional)</label>
+              <input class="chech-agreemet" type="checkbox" id="conditions" formControlName="is_budget_increase"
+                name="conditions" value="true">
+              <label class="check-lable" for="conditions"> Increase</label>
+              <input style="margin-left: 15px;" formControlName="is_budget_decrease" class="chech-agreemet"
+                type="checkbox" id="conditions" name="conditions" value="true">
+              <label class="check-lable" for="conditions"> Decrease</label>
+            </div>
+          </div>
+
+        </div>
+        <div class="row">
+          <div class="col-md-12 col-lg-12 col-xxxl-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Amount (optional)</label>
+              <input name="amount" ng-model="amount | number : 2" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" step="0.01"
+                class="form-control input-bottom" formControlName="amount" type="text" nbInput fullWidth
+                shape="rectangle">
+
+            </div>
+          </div>
+        </div>
+
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton [disabled]=!(this.updateCustomizeItemForm.valid) style="float: right;"
+          type='submit'>Submit</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+
+<!-- change package -->
+<ng-template #dialogChangePackage let-data let-ref="dialogRef">
+  <form [formGroup]="updatePackageForm" class="step-container" (ngSubmit)="updatePackage()">
+    <nb-card style="width: 30vw;">
+      <nb-card-header>Update Package</nb-card-header>
+      <nb-card-body class="dialog-border-event">
+
+        <div class="row">
+
+          <div class="col-md-12">
+            <div class="input-group">
+              <label class="label-form-control label-name">Requested Package<span class="required_feeld"><i
+                    class="fa fa-question-circle" aria-hidden="true"></i></span></label>
+              <nb-select class="form-select select-important" formControlName="package_id">
+                <nb-option *ngFor="let package_name of package_list" [value]=package_name.id>
+                  {{package_name.name}}
+                </nb-option>
+              </nb-select>
+            </div>
+          </div>
+        </div>
+      </nb-card-body>
+      <nb-card-footer>
+        <button nbButton style="float: right;" type='submit'>Submit</button>
+        <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+      </nb-card-footer>
+
+    </nb-card>
+  </form>
+</ng-template>
+<!-- 
+resent email -->
+<ng-template #dialogResentEmail let-data let-ref="dialogRef">
+  <nb-card style="width: 30vw;">
+    <nb-card-header>Resend Email</nb-card-header>
+    <nb-card-body class="dialog-border-event">
+      <div class="row">
+        <div class="col-12">
+          <p>Resend password reset link to <span style="color: #2CC780;">{{email_address}}</span></p>
+        </div>
+
+      </div>
+    </nb-card-body>
+    <nb-card-footer>
+      <button (click)="resentEmail()" nbButton style="float: right;">Submit</button>
+      <button nbButton (click)="ref.close()" style="float: left;">Cancel</button>
+
+    </nb-card-footer>
+
+  </nb-card>
+
+</ng-template>
