@@ -5,7 +5,7 @@
  */
 export const environment = {
   production: true,
-  apiBaseUrl: 'https://merchant-api-dev-v2.onepay.lk/api/',
+  apiBaseUrl: 'https://merchant-api-development.onepay.lk/api/',
   aws: 'https://onepayserviceimages.s3.amazonaws.com/',
   socket_url: 'wss://merchant-api-uat.onepay.lk/ws/onepay/',
 };
